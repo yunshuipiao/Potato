@@ -2,7 +2,6 @@
 
 [TOC]
 
-# Potato(2)：When Android meets KTX and anko
 
 **TAG**: kotlin, android ktx, anko
 

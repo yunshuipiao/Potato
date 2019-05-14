@@ -1,4 +1,4 @@
-# Potato(6): Okhttp basic usage
+# OKhttp(1): Basic usage and wiki
 
 [TOC]
 
@@ -26,7 +26,7 @@ http 客户端就是接口 request，处理并返回 respons，理论上很简�
 
 #### Response 
 
-response 表示对 request 的相映，写到一个 status code; 并带有返回的 headers 和可选的 body.
+response 表示对 request 的响应，写到一个 status code; 并带有返回的 headers 和可选的 body.
 
 **Rewriting Requests**
 

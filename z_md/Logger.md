@@ -1,8 +1,5 @@
 # Logger:Powerful logging library in Android
 
-# Potato(3):Powerful logging library in Android
-
-
 
 [TOC]
 
