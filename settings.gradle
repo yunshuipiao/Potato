@@ -1,0 +1,1 @@
+include ':app', ':module_base', ':module_third'
