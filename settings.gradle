@@ -1,1 +1,1 @@
-include ':app', ':module_base', ':module_third'
+include ':app', ':module_base', ':module_third', ':okhttp', ':okhttp-logging-interceptor', ':okhttp-urlconnection', ':mockwebserver', ':okhttp-tls', ':okhttp-testing-support'
