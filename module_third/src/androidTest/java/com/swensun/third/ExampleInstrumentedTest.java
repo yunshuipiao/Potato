@@ -2,6 +2,7 @@ package com.swensun.third;
 
 import android.content.Context;
 
+import android.util.Log;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 import com.orhanobut.logger.Logger;
@@ -21,7 +22,7 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
-
+        Log.d("123", "message");
         assertEquals("com.swensun.third.test", appContext.getPackageName());
     }
 }

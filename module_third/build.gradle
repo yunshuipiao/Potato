@@ -45,4 +45,11 @@ dependencies {
     implementation "com.squareup.okio:okio:$prop_okio_version"
     implementation 'org.conscrypt:conscrypt-android:2.1.0'
 
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1'
+
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
+
+
+
+
 }

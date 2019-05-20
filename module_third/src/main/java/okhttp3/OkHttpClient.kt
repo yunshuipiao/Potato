@@ -279,8 +279,7 @@ open class OkHttpClient internal constructor(
     internal var connectionSpecs: List<ConnectionSpec> = DEFAULT_CONNECTION_SPECS
     internal val interceptors: MutableList<Interceptor> = mutableListOf()
     internal val networkInterceptors: MutableList<Interceptor> = mutableListOf()
-    internal var eventListenerFactory: EventListener.Factory = Util.eventListenerFactory(
-        EventListener.NONE)
+    internal var eventListenerFactory: EventListener.Factory = Util.eventListenerFactory(EventListener.NONE)
     internal var proxySelector: ProxySelector = ProxySelector.getDefault() ?: NullProxySelector()
     internal var cookieJar: CookieJar = CookieJar.NO_COOKIES
     internal var cache: Cache? = null

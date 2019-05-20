@@ -15,6 +15,7 @@
  */
 package okhttp3.internal.http
 
+import com.orhanobut.logger.Logger
 import okhttp3.Call
 import okhttp3.Connection
 import okhttp3.Interceptor
