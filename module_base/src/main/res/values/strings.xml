@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">module_base</string>
+    <string name="app_name">module_androidx</string>
+    <string name="title_activity_base">BaseActivity</string>
 </resources>
