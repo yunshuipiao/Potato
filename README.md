@@ -12,11 +12,11 @@
 持续更新中…
 
 # 关于 issues label 的说明
-
-  1. **USAGE**：偏重用法，与 Source Code 相对应
-  2. **Source Code**： 文章偏重源码分析，可能存在部分源码
-  3. **AMA**： ask me anything， 尽最大努力回答
-  4. **TODO， DOING**：文章进度相关
+  1. **CONCEPT**：纯概念介绍，需要记住
+  2. **USAGE**：偏重用法，与 Source Code 相对应
+  3. **Source Code**： 文章偏重源码分析，可能存在部分源码
+  4. **AMA**： ask me anything， 尽最大努力回答
+  5. **TODO， DOING**：文章进度相关
 
 
 
