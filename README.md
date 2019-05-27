@@ -26,8 +26,6 @@
 
 [Kotlin](https://github.com/yunshuipiao/Potato/issues/31)： 基本使用和其原理
 
-
-
 ## Java
 
 [GC And Algorithm](https://github.com/yunshuipiao/Potato/issues/32)： 垃圾回收和相关算法
@@ -35,6 +33,8 @@
 [JMM, JVM, Java Class Model](https://github.com/yunshuipiao/Potato/issues/27)：JVM 内存结构，Java 内存模型（JMM）， Java 对象模型
 
 [HashMap：Core source code analysis](https://github.com/yunshuipiao/Potato/issues/17) ： HashMap 源码分析
+
+[Java Thread](https://github.com/yunshuipiao/Potato/issues/44)： Java 线程和并发知识总结
 
 ## Android
 
@@ -54,6 +54,16 @@
 
 [SparseArray and ArrayMap](https://github.com/yunshuipiao/Potato/issues/10)： 省内存的数据结构，代替 HashMap
 
+[Android Screen refresh mechanism](https://github.com/yunshuipiao/Potato/issues/39)：屏幕刷新机制
+
+[Android ByteDance Screen Adaptation](https://github.com/yunshuipiao/Potato/issues/40)：头条屏幕适配方案
+
+[Android Animation Summary](https://github.com/yunshuipiao/Potato/issues/42) ：动画相关知识总结
+
+[Android Plug-in and Hotfix Summary](https://github.com/yunshuipiao/Potato/issues/46)：插件化和热修复原理
+
+[Android SurfaceView And TextureView](https://github.com/yunshuipiao/Potato/issues/47) ：SurfaceView 和 TextureView 的对比
+
 ### Jetpack
 
 关键字：AAC LifeCycle， ViewModel， Livedata
@@ -70,6 +80,10 @@
 [Android UI Optimization](https://github.com/yunshuipiao/Potato/issues/29)： UI 优化
 
 [Android Memory Optimization](https://github.com/yunshuipiao/Potato/issues/14)： 内存优化
+
+[Android WebView Optimization](https://github.com/yunshuipiao/Potato/issues/41)： webview 使用优化
+
+[Android RecyclerView Optimization](https://github.com/yunshuipiao/Potato/issues/45)： RecyclerView 使用和优化
 
 
 ### ActivityThread
@@ -110,6 +124,7 @@
 ### LeetCode 题解
 
 [rice-noodles](https://github.com/yunshuipiao/rice-noodles)
+
 
 
 
