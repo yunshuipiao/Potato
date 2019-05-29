@@ -50,6 +50,8 @@
 
 [View: draw process](https://github.com/yunshuipiao/Potato/issues/24)： View 和绘制流程
 
+[Android Invalidate() And RequestLayout()](https://github.com/yunshuipiao/Potato/issues/52)：invalidate 触发屏幕绘制的分析
+
 [Activity: Lifecycle and Launch Mode](https://github.com/yunshuipiao/Potato/issues/19)： 生命周期和启动模式实例
 
 [SparseArray and ArrayMap](https://github.com/yunshuipiao/Potato/issues/10)： 省内存的数据结构，代替 HashMap
@@ -63,6 +65,16 @@
 [Android Plug-in and Hotfix Summary](https://github.com/yunshuipiao/Potato/issues/46)：插件化和热修复原理
 
 [Android SurfaceView And TextureView](https://github.com/yunshuipiao/Potato/issues/47) ：SurfaceView 和 TextureView 的对比
+
+[Android Version Diff](https://github.com/yunshuipiao/Potato/issues/49) ： 6-10 Android 各版本的差异
+
+[Android Root Check](https://github.com/yunshuipiao/Potato/issues/53)： 如何判断 Android 是否被 root
+
+### 四大组件
+
+[Android Service](https://github.com/yunshuipiao/Potato/issues/48)： service 的基本概念和使用
+
+[Android Fragment](https://github.com/yunshuipiao/Potato/issues/51) ： fragment 基本介绍：懒加载
 
 ### Jetpack
 
@@ -84,6 +96,10 @@
 [Android WebView Optimization](https://github.com/yunshuipiao/Potato/issues/41)： webview 使用优化
 
 [Android RecyclerView Optimization](https://github.com/yunshuipiao/Potato/issues/45)： RecyclerView 使用和优化
+
+[Android Bitmap Efficient Load](https://github.com/yunshuipiao/Potato/issues/50) ： 如何有效加载Bitmap 大图
+
+
 
 
 ### ActivityThread
@@ -112,6 +128,8 @@
 
 [When Android meets KTX and anko](https://github.com/yunshuipiao/Potato/issues/2)： Android kotlin 好用的扩展
 
+[LeakCanary Principle](https://github.com/yunshuipiao/Potato/issues/54)： LeakCanary 的基本原理分析：弱引用
+
 
 ## HTTPS
 
@@ -124,6 +142,7 @@
 ### LeetCode 题解
 
 [rice-noodles](https://github.com/yunshuipiao/rice-noodles)
+
 
 
 
