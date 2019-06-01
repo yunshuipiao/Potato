@@ -41,6 +41,8 @@
 
 [Java common collections](https://github.com/yunshuipiao/Potato/issues/55): Java 常用集合和并发结合总结
 
+[Java LocK](https://github.com/yunshuipiao/Potato/issues/60)： java 各种锁总结
+
 ## Android
 
 [Interaction between Native and js](https://github.com/yunshuipiao/Potato/issues/35)： Android native 和 JS 交互
@@ -75,8 +77,6 @@
 
 [Android Root Check](https://github.com/yunshuipiao/Potato/issues/53)： 如何判断 Android 是否被 root
 
-[Android Performance Optimization Tool](https://github.com/yunshuipiao/Potato/issues/57)： 性能优化工具总结
-
 ### 四大组件
 
 [Android Service](https://github.com/yunshuipiao/Potato/issues/48)： service 的基本概念和使用
@@ -93,8 +93,9 @@
 
 [AAC: LifeCycle](https://github.com/yunshuipiao/Potato/issues/36) 
 
-
 ### Optimization： 优化
+
+[Android Performance Optimization Tool](https://github.com/yunshuipiao/Potato/issues/57)： 性能优化工具总结
 
 [Android UI Optimization](https://github.com/yunshuipiao/Potato/issues/29)： UI 优化
 
@@ -105,6 +106,10 @@
 [Android RecyclerView Optimization](https://github.com/yunshuipiao/Potato/issues/45)： RecyclerView 使用和优化
 
 [Android Bitmap Efficient Load](https://github.com/yunshuipiao/Potato/issues/50) ： 如何有效加载Bitmap 大图
+
+[Android Network Optimization](https://github.com/yunshuipiao/Potato/issues/58): 网络检测和弱网优化
+
+[Android ANR Summary](https://github.com/yunshuipiao/Potato/issues/59)：Android ANR 总结
 
 
 
@@ -149,6 +154,7 @@
 ### LeetCode 题解
 
 [rice-noodles](https://github.com/yunshuipiao/rice-noodles)
+
 
 
 
