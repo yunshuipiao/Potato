@@ -1,8 +1,8 @@
-package com.swensun.wechat
+package com.swensun.wechat.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.swensun.wechat.ui.main.MainFragment
+import com.swensun.wechat.R
 
 class MainActivity : AppCompatActivity() {
 
