@@ -18,3 +18,30 @@ class UserInfoRes {
         return "$nick -- $userName -- $avatar -- $profileImage"
     }
 }
+
+class UserTweetReq {
+
+}
+
+class UserTweetRes {
+    val content = ""
+    val images: List<Image> = arrayListOf()
+    val sender = Sender()
+    val comments: List<Comment> = arrayListOf()
+}
+
+class Sender {
+    val username = ""
+    val nick = ""
+    val avatar = ""
+}
+
+class Image {
+    val url = ""
+}
+
+class Comment {
+    val content = ""
+    val sender = Sender()
+}
+

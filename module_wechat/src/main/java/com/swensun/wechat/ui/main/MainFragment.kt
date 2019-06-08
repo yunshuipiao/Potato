@@ -31,8 +31,7 @@ class MainFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         initView()
-        viewModel.requestUserInfo()
-
+        viewModel.requestUserTweets()
     }
 
     private fun initView() {

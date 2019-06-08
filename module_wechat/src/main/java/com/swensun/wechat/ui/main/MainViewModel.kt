@@ -8,4 +8,8 @@ class MainViewModel : ViewModel() {
     fun requestUserInfo() {
         Repository.requestUserInfo()
     }
+
+    fun requestUserTweets() {
+        Repository.requestUserTweets()
+    }
 }
