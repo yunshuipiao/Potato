@@ -36,7 +36,7 @@ object Repository {
         })
     }
 
-    fun requestUserInfo() {
+    fun requestUserInfo(userInfoLiveData: MutableLiveData<UserInfoRes>) {
         weChatService.reqUserInfo().enqueue(object : retrofit2.Callback<UserInfoRes> {
             override fun onFailure(call: retrofit2.Call<UserInfoRes>, t: Throwable) {
                 Log.d(TAG, "requestUserInfo failure, ${t.message}")
@@ -45,7 +45,7 @@ object Repository {
             override fun onResponse(call: retrofit2.Call<UserInfoRes>, response: retrofit2.Response<UserInfoRes>) {
                 if (response.isSuccessful) {
                     val res = response.body() ?: UserInfoRes()
-                    Log.d(TAG, res.toString())
+                    userInfoLiveData.postValue(res)
                 } else {
                     Log.d(TAG, "requestUserInfo failure")
                 }
