@@ -17,9 +17,6 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initView() {
-        hello.text = "hello kotln"
-
-        hello.text = "1"
     }
 
     inner class InnerC {
