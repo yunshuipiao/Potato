@@ -16,9 +16,9 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initView() {
-        hello.text = "hello kotln"
-
-        hello.text = "1"
+        hello.setOnClickListener {
+            ScoreDialog().setTransparent().setAct(this).show()
+        }
     }
 
     inner class InnerC {
