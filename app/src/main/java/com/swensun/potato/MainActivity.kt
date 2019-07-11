@@ -19,10 +19,10 @@ class MainActivity : BaseActivity() {
 
     private fun initView() {
         hello.setOnClickListener {
-            ScoreDialog().setTransparent().setAct(this).show()
+            ScoreDialog(this@MainActivity)
+//                .withTransparent()
+                .withSize(300, 300)
+                .show()
         }
-    }
-
-    inner class InnerC {
     }
 }

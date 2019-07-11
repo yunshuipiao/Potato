@@ -1,18 +1,20 @@
 package com.swensun.potato
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
+import com.swensun.base.BaseDialog
 import com.swensun.base.BaseDialogFragment
 import com.swensun.swutils.ui.*
 import kotlinx.android.synthetic.main.dialog_score.*
 
-public class ScoreDialog: BaseDialogFragment() {
+public class ScoreDialog(context: Context): BaseDialog(context) {
+
+
     override fun onCreateDialogView(): View {
-        val view = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_score, null)
-        val layout = view.findViewById<LinearLayout>(R.id.layout)
-        layout.setRadiusBackground(30, getColor(R.color.colorAccent), TOP_LEFT.or(TOP_RIGHT).or(BOTTOM_RIGHT))
+        val view = LayoutInflater.from(context).inflate(R.layout.dialog_score, null)
         return view
     }
 
