@@ -1,1 +1,1 @@
-include ':app', ':module_base', ':module_third', ':module_wechat'
+include ':app', ':module_base', ':module_third', ':module_wechat', ':module_swutils'

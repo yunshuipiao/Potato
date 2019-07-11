@@ -2,6 +2,7 @@ package com.swensun.potato
 
 import android.os.Bundle
 import com.swensun.base.BaseActivity
+import com.swensun.swutils.util.SwUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -13,6 +14,7 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initView()
+        SwUtils.init(application)
     }
 
     private fun initView() {

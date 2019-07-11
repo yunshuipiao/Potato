@@ -1,0 +1,87 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0-alpha4', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testImplementation 'junit:junit:4.12'
+
+    /// Kotlin
+    api "org.jetbrains.kotlin:kotlin-stdlib:$prop_kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$prop_kotlin_version"
+
+    /// Rxjava2
+    api "io.reactivex.rxjava2:rxjava:$prop_rxjava_version"
+    api "io.reactivex.rxjava2:rxkotlin:$prop_rxkotlin_version"
+    api "io.reactivex.rxjava2:rxandroid:$prop_rxandroid_version"
+    api("com.trello.rxlifecycle2:rxlifecycle-components:$prop_rxlifecycle2_version") {
+        exclude group: "com.android.support"
+    }
+    api "com.trello.rxlifecycle2:rxlifecycle-android-lifecycle-kotlin:$prop_rxlifecycle2_version"
+
+    /// Glide
+    api "com.github.bumptech.glide:glide:$prop_glide_version"
+    kapt "com.github.bumptech.glide:compiler:$prop_glide_version"
+
+
+    /// Support Libraries
+    api "androidx.constraintlayout:constraintlayout:$prop_androidx_constraintlayout"
+    api "androidx.appcompat:appcompat:$prop_androidx_appcompat"
+    api "com.google.android.material:material:$prop_material_version"
+
+    /// Architecture Components
+    api "androidx.lifecycle:lifecycle-runtime:$prop_androidx_lifecycle"
+    api "androidx.lifecycle:lifecycle-extensions:$prop_androidx_lifecycle"
+    kapt "androidx.lifecycle:lifecycle-compiler:$prop_androidx_lifecycle"
+
+    /// Okhttp3
+    api "com.squareup.okhttp3:okhttp:$prop_okhttp_version"
+
+    /// Wire
+    api "com.squareup.wire:wire-runtime:$prop_wire_version"
+
+    /// Retrofit2
+    api("com.squareup.retrofit2:retrofit:$prop_retrofit_version") {
+        exclude(module: 'okhttp')
+    }
+    api "com.squareup.retrofit2:adapter-rxjava2:$prop_retrofit_version"
+    api "com.squareup.retrofit2:converter-wire:$prop_retrofit_version"
+    api 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
+    api "org.jetbrains.anko:anko:$prop_anko_version"
+    api "org.jetbrains.kotlin:kotlin-reflect:$prop_kotlin_version"
+    debugApi "com.squareup.leakcanary:leakcanary-android:$prop_leakcanary_version"
+    releaseApi "com.squareup.leakcanary:leakcanary-android-no-op:$prop_leakcanary_version"
+
+    // jsoup
+    api "org.jsoup:jsoup:$prop_jsoup_version"
+}
+repositories {
+    mavenCentral()
+}
