@@ -1,4 +1,3 @@
-
 [TOC]
 
 [![](https://img.shields.io/github/forks/yunshuipiao/potato.svg)](https://github.com/yunshuipiao/potato)
@@ -22,6 +21,13 @@
 
 
 # Content
+
+## Util
+增加一个栏目：收集常用的 Java 和 Kt 的工具类，一直更新，欢迎提 PR 补充 
+
+[JavaUtils](https://github.com/yunshuipiao/Potato/blob/master/module_swutils/src/main/java/com/swensun/swutils/util/JavaUtils.java):	常用的 Java 工具类 
+
+[KotlinUtils](https://github.com/yunshuipiao/Potato/blob/master/module_swutils/src/main/java/com/swensun/swutils/util/KotlinUtils.kt):	常用的 Kt 工具类  
 
 ## Kotlin
 
@@ -76,6 +82,12 @@
 [Android Version Diff](https://github.com/yunshuipiao/Potato/issues/49) ： 6-10 Android 各版本的差异
 
 [Android Root Check](https://github.com/yunshuipiao/Potato/issues/53)： 如何判断 Android 是否被 root
+
+[Andorid IME：Custom KeyBoard](https://github.com/yunshuipiao/Potato/issues/61): 自定义键盘的相关内容
+
+[Android Adb Shell Command Record](https://github.com/yunshuipiao/Potato/issues/62)：Android adb 命令的相关使用和调试
+
+[Android：Drawable And Bitmap](https://github.com/yunshuipiao/Potato/issues/63)：Android  Drabable 和 Bitmap 的关系
 
 ### 四大组件
 
@@ -153,12 +165,4 @@
 
 ### LeetCode 题解
 
-[rice-noodles](https://github.com/yunshuipiao/rice-noodles)
-
-
-
-
-
-
-
-
+[rice-noodles](https://github.com/yunshuipiao/rice-noodles)：按顺序的 LeetCode 解题项目，使用 Kotlin，欢迎使用其他语言，一起刷题
