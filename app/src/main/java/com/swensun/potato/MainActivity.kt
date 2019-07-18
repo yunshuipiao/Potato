@@ -25,4 +25,8 @@ class MainActivity : BaseActivity() {
                 .show()
         }
     }
+
+    fun testBranch() {
+
+    }
 }
