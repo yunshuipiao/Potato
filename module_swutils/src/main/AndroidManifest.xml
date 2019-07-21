@@ -1,13 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-
-          package="com.swensun.swutils"
->
+          package="com.swensun.swutils">
 
     <application android:allowBackup="true"
                  android:label="@string/app_name"
-                 android:supportsRtl="true"
-    >
+                 android:supportsRtl="true">
 
+        <provider
+                android:authorities="${applicationId}.UtilContentProvider"
+                android:name=".util.UtilContentProvider"
+                android:exported="false"
+                android:multiprocess="true"/>
     </application>
 
 </manifest>

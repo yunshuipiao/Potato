@@ -33,7 +33,7 @@ import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.google.android.material.snackbar.Snackbar
-import com.swensun.swutils.util.SwUtils
+import com.swensun.swutils.SwUtils
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import org.jetbrains.annotations.NotNull

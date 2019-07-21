@@ -81,6 +81,9 @@ dependencies {
 
     // jsoup
     api "org.jsoup:jsoup:$prop_jsoup_version"
+
+    implementation "com.orhanobut:logger:$prop_logger_version"
+
 }
 repositories {
     mavenCentral()
