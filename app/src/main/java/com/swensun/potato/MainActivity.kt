@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.GestureDetector
 import android.view.MotionEvent
 import com.swensun.base.BaseActivity
-import com.swensun.swutils.SwUtils
 import com.swensun.swutils.util.LogUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import android.view.GestureDetector.OnGestureListener as OnGestureListener
@@ -26,34 +25,35 @@ class MainActivity : BaseActivity() {
         initView()
         gestureDetector = GestureDetector(this, object : OnGestureListener {
             override fun onShowPress(e: MotionEvent?) {
-                LogUtils.d("onShowPress")
+                LogUtils.d("onShowPress  " + e?.action + "-" + e?.rawX + "-" + e?.x)
             }
 
             override fun onSingleTapUp(e: MotionEvent?): Boolean {
-                LogUtils.d("onSingleTapUp")
+                LogUtils.d("onSingleTapUp  " + e?.action + "-" + e?.rawX + "-" + e?.x)
                 return false
             }
 
             override fun onDown(e: MotionEvent?): Boolean {
-                LogUtils.d("onDown")
+                LogUtils.d("onDown  " + e?.action + "-" + e?.rawX + "-" + e?.x)
                 return false
             }
 
             override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
-                LogUtils.d("onFling")
+                LogUtils.d("onFling1  " + e1?.action + "-" + e1?.rawX + "-" + e1?.x + "-" + velocityX + "-" + velocityY)
+                LogUtils.d("onFling2  " + e2?.action + "-" + e2?.rawX + "-" + e2?.x)
                 return false
             }
 
             override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
-                LogUtils.d("onScroll")
+                LogUtils.d("onScroll1  " + e1?.action + "-" + e1?.rawX + "-" + e1?.x + "-" + distanceX + "-" + distanceY)
+                LogUtils.d("onScroll2  " + e2?.action + "-" + e2?.rawX + "-" + e2?.x)
                 return false
             }
 
             override fun onLongPress(e: MotionEvent?) {
-                LogUtils.d("onLongPress")
+                LogUtils.d("onLongPress  " + e?.action + "-" + e?.rawX + "-" + e?.x)
             }
         })
-        SwUtils.init(application)
     }
 
     private fun initView() {
