@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.GestureDetector
 import android.view.MotionEvent
 import com.swensun.base.BaseActivity
+import com.swensun.potato.demo.RecyclerViewActivity
 import com.swensun.swutils.util.LogUtils
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.startActivity
 import android.view.GestureDetector.OnGestureListener as OnGestureListener
 
 class MainActivity : BaseActivity() {
@@ -58,10 +60,11 @@ class MainActivity : BaseActivity() {
 
     private fun initView() {
         dialog.setOnClickListener {
-            ScoreDialog(this@MainActivity)
-//                .withTransparent()
-                .withSize(300, 300)
-                .show()
+//            ScoreDialog(this@MainActivity)
+////                .withTransparent()
+//                .withSize(300, 300)
+//                .show()
+            startActivity<RecyclerViewActivity>()
         }
     }
 }
