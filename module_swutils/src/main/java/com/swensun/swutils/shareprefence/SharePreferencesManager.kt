@@ -1,4 +1,4 @@
-package com.yy.xgroup.component.shareprefence
+package com.swensun.swutils.shareprefence
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -6,16 +6,14 @@ import android.content.SharedPreferences
 /**
  * Created by swensun on 2018/3/22.
  */
-class SharePreferencesManager() {
+object SharePreferencesManager {
 
-    lateinit var mSharedPreferences: SharedPreferences
-    val keyList = arrayListOf<String>()
+    private lateinit var mSharedPreferences: SharedPreferences
+    private val keyList = arrayListOf<String>()
 
     fun init(context: Context) {
         mSharedPreferences  = context.getSharedPreferences("swutils", Context.MODE_PRIVATE)
     }
-    //    val mSharedPreferences = BaseContext.application.getSharedPreferences("xgroup", Context.MODE_PRIVATE)
-
 
     fun put(key: String, value: String) {
         mSharedPreferences.edit().putString(key, value).apply()
