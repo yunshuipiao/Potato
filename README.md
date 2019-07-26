@@ -25,6 +25,8 @@
 ## Util
 增加一个栏目：收集常用的 Java 和 Kt 的工具类，一直更新，欢迎提 PR 补充 
 
+[Android: Multi Module Structure](https://github.com/yunshuipiao/Potato/issues/65)：Android 项目的模块，目录结构搭建经验分享。
+
 [JavaUtils](https://github.com/yunshuipiao/Potato/blob/master/module_swutils/src/main/java/com/swensun/swutils/util/JavaUtils.java):	常用的 Java 工具类 
 
 [KotlinUtils](https://github.com/yunshuipiao/Potato/blob/master/module_swutils/src/main/java/com/swensun/swutils/util/KotlinUtils.kt):	常用的 Kt 工具类  
@@ -88,6 +90,8 @@
 [Android Adb Shell Command Record](https://github.com/yunshuipiao/Potato/issues/62)：Android adb 命令的相关使用和调试
 
 [Android：Drawable And Bitmap](https://github.com/yunshuipiao/Potato/issues/63)：Android  Drabable 和 Bitmap 的关系
+
+[Android：Intent and startActivity](https://github.com/yunshuipiao/Potato/issues/64)：Android 中打开另一个 Activity 的可行性验证
 
 ### 四大组件
 
