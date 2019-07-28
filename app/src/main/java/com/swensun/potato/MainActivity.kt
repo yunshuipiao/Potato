@@ -68,3 +68,11 @@ class MainActivity : BaseActivity() {
         }
     }
 }
+
+fun test1() {
+    
+}
+
+fun test2() {
+    
+}
