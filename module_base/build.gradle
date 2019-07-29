@@ -2,13 +2,11 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 android {
-    compileSdkVersion 28
-
-
-
+    compileSdkVersion prop_compileSdkVersion.toInteger()
+    
     defaultConfig {
-        minSdkVersion 23
-        targetSdkVersion 28
+        minSdkVersion prop_minSdkVersion.toInteger()
+        targetSdkVersion prop_targetSdkVersion.toInteger()
         versionCode 1
         versionName "1.0"
 

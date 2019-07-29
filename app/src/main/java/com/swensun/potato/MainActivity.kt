@@ -4,10 +4,9 @@ import android.os.Bundle
 import android.view.GestureDetector
 import android.view.MotionEvent
 import com.swensun.base.BaseActivity
-import com.swensun.potato.demo.RecyclerViewActivity
-import com.swensun.swutils.util.LogUtils
+import com.swensun.swutils.SwUtils
+import com.swensun.swutils.util.*
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.startActivity
 import android.view.GestureDetector.OnGestureListener as OnGestureListener
 
 class MainActivity : BaseActivity() {
@@ -64,13 +63,10 @@ class MainActivity : BaseActivity() {
 ////                .withTransparent()
 //                .withSize(300, 300)
 //                .show()
-            startActivity<RecyclerViewActivity>()
+//            startActivity<RecyclerViewActivity>()
+            LogUtils.d(getRamInfo())
+            LogUtils.d(getInternalMemorySizeInfo())
         }
     }
 }
 
-fun dev() {
-
-}
-
-fun test1() {}
