@@ -72,3 +72,5 @@ class MainActivity : BaseActivity() {
 fun dev() {
 
 }
+
+fun test1() {}
