@@ -1,7 +1,9 @@
 package com.swensun.swutils.ui
 
 import android.content.res.ColorStateList
+import android.graphics.Rect
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.view.View
 import org.jetbrains.anko.backgroundDrawable
 
@@ -14,7 +16,11 @@ fun View.setRadiusBackground(radius: Int, color: Int? = null, type: Int = 0) {
     val gradientDrawable = GradientDrawable()
     gradientDrawable.shape = GradientDrawable.RECTANGLE
     color?.let {
-        gradientDrawable.color = ColorStateList.valueOf(it)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            gradientDrawable.color = ColorStateList.valueOf(it)
+        } else {
+            gradientDrawable.setColor(color)
+        }
     }
     if (type == 0) {
         gradientDrawable.cornerRadius = dp2px(radius.toFloat()).toFloat()
@@ -39,4 +45,17 @@ fun View.setRadiusBackground(radius: Int, color: Int? = null, type: Int = 0) {
         gradientDrawable.cornerRadii = floatArray
     }
     this.backgroundDrawable = gradientDrawable
+}
+
+/**
+ * 检测view是否被遮住，显示不全
+ * @return true：表示被遮住
+ */
+fun View.isCover(): Boolean {
+    val cover: Boolean
+    val rect = Rect()
+    cover = getGlobalVisibleRect(rect)
+    return if (cover) {
+        rect.width() < measuredWidth || rect.height() < measuredHeight
+    } else true
 }

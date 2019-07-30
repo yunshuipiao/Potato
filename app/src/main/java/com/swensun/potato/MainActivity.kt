@@ -1,5 +1,6 @@
 package com.swensun.potato
 
+import android.content.Context
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -8,9 +9,15 @@ import com.swensun.swutils.SwUtils
 import com.swensun.swutils.util.*
 import kotlinx.android.synthetic.main.activity_main.*
 import android.view.GestureDetector.OnGestureListener as OnGestureListener
+import android.media.AudioManager
+import android.content.Context.AUDIO_SERVICE
+import androidx.core.content.ContextCompat.getSystemService
+
+
 
 class MainActivity : BaseActivity() {
 
+    private var mAudioManager: AudioManager? = null
     lateinit var gestureDetector: GestureDetector
 
     override fun getContentSubView(): Int {
@@ -64,8 +71,12 @@ class MainActivity : BaseActivity() {
 //                .withSize(300, 300)
 //                .show()
 //            startActivity<RecyclerViewActivity>()
-            LogUtils.d(getRamInfo())
-            LogUtils.d(getInternalMemorySizeInfo())
+//            LogUtils.d(getRamInfo())
+//            LogUtils.d(getInternalMemorySizeInfo())
+            if (mAudioManager == null) {
+                mAudioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+            }
+            mAudioManager?.playSoundEffect(AudioManager.FX_KEYPRESS_STANDARD)
         }
     }
 }
