@@ -42,10 +42,7 @@ dependencies {
     api "io.reactivex.rxjava2:rxjava:$prop_rxjava_version"
     api "io.reactivex.rxjava2:rxkotlin:$prop_rxkotlin_version"
     api "io.reactivex.rxjava2:rxandroid:$prop_rxandroid_version"
-    api("com.trello.rxlifecycle2:rxlifecycle-components:$prop_rxlifecycle2_version") {
-        exclude group: "com.android.support"
-    }
-    api "com.trello.rxlifecycle2:rxlifecycle-android-lifecycle-kotlin:$prop_rxlifecycle2_version"
+    api "com.trello.rxlifecycle3:rxlifecycle-components:$prop_rxlifecycle3_version"
 
     /// Glide
     api "com.github.bumptech.glide:glide:$prop_glide_version"

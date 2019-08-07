@@ -5,14 +5,12 @@ import android.os.Bundle
 import android.view.GestureDetector
 import android.view.MotionEvent
 import com.swensun.base.BaseActivity
-import com.swensun.swutils.SwUtils
 import com.swensun.swutils.util.*
 import kotlinx.android.synthetic.main.activity_main.*
 import android.view.GestureDetector.OnGestureListener as OnGestureListener
 import android.media.AudioManager
-import android.content.Context.AUDIO_SERVICE
-import androidx.core.content.ContextCompat.getSystemService
-import com.swensun.potato.frag.TimeFragment
+import com.swensun.potato.frag.TimeActivity
+import org.jetbrains.anko.startActivity
 
 
 class MainActivity : BaseActivity() {
@@ -30,8 +28,6 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initView()
-
-
     }
 
     private fun initView() {
@@ -47,9 +43,7 @@ class MainActivity : BaseActivity() {
 //                mAudioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
 //            }
 //            mAudioManager?.playSoundEffect(AudioManager.FX_KEYPRESS_STANDARD)
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, TimeFragment.newInstance())
-                .commit()
+            startActivity<TimeActivity>()
         }
     }
 }
