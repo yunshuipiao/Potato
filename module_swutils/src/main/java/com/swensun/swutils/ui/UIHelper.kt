@@ -1,22 +1,28 @@
 package com.swensun.swutils.ui
 
-import android.R
 import android.accessibilityservice.AccessibilityServiceInfo
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityManager
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Point
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
+import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.os.StatFs
 import android.provider.Settings
+import android.text.SpannableString
+import android.text.Spanned
 import android.text.TextPaint
+import android.text.format.DateFormat
 import android.text.format.Formatter
+import android.text.style.ForegroundColorSpan
 import android.util.DisplayMetrics
 import android.util.Log
 import android.util.TypedValue
@@ -33,11 +39,14 @@ import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.google.android.material.snackbar.Snackbar
+import com.swensun.swutils.R
 import com.swensun.swutils.SwUtils
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import org.jetbrains.annotations.NotNull
+import java.util.*
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * Created by macmini on 2017/8/17.
@@ -211,23 +220,6 @@ fun getActivityRootView(activity: Activity): View {
     return activity.window.decorView.findViewById(R.id.content)
 }
 
-fun showSnackBar(@NotNull activity: Activity, message: String, duration: Int = Snackbar.LENGTH_SHORT) {
-    Snackbar.make(getActivityRootView(activity), message,Snackbar.LENGTH_SHORT)
-            .setDuration(duration)
-            .show()
-}
-
-fun showSnackBar(@NotNull activity: Activity,
-                 message: String,
-                 actionMessage: String,
-                 actionListener: View.OnClickListener,
-                 duration: Int = Snackbar.LENGTH_SHORT) {
-    Snackbar.make(getActivityRootView(activity), message, Snackbar.LENGTH_SHORT)
-            .setAction(actionMessage, actionListener)
-            .setDuration(duration)
-            .show()
-}
-
 fun showSnackBar(@NotNull activity: Activity, @StringRes res: Int) =
         Snackbar.make(getActivityRootView(activity), getString(res),Snackbar.LENGTH_SHORT).show()
 
@@ -271,4 +263,167 @@ fun getMemInfo(): String {
     val availMem = Formatter.formatFileSize(context, memInfo.availMem)
     val totalMem = Formatter.formatFileSize(context, memInfo.totalMem)
     return "$availMem / $totalMem"
+}
+
+private val sNextGeneratedId = AtomicInteger(1)
+
+/**
+ * Generate a value suitable for use in [.setId].
+ * This value will not collide with ID values generated at build time by aapt for R.id.
+ *
+ * @return a generated ID value
+ */
+fun generateViewId(): Int {
+    while (true) {
+        val result = sNextGeneratedId.get()
+        // aapt-generated IDs have the high byte nonzero; clamp to the range under that.
+        var newValue = result + 1
+        if (newValue > 0x00FFFFFF) newValue = 1 // Roll over to 1, not 0.
+        if (sNextGeneratedId.compareAndSet(result, newValue)) {
+            return result
+        }
+    }
+}
+
+
+
+
+
+
+fun isWifiActive(): Boolean {
+    val mgr = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val networkInfo = mgr.activeNetworkInfo
+    return networkInfo != null && networkInfo.type == ConnectivityManager.TYPE_WIFI
+}
+
+fun callPhone(act: Activity, number: String) {
+    act.startActivity(Intent(Intent.ACTION_CALL, Uri.parse("tel:$number")))
+}
+
+
+fun getStatusBarBarHeight(): Int {
+    context.resources.let {
+        val id = it.getIdentifier("status_bar_height", "dimen", "android")
+        return it.getDimensionPixelSize(id)
+    }
+}
+
+fun setShowAlpha(act: Activity) {
+    val lp = act.window.attributes
+    lp.alpha = .8f
+    act.window.attributes = lp
+}
+
+fun setDismissAlpha(act: Activity) {
+    val lp = act.window.attributes
+    lp.alpha = 1f
+    act.window.attributes = lp
+}
+
+fun copyToClipboard(strId: Int) {
+    var str = getString(strId).trim()
+    copyToClipboard(str)
+}
+
+fun copyToClipboard(str: String) {
+    val cmb = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    val clip = ClipData.newPlainText("contact info", str.trim())
+    cmb.primaryClip = clip
+}
+
+fun Long.formatTime(): String {
+    val cal = GregorianCalendar()
+    cal.timeInMillis = this
+    val year = cal[GregorianCalendar.YEAR]
+    val month = cal[GregorianCalendar.MONTH] + 1
+    val day = cal[GregorianCalendar.DAY_OF_MONTH]
+    val hour = cal[GregorianCalendar.HOUR_OF_DAY]
+    val min = cal[GregorianCalendar.MINUTE]
+    return String.format("%d-%02d-%02d %02d:%02d", year, month, day, hour, min)
+}
+
+fun Long.timestamp2FormatTime(): String {
+    val now = System.currentTimeMillis()
+    val secondTime = 60 * 1000L
+    val hourTime = 3600 * 1000L
+    val dayTime = 24 * 3600 * 1000L
+
+    val diffTime = now  - this * 1000
+    return when {
+        (diffTime > dayTime) ->
+            DateFormat.format("MM/dd", this * 1000).toString()
+
+        (diffTime > hourTime) ->
+            "${diffTime / hourTime}小时前"
+
+        (diffTime > secondTime) ->
+            "${diffTime / secondTime}分钟前"
+
+        else ->
+            "刚刚"
+    }
+}
+
+fun Long.formattedBrowserNum(): String {
+    return when {
+        (this >= 100000) -> "${this / 100000}w"
+        (this >= 10000) -> String.format("%.1fk", this.toFloat() / 1000)
+        else -> {
+            this.toString()
+        }
+    }
+}
+
+fun String.isValidMobile(): Boolean = this.matches(Regex("^1\\d{10}$"))
+
+fun String.isValidCode(): Boolean = this.length >= 3
+
+fun String.isValidEmail(): Boolean = this.matches(Regex("^\\w{1,100}@\\w{1,100}\\.\\w{1,100}$"))
+
+fun Int.toFormattedSize(): String {
+    return when {
+        this >= 1048576 -> String.format("%.1fMB", this.toFloat() / 1048576)
+        this >= 1024 -> "${this / 1024}KB"
+        this >= 0 -> "${this}B"
+        else -> "未知大小"
+    }
+}
+
+fun String.toThumbnailImageUrl(): String {
+    return if (this.contains("huanjuyun")) this + "?ips_thumbnail/4/0/w/200"
+    else this
+}
+
+fun String.toThumbnailUrl(): String {
+    return if (this.contains("huanjuyun")) this + "?ips_thumbnail/4/0/w/100"
+    else this
+}
+
+fun showKeyboard(view: View) {
+    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+    imm?.showSoftInput(view, 0)
+}
+
+fun hideKeyboard(view: View) {
+    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+    imm?.hideSoftInputFromWindow(view.windowToken, 0)
+}
+
+fun isShownKeyboard(): Boolean {
+    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+    return imm?.isActive ?: false
+}
+
+//click and hide keyboard
+fun View.shouldHideKeyBoard(event: MotionEvent): Boolean {
+    if ( this is EditText) {
+        val leftTop = intArrayOf(0, 0)
+        this.getLocationInWindow(leftTop)
+        val left = leftTop[0]
+        val top = leftTop[1]
+        val bottom = top + this.height
+        val right = left + this.width
+        return event.x < left || event.x > right || event.y < top || event.y > bottom
+    }
+    return false
 }
