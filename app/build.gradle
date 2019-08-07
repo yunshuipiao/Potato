@@ -54,6 +54,4 @@ dependencies {
     implementation "com.orhanobut:logger:$prop_logger_version"
 
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
-    implementation 'com.android.support:multidex:1.0.3'
-
 }
