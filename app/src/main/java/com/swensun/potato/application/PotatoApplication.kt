@@ -6,5 +6,6 @@ import android.content.Context
 class PotatoApplication: Application() {
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
+
     }
 }
