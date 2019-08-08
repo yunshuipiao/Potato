@@ -9,8 +9,19 @@ import com.swensun.swutils.util.*
 import kotlinx.android.synthetic.main.activity_main.*
 import android.view.GestureDetector.OnGestureListener as OnGestureListener
 import android.media.AudioManager
+import android.text.format.DateFormat
+import android.util.TimeUtils
+import androidx.work.Constraints
+import androidx.work.PeriodicWorkRequest
+import androidx.work.PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS
+import androidx.work.WorkManager
+import com.swensun.potato.frag.KEY_TIME
 import com.swensun.potato.frag.TimeActivity
+import com.swensun.potato.frag.TimeWork
+import com.swensun.swutils.shareprefence.SharePreferencesManager
+import com.swensun.swutils.ui.timestamp2FormatTime
 import org.jetbrains.anko.startActivity
+import java.util.concurrent.TimeUnit
 
 
 class MainActivity : BaseActivity() {
@@ -43,7 +54,17 @@ class MainActivity : BaseActivity() {
 //                mAudioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
 //            }
 //            mAudioManager?.playSoundEffect(AudioManager.FX_KEYPRESS_STANDARD)
-            startActivity<TimeActivity>()
+//            startActivity<TimeActivity>()
+            
+        }
+        val saveTime = SharePreferencesManager[KEY_TIME, 0L]
+        val timeStr = DateFormat.format("yyyy/MM/EE  HH:mm:ss", saveTime)
+        dialog.text = timeStr
+        if (saveTime == 0L) {
+            val startTimeActivity = PeriodicWorkRequest
+                .Builder(TimeWork::class.java, MIN_PERIODIC_INTERVAL_MILLIS, TimeUnit.MILLISECONDS)
+                .build()
+            WorkManager.getInstance(context).enqueue(startTimeActivity)
         }
     }
 }

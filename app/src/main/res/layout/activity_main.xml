@@ -10,13 +10,14 @@
 
     <Button
             android:id="@+id/dialog"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:text="dialog"
+            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:translationZ="1dp"
-            android:background="#8000ff00"
+            android:background="@color/colorPrimary"
             app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

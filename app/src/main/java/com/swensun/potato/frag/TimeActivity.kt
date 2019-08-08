@@ -1,10 +1,14 @@
 package com.swensun.potato.frag
 
+import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.support.v4.media.session.PlaybackStateCompat
 import android.text.format.DateFormat
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.animation.doOnCancel
 import com.swensun.potato.R
 import com.swensun.swutils.ui.adjustTextSize
 import com.swensun.swutils.ui.getWinWidth
@@ -12,6 +16,7 @@ import com.trello.rxlifecycle3.RxLifecycle
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.internal.operators.observable.ObservableJoin
 import kotlinx.android.synthetic.main.activity_time.*
 import java.util.concurrent.TimeUnit
 
@@ -22,6 +27,8 @@ import java.util.concurrent.TimeUnit
  */
 class TimeActivity : RxAppCompatActivity() {
 
+    private val animList = arrayListOf<ObjectAnimator>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window?.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
@@ -31,6 +38,12 @@ class TimeActivity : RxAppCompatActivity() {
     }
 
     private fun initView() {
+        startTimeGo()
+//        playAnim()
+    }
+
+    @SuppressLint("CheckResult")
+    private fun startTimeGo() {
         Observable.interval(1, TimeUnit.SECONDS)
             .compose(bindToLifecycle())
             .doOnSubscribe {
@@ -40,6 +53,25 @@ class TimeActivity : RxAppCompatActivity() {
             .subscribe {
                 at_tv_time.adjustTextSize(getWinWidth(), getCurTime())
             }
+    }
+
+    private fun playAnim() {
+        val anim = ObjectAnimator
+            .ofFloat(at_tv_time, "translationX", 0f + getWinWidth(), 0f - getWinWidth())
+            .apply {
+                duration = 3000
+                repeatMode =  ObjectAnimator.RESTART
+                repeatCount = ObjectAnimator.INFINITE
+            }
+        animList.add(anim)
+        anim.start()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        animList.forEach {
+            it.cancel()
+        }
     }
 }
 

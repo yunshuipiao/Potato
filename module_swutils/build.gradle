@@ -81,6 +81,7 @@ dependencies {
     api "org.jsoup:jsoup:$prop_jsoup_version"
 
     implementation "com.orhanobut:logger:$prop_logger_version"
+    api "androidx.work:work-runtime:$prop_work_version"
 
 }
 repositories {
