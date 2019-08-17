@@ -18,4 +18,5 @@ abstract class BaseActivity : RxAppCompatActivity() {
 
     @LayoutRes
     abstract fun getContentSubView(): Int
+
 }

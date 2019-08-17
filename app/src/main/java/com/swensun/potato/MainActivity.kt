@@ -39,6 +39,27 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initView()
+        filetest()
+    }
+
+    private fun filetest() {
+        val folder = getExternalFilesDir("")?.absolutePath ?: ""
+        LogUtils.d(folder)
+        create.setOnClickListener {
+            createFile(folder, "1.json")
+        }
+        get_files.setOnClickListener {
+            getFiles(folder).forEach {
+                LogUtils.d(it.path + "  :  " + it.parent)
+            }
+        }
+        copy.setOnClickListener {
+            copy(folder, "$folder/copy")
+        }
+        delete.setOnClickListener {
+            com.swensun.swutils.util.deleteFile("$folder/1.json")
+        }
+
     }
 
     private fun initView() {

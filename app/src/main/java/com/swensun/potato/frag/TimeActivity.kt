@@ -39,6 +39,7 @@ class TimeActivity : RxAppCompatActivity() {
 
     private fun initView() {
         startTimeGo()
+        TimeUnit.DAYS
 //        playAnim()
     }
 
