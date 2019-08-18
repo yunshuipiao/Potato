@@ -24,55 +24,44 @@ fun createFile(path: String, name: String): Boolean {
     }
 }
 
-fun getFiles(folder: String): ArrayList<File> {
-    val result = arrayListOf<File>()
+fun getFiles(folder: String, result: ArrayList<File>) {
     val file = File(folder)
-    val subFiles = file.listFiles() ?: return result
+    val subFiles = file.listFiles()
     subFiles.forEach {
         if (it.isFile) {
             result.add(0, it)
         } else {
-            getFiles(it.path)
-        }
-    }
-    return result
-}
-
-fun deleteFile(path: String) {
-    val files = getFiles(path)
-    if (files.size != 0) {
-        files.forEach {
-            if (it.isFile) {
-                it.delete()
-            }
+            getFiles(it.path, result)
         }
     }
 }
 
-fun copy(from: String, to: String): Boolean {
-    val root = File(from)
-    if (!root.exists()) {
-        return false
-    }
-    val curFiles = root.listFiles()
-    val targetDir = File(to)
-    if (!targetDir.exists())  {
-        targetDir.mkdirs()
-    }
-    curFiles.forEach {
-        if (it.isDirectory) {
-            copy(it.path + "/", to + it.name + "/")
-        } else {
-            copyFile(it.path, to + "/" +  it.name)
-        }
-    }
-    return true
-}
-
-fun copyFile(from: String, to: String): Boolean {
+/**
+ * 删除给定的文件或者文件夹
+ * @param path : 文件或者文件夹路径
+ */
+fun delFile(path: String) {
+    val file = File(path)
     try {
+        file.deleteRecursively()
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+}
+
+fun copyFile(fromFile: String, toFolder: String): Boolean {
+    try {
+        val from = File(fromFile)
+        if (from.isDirectory) {
+            throw Exception("fromFile should be file")
+        }
+        val to = File(toFolder)
+        if (!to.exists()) {
+            to.mkdirs()
+        }
+        val toFile = File(toFolder, from.name)
         val inputStream = FileInputStream(from)
-        val outputStream = FileOutputStream(to)
+        val outputStream = FileOutputStream(toFile)
         val bytes = ByteArray(1024)
         var c: Int = inputStream.read(bytes)
         while (c > 0) {
@@ -83,6 +72,7 @@ fun copyFile(from: String, to: String): Boolean {
         outputStream.close()
         return true
     } catch (e: Exception) {
+        e.printStackTrace()
         return false
     }
 }

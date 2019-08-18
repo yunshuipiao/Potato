@@ -1,26 +1,22 @@
 package com.swensun.potato
 
 import android.content.Context
-import android.os.Bundle
-import android.view.GestureDetector
-import android.view.MotionEvent
-import com.swensun.base.BaseActivity
-import com.swensun.swutils.util.*
-import kotlinx.android.synthetic.main.activity_main.*
-import android.view.GestureDetector.OnGestureListener as OnGestureListener
 import android.media.AudioManager
+import android.os.Bundle
 import android.text.format.DateFormat
-import android.util.TimeUtils
-import androidx.work.Constraints
+import android.view.GestureDetector
+import android.view.GestureDetector.OnGestureListener
+import android.view.MotionEvent
 import androidx.work.PeriodicWorkRequest
 import androidx.work.PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS
 import androidx.work.WorkManager
+import com.swensun.base.BaseActivity
 import com.swensun.potato.frag.KEY_TIME
-import com.swensun.potato.frag.TimeActivity
 import com.swensun.potato.frag.TimeWork
 import com.swensun.swutils.shareprefence.SharePreferencesManager
-import com.swensun.swutils.ui.timestamp2FormatTime
-import org.jetbrains.anko.startActivity
+import com.swensun.swutils.util.*
+import kotlinx.android.synthetic.main.activity_main.*
+import java.io.File
 import java.util.concurrent.TimeUnit
 
 
@@ -44,20 +40,25 @@ class MainActivity : BaseActivity() {
 
     private fun filetest() {
         val folder = getExternalFilesDir("")?.absolutePath ?: ""
+        val fileName = "$folder/1.json"
         LogUtils.d(folder)
         create.setOnClickListener {
             createFile(folder, "1.json")
         }
         get_files.setOnClickListener {
-            getFiles(folder).forEach {
-                LogUtils.d(it.path + "  :  " + it.parent)
+            val files = arrayListOf<File>()
+            getFiles(folder, files)
+            files.forEach {
+                LogUtils.d(it.path + " : " + it.name)
             }
+            
         }
         copy.setOnClickListener {
-            copy(folder, "$folder/copy")
+            copyFile(fileName, "$folder/copy")
         }
         delete.setOnClickListener {
-            com.swensun.swutils.util.deleteFile("$folder/1.json")
+            delFile("$folder/1.json")
+            delFile("$folder/copy")
         }
 
     }
