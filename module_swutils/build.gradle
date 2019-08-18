@@ -50,14 +50,14 @@ dependencies {
 
 
     /// Support Libraries
-    api "androidx.constraintlayout:constraintlayout:$prop_androidx_constraintlayout"
-    api "androidx.appcompat:appcompat:$prop_androidx_appcompat"
+    api "androidx.constraintlayout:constraintlayout:$prop_androidx_constraintLayout_version"
+    api "androidx.appcompat:appcompat:$prop_androidx_appcompat_version"
     api "com.google.android.material:material:$prop_material_version"
 
     /// Architecture Components
-    api "androidx.lifecycle:lifecycle-runtime:$prop_androidx_lifecycle"
-    api "androidx.lifecycle:lifecycle-extensions:$prop_androidx_lifecycle"
-    kapt "androidx.lifecycle:lifecycle-compiler:$prop_androidx_lifecycle"
+    api "androidx.lifecycle:lifecycle-runtime:$prop_androidx_lifecycle_version"
+    api "androidx.lifecycle:lifecycle-extensions:$prop_androidx_lifecycle_version"
+    kapt "androidx.lifecycle:lifecycle-compiler:$prop_androidx_lifecycle_version"
 
     /// Okhttp3
     api "com.squareup.okhttp3:okhttp:$prop_okhttp_version"
