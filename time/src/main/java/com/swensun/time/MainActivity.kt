@@ -3,6 +3,7 @@ package com.swensun.time
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.TextUtils
 import android.text.format.DateFormat
 import android.view.Window
 import android.view.WindowManager
@@ -12,7 +13,9 @@ import com.swensun.time.setting.SettingsActivity
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.main_activity.*
+import org.jetbrains.anko.defaultSharedPreferences
 import org.jetbrains.anko.startActivity
 import java.util.concurrent.TimeUnit
 
@@ -24,6 +27,7 @@ import java.util.concurrent.TimeUnit
 class MainActivity : RxAppCompatActivity() {
 
     private val animList = arrayListOf<ObjectAnimator>()
+    private var disposable: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,19 +38,32 @@ class MainActivity : RxAppCompatActivity() {
     }
 
     private fun initView() {
-        startTimeGo()
         ma_tv_setting.setOnClickListener {
             // settingActivity
             startActivity<SettingsActivity>()
-            
         }
 //        playAnim()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val content = defaultSharedPreferences.getString("signature", "")
+        if (content.isNullOrBlank()) {
+            startTimeGo()
+        } else {
+            disposable?.let { if (!it.isDisposed) it.dispose() }
+            ma_tv_time.text = content
+        }
+
     }
 
     @SuppressLint("CheckResult")
     private fun startTimeGo() {
         Observable.interval(1, TimeUnit.SECONDS)
             .compose(bindToLifecycle())
+            .doOnSubscribe {
+                disposable = it
+            }
             .doOnSubscribe {
                 ma_tv_time.adjustTextSize(getWinWidth(), getCurTime())
             }
@@ -61,7 +78,7 @@ class MainActivity : RxAppCompatActivity() {
             .ofFloat(ma_tv_time, "translationX", 0f + getWinWidth(), 0f - getWinWidth())
             .apply {
                 duration = 3000
-                repeatMode =  ObjectAnimator.RESTART
+                repeatMode = ObjectAnimator.RESTART
                 repeatCount = ObjectAnimator.INFINITE
             }
         animList.add(anim)
