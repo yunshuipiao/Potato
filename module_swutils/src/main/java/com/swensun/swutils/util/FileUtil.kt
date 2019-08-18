@@ -3,6 +3,7 @@ package com.swensun.swutils.util
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
+import java.io.OutputStream
 import java.lang.Exception
 
 
@@ -76,3 +77,32 @@ fun copyFile(fromFile: String, toFolder: String): Boolean {
         return false
     }
 }
+
+fun writeToFile(content: String, filePath: String, append: Boolean = false) {
+    val file = File(filePath)
+    if (!file.exists()) {
+        file.createNewFile()
+    }
+    if (!file.isFile) {
+        throw Exception("should be file")
+    }
+    var fos: OutputStream? = null
+    try {
+        fos = FileOutputStream(file, append)
+        fos.write(content.toByteArray())
+        fos.write("\r\n".toByteArray())
+    } catch (e: Exception) {
+        e.printStackTrace()
+    } finally {
+        fos?.let {
+            try {
+                fos.close()
+            } catch (e: Exception) {
+            }
+        }
+    }
+}
+
+
+
+

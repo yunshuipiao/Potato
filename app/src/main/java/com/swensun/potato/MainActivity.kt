@@ -56,6 +56,9 @@ class MainActivity : BaseActivity() {
         copy.setOnClickListener {
             copyFile(fileName, "$folder/copy")
         }
+        write_to_file.setOnClickListener {
+            writeToFile("i love China", fileName, true)
+        }
         delete.setOnClickListener {
             delFile("$folder/1.json")
             delFile("$folder/copy")
