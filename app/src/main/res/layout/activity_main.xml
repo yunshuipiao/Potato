@@ -53,6 +53,28 @@
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
                 android:text="writeToFile"/>
+
+        <Button
+                android:id="@+id/zip_file"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:text="zipFile"/>
+
+        <Button
+                android:id="@+id/zip_folder"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:text="zipFolder"/>
+
+        <Button
+                android:id="@+id/unzip_file"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:text="unzipFile"/>
+
         <Button
                 android:id="@+id/delete"
                 android:layout_width="match_parent"

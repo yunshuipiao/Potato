@@ -43,7 +43,9 @@ class MainActivity : BaseActivity() {
         val fileName = "$folder/1.json"
         LogUtils.d(folder)
         create.setOnClickListener {
-            createFile(folder, "1.json")
+            (1..10).forEach {
+                createFile("$folder/copy", "$it.json")
+            }
         }
         get_files.setOnClickListener {
             val files = arrayListOf<File>()
@@ -58,6 +60,15 @@ class MainActivity : BaseActivity() {
         }
         write_to_file.setOnClickListener {
             writeToFile("i love China", fileName, true)
+        }
+        zip_file.setOnClickListener {
+            zip(fileName, "$folder/1.zip")
+        }
+        zip_folder.setOnClickListener {
+            zip("$folder/copy", "$folder/copy.zip")
+        }
+        unzip_file.setOnClickListener {
+            unzip("$folder/copy.zip", "$folder/new/copy")
         }
         delete.setOnClickListener {
             delFile("$folder/1.json")

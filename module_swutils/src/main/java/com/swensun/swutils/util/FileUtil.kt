@@ -1,12 +1,15 @@
 package com.swensun.swutils.util
 
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.OutputStream
-import java.lang.Exception
+import java.io.*
+import java.util.zip.ZipEntry
+import java.util.zip.ZipInputStream
+import java.util.zip.ZipOutputStream
 
-
+/**
+ * 创建文件
+ * @param path：文件路径
+ * @param name: 文件名
+ */
 fun createFile(path: String, name: String): Boolean {
     val folder = File(path)
     if (!folder.exists()) {
@@ -25,6 +28,11 @@ fun createFile(path: String, name: String): Boolean {
     }
 }
 
+/**
+ * 获取文件加下的所有文件
+ * @param folder: 文件夹
+ * @param result：得到的文件列表
+ */
 fun getFiles(folder: String, result: ArrayList<File>) {
     val file = File(folder)
     val subFiles = file.listFiles()
@@ -50,6 +58,11 @@ fun delFile(path: String) {
     }
 }
 
+/**
+ * 复制文件
+ * @param fromFile： 需要复制的文件
+ * @param toFolder： 目标文件夹
+ */
 fun copyFile(fromFile: String, toFolder: String): Boolean {
     try {
         val from = File(fromFile)
@@ -102,6 +115,134 @@ fun writeToFile(content: String, filePath: String, append: Boolean = false) {
         }
     }
 }
+
+/**
+ * 压缩文件
+ * @param src：需要压缩的文件或者文件夹
+ * @param outputFilePath：输出的压缩文件
+ */
+fun zip(src: String, outputFilePath: String) {
+    var zos: ZipOutputStream? = null
+    try {
+        val outFile = File(outputFilePath)
+        val fileOrDirectory = File(src)
+        zos = ZipOutputStream(FileOutputStream(outFile))
+        if (fileOrDirectory.isFile) {
+            zipFileOrDirectory(zos, fileOrDirectory, "")
+        } else {
+            val files = fileOrDirectory.listFiles()
+            files.forEach {
+                zipFileOrDirectory(zos, it, "")
+            }
+        }
+    } catch (e: IOException) {
+        e.printStackTrace()
+    } finally {
+        zos?.let {
+            try {
+                it.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+}
+
+private fun zipFileOrDirectory(zos: ZipOutputStream, fileOrDirectory: File, curPath: String) {
+    var fis: FileInputStream? = null
+    try {
+        if (fileOrDirectory.isFile) {
+            val buffer = ByteArray(4096)
+            var bytesRead = 0
+            fis = FileInputStream(fileOrDirectory)
+            val zipEntry = ZipEntry(curPath + fileOrDirectory.name)
+            zos.putNextEntry(zipEntry)
+            bytesRead = fis.read(buffer)
+            while (bytesRead > 0) {
+                zos.write(buffer, 0, bytesRead)
+                bytesRead = fis.read(buffer)
+            }
+            zos.closeEntry()
+        } else {
+            val files = fileOrDirectory.listFiles()
+            files.forEach {
+                zipFileOrDirectory(zos, it, curPath + fileOrDirectory.name + "/")
+            }
+        }
+
+    } catch (e: IOException) {
+        e.printStackTrace()
+    } finally {
+        fis?.let {
+            try {
+                it.close()
+            } catch (e: Exception) {
+            }
+        }
+    }
+}
+
+/**
+ * 解压文件
+ * @param filePath：需要解压的文件
+ * @param outPutFolder：输出的解压文件夹
+ */
+fun unzip(filePath: String, outPutFolder: String): Boolean {
+    val folder = File(outPutFolder)
+    if (!folder.exists()) {
+        folder.mkdirs()
+    }
+    var fis: FileInputStream? = null
+    var zis: ZipInputStream? = null
+    try {
+        fis = FileInputStream(filePath)
+        zis = ZipInputStream(fis)
+        val buffer = ByteArray(1024)
+        var zipEntry = zis.nextEntry
+        while (zipEntry != null) {
+            var name = zipEntry.name
+            if (name.contains("../")) {
+                fis.close()
+                zis.close()
+                return false
+            }
+            val index = name.indexOf("/")
+            name = name.substring(if (index < 0) 0 else index)
+            val file = File(folder, name)
+            if (zipEntry.isDirectory) {
+                if (!file.exists()) {
+                    file.mkdirs()
+                    continue
+                }
+            }
+            val fos = FileOutputStream(file)
+            try {
+                var count = zis.read(buffer)
+                while (count > 0) {
+                    fos.write(buffer, 0, count)
+                    count = zis.read(buffer)
+                }
+                zis.closeEntry()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            } finally {
+                fos.close()
+            }
+            zipEntry = zis.nextEntry
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+        delFile(outPutFolder)
+        return false
+    } finally {
+        zis?.close()
+        fis?.close()
+
+    }
+    return true
+}
+
 
 
 
