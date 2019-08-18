@@ -3,20 +3,14 @@ package com.swensun.potato.frag
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.support.v4.media.session.PlaybackStateCompat
 import android.text.format.DateFormat
 import android.view.WindowManager
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.animation.doOnCancel
 import com.swensun.potato.R
 import com.swensun.swutils.ui.adjustTextSize
 import com.swensun.swutils.ui.getWinWidth
-import com.trello.rxlifecycle3.RxLifecycle
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.internal.operators.observable.ObservableJoin
 import kotlinx.android.synthetic.main.activity_time.*
 import java.util.concurrent.TimeUnit
 
