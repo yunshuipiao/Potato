@@ -2,7 +2,11 @@ package com.swensun.time
 
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.app.Service
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.text.TextUtils
 import android.text.format.DateFormat
 import android.view.Window
@@ -28,6 +32,7 @@ class MainActivity : RxAppCompatActivity() {
 
     private val animList = arrayListOf<ObjectAnimator>()
     private var disposable: Disposable? = null
+    lateinit var vibrator: Vibrator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +48,9 @@ class MainActivity : RxAppCompatActivity() {
             startActivity<SettingsActivity>()
         }
 //        playAnim()
+        vibrator = getSystemService(Service.VIBRATOR_SERVICE) as Vibrator
     }
+    
 
     override fun onResume() {
         super.onResume()
@@ -52,7 +59,7 @@ class MainActivity : RxAppCompatActivity() {
             startTimeGo()
         } else {
             disposable?.let { if (!it.isDisposed) it.dispose() }
-            ma_tv_time.text = content
+            ma_tv_time.adjustTextSize(getWinWidth(), content)
         }
 
     }
@@ -63,13 +70,20 @@ class MainActivity : RxAppCompatActivity() {
             .compose(bindToLifecycle())
             .doOnSubscribe {
                 disposable = it
-            }
-            .doOnSubscribe {
                 ma_tv_time.adjustTextSize(getWinWidth(), getCurTime())
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 ma_tv_time.adjustTextSize(getWinWidth(), getCurTime())
+                // 震动
+//                if (vibrator.hasVibrator()) {
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                        vibrator.vibrate(VibrationEffect.createOneShot(500, 10))
+//                    } else {
+//                        vibrator.vibrate(500)
+//                    }
+//                }
+                
             }
     }
 

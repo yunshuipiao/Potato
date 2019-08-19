@@ -18,22 +18,26 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
-            app:title="@string/messages_header"
-            >
+            app:title="@string/base_setting"
+    >
 
         <EditTextPreference
-                app:key="signature"
-                app:title="@string/signature_title"
+                app:key="@string/key_show_content"
+                app:title="@string/title"
                 app:useSimpleSummaryProvider="true"/>
-
+        <SwitchPreferenceCompat
+                app:key="@string/key_remind"
+                app:title="@string/remind"
+                app:summary="@string/summary_remind"
+        />
         <ListPreference
-                app:key="reply"
-                app:title="@string/reply_title"
-                app:entries="@array/reply_entries"
-                app:entryValues="@array/reply_values"
-                app:defaultValue="reply"
-                app:useSimpleSummaryProvider="true"/>
-
+                app:key="@string/key_remind_time"
+                app:title="@string/remind_time_title"
+                app:entries="@array/remind_time"
+                app:entryValues="@array/remind_time_values"
+                app:dependency="@string/key_remind"
+                app:useSimpleSummaryProvider="true"
+        />
     </PreferenceCategory>
 
 </PreferenceScreen>

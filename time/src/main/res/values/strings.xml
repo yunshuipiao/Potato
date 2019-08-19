@@ -15,4 +15,12 @@
     <string name="attachment_title">Download incoming attachments</string>
     <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="base_setting">基本设置</string>
+    <string name="key_show_content">key_show_content</string>
+    <string name="title">显示内容(设置为空显示时间)</string>
+    <string name="key_remind">key_remind</string>
+    <string name="remind">提醒</string>
+    <string name="summary_remind">每隔一段时间提醒</string>
+    <string name="key_remind_time">key_remind_time</string>
+    <string name="remind_time_title">时间间隔</string>
 </resources>
