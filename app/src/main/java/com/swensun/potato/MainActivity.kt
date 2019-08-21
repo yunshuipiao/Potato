@@ -7,23 +7,27 @@ import android.text.format.DateFormat
 import android.view.GestureDetector
 import android.view.GestureDetector.OnGestureListener
 import android.view.MotionEvent
+import android.widget.TextView
+import androidx.core.view.children
 import androidx.work.PeriodicWorkRequest
 import androidx.work.PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS
 import androidx.work.WorkManager
 import com.swensun.base.BaseActivity
 import com.swensun.potato.frag.KEY_TIME
 import com.swensun.potato.frag.TimeWork
+import com.swensun.potato.view.BubbleLayout
 import com.swensun.swutils.shareprefence.SharePreferencesManager
+import com.swensun.swutils.ui.dp2px
 import com.swensun.swutils.util.*
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.backgroundDrawable
+import org.jetbrains.anko.internals.AnkoInternals.addView
 import java.io.File
 import java.util.concurrent.TimeUnit
 
 
 class MainActivity : BaseActivity() {
-
-    private var mAudioManager: AudioManager? = null
-
+    
     override fun getContentSubView(): Int {
         return R.layout.activity_main
     }
@@ -34,73 +38,14 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initView()
-        filetest()
+        initView(savedInstanceState)
     }
 
-    private fun filetest() {
-        val folder = getExternalFilesDir("")?.absolutePath ?: ""
-        val fileName = "$folder/1.json"
-        LogUtils.d(folder)
-        create.setOnClickListener {
-            (1..10).forEach {
-                createFile("$folder/copy", "$it.json")
-            }
-        }
-        get_files.setOnClickListener {
-            val files = arrayListOf<File>()
-            getFiles(folder, files)
-            files.forEach {
-                LogUtils.d(it.path + " : " + it.name)
-            }
-            
-        }
-        copy.setOnClickListener {
-            copyFile(fileName, "$folder/copy")
-        }
-        write_to_file.setOnClickListener {
-            writeToFile("i love China", fileName, true)
-        }
-        zip_file.setOnClickListener {
-            zip(fileName, "$folder/1.zip")
-        }
-        zip_folder.setOnClickListener {
-            zip("$folder/copy", "$folder/copy.zip")
-        }
-        unzip_file.setOnClickListener {
-            unzip("$folder/copy.zip", "$folder/new/copy")
-        }
-        delete.setOnClickListener {
-            delFile("$folder/1.json")
-            delFile("$folder/copy")
-        }
-
-    }
-
-    private fun initView() {
-        dialog.setOnClickListener {
-            //            ScoreDialog(this@MainActivity)
-////                .withTransparent()
-//                .withSize(300, 300)
-//                .show()
-//            startActivity<RecyclerViewActivity>()
-//            LogUtils.d(getRamInfo())
-//            LogUtils.d(getInternalMemorySizeInfo())
-//            if (mAudioManager == null) {
-//                mAudioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
-//            }
-//            mAudioManager?.playSoundEffect(AudioManager.FX_KEYPRESS_STANDARD)
-//            startActivity<TimeActivity>()
-            
-        }
-        val saveTime = SharePreferencesManager[KEY_TIME, 0L]
-        val timeStr = DateFormat.format("yyyy/MM/EE  HH:mm:ss", saveTime)
-        dialog.text = timeStr
-        if (saveTime == 0L) {
-            val startTimeActivity = PeriodicWorkRequest
-                .Builder(TimeWork::class.java, MIN_PERIODIC_INTERVAL_MILLIS, TimeUnit.MILLISECONDS)
-                .build()
-            WorkManager.getInstance(context).enqueue(startTimeActivity)
+    private fun initView(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, TouchEventFragment.newInstance())
+                .commit()
         }
     }
 }
