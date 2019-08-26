@@ -31,6 +31,11 @@ class MainActivity : BaseActivity() {
                 .commit()
         }
     }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        LogUtils.d("onWindowFocusChanged: $hasFocus")
+    }
 }
 
 

@@ -5,6 +5,10 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 
+/**
+ * https://blog.csdn.net/lue2009/article/details/45692009 View的生命周期方法和Activity生命周期方法关系
+ */
+
 class CustomView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
@@ -14,6 +18,20 @@ class CustomView @JvmOverloads constructor(
     val path = Path()
     val rectF = RectF()
     val cornerPathEffect = CornerPathEffect(50F)
+
+    override fun onFinishInflate() {
+        super.onFinishInflate()
+    }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        val w = measuredWidth
+        val h = measuredHeight
+    }
     
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)

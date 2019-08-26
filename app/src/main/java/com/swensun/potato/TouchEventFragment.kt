@@ -31,6 +31,9 @@ class TouchEventFragment : Fragment(), View.OnClickListener {
     }
 
 
+
+
+
     companion object {
         @JvmStatic
         fun newInstance() =
