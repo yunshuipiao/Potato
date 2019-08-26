@@ -1,29 +1,12 @@
 package com.swensun.potato
 
 import android.content.Context
-import android.media.AudioManager
 import android.os.Bundle
-import android.text.format.DateFormat
 import android.view.GestureDetector
 import android.view.GestureDetector.OnGestureListener
 import android.view.MotionEvent
-import android.widget.TextView
-import androidx.core.view.children
-import androidx.work.PeriodicWorkRequest
-import androidx.work.PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS
-import androidx.work.WorkManager
 import com.swensun.base.BaseActivity
-import com.swensun.potato.frag.KEY_TIME
-import com.swensun.potato.frag.TimeWork
-import com.swensun.potato.view.BubbleLayout
-import com.swensun.swutils.shareprefence.SharePreferencesManager
-import com.swensun.swutils.ui.dp2px
 import com.swensun.swutils.util.*
-import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.backgroundDrawable
-import org.jetbrains.anko.internals.AnkoInternals.addView
-import java.io.File
-import java.util.concurrent.TimeUnit
 
 
 class MainActivity : BaseActivity() {
