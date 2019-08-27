@@ -74,13 +74,8 @@ fun getColor(@ColorRes resId: Int) =
 
 fun getColor(color: String) = Color.parseColor(color)
 fun dp2px(value: Float): Int {
-    val f = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-            value, getDisplayMetrics())
-    val res = (f + 0.5f).toInt()
-    if (res != 0) return res
-    if (value == 0f) return 0
-    if (value > 0) return 1
-    return -1
+    val res = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, getDisplayMetrics())
+    return (res + 0.5f).toInt()
 }
 
 fun sp2px(value: Float) = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
