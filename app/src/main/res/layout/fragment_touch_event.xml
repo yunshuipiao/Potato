@@ -6,11 +6,11 @@
                                                    android:layout_height="match_parent"
                                                    tools:context=".TouchEventFragment">
     <com.swensun.potato.view.CustomView
-            android:layout_width="0dp"
+            android:layout_width="180dp"
             android:layout_height="0dp"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+    />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
