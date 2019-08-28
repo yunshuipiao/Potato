@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
+import com.swensun.base.BaseLifecycleObserver
 import com.swensun.swutils.util.LogUtils
 
 /**
@@ -13,8 +14,7 @@ import com.swensun.swutils.util.LogUtils
 class CustomView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
-
-
+    
     var paint: Paint = Paint()
     val path = Path()
     val rectF = RectF()

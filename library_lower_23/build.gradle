@@ -6,8 +6,8 @@ android {
 
 
     defaultConfig {
-        minSdkVersion prop_compileSdkVersion
-        targetSdkVersion 29
+        minSdkVersion prop_minSdkVersion_15.toInteger()
+        targetSdkVersion prop_targetSdkVersion.toInteger()
         versionCode 1
         versionName "1.0"
 
