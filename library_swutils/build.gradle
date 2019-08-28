@@ -58,6 +58,8 @@ dependencies {
     api "androidx.lifecycle:lifecycle-runtime:$prop_androidx_lifecycle_version"
     api "androidx.lifecycle:lifecycle-extensions:$prop_androidx_lifecycle_version"
     kapt "androidx.lifecycle:lifecycle-compiler:$prop_androidx_lifecycle_version"
+    api "androidx.lifecycle:lifecycle-common-java8:$prop_androidx_lifecycle_version"
+
 
     /// Okhttp3
     api "com.squareup.okhttp3:okhttp:$prop_okhttp_version"

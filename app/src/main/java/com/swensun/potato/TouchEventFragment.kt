@@ -1,11 +1,7 @@
 package com.swensun.potato
 
 
-import android.app.Activity
-import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Button
@@ -37,11 +33,7 @@ class TouchEventFragment : Fragment(), View.OnClickListener {
         super.onResume()
         getMeasureWidth()
     }
-
-
-
-
-
+    
     companion object {
         @JvmStatic
         fun newInstance() =
