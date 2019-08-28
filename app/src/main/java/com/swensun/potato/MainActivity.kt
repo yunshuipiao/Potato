@@ -15,9 +15,9 @@ class MainActivity : BaseActivity() {
         return R.layout.activity_main
     }
 
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        return gestureDetector(this).onTouchEvent(event)
-    }
+//    override fun onTouchEvent(event: MotionEvent?): Boolean {
+//        return gestureDetector(this).onTouchEvent(event)
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,10 +32,10 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-        LogUtils.d("onWindowFocusChanged: $hasFocus")
-    }
+//    override fun onWindowFocusChanged(hasFocus: Boolean) {
+//        super.onWindowFocusChanged(hasFocus)
+//        LogUtils.d("onWindowFocusChanged: $hasFocus")
+//    }
 }
 
 

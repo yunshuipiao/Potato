@@ -6,6 +6,7 @@
                                                    android:layout_height="match_parent"
                                                    tools:context=".TouchEventFragment">
     <com.swensun.potato.view.CustomView
+            android:id="@+id/cus_view"
             android:layout_width="180dp"
             android:layout_height="0dp"
             app:layout_constraintDimensionRatio="1:1"
