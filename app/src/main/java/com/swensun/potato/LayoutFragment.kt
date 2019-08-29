@@ -22,4 +22,10 @@ class LayoutFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_layout, container, false)
     }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+    }
 }
+
+

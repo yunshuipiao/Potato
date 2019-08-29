@@ -39,5 +39,4 @@ fun Activity.resetScreen() {
     appDM.density = systemDM.density
     appDM.scaledDensity = systemDM.scaledDensity
     appDM.densityDpi = systemDM.densityDpi
-
 }
