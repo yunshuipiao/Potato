@@ -30,7 +30,7 @@ class CustomView @JvmOverloads constructor(
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        LogUtils.d("$widthMeasureSpec -- $heightMeasureSpec")
+//        LogUtils.d("$widthMeasureSpec -- $heightMeasureSpec")
     }
     
     override fun onDraw(canvas: Canvas?) {

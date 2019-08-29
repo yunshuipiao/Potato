@@ -40,8 +40,12 @@ class TouchEventFragment : Fragment(), View.OnClickListener {
     }
 
     fun getMeasureWidth() {
-        activity?.window?.decorView?.measure(View.MeasureSpec.EXACTLY, View.MeasureSpec.EXACTLY)
-        val width = cus_view2.measuredWidth
-        LogUtils.d("width: $width")
+        root_view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+        val width = cus_view.measuredWidth
+        val width2 = cus_view2.measuredWidth
+        LogUtils.d("width1: $width, winth2:$width2")
+        cus_view.post {
+            LogUtils.d("width:${cus_view.width}")
+        }
     }
 }
