@@ -28,11 +28,6 @@ class TouchEventFragment : Fragment(), View.OnClickListener {
     private fun initView() {
         getMeasureWidth()
     }
-
-    override fun onResume() {
-        super.onResume()
-        getMeasureWidth()
-    }
     
     companion object {
         @JvmStatic
@@ -45,9 +40,8 @@ class TouchEventFragment : Fragment(), View.OnClickListener {
     }
 
     fun getMeasureWidth() {
-        cus_view.measure(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-        val width = cus_view.measuredWidth
+        activity?.window?.decorView?.measure(View.MeasureSpec.EXACTLY, View.MeasureSpec.EXACTLY)
+        val width = cus_view2.measuredWidth
         LogUtils.d("width: $width")
     }
-
 }
