@@ -7,20 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
-class TouchEventFragment : Fragment(){
-
+class LayoutFragment : Fragment() {
 
     companion object {
         @JvmStatic
         fun newInstance() =
-            TouchEventFragment()
+            LayoutFragment()
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_touch_event, container, false)
+        return inflater.inflate(R.layout.fragment_layout, container, false)
     }
-
 }

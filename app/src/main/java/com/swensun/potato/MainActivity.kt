@@ -27,7 +27,7 @@ class MainActivity : BaseActivity() {
     private fun initView(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, TouchEventFragment.newInstance())
+                .replace(R.id.container, LayoutFragment.newInstance())
                 .commit()
         }
     }

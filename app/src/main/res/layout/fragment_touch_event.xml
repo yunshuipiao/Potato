@@ -7,29 +7,5 @@
         android:layout_height="match_parent"
         tools:context=".TouchEventFragment">
 
-    <TextView
-            android:id="@+id/cus_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#ff0000"
-            android:padding="20dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cus_layout"
-            android:layout_width="240dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintRight_toRightOf="parent">
-
-        <com.swensun.potato.view.CustomView
-                android:id="@+id/cus_view2"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    
 </androidx.constraintlayout.widget.ConstraintLayout>
