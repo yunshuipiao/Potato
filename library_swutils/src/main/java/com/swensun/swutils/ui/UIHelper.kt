@@ -17,12 +17,9 @@ import android.os.Build
 import android.os.Environment
 import android.os.StatFs
 import android.provider.Settings
-import android.text.SpannableString
-import android.text.Spanned
 import android.text.TextPaint
 import android.text.format.DateFormat
 import android.text.format.Formatter
-import android.text.style.ForegroundColorSpan
 import android.util.DisplayMetrics
 import android.util.Log
 import android.util.TypedValue
@@ -73,21 +70,20 @@ fun getColor(@ColorRes resId: Int) =
         }
 
 fun getColor(color: String) = Color.parseColor(color)
+
+private val displayMetrics: DisplayMetrics = context.resources.displayMetrics
+
 fun dp2px(value: Float): Int {
-    val res = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, getDisplayMetrics())
+    val res = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, displayMetrics)
     return (res + 0.5f).toInt()
 }
 
 fun sp2px(value: Float) = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-        value, getDisplayMetrics())
+        value, displayMetrics)
 
 fun px2dp(pxValue: Float): Int {
-    val scale = getDisplayMetrics().density
+    val scale = displayMetrics.density
     return (pxValue / scale + 0.5f).toInt()
-}
-
-fun getDisplayMetrics(): DisplayMetrics {
-    return context.resources.displayMetrics
 }
 
 fun hideKeyboard(act: Activity) {
@@ -123,11 +119,11 @@ private fun getSize(): Point {
 }
 
 fun getWinHeight(): Int {
-    return getSize().y
+    return displayMetrics.heightPixels
 }
 
 fun getWinWidth(): Int {
-    return getSize().x
+    return displayMetrics.widthPixels
 }
 
 fun getNavigationBarHeight(): Int {
@@ -228,7 +224,6 @@ fun showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
             .subscribe {
                 toast.cancel()
             }
-
 }
 
 // 检测开发者选项是否打开: 此方法可以检测Setting.Global下的所有设置是否打开
