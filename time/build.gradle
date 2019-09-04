@@ -42,4 +42,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation project(':library_base')
+    implementation 'me.grantland:autofittextview:0.2.1'
+
 }

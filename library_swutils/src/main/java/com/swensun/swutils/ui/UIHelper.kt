@@ -133,26 +133,6 @@ fun getNavigationBarHeight(): Int {
     }
 }
 
-fun TextView.adjustTextSize(maxWidth: Int, text: String) {
-    val avaiWidth = maxWidth - this.paddingLeft - this.paddingRight - 10
-
-    if (avaiWidth <= 0) {
-        return
-    }
-
-    val textPaintClone = TextPaint(this.paint)
-    // note that Paint text size works in px not sp
-    var trySize = textPaintClone.textSize
-
-    while (textPaintClone.measureText(text) > avaiWidth) {
-        trySize--
-        textPaintClone.textSize = trySize
-    }
-
-    this.setTextSize(TypedValue.COMPLEX_UNIT_PX, trySize)
-    this.text = text
-}
-
 fun checkDeviceNavigation(activity: Activity): Boolean {
     val windowManager = activity.windowManager
     val d = windowManager.defaultDisplay

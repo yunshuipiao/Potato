@@ -6,10 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.swensun.swutils.ui.adjustTextSize
 import com.swensun.swutils.ui.displayMetrics
-import com.swensun.swutils.ui.dp2px
-import com.swensun.swutils.ui.getWinWidth
 import kotlinx.android.synthetic.main.fragment_layout.*
 
 class LayoutFragment : Fragment() {

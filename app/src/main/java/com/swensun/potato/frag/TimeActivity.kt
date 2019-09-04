@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.WindowManager
 import com.swensun.potato.R
-import com.swensun.swutils.ui.adjustTextSize
 import com.swensun.swutils.ui.getWinWidth
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 import io.reactivex.Observable
@@ -42,11 +41,11 @@ class TimeActivity : RxAppCompatActivity() {
         Observable.interval(1, TimeUnit.SECONDS)
             .compose(bindToLifecycle())
             .doOnSubscribe {
-                at_tv_time.adjustTextSize(getWinWidth(), getCurTime())
+                at_tv_time.text = getCurTime()
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                at_tv_time.adjustTextSize(getWinWidth(), getCurTime())
+                at_tv_time.text = getCurTime()
             }
     }
 
