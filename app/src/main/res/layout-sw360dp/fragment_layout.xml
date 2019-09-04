@@ -13,12 +13,12 @@
         <TextView
                 android:id="@+id/tv_size"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:background="#30ff0000"
                 android:gravity="center"
-                android:maxLines="1"
+                android:maxLines="2"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:textSize="20sp" />
@@ -28,11 +28,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
                 android:layout_marginRight="20dp"
                 android:background="#30ff0000"
                 android:gravity="center"
-                android:maxLines="1"
+                android:layout_marginTop="5dp"
+                android:maxLines="6"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:textSize="20sp" />
@@ -50,7 +50,7 @@
                     android:layout_marginRight="20dp"
                     android:background="#30ff0000"
                     android:gravity="center"
-                    android:maxLines="1"
+                    android:maxLines="2"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
                     android:textSize="20sp" />

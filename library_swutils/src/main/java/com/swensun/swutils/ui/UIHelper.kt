@@ -71,7 +71,7 @@ fun getColor(@ColorRes resId: Int) =
 
 fun getColor(color: String) = Color.parseColor(color)
 
-private val displayMetrics: DisplayMetrics = context.resources.displayMetrics
+val displayMetrics: DisplayMetrics = context.resources.displayMetrics
 
 fun dp2px(value: Float): Int {
     val res = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, displayMetrics)
