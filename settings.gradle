@@ -1,1 +1,1 @@
-include ':app', ':library_base', ':library_third', ':library_swutils', ':library_lower_23', ':time'
+include ':app', ':library_base', ':library_third', ':library_swutils', ':library_lower_23', ':time', ':music'
