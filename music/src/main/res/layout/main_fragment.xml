@@ -5,16 +5,73 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="16dp"
         tools:context=".ui.main.MainFragment">
 
     <TextView
-            android:id="@+id/message"
+            android:id="@+id/mf_tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MainFragment"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:padding="8dp"
+            android:text="歌曲名"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/mf_tv_singer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="歌手"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mf_tv_title" />
+
+
+    <SeekBar
+            android:id="@+id/mf_tv_seek"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mf_tv_singer" />
+
+    <TextView
+            android:id="@+id/mf_tv_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="进度信息"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mf_tv_seek" />
+
+    <TextView
+            android:id="@+id/mf_to_previous"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="上一曲"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/mf_to_play" />
+
+    <TextView
+            android:id="@+id/mf_to_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="播放"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/mf_to_previous"
+            app:layout_constraintRight_toLeftOf="@id/mf_to_next" />
+
+    <TextView
+            android:id="@+id/mf_to_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="下一曲"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/mf_to_play"
+            app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
