@@ -63,13 +63,23 @@ class MusicService : MediaBrowserServiceCompat() {
             }
             mCurrentMedia = mPlayList.get(mMusicIndex)
             var uri = mCurrentMedia?.description?.mediaUri
+            MusicHelper.log("uri, $uri")
             if (uri == null) {
-                MusicHelper.log("uri is null")
                 return
             }
-            MusicHelper.log("uri, $uri")
             try {
-                mMediaPlayer.setDataSource(applicationContext, uri)
+                if (uri.toString().startsWith("http")) {
+                    mMediaPlayer.setDataSource(applicationContext, uri)
+                } else {
+                    //  assets 资源
+                    val assetFileDescriptor = applicationContext.assets.openFd(uri.toString())
+                    mMediaPlayer.setDataSource(
+                        assetFileDescriptor.fileDescriptor,
+                        assetFileDescriptor.startOffset,
+                        assetFileDescriptor.length
+                    )
+                }
+
                 mMediaPlayer.prepareAsync()
             } catch (e: Exception) {
                 e.printStackTrace()

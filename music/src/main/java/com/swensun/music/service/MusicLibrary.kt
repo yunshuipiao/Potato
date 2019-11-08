@@ -9,20 +9,20 @@ object MusicLibrary {
             .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID, "35625821")
             .putString(
                 MediaMetadataCompat.METADATA_KEY_MEDIA_URI,
-                "http://music.163.com/song/media/outer/url?id=35625821.mp3"
+                "记念.mp3"
             )
             .putString(MediaMetadataCompat.METADATA_KEY_TITLE, "记念")
             .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, "雷雨心")
             .putString(
                 MediaMetadataCompat.METADATA_KEY_ART_URI,
-                "http://p2.music.126.net/W_srVOtG_DKS1-txPLqNQQ==/3273246117001205.jpg?param=130y130"
+                "记念.mp3"
             )
             .build()
         val music2 = MediaMetadataCompat.Builder()
             .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID, "27551005")
             .putString(
                 MediaMetadataCompat.METADATA_KEY_MEDIA_URI,
-                "http://music.163.com/song/media/outer/url?id=27551005.mp3"
+                "我以为.mp3"
             )
             .putString(MediaMetadataCompat.METADATA_KEY_TITLE, "我以为")
             .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, "王浩燃")
@@ -35,7 +35,7 @@ object MusicLibrary {
             .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID, "1379410256")
             .putString(
                 MediaMetadataCompat.METADATA_KEY_MEDIA_URI,
-                "http://music.163.com/song/media/outer/url?id=1379410256.mp3"
+                "今后我与自己流浪.mp3"
             )
             .putString(MediaMetadataCompat.METADATA_KEY_TITLE, "今后我与自己流浪")
             .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, "张碧晨")
@@ -48,7 +48,7 @@ object MusicLibrary {
             .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID, "413812448")
             .putString(
                 MediaMetadataCompat.METADATA_KEY_MEDIA_URI,
-                "http://music.163.com/song/media/outer/url?id=413812448.mp3"
+                "大鱼.mp3"
             )
             .putString(MediaMetadataCompat.METADATA_KEY_TITLE, "大鱼")
             .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, "周深")
@@ -61,7 +61,7 @@ object MusicLibrary {
             .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID, "1378085345")
             .putString(
                 MediaMetadataCompat.METADATA_KEY_MEDIA_URI,
-                "http://music.163.com/song/media/outer/url?id=1378085345.mp3"
+                "哪吒.mp3"
             )
             .putString(MediaMetadataCompat.METADATA_KEY_TITLE, "哪吒")
             .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, "GAI周延 / 大痒痒")
