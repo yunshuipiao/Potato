@@ -74,4 +74,13 @@
             app:layout_constraintLeft_toRightOf="@id/mf_to_play"
             app:layout_constraintRight_toRightOf="parent" />
 
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mf_tv_progress"
+            />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
