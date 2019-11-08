@@ -6,20 +6,22 @@ import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.os.ResultReceiver
+import android.os.SystemClock
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaDescriptionCompat
 import android.support.v4.media.RatingCompat
 import android.support.v4.media.session.MediaSessionCompat
+import android.support.v4.media.session.PlaybackStateCompat
 import androidx.media.MediaBrowserServiceCompat
 import com.swensun.music.MusicHelper
+import putDuration
 
 class MusicService : MediaBrowserServiceCompat() {
+    private var mState: Int = 0
     private var mPlayList = arrayListOf<MediaBrowserCompat.MediaItem>()
     private var mMusicIndex = 0
     private var mCurrentMedia: MediaBrowserCompat.MediaItem? = null
     private lateinit var mSession: MediaSessionCompat
-
-
     private var mMediaPlayer: MediaPlayer = MediaPlayer()
     // 播放控制器的事件回调
     private var mSessionCallback = object : MediaSessionCompat.Callback() {
@@ -39,12 +41,26 @@ class MusicService : MediaBrowserServiceCompat() {
             super.onAddQueueItem(description)
         }
 
-        override fun onAddQueueItem(description: MediaDescriptionCompat?, index: Int) {
-            super.onAddQueueItem(description, index)
-        }
-
         override fun onSkipToPrevious() {
             super.onSkipToPrevious()
+            if (mPlayList.isEmpty()) {
+                MusicHelper.log("not playlist")
+                return
+            }
+            mMusicIndex = if (mMusicIndex > 0) mMusicIndex - 1 else mPlayList.size - 1
+            mCurrentMedia = null
+            onPlay()
+        }
+
+        override fun onSkipToNext() {
+            super.onSkipToNext()
+            if (mPlayList.isEmpty()) {
+                MusicHelper.log("not playlist")
+                return
+            }
+            mMusicIndex = (++mMusicIndex % mPlayList.size)
+            mCurrentMedia = null
+            onPlay()
         }
 
         override fun onCustomAction(action: String?, extras: Bundle?) {
@@ -61,15 +77,27 @@ class MusicService : MediaBrowserServiceCompat() {
                 MusicHelper.log("media index error")
                 return
             }
-            mCurrentMedia = mPlayList.get(mMusicIndex)
-            var uri = mCurrentMedia?.description?.mediaUri
+            mCurrentMedia = mPlayList[mMusicIndex]
+            val uri = mCurrentMedia?.description?.mediaUri
+            MusicHelper.log("uri, $uri")
             if (uri == null) {
-                MusicHelper.log("uri is null")
                 return
             }
-            MusicHelper.log("uri, $uri")
+            // 加载资源要重置
+            mMediaPlayer.reset()
             try {
-                mMediaPlayer.setDataSource(applicationContext, uri)
+                if (uri.toString().startsWith("http")) {
+                    mMediaPlayer.setDataSource(applicationContext, uri)
+                } else {
+                    //  assets 资源
+                    val assetFileDescriptor = applicationContext.assets.openFd(uri.toString())
+                    mMediaPlayer.setDataSource(
+                        assetFileDescriptor.fileDescriptor,
+                        assetFileDescriptor.startOffset,
+                        assetFileDescriptor.length
+                    )
+                }
+
                 mMediaPlayer.prepareAsync()
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -86,12 +114,19 @@ class MusicService : MediaBrowserServiceCompat() {
                 onPrepare()
             }
             mMediaPlayer.start()
+            setNewState(PlaybackStateCompat.STATE_PLAYING)
+        }
 
+        override fun onPause() {
+            super.onPause()
+            mMediaPlayer.pause()
+            setNewState(PlaybackStateCompat.STATE_PAUSED)
         }
 
         override fun onStop() {
             super.onStop()
-            mMediaPlayer.pause()
+            mMediaPlayer.stop()
+            setNewState(PlaybackStateCompat.STATE_STOPPED)
         }
 
         override fun onSkipToQueueItem(id: Long) {
@@ -100,10 +135,6 @@ class MusicService : MediaBrowserServiceCompat() {
 
         override fun onRemoveQueueItem(description: MediaDescriptionCompat?) {
             super.onRemoveQueueItem(description)
-        }
-
-        override fun onSkipToNext() {
-            super.onSkipToNext()
         }
 
         override fun onSetPlaybackSpeed(speed: Float) {
@@ -120,10 +151,6 @@ class MusicService : MediaBrowserServiceCompat() {
 
         override fun onCommand(command: String?, extras: Bundle?, cb: ResultReceiver?) {
             super.onCommand(command, extras, cb)
-        }
-
-        override fun onPause() {
-            super.onPause()
         }
 
         override fun onPrepareFromSearch(query: String?, extras: Bundle?) {
@@ -162,6 +189,15 @@ class MusicService : MediaBrowserServiceCompat() {
             super.onSetCaptioningEnabled(enabled)
         }
     }
+
+    private fun setNewState(state: Int) {
+        mState = state
+        val stateBuilder = PlaybackStateCompat.Builder()
+        stateBuilder.setActions(getAvailableActions())
+        stateBuilder.setState(state, mMediaPlayer.currentPosition.toLong(), 1.0f, SystemClock.elapsedRealtime())
+        mSession.setPlaybackState(stateBuilder.build())
+    }
+
     // 播放器的回调
     private var mCompletionListener: MediaPlayer.OnCompletionListener =
         MediaPlayer.OnCompletionListener {
@@ -169,6 +205,9 @@ class MusicService : MediaBrowserServiceCompat() {
         }
     private var mPreparedListener: MediaPlayer.OnPreparedListener =
         MediaPlayer.OnPreparedListener {
+            val mediaId = mCurrentMedia?.mediaId ?: ""
+            val metadata = MusicLibrary.getMeteDataFromId(mediaId)
+            mSession.setMetadata(metadata.putDuration(mMediaPlayer.duration.toLong()))
             mSessionCallback.onPlay()
         }
 
@@ -207,5 +246,25 @@ class MusicService : MediaBrowserServiceCompat() {
 
     override fun onDestroy() {
         super.onDestroy()
+    }
+
+    @PlaybackStateCompat.Actions
+    private fun getAvailableActions(): Long {
+        var actions = (PlaybackStateCompat.ACTION_PLAY_FROM_MEDIA_ID
+                or PlaybackStateCompat.ACTION_PLAY_FROM_SEARCH
+                or PlaybackStateCompat.ACTION_SKIP_TO_NEXT
+                or PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS)
+        actions = when (mState) {
+            PlaybackStateCompat.STATE_STOPPED -> actions or (PlaybackStateCompat.ACTION_PLAY or PlaybackStateCompat.ACTION_PAUSE)
+            PlaybackStateCompat.STATE_PLAYING -> actions or (PlaybackStateCompat.ACTION_STOP
+                    or PlaybackStateCompat.ACTION_PAUSE
+                    or PlaybackStateCompat.ACTION_SEEK_TO)
+            PlaybackStateCompat.STATE_PAUSED -> actions or (PlaybackStateCompat.ACTION_PLAY or PlaybackStateCompat.ACTION_STOP)
+            else -> actions or (PlaybackStateCompat.ACTION_PLAY
+                    or PlaybackStateCompat.ACTION_PLAY_PAUSE
+                    or PlaybackStateCompat.ACTION_STOP
+                    or PlaybackStateCompat.ACTION_PAUSE)
+        }
+        return actions
     }
 }

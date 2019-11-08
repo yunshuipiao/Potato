@@ -8,6 +8,7 @@ import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaControllerCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.swensun.music.MusicHelper
 import com.swensun.music.service.MusicService
@@ -17,7 +18,14 @@ class MainViewModel : ViewModel() {
     private lateinit var mContext: Context
     private lateinit var mMediaControllerCompat: MediaControllerCompat
     private lateinit var mMediaBrowserCompat: MediaBrowserCompat
-    private var mPlaying = false
+    /**
+     * 播放状态的观察数据
+     */
+    public var mPlayStateLiveData = MutableLiveData<PlaybackStateCompat>()
+    /**
+     * 播放歌曲的状态数据
+     */
+    public var mMetaDataLiveData = MutableLiveData<MediaMetadataCompat>()
     private var mMediaControllerCompatCallback = object : MediaControllerCompat.Callback() {
         override fun onQueueChanged(queue: MutableList<MediaSessionCompat.QueueItem>?) {
             super.onQueueChanged(queue)
@@ -31,13 +39,14 @@ class MainViewModel : ViewModel() {
 
         override fun onPlaybackStateChanged(state: PlaybackStateCompat?) {
             super.onPlaybackStateChanged(state)
-            mPlaying = state?.state == PlaybackStateCompat.STATE_PLAYING
+            mPlayStateLiveData.postValue(state)
             MusicHelper.log("music onPlaybackStateChanged, $state")
         }
 
         override fun onMetadataChanged(metadata: MediaMetadataCompat?) {
             super.onMetadataChanged(metadata)
             MusicHelper.log("onMetadataChanged, $metadata")
+            mMetaDataLiveData.postValue(metadata)
         }
 
         override fun onSessionReady() {
@@ -107,7 +116,7 @@ class MainViewModel : ViewModel() {
     }
 
     fun playOrPause() {
-        if (mPlaying) {
+        if (mPlayStateLiveData.value?.state == PlaybackStateCompat.STATE_PLAYING) {
             mMediaControllerCompat.transportControls.pause()
         } else {
             mMediaControllerCompat.transportControls.play()
