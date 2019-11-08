@@ -36,7 +36,7 @@ class MainFragment : Fragment() {
         mf_to_next.setOnClickListener {
             viewModel.skipToNext()
         }
-        mf_to_next.setOnClickListener {
+        mf_to_play.setOnClickListener {
             viewModel.playOrPause()
         }
         mf_tv_seek.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {

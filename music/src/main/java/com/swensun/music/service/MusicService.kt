@@ -1,23 +1,27 @@
 package com.swensun.music.service
 
+import MusicLibrary
 import android.content.Intent
-import android.media.session.MediaSession
-import android.media.session.MediaSessionManager
+import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
 import android.os.ResultReceiver
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaDescriptionCompat
-import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.RatingCompat
 import android.support.v4.media.session.MediaSessionCompat
 import androidx.media.MediaBrowserServiceCompat
-import java.util.*
+import com.swensun.music.MusicHelper
 
 class MusicService : MediaBrowserServiceCompat() {
     private var mPlayList = arrayListOf<MediaBrowserCompat.MediaItem>()
+    private var mMusicIndex = 0
+    private var mCurrentMedia: MediaBrowserCompat.MediaItem? = null
     private lateinit var mSession: MediaSessionCompat
+
+
+    private var mMediaPlayer: MediaPlayer = MediaPlayer()
+    // 播放控制器的事件回调
     private var mSessionCallback = object : MediaSessionCompat.Callback() {
         override fun onMediaButtonEvent(mediaButtonEvent: Intent?): Boolean {
             return super.onMediaButtonEvent(mediaButtonEvent)
@@ -49,6 +53,27 @@ class MusicService : MediaBrowserServiceCompat() {
 
         override fun onPrepare() {
             super.onPrepare()
+            if (mPlayList.isEmpty()) {
+                MusicHelper.log("not playlist")
+                return
+            }
+            if (mMusicIndex < 0 || mMusicIndex >= mPlayList.size) {
+                MusicHelper.log("media index error")
+                return
+            }
+            mCurrentMedia = mPlayList.get(mMusicIndex)
+            var uri = mCurrentMedia?.description?.mediaUri
+            if (uri == null) {
+                MusicHelper.log("uri is null")
+                return
+            }
+            MusicHelper.log("uri, $uri")
+            try {
+                mMediaPlayer.setDataSource(applicationContext, uri)
+                mMediaPlayer.prepareAsync()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
 
         override fun onFastForward() {
@@ -57,10 +82,16 @@ class MusicService : MediaBrowserServiceCompat() {
 
         override fun onPlay() {
             super.onPlay()
+            if (mCurrentMedia == null) {
+                onPrepare()
+            }
+            mMediaPlayer.start()
+
         }
 
         override fun onStop() {
             super.onStop()
+            mMediaPlayer.pause()
         }
 
         override fun onSkipToQueueItem(id: Long) {
@@ -131,18 +162,29 @@ class MusicService : MediaBrowserServiceCompat() {
             super.onSetCaptioningEnabled(enabled)
         }
     }
+    // 播放器的回调
+    private var mCompletionListener: MediaPlayer.OnCompletionListener =
+        MediaPlayer.OnCompletionListener {
+
+        }
+    private var mPreparedListener: MediaPlayer.OnPreparedListener =
+        MediaPlayer.OnPreparedListener {
+            mSessionCallback.onPlay()
+        }
 
     override fun onLoadChildren(
         parentId: String,
         result: Result<MutableList<MediaBrowserCompat.MediaItem>>
     ) {
+        MusicHelper.log("onLoadChildren, $parentId")
         result.detach()
-//        val playList = MusicLibrary.getMusicList()
-//        val queues = arrayListOf<MediaBrowserCompat.MediaItem>()
-//        playList.forEach {
-//            queues.add(MediaBrowserCompat.MediaItem(
-//                it.description, MediaBrowserCompat.MediaItem.FLAG_PLAYABLE))
-//        }
+        val playList = MusicLibrary.getMusicList()
+        val queues = arrayListOf<MediaBrowserCompat.MediaItem>()
+        playList.forEach {
+            queues.add(MediaBrowserCompat.MediaItem(
+                it.description, MediaBrowserCompat.MediaItem.FLAG_PLAYABLE))
+        }
+        mPlayList.addAll(queues)
         result.sendResult(mPlayList)
     }
 
@@ -156,13 +198,14 @@ class MusicService : MediaBrowserServiceCompat() {
 
     override fun onCreate() {
         super.onCreate()
-        mSession = MediaSessionCompat(applicationContext, "")
+        mSession = MediaSessionCompat(applicationContext, "MusicService")
         mSession.setCallback(mSessionCallback)
         sessionToken = mSession.sessionToken
+        mMediaPlayer.setOnCompletionListener(mCompletionListener)
+        mMediaPlayer.setOnPreparedListener(mPreparedListener)
     }
 
     override fun onDestroy() {
         super.onDestroy()
     }
-
 }

@@ -2,12 +2,14 @@ package com.swensun.music.ui.main
 
 import android.content.ComponentName
 import android.content.Context
+import android.os.Bundle
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaControllerCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import androidx.lifecycle.ViewModel
+import com.swensun.music.MusicHelper
 import com.swensun.music.service.MusicService
 
 class MainViewModel : ViewModel() {
@@ -15,9 +17,12 @@ class MainViewModel : ViewModel() {
     private lateinit var mContext: Context
     private lateinit var mMediaControllerCompat: MediaControllerCompat
     private lateinit var mMediaBrowserCompat: MediaBrowserCompat
+    private var mPlaying = false
     private var mMediaControllerCompatCallback = object : MediaControllerCompat.Callback() {
         override fun onQueueChanged(queue: MutableList<MediaSessionCompat.QueueItem>?) {
             super.onQueueChanged(queue)
+            // 服务端的queue变化
+            MusicHelper.log("onQueueChanged: $queue" )
         }
 
         override fun onRepeatModeChanged(repeatMode: Int) {
@@ -26,10 +31,13 @@ class MainViewModel : ViewModel() {
 
         override fun onPlaybackStateChanged(state: PlaybackStateCompat?) {
             super.onPlaybackStateChanged(state)
+            mPlaying = state?.state == PlaybackStateCompat.STATE_PLAYING
+            MusicHelper.log("music onPlaybackStateChanged, $state")
         }
 
         override fun onMetadataChanged(metadata: MediaMetadataCompat?) {
             super.onMetadataChanged(metadata)
+            MusicHelper.log("onMetadataChanged, $metadata")
         }
 
         override fun onSessionReady() {
@@ -47,12 +55,12 @@ class MainViewModel : ViewModel() {
 
     private var mMediaBrowserCompatConnectionCallback: MediaBrowserCompat.ConnectionCallback = object :
         MediaBrowserCompat.ConnectionCallback() {
-
         override fun onConnected() {
             super.onConnected()
             // 连接成功
             mMediaControllerCompat = MediaControllerCompat(mContext, mMediaBrowserCompat.sessionToken)
             mMediaControllerCompat.registerCallback(mMediaControllerCompatCallback)
+            mMediaBrowserCompat.subscribe(mMediaBrowserCompat.root, mMediaBrowserCompatSubscriptionCallback)
         }
 
         override fun onConnectionSuspended() {
@@ -71,6 +79,7 @@ class MainViewModel : ViewModel() {
         ) {
             super.onChildrenLoaded(parentId, children)
             // 服务器 setChildLoad 的回调方法
+            MusicHelper.log("onChildrenLoaded, $children")
 
         }
     }
@@ -90,18 +99,23 @@ class MainViewModel : ViewModel() {
     }
 
     fun skipToNext() {
-
+        mMediaControllerCompat.transportControls.skipToNext()
     }
 
     fun skipToPrevious() {
-
+        mMediaControllerCompat.transportControls.skipToPrevious()
     }
 
     fun playOrPause() {
+        if (mPlaying) {
+            mMediaControllerCompat.transportControls.pause()
+        } else {
+            mMediaControllerCompat.transportControls.play()
+        }
 
     }
 
     fun seekTo(progress: Int) {
-
+        mMediaControllerCompat.transportControls.seekTo(progress.toLong())
     }
 }
