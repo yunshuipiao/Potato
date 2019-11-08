@@ -2,13 +2,17 @@ package com.swensun.music.ui.main
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.v4.media.MediaMetadataCompat
+import android.support.v4.media.session.PlaybackStateCompat
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import androidx.lifecycle.Observer
 import com.swensun.music.R
 import kotlinx.android.synthetic.main.main_fragment.*
+import kotlinx.android.synthetic.main.main_fragment.view.*
 
 class MainFragment : Fragment() {
 
@@ -29,7 +33,22 @@ class MainFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         viewModel.init(requireContext())
-
+        viewModel.mPlayStateLiveData.observe(this, Observer {
+            if (it.state == PlaybackStateCompat.STATE_PLAYING) {
+                mf_to_play.text = "暂停"
+            } else {
+                mf_to_play.text = "播放"
+            }
+        })
+        viewModel.mMetaDataLiveData.observe(this, Observer {
+            var title = it.getString(MediaMetadataCompat.METADATA_KEY_TITLE)
+            var singer = it.getString(MediaMetadataCompat.METADATA_KEY_ARTIST)
+            var duration = it.getLong(MediaMetadataCompat.METADATA_KEY_DURATION)
+            var durationShow = "${duration / 60000}: ${duration / 1000 % 60}"
+            mf_tv_title.text = "标题：$title"
+            mf_tv_singer.text = "歌手：$singer"
+            mf_tv_progress.text = "时长：$durationShow"
+        })
         mf_to_previous.setOnClickListener {
             viewModel.skipToPrevious()
         }

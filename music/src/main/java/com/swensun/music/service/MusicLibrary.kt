@@ -71,8 +71,23 @@ object MusicLibrary {
             )
             .build()
         playList.apply {
-            addAll(arrayListOf(music1, music2, music3, music4, music5))
+            addAll(arrayListOf(music2, music3, music4, music5, music1))
         }
         return playList
     }
+
+    fun getMeteDataFromId(id: String): MediaMetadataCompat {
+        return playList.find { id == it.getString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID) } ?: MediaMetadataCompat.Builder().build()
+    }
+}
+
+fun MediaMetadataCompat.putDuration(duration: Long): MediaMetadataCompat {
+    val dataBuilder = MediaMetadataCompat.Builder()
+    dataBuilder.putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID, this.getString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID))
+    dataBuilder.putString(MediaMetadataCompat.METADATA_KEY_MEDIA_URI, this.getString(MediaMetadataCompat.METADATA_KEY_MEDIA_URI))
+    dataBuilder.putString(MediaMetadataCompat.METADATA_KEY_TITLE, this.getString(MediaMetadataCompat.METADATA_KEY_TITLE))
+    dataBuilder.putString(MediaMetadataCompat.METADATA_KEY_ARTIST, this.getString(MediaMetadataCompat.METADATA_KEY_ARTIST))
+    dataBuilder.putString(MediaMetadataCompat.METADATA_KEY_ART_URI, this.getString(MediaMetadataCompat.METADATA_KEY_ART_URI))
+    dataBuilder.putLong(MediaMetadataCompat.METADATA_KEY_DURATION, duration)
+    return dataBuilder.build()
 }
