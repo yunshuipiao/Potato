@@ -84,7 +84,7 @@ class MainFragment : Fragment() {
         }
         mf_tv_seek.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
-
+                handler.removeMessages(1)
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
@@ -158,8 +158,6 @@ class MainFragment : Fragment() {
             var position = (SystemClock.elapsedRealtime() - mPlayState.lastPositionUpdateTime ) * mPlayState.playbackSpeed + mPlayState.position
             mf_tv_seek.progress = position.toInt()
             sendEmptyMessageDelayed(1, 250)
-            MusicHelper.log("progress: $position")
-
         }
     }
 

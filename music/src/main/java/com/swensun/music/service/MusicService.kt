@@ -17,9 +17,10 @@ import com.swensun.music.MusicHelper
 import putDuration
 
 class MusicService : MediaBrowserServiceCompat() {
+    private var mRepeatMode: Int = PlaybackStateCompat.REPEAT_MODE_NONE
     private var mState: Int = 0
     private var mPlayList = arrayListOf<MediaSessionCompat.QueueItem>()
-    private var mMusicIndex = 0
+    private var mMusicIndex = -1
     private var mCurrentMedia: MediaSessionCompat.QueueItem? = null
     private lateinit var mSession: MediaSessionCompat
     private var mMediaPlayer: MediaPlayer = MediaPlayer()
@@ -115,7 +116,6 @@ class MusicService : MediaBrowserServiceCompat() {
                         assetFileDescriptor.length
                     )
                 }
-
                 mMediaPlayer.prepareAsync()
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -164,6 +164,7 @@ class MusicService : MediaBrowserServiceCompat() {
 
         override fun onSetRepeatMode(repeatMode: Int) {
             super.onSetRepeatMode(repeatMode)
+            mRepeatMode = repeatMode
         }
 
         override fun onCommand(command: String?, extras: Bundle?, cb: ResultReceiver?) {
@@ -234,7 +235,21 @@ class MusicService : MediaBrowserServiceCompat() {
     // 播放器的回调
     private var mCompletionListener: MediaPlayer.OnCompletionListener =
         MediaPlayer.OnCompletionListener {
-
+            MusicHelper.log("OnCompletionListener")
+            setNewState(PlaybackStateCompat.STATE_STOPPED)
+            when (mRepeatMode) {
+                PlaybackStateCompat.REPEAT_MODE_ONE -> {
+                    mSessionCallback.onPlay()
+                }
+                PlaybackStateCompat.REPEAT_MODE_ALL -> {
+                    mSessionCallback.onSkipToNext()
+                }
+                PlaybackStateCompat.REPEAT_MODE_NONE -> {
+                    if (mMusicIndex != mPlayList.size - 1) {
+                        mSessionCallback.onSkipToNext()
+                    }
+                }
+            }
         }
     private var mPreparedListener: MediaPlayer.OnPreparedListener =
         MediaPlayer.OnPreparedListener {
@@ -272,6 +287,9 @@ class MusicService : MediaBrowserServiceCompat() {
         sessionToken = mSession.sessionToken
         mMediaPlayer.setOnCompletionListener(mCompletionListener)
         mMediaPlayer.setOnPreparedListener(mPreparedListener)
+        mMediaPlayer.setOnErrorListener { mp, what, extra ->
+            true
+        }
     }
 
     override fun onDestroy() {
