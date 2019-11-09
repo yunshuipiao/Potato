@@ -12,18 +12,21 @@ import android.support.v4.media.MediaDescriptionCompat
 import android.support.v4.media.RatingCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
+import androidx.core.content.ContextCompat
 import androidx.media.MediaBrowserServiceCompat
 import com.swensun.music.MusicHelper
 import putDuration
 
 class MusicService : MediaBrowserServiceCompat() {
     private var mRepeatMode: Int = PlaybackStateCompat.REPEAT_MODE_NONE
-    private var mState: Int = 0
+    private var mState = PlaybackStateCompat.Builder().build()
     private var mPlayList = arrayListOf<MediaSessionCompat.QueueItem>()
     private var mMusicIndex = -1
     private var mCurrentMedia: MediaSessionCompat.QueueItem? = null
     private lateinit var mSession: MediaSessionCompat
     private var mMediaPlayer: MediaPlayer = MediaPlayer()
+    lateinit var mNotificationManager: MediaNotificationManager
+
     // 播放控制器的事件回调
     private var mSessionCallback = object : MediaSessionCompat.Callback() {
         override fun onMediaButtonEvent(mediaButtonEvent: Intent?): Boolean {
@@ -37,7 +40,7 @@ class MusicService : MediaBrowserServiceCompat() {
         override fun onSeekTo(pos: Long) {
             super.onSeekTo(pos)
             mMediaPlayer.seekTo(pos.toInt())
-            setNewState(mState)
+            setNewState(mState.state)
         }
 
         override fun onAddQueueItem(description: MediaDescriptionCompat) {
@@ -220,7 +223,6 @@ class MusicService : MediaBrowserServiceCompat() {
     }
 
     private fun setNewState(state: Int) {
-        mState = state
         val stateBuilder = PlaybackStateCompat.Builder()
         stateBuilder.setActions(getAvailableActions())
         stateBuilder.setState(
@@ -229,7 +231,30 @@ class MusicService : MediaBrowserServiceCompat() {
             1.0f,
             SystemClock.elapsedRealtime()
         )
-        mSession.setPlaybackState(stateBuilder.build())
+        mState = stateBuilder.build()
+        mSession.setPlaybackState(mState)
+
+        sessionToken?.let {
+            val description = mCurrentMedia?.description ?: MediaDescriptionCompat.Builder().build()
+            when(state) {
+                PlaybackStateCompat.STATE_PLAYING -> {
+                    val notification = mNotificationManager.getNotification(description, mState, it)
+                    ContextCompat.startForegroundService(
+                        this@MusicService,
+                        Intent(this@MusicService, MusicService::class.java)
+                    )
+                    startForeground(MediaNotificationManager.NOTIFICATION_ID, notification)
+                }
+                PlaybackStateCompat.STATE_PAUSED -> {
+                    val notification = mNotificationManager.getNotification(
+                        description, mState, it
+                    )
+                    mNotificationManager.notificationManager
+                        .notify(MediaNotificationManager.NOTIFICATION_ID, notification)
+                }
+            }
+        }
+
     }
 
     // 播放器的回调
@@ -290,6 +315,7 @@ class MusicService : MediaBrowserServiceCompat() {
         mMediaPlayer.setOnErrorListener { mp, what, extra ->
             true
         }
+        mNotificationManager = MediaNotificationManager(this)
     }
 
     override fun onDestroy() {
@@ -302,7 +328,7 @@ class MusicService : MediaBrowserServiceCompat() {
                 or PlaybackStateCompat.ACTION_PLAY_FROM_SEARCH
                 or PlaybackStateCompat.ACTION_SKIP_TO_NEXT
                 or PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS)
-        actions = when (mState) {
+        actions = when (mState.state) {
             PlaybackStateCompat.STATE_STOPPED -> actions or (PlaybackStateCompat.ACTION_PLAY or PlaybackStateCompat.ACTION_PAUSE)
             PlaybackStateCompat.STATE_PLAYING -> actions or (PlaybackStateCompat.ACTION_STOP
                     or PlaybackStateCompat.ACTION_PAUSE
