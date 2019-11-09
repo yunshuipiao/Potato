@@ -25,14 +25,15 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.support.v4.media.MediaDescriptionCompat
-import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import androidx.media.session.MediaButtonReceiver
 import com.swensun.music.MainActivity
+import com.swensun.music.R
 
 
 /**
@@ -41,49 +42,40 @@ import com.swensun.music.MainActivity
  */
 class MediaNotificationManager(private val mService: MusicService) {
 
-    private val mPlayAction: NotificationCompat.Action
-    private val mPauseAction: NotificationCompat.Action
-    private val mNextAction: NotificationCompat.Action
-    private val mPrevAction: NotificationCompat.Action
+    private val mPlayAction: NotificationCompat.Action = NotificationCompat.Action(
+        R.drawable.ic_play_arrow_white_24dp,"",
+        MediaButtonReceiver.buildMediaButtonPendingIntent(
+            mService,
+            PlaybackStateCompat.ACTION_PLAY
+        )
+    )
+    private val mPauseAction: NotificationCompat.Action = NotificationCompat.Action(
+        R.drawable.ic_pause_white_24dp,"",
+        MediaButtonReceiver.buildMediaButtonPendingIntent(
+            mService,
+            PlaybackStateCompat.ACTION_PAUSE
+        )
+    )
+    private val mNextAction: NotificationCompat.Action = NotificationCompat.Action(
+        R.drawable.ic_skip_next_white_24dp,"",
+        MediaButtonReceiver.buildMediaButtonPendingIntent(
+            mService,
+            PlaybackStateCompat.ACTION_SKIP_TO_NEXT
+        )
+    )
+    private val mPrevAction: NotificationCompat.Action = NotificationCompat.Action(
+        R.drawable.ic_skip_previous_white_24dp,"",
+        MediaButtonReceiver.buildMediaButtonPendingIntent(
+            mService,
+            PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS
+        )
+    )
     val notificationManager: NotificationManager = mService.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     private val isAndroidOOrHigher: Boolean
         get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
 
     init {
-
-        mPlayAction = NotificationCompat.Action(
-            0,
-            "",
-            MediaButtonReceiver.buildMediaButtonPendingIntent(
-                mService,
-                PlaybackStateCompat.ACTION_PLAY
-            )
-        )
-        mPauseAction = NotificationCompat.Action(
-            0,
-            "",
-            MediaButtonReceiver.buildMediaButtonPendingIntent(
-                mService,
-                PlaybackStateCompat.ACTION_PAUSE
-            )
-        )
-        mNextAction = NotificationCompat.Action(
-            0,
-            "",
-            MediaButtonReceiver.buildMediaButtonPendingIntent(
-                mService,
-                PlaybackStateCompat.ACTION_SKIP_TO_NEXT
-            )
-        )
-        mPrevAction = NotificationCompat.Action(
-            0,
-            "",
-            MediaButtonReceiver.buildMediaButtonPendingIntent(
-                mService,
-                PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS
-            )
-        )
 
         // Cancel all notifications to handle the case where the Service was killed and
         // restarted by the system.
@@ -99,15 +91,13 @@ class MediaNotificationManager(private val mService: MusicService) {
         state: PlaybackStateCompat,
         token: MediaSessionCompat.Token
     ): Notification {
-        val isPlaying = state.state == PlaybackStateCompat.STATE_PLAYING
-        val builder = buildNotification(state, token, isPlaying, description)
+        val builder = buildNotification(state, token, description)
         return builder.build()
     }
 
     private fun buildNotification(
         state: PlaybackStateCompat,
         token: MediaSessionCompat.Token,
-        isPlaying: Boolean,
         description: MediaDescriptionCompat
     ): NotificationCompat.Builder {
 
@@ -130,12 +120,15 @@ class MediaNotificationManager(private val mService: MusicService) {
                     )
                 )
         )
+            .setColor(ContextCompat.getColor(mService, R.color.colorPrimary))
+            .setSmallIcon(R.drawable.ic_stat_image_audiotrack)
             // Pending intent that is fired when user clicks on notification.
             .setContentIntent(createContentIntent())
             // Title - Usually Song name.
             .setContentTitle(description.title)
             // Subtitle - Usually Artist name.
             .setContentText(description.subtitle)
+//            .setLargeIcon(MusicLibrary.getAlbumBitmap(mService, description.mediaId))
             // When notification is deleted (when playback is paused and notification can be
             // deleted) fire MediaButtonPendingIntent with ACTION_STOP.
             .setDeleteIntent(
@@ -151,7 +144,7 @@ class MediaNotificationManager(private val mService: MusicService) {
             builder.addAction(mPrevAction)
         }
 
-        builder.addAction(if (isPlaying) mPauseAction else mPlayAction)
+        builder.addAction(if (state.state == PlaybackStateCompat.STATE_PLAYING) mPauseAction else mPlayAction)
 
         // If skip to prev action is enabled.
         if (state.actions and PlaybackStateCompat.ACTION_SKIP_TO_NEXT != 0L) {
@@ -198,7 +191,7 @@ class MediaNotificationManager(private val mService: MusicService) {
         val NOTIFICATION_ID = 412
 
         private val TAG = MediaNotificationManager::class.java.simpleName
-        private val CHANNEL_ID = "com.example.android.musicplayer.channel"
+        private val CHANNEL_ID = "com.swensun.music"
         private val REQUEST_CODE = 501
     }
 

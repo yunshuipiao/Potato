@@ -1,7 +1,11 @@
 package com.swensun.music.service
 
 import MusicLibrary
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
+import android.media.AudioManager
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
@@ -17,6 +21,7 @@ import androidx.media.MediaBrowserServiceCompat
 import com.swensun.music.MusicHelper
 import putDuration
 
+
 class MusicService : MediaBrowserServiceCompat() {
     private var mRepeatMode: Int = PlaybackStateCompat.REPEAT_MODE_NONE
     private var mState = PlaybackStateCompat.Builder().build()
@@ -25,7 +30,12 @@ class MusicService : MediaBrowserServiceCompat() {
     private var mCurrentMedia: MediaSessionCompat.QueueItem? = null
     private lateinit var mSession: MediaSessionCompat
     private var mMediaPlayer: MediaPlayer = MediaPlayer()
-    lateinit var mNotificationManager: MediaNotificationManager
+    /**
+     * 前台通知的相关内容
+     */
+    private lateinit var mNotificationManager: MediaNotificationManager
+
+    private lateinit var mAudioFocusHelper: AudioFocusHelper
 
     // 播放控制器的事件回调
     private var mSessionCallback = object : MediaSessionCompat.Callback() {
@@ -119,7 +129,7 @@ class MusicService : MediaBrowserServiceCompat() {
                         assetFileDescriptor.length
                     )
                 }
-                mMediaPlayer.prepareAsync()
+                mMediaPlayer.prepare()
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -137,18 +147,24 @@ class MusicService : MediaBrowserServiceCompat() {
             if (mCurrentMedia == null) {
                 return
             }
-            mMediaPlayer.start()
-            setNewState(PlaybackStateCompat.STATE_PLAYING)
+            if (mAudioFocusHelper.requestAudioFocus()) {
+                mMediaPlayer.start()
+                setNewState(PlaybackStateCompat.STATE_PLAYING)
+            }
         }
 
         override fun onPause() {
             super.onPause()
+            if (!mAudioFocusHelper.mPlayOnAudioFocus) {
+                mAudioFocusHelper.abandonAudioFocus()
+            }
             mMediaPlayer.pause()
             setNewState(PlaybackStateCompat.STATE_PAUSED)
         }
 
         override fun onStop() {
             super.onStop()
+            mAudioFocusHelper.abandonAudioFocus()
             mMediaPlayer.stop()
             setNewState(PlaybackStateCompat.STATE_STOPPED)
         }
@@ -157,9 +173,6 @@ class MusicService : MediaBrowserServiceCompat() {
             super.onSkipToQueueItem(id)
         }
 
-        override fun onSetPlaybackSpeed(speed: Float) {
-            super.onSetPlaybackSpeed(speed)
-        }
 
         override fun onPrepareFromMediaId(mediaId: String?, extras: Bundle?) {
             super.onPrepareFromMediaId(mediaId, extras)
@@ -222,46 +235,11 @@ class MusicService : MediaBrowserServiceCompat() {
         }
     }
 
-    private fun setNewState(state: Int) {
-        val stateBuilder = PlaybackStateCompat.Builder()
-        stateBuilder.setActions(getAvailableActions())
-        stateBuilder.setState(
-            state,
-            mMediaPlayer.currentPosition.toLong(),
-            1.0f,
-            SystemClock.elapsedRealtime()
-        )
-        mState = stateBuilder.build()
-        mSession.setPlaybackState(mState)
-
-        sessionToken?.let {
-            val description = mCurrentMedia?.description ?: MediaDescriptionCompat.Builder().build()
-            when(state) {
-                PlaybackStateCompat.STATE_PLAYING -> {
-                    val notification = mNotificationManager.getNotification(description, mState, it)
-                    ContextCompat.startForegroundService(
-                        this@MusicService,
-                        Intent(this@MusicService, MusicService::class.java)
-                    )
-                    startForeground(MediaNotificationManager.NOTIFICATION_ID, notification)
-                }
-                PlaybackStateCompat.STATE_PAUSED -> {
-                    val notification = mNotificationManager.getNotification(
-                        description, mState, it
-                    )
-                    mNotificationManager.notificationManager
-                        .notify(MediaNotificationManager.NOTIFICATION_ID, notification)
-                }
-            }
-        }
-
-    }
-
     // 播放器的回调
     private var mCompletionListener: MediaPlayer.OnCompletionListener =
         MediaPlayer.OnCompletionListener {
             MusicHelper.log("OnCompletionListener")
-            setNewState(PlaybackStateCompat.STATE_STOPPED)
+            setNewState(PlaybackStateCompat.STATE_PAUSED)
             when (mRepeatMode) {
                 PlaybackStateCompat.REPEAT_MODE_ONE -> {
                     mSessionCallback.onPlay()
@@ -316,6 +294,7 @@ class MusicService : MediaBrowserServiceCompat() {
             true
         }
         mNotificationManager = MediaNotificationManager(this)
+        mAudioFocusHelper = AudioFocusHelper(this)
     }
 
     override fun onDestroy() {
@@ -323,12 +302,12 @@ class MusicService : MediaBrowserServiceCompat() {
     }
 
     @PlaybackStateCompat.Actions
-    private fun getAvailableActions(): Long {
+    private fun getAvailableActions(state: Int): Long {
         var actions = (PlaybackStateCompat.ACTION_PLAY_FROM_MEDIA_ID
                 or PlaybackStateCompat.ACTION_PLAY_FROM_SEARCH
                 or PlaybackStateCompat.ACTION_SKIP_TO_NEXT
                 or PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS)
-        actions = when (mState.state) {
+        actions = when (state) {
             PlaybackStateCompat.STATE_STOPPED -> actions or (PlaybackStateCompat.ACTION_PLAY or PlaybackStateCompat.ACTION_PAUSE)
             PlaybackStateCompat.STATE_PLAYING -> actions or (PlaybackStateCompat.ACTION_STOP
                     or PlaybackStateCompat.ACTION_PAUSE
@@ -340,5 +319,127 @@ class MusicService : MediaBrowserServiceCompat() {
                     or PlaybackStateCompat.ACTION_PAUSE)
         }
         return actions
+    }
+
+    private fun setNewState(state: Int) {
+        val stateBuilder = PlaybackStateCompat.Builder()
+        stateBuilder.setActions(getAvailableActions(state))
+        stateBuilder.setState(
+            state,
+            mMediaPlayer.currentPosition.toLong(),
+            1.0f,
+            SystemClock.elapsedRealtime()
+        )
+        mState = stateBuilder.build()
+        mSession.setPlaybackState(mState)
+
+        sessionToken?.let {
+            val description = mCurrentMedia?.description ?: MediaDescriptionCompat.Builder().build()
+            when(state) {
+                PlaybackStateCompat.STATE_PLAYING -> {
+                    val notification = mNotificationManager.getNotification(description, mState, it)
+                    ContextCompat.startForegroundService(
+                        this@MusicService,
+                        Intent(this@MusicService, MusicService::class.java)
+                    )
+                    startForeground(MediaNotificationManager.NOTIFICATION_ID, notification)
+                }
+                PlaybackStateCompat.STATE_PAUSED -> {
+                    val notification = mNotificationManager.getNotification(
+                        description, mState, it
+                    )
+                    mNotificationManager.notificationManager
+                        .notify(MediaNotificationManager.NOTIFICATION_ID, notification)
+                }
+                PlaybackStateCompat.STATE_STOPPED ->  {
+                    stopSelf()
+                }
+            }
+        }
+    }
+
+    /**
+     * Helper class for managing audio focus related tasks.
+     */
+    private inner class AudioFocusHelper(val context: Context) : AudioManager.OnAudioFocusChangeListener {
+
+        private val MEDIA_VOLUME_DUCK: Float = 0.2f
+        private val MEDIA_VOLUME_DEFAULT: Float = 1.0f
+        public var mPlayOnAudioFocus: Boolean = false
+        private var mAudioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        private var mAudioNoisyReceiverRegistered = false
+
+        /**
+         * 耳机拨出的相关广播
+         */
+        private var AUDIO_NOISY_INTENT_FILTER =
+            IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY)
+
+        private var mAudioNoisyReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                if (AudioManager.ACTION_AUDIO_BECOMING_NOISY == intent?.action) {
+                    if (mMediaPlayer.isPlaying) {
+                        mSessionCallback.onPause()
+                    }
+                }
+            }
+        }
+
+        fun requestAudioFocus(): Boolean {
+            registerAudioNoisyReceiver()
+            val result = mAudioManager.requestAudioFocus(
+                this,
+                AudioManager.STREAM_MUSIC,
+                AudioManager.AUDIOFOCUS_GAIN
+            )
+            return result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED
+        }
+
+         fun abandonAudioFocus() {
+             unregisterAudioNoisyReceiver()
+            mAudioManager.abandonAudioFocus(this)
+        }
+
+        override fun onAudioFocusChange(focusChange: Int) {
+            when (focusChange) {
+                AudioManager.AUDIOFOCUS_GAIN -> {
+                    if (mPlayOnAudioFocus && !mMediaPlayer.isPlaying) {
+                        mSessionCallback.onPlay()
+                    } else if (mMediaPlayer.isPlaying) {
+                        setVolume(MEDIA_VOLUME_DEFAULT)
+                    }
+                    mPlayOnAudioFocus = false
+                }
+                AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK -> setVolume(MEDIA_VOLUME_DUCK)
+                AudioManager.AUDIOFOCUS_LOSS_TRANSIENT -> if (mMediaPlayer.isPlaying) {
+                    mPlayOnAudioFocus = true
+                    mSessionCallback.onPause()
+                }
+                AudioManager.AUDIOFOCUS_LOSS -> {
+                    mAudioManager.abandonAudioFocus(this)
+                    mPlayOnAudioFocus = false
+                    // 这里暂停播放
+                    mSessionCallback.onPause()
+                }
+            }
+        }
+
+        private fun setVolume(volume: Float) {
+            mMediaPlayer.setVolume(volume, volume)
+        }
+
+        fun registerAudioNoisyReceiver() {
+            if (!mAudioNoisyReceiverRegistered) {
+                context.registerReceiver(mAudioNoisyReceiver, AUDIO_NOISY_INTENT_FILTER)
+                mAudioNoisyReceiverRegistered = true
+            }
+        }
+
+        fun unregisterAudioNoisyReceiver() {
+            if (mAudioNoisyReceiverRegistered) {
+                context.unregisterReceiver(mAudioNoisyReceiver)
+                mAudioNoisyReceiverRegistered = false
+            }
+        }
     }
 }
