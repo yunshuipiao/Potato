@@ -4,6 +4,7 @@ import MusicLibrary
 import android.content.ComponentName
 import android.content.Context
 import android.support.v4.media.MediaBrowserCompat
+import android.support.v4.media.MediaDescriptionCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaControllerCompat
 import android.support.v4.media.session.MediaSessionCompat
@@ -26,11 +27,15 @@ class MainViewModel : ViewModel() {
      * 播放歌曲的状态数据
      */
     public var mMetaDataLiveData = MutableLiveData<MediaMetadataCompat>()
+
+    public var mMusicsLiveData = MutableLiveData<MutableList<MediaDescriptionCompat>>()
     private var mMediaControllerCompatCallback = object : MediaControllerCompat.Callback() {
         override fun onQueueChanged(queue: MutableList<MediaSessionCompat.QueueItem>?) {
             super.onQueueChanged(queue)
             // 服务端的queue变化
             MusicHelper.log("onQueueChanged: $queue" )
+            mMusicsLiveData.postValue(queue?.map { it.description } as MutableList<MediaDescriptionCompat>)
+
         }
 
         override fun onRepeatModeChanged(repeatMode: Int) {
@@ -67,6 +72,7 @@ class MainViewModel : ViewModel() {
         override fun onConnected() {
             super.onConnected()
             // 连接成功
+            MusicHelper.log("onConnected")
             mMediaControllerCompat = MediaControllerCompat(mContext, mMediaBrowserCompat.sessionToken)
             mMediaControllerCompat.registerCallback(mMediaControllerCompatCallback)
             mMediaBrowserCompat.subscribe(mMediaBrowserCompat.root, mMediaBrowserCompatSubscriptionCallback)
@@ -128,6 +134,13 @@ class MainViewModel : ViewModel() {
     }
 
     fun getNetworkPlayList() {
-        MusicLibrary.getMusicList()
+       val playList =  MusicLibrary.getMusicList()
+        playList.forEach {
+            mMediaControllerCompat.addQueueItem(it.description)
+        }
+    }
+
+    fun playFromMediaId(mediaId: String) {
+        mMediaControllerCompat.transportControls.playFromMediaId(mediaId, null)
     }
 }

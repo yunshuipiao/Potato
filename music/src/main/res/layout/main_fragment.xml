@@ -74,6 +74,17 @@
             app:layout_constraintLeft_toRightOf="@id/mf_to_play"
             app:layout_constraintRight_toRightOf="parent" />
 
+    <TextView
+            android:id="@+id/mf_to_load"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="加载歌曲"
+            app:layout_constraintBottom_toTopOf="@id/mf_to_play"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintLeft_toRightOf="@id/mf_to_previous"
+            app:layout_constraintRight_toLeftOf="@id/mf_to_next" />
+
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"

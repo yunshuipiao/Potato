@@ -1,25 +1,23 @@
 package com.swensun.music.ui.main
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.v4.media.MediaDescriptionCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.PlaybackStateCompat
-import android.support.v4.media.MediaMetadataCompat
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
-import androidx.lifecycle.Observer
 import android.widget.TextView
-import androidx.appcompat.view.menu.ActionMenuItemView
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.chad.library.adapter.base.BaseViewHolder
 import com.swensun.music.R
 import kotlinx.android.synthetic.main.main_fragment.*
-import kotlinx.android.synthetic.main.main_fragment.view.*
-import org.w3c.dom.Text
-import com.chad.library.adapter.base.BaseQuickAdapter as BaseQuickAdapter
+import org.jetbrains.anko.textColor
 
 class MainFragment : Fragment() {
 
@@ -27,6 +25,7 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
+    private val mMusicAdapter: MusicAdapter = MusicAdapter()
     private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(
@@ -48,13 +47,17 @@ class MainFragment : Fragment() {
             }
         })
         viewModel.mMetaDataLiveData.observe(this, Observer {
-            var title = it.getString(MediaMetadataCompat.METADATA_KEY_TITLE)
-            var singer = it.getString(MediaMetadataCompat.METADATA_KEY_ARTIST)
-            var duration = it.getLong(MediaMetadataCompat.METADATA_KEY_DURATION)
-            var durationShow = "${duration / 60000}: ${duration / 1000 % 60}"
+            val title = it.getString(MediaMetadataCompat.METADATA_KEY_TITLE)
+            val singer = it.getString(MediaMetadataCompat.METADATA_KEY_ARTIST)
+            val duration = it.getLong(MediaMetadataCompat.METADATA_KEY_DURATION)
+            val durationShow = "${duration / 60000}: ${duration / 1000 % 60}"
             mf_tv_title.text = "标题：$title"
             mf_tv_singer.text = "歌手：$singer"
             mf_tv_progress.text = "时长：$durationShow"
+            mMusicAdapter.notifyPlayingMusic(it.getString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID))
+        })
+        viewModel.mMusicsLiveData.observe(this, Observer {
+            mMusicAdapter.setList(it)
         })
         mf_to_previous.setOnClickListener {
             viewModel.skipToPrevious()
@@ -64,6 +67,9 @@ class MainFragment : Fragment() {
         }
         mf_to_play.setOnClickListener {
             viewModel.playOrPause()
+        }
+        mf_to_load.setOnClickListener {
+            viewModel.getNetworkPlayList()
         }
         mf_tv_seek.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -77,12 +83,16 @@ class MainFragment : Fragment() {
                 viewModel.seekTo(progress)
             }
         })
+        recycler.layoutManager = LinearLayoutManager(requireContext())
+        recycler.setHasFixedSize(true)
+        recycler.adapter = mMusicAdapter
     }
 
-    class MusicAdapter: RecyclerView.Adapter<MusicViewHolder>() {
-        private var mList = arrayListOf<MediaMetadataCompat>()
+    inner class MusicAdapter: RecyclerView.Adapter<MusicViewHolder>() {
+        private var mList = arrayListOf<MediaDescriptionCompat>()
+        private var mPlayingMusicId = ""
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MusicViewHolder {
-            var view = LayoutInflater.from(parent.context).inflate(R.layout.item_music, parent, false)
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_music, parent, false)
             return MusicViewHolder(view)
         }
 
@@ -91,24 +101,42 @@ class MainFragment : Fragment() {
         }
 
         override fun onBindViewHolder(holder: MusicViewHolder, position: Int) {
-            holder.update(mList[position])
+            holder.update(mList[position], mPlayingMusicId)
         }
 
-        public fun setList(datas: List<MediaMetadataCompat>) {
+        public fun setList(datas: List<MediaDescriptionCompat>) {
             mList.clear()
             mList.addAll(datas)
             notifyDataSetChanged()
         }
+
+        fun notifyPlayingMusic(mediaId: String) {
+            mPlayingMusicId = mediaId
+            notifyDataSetChanged()
+        }
     }
 
-    class MusicViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    inner class MusicViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         private var titleView = itemView.findViewById<TextView>(R.id.im_tv_title)
         private var singerView = itemView.findViewById<TextView>(R.id.im_tv_singer)
 
-        public fun update(data: MediaMetadataCompat) {
-            titleView.text = data.getString(MediaMetadataCompat.METADATA_KEY_TITLE)
-            singerView.text = data.getString(MediaMetadataCompat.METADATA_KEY_ARTIST)
+        public fun update(
+            data: MediaDescriptionCompat,
+            mPlayingMusicId: String
+        ) {
+            titleView.text = data.title
+            singerView.text = data.subtitle
+            if (mPlayingMusicId == data.mediaId) {
+                titleView.textColor = ContextCompat.getColor(itemView.context, R.color.colorPrimary)
+                singerView.textColor = ContextCompat.getColor(itemView.context, R.color.colorPrimary)
+            } else {
+                titleView.textColor = ContextCompat.getColor(itemView.context, R.color.black)
+                singerView.textColor = ContextCompat.getColor(itemView.context, R.color.black)
+            }
+            itemView.setOnClickListener {
+                viewModel.playFromMediaId(data.mediaId ?: "")
+            }
         }
     }
 }

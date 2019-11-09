@@ -18,9 +18,9 @@ import putDuration
 
 class MusicService : MediaBrowserServiceCompat() {
     private var mState: Int = 0
-    private var mPlayList = arrayListOf<MediaBrowserCompat.MediaItem>()
+    private var mPlayList = arrayListOf<MediaSessionCompat.QueueItem>()
     private var mMusicIndex = 0
-    private var mCurrentMedia: MediaBrowserCompat.MediaItem? = null
+    private var mCurrentMedia: MediaSessionCompat.QueueItem? = null
     private lateinit var mSession: MediaSessionCompat
     private var mMediaPlayer: MediaPlayer = MediaPlayer()
     // 播放控制器的事件回调
@@ -37,8 +37,22 @@ class MusicService : MediaBrowserServiceCompat() {
             super.onSeekTo(pos)
         }
 
-        override fun onAddQueueItem(description: MediaDescriptionCompat?) {
+        override fun onAddQueueItem(description: MediaDescriptionCompat) {
             super.onAddQueueItem(description)
+            // 客户端添加歌曲
+            mPlayList.add(
+                MediaSessionCompat.QueueItem(description, description.hashCode().toLong())
+            )
+            mMusicIndex = if (mMusicIndex == -1) 0 else mMusicIndex
+            mSession.setQueue(mPlayList)
+        }
+
+        override fun onRemoveQueueItem(description: MediaDescriptionCompat?) {
+            super.onRemoveQueueItem(description)
+            mPlayList.remove(MediaSessionCompat.QueueItem(description, description.hashCode().toLong()))
+            mMusicIndex = if (mPlayList.isEmpty()) -1 else mMusicIndex
+            mSession.setQueue(mPlayList)
+
         }
 
         override fun onSkipToPrevious() {
@@ -113,6 +127,9 @@ class MusicService : MediaBrowserServiceCompat() {
             if (mCurrentMedia == null) {
                 onPrepare()
             }
+            if (mCurrentMedia == null) {
+                return
+            }
             mMediaPlayer.start()
             setNewState(PlaybackStateCompat.STATE_PLAYING)
         }
@@ -131,10 +148,6 @@ class MusicService : MediaBrowserServiceCompat() {
 
         override fun onSkipToQueueItem(id: Long) {
             super.onSkipToQueueItem(id)
-        }
-
-        override fun onRemoveQueueItem(description: MediaDescriptionCompat?) {
-            super.onRemoveQueueItem(description)
         }
 
         override fun onSetPlaybackSpeed(speed: Float) {
@@ -159,6 +172,17 @@ class MusicService : MediaBrowserServiceCompat() {
 
         override fun onPlayFromMediaId(mediaId: String?, extras: Bundle?) {
             super.onPlayFromMediaId(mediaId, extras)
+            MusicHelper.log("cur mp3: ${mCurrentMedia?.description?.mediaUri}")
+            if (mediaId == mCurrentMedia?.description?.mediaId) {
+                // 同一首歌曲
+                if (!mMediaPlayer.isPlaying) {
+                    onPlay()
+                    return
+                }
+            }
+            mMusicIndex = mPlayList.indexOfFirst { it.description.mediaId == mediaId}
+            mCurrentMedia = null
+            onPlay()
         }
 
         override fun onSetShuffleMode(shuffleMode: Int) {
@@ -194,7 +218,12 @@ class MusicService : MediaBrowserServiceCompat() {
         mState = state
         val stateBuilder = PlaybackStateCompat.Builder()
         stateBuilder.setActions(getAvailableActions())
-        stateBuilder.setState(state, mMediaPlayer.currentPosition.toLong(), 1.0f, SystemClock.elapsedRealtime())
+        stateBuilder.setState(
+            state,
+            mMediaPlayer.currentPosition.toLong(),
+            1.0f,
+            SystemClock.elapsedRealtime()
+        )
         mSession.setPlaybackState(stateBuilder.build())
     }
 
@@ -205,7 +234,7 @@ class MusicService : MediaBrowserServiceCompat() {
         }
     private var mPreparedListener: MediaPlayer.OnPreparedListener =
         MediaPlayer.OnPreparedListener {
-            val mediaId = mCurrentMedia?.mediaId ?: ""
+            val mediaId = mCurrentMedia?.description?.mediaId ?: ""
             val metadata = MusicLibrary.getMeteDataFromId(mediaId)
             mSession.setMetadata(metadata.putDuration(mMediaPlayer.duration.toLong()))
             mSessionCallback.onPlay()
@@ -217,14 +246,8 @@ class MusicService : MediaBrowserServiceCompat() {
     ) {
         MusicHelper.log("onLoadChildren, $parentId")
         result.detach()
-        val playList = MusicLibrary.getMusicList()
-        val queues = arrayListOf<MediaBrowserCompat.MediaItem>()
-        playList.forEach {
-            queues.add(MediaBrowserCompat.MediaItem(
-                it.description, MediaBrowserCompat.MediaItem.FLAG_PLAYABLE))
-        }
-        mPlayList.addAll(queues)
-        result.sendResult(mPlayList)
+        val list = mPlayList.map { MediaBrowserCompat.MediaItem(it.description, MediaBrowserCompat.MediaItem.FLAG_PLAYABLE) }
+        result.sendResult(list as MutableList<MediaBrowserCompat.MediaItem>?)
     }
 
     override fun onGetRoot(
@@ -239,6 +262,9 @@ class MusicService : MediaBrowserServiceCompat() {
         super.onCreate()
         mSession = MediaSessionCompat(applicationContext, "MusicService")
         mSession.setCallback(mSessionCallback)
+                mSession.setFlags(
+                    MediaSessionCompat.FLAG_HANDLES_QUEUE_COMMANDS
+                )
         sessionToken = mSession.sessionToken
         mMediaPlayer.setOnCompletionListener(mCompletionListener)
         mMediaPlayer.setOnPreparedListener(mPreparedListener)
