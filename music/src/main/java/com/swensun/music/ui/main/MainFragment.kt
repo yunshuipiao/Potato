@@ -1,6 +1,6 @@
 package com.swensun.music.ui.main
 
-import android.os.Bundle
+import android.os.*
 import android.support.v4.media.MediaDescriptionCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.PlaybackStateCompat
@@ -15,8 +15,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.swensun.music.MusicHelper
 import com.swensun.music.R
 import kotlinx.android.synthetic.main.main_fragment.*
+import kotlinx.coroutines.delay
 import org.jetbrains.anko.textColor
 
 class MainFragment : Fragment() {
@@ -25,8 +27,10 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
+    private var mPlayState: PlaybackStateCompat = PlaybackStateCompat.Builder().build()
     private val mMusicAdapter: MusicAdapter = MusicAdapter()
     private lateinit var viewModel: MainViewModel
+    private var handler = SeekHandle()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,8 +46,14 @@ class MainFragment : Fragment() {
         viewModel.mPlayStateLiveData.observe(this, Observer {
             if (it.state == PlaybackStateCompat.STATE_PLAYING) {
                 mf_to_play.text = "暂停"
+                mPlayState = it
+                mf_tv_seek.progress = it.position.toInt()
+                handler.sendEmptyMessageDelayed(1, 250)
+
             } else {
                 mf_to_play.text = "播放"
+                handler.removeMessages(1)
+
             }
         })
         viewModel.mMetaDataLiveData.observe(this, Observer {
@@ -55,6 +65,7 @@ class MainFragment : Fragment() {
             mf_tv_singer.text = "歌手：$singer"
             mf_tv_progress.text = "时长：$durationShow"
             mMusicAdapter.notifyPlayingMusic(it.getString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID))
+            mf_tv_seek.max = duration.toInt()
         })
         viewModel.mMusicsLiveData.observe(this, Observer {
             mMusicAdapter.setList(it)
@@ -77,10 +88,11 @@ class MainFragment : Fragment() {
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                viewModel.seekTo(seekBar?.progress ?: 0)
             }
 
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                viewModel.seekTo(progress)
+
             }
         })
         recycler.layoutManager = LinearLayoutManager(requireContext())
@@ -138,5 +150,21 @@ class MainFragment : Fragment() {
                 viewModel.playFromMediaId(data.mediaId ?: "")
             }
         }
+    }
+
+    inner class SeekHandle: Handler() {
+        override fun handleMessage(msg: Message?) {
+            super.handleMessage(msg)
+            var position = (SystemClock.elapsedRealtime() - mPlayState.lastPositionUpdateTime ) * mPlayState.playbackSpeed + mPlayState.position
+            mf_tv_seek.progress = position.toInt()
+            sendEmptyMessageDelayed(1, 250)
+            MusicHelper.log("progress: $position")
+
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        handler.removeMessages(1)
     }
 }

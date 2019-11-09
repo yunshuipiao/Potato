@@ -35,14 +35,18 @@ class MusicService : MediaBrowserServiceCompat() {
 
         override fun onSeekTo(pos: Long) {
             super.onSeekTo(pos)
+            mMediaPlayer.seekTo(pos.toInt())
+            setNewState(mState)
         }
 
         override fun onAddQueueItem(description: MediaDescriptionCompat) {
             super.onAddQueueItem(description)
             // 客户端添加歌曲
-            mPlayList.add(
-                MediaSessionCompat.QueueItem(description, description.hashCode().toLong())
-            )
+            if (mPlayList.find { it.description.mediaId == description.mediaId } == null) {
+                mPlayList.add(
+                    MediaSessionCompat.QueueItem(description, description.hashCode().toLong())
+                )
+            }
             mMusicIndex = if (mMusicIndex == -1) 0 else mMusicIndex
             mSession.setQueue(mPlayList)
         }
