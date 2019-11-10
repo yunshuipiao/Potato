@@ -91,6 +91,7 @@ class MainViewModel : ViewModel() {
             mMediaControllerCompat = MediaControllerCompat(mContext, mMediaBrowserCompat.sessionToken)
             mMediaControllerCompat.registerCallback(mMediaControllerCompatCallback)
             mMediaBrowserCompat.subscribe(mMediaBrowserCompat.root, mMediaBrowserCompatSubscriptionCallback)
+            mMediaControllerCompat.transportControls.setRepeatMode(PlaybackStateCompat.REPEAT_MODE_ALL)
         }
 
         override fun onConnectionSuspended() {

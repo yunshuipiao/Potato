@@ -8,14 +8,13 @@ import android.content.IntentFilter
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.net.Uri
-import android.os.Bundle
-import android.os.ResultReceiver
-import android.os.SystemClock
+import android.os.*
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaDescriptionCompat
 import android.support.v4.media.RatingCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
+import android.view.KeyEvent
 import androidx.core.content.ContextCompat
 import androidx.media.MediaBrowserServiceCompat
 import com.swensun.music.MusicHelper
@@ -55,12 +54,61 @@ class MusicService : MediaBrowserServiceCompat() {
      */
     private lateinit var mAudioFocusHelper: AudioFocusHelper
 
+
+    /**
+     * 记录耳机按下的次数
+     */
+    private var mHeadSetClickCount = 0
+
+    private var handler = HeadSetHandler()
+
+    inner class HeadSetHandler: Handler() {
+        override fun handleMessage(msg: Message) {
+            super.handleMessage(msg)
+            // 根据耳机按下的次数决定执行什么操作
+            when(mHeadSetClickCount) {
+                1 -> {
+                    if (mMediaPlayer.isPlaying) {
+                        mSessionCallback.onPause()
+                    } else {
+                        mSessionCallback.onPlay()
+                    }
+                }
+                2 -> {
+                    mSessionCallback.onSkipToNext()
+                }
+                3 -> {
+                    mSessionCallback.onSkipToPrevious()
+                }
+                4 -> {
+                    mSessionCallback.onSkipToPrevious()
+                    mSessionCallback.onSkipToPrevious()
+                }
+            }
+        }
+    }
+
     /**
      * 播放控制器的事件回调，UI 端通过播放控制器发出的指令会在这里接收到，交给真正的音乐播放器处理。
      */
     private var mSessionCallback = object : MediaSessionCompat.Callback() {
         override fun onMediaButtonEvent(mediaButtonEvent: Intent?): Boolean {
-            return super.onMediaButtonEvent(mediaButtonEvent)
+            val action = mediaButtonEvent?.action
+            val keyevent = mediaButtonEvent?.getParcelableExtra<KeyEvent>(Intent.EXTRA_KEY_EVENT)
+            val keyCode=  keyevent?.keyCode
+            MusicHelper.log("action: $action, keyEvent: $keyevent")
+
+            return if (keyevent?.keyCode == KeyEvent.KEYCODE_HEADSETHOOK && keyevent.action == KeyEvent.ACTION_UP) {
+                //耳机单机操作
+                mHeadSetClickCount += 1
+                if (mHeadSetClickCount == 1) {
+                    handler.sendEmptyMessageDelayed(1, 800)
+                }
+                true
+            } else {
+                super.onMediaButtonEvent(mediaButtonEvent)
+            }
+
         }
 
         override fun onRewind() {
@@ -314,9 +362,13 @@ class MusicService : MediaBrowserServiceCompat() {
     }
 
     override fun onDestroy() {
+        handler.removeMessages(1)
         super.onDestroy()
     }
 
+    /**
+     * 根据当前播放状态，设置 MediaSession 支持的相关操作
+     */
     @PlaybackStateCompat.Actions
     private fun getAvailableActions(state: Int): Long {
         var actions = (PlaybackStateCompat.ACTION_PLAY_FROM_MEDIA_ID
@@ -418,6 +470,9 @@ class MusicService : MediaBrowserServiceCompat() {
 
         override fun onAudioFocusChange(focusChange: Int) {
             when (focusChange) {
+                /**
+                 * 获取音频焦点
+                 */
                 AudioManager.AUDIOFOCUS_GAIN -> {
                     if (mPlayOnAudioFocus && !mMediaPlayer.isPlaying) {
                         mSessionCallback.onPlay()
@@ -426,11 +481,20 @@ class MusicService : MediaBrowserServiceCompat() {
                     }
                     mPlayOnAudioFocus = false
                 }
+                /**
+                 * 暂时失去音频焦点，但可降低音量播放音乐，类似导航模式
+                 */
                 AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK -> setVolume(MEDIA_VOLUME_DUCK)
+                /**
+                 * 暂时失去音频焦点，一段时间后会重新获取焦点，比如闹钟
+                 */
                 AudioManager.AUDIOFOCUS_LOSS_TRANSIENT -> if (mMediaPlayer.isPlaying) {
                     mPlayOnAudioFocus = true
                     mSessionCallback.onPause()
                 }
+                /**
+                 * 失去焦点
+                 */
                 AudioManager.AUDIOFOCUS_LOSS -> {
                     mAudioManager.abandonAudioFocus(this)
                     mPlayOnAudioFocus = false
