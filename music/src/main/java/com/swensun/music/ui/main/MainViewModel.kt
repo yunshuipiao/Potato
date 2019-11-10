@@ -17,18 +17,30 @@ import com.swensun.music.service.MusicService
 class MainViewModel : ViewModel() {
 
     private lateinit var mContext: Context
+    /**
+     * 播放控制器，对 Service 发出播放，暂停，上下一曲的指令
+     */
     private lateinit var mMediaControllerCompat: MediaControllerCompat
+    /**
+     * 媒体浏览器，负责连接 Service，得到 Service 的相关信息
+     */
     private lateinit var mMediaBrowserCompat: MediaBrowserCompat
     /**
-     * 播放状态的观察数据
+     * 播放状态的数据(是否正在播放，播放进度)
      */
     public var mPlayStateLiveData = MutableLiveData<PlaybackStateCompat>()
     /**
-     * 播放歌曲的状态数据
+     * 播放歌曲的数据（歌曲，歌手等）
      */
     public var mMetaDataLiveData = MutableLiveData<MediaMetadataCompat>()
-
+    /**
+     * 播放列表的数据
+     */
     public var mMusicsLiveData = MutableLiveData<MutableList<MediaDescriptionCompat>>()
+    /**
+     * 播放控制器的回调
+     * （比如 UI 发出下一曲指令，Service 端切换歌曲播放之后，将播放状态信息传回 UI 端， 更新 UI）
+     */
     private var mMediaControllerCompatCallback = object : MediaControllerCompat.Callback() {
         override fun onQueueChanged(queue: MutableList<MediaSessionCompat.QueueItem>?) {
             super.onQueueChanged(queue)
@@ -67,6 +79,9 @@ class MainViewModel : ViewModel() {
         }
     }
 
+    /**
+     * 媒体浏览器连接 Service 的回调
+     */
     private var mMediaBrowserCompatConnectionCallback: MediaBrowserCompat.ConnectionCallback = object :
         MediaBrowserCompat.ConnectionCallback() {
         override fun onConnected() {
@@ -87,6 +102,9 @@ class MainViewModel : ViewModel() {
         }
     }
 
+    /**
+     * 媒体浏览器订阅 Service 数据的回调
+     */
     private var mMediaBrowserCompatSubscriptionCallback = object : MediaBrowserCompat.SubscriptionCallback() {
         override fun onChildrenLoaded(
             parentId: String,

@@ -23,21 +23,41 @@ import putDuration
 
 
 class MusicService : MediaBrowserServiceCompat() {
+
     private var mRepeatMode: Int = PlaybackStateCompat.REPEAT_MODE_NONE
+    /**
+     * 播放状态，通过 MediaSession 回传给 UI 端。
+     */
     private var mState = PlaybackStateCompat.Builder().build()
+    /**
+     * UI 可能被销毁，Service 需要保存播放列表，并处理循环模式
+     */
     private var mPlayList = arrayListOf<MediaSessionCompat.QueueItem>()
+    /**
+     * 当前播放音乐的相关信息
+     */
     private var mMusicIndex = -1
     private var mCurrentMedia: MediaSessionCompat.QueueItem? = null
+    /**
+     * 播放会话，将播放状态信息回传给 UI 端。
+     */
     private lateinit var mSession: MediaSessionCompat
+    /**
+     * 真正的音乐播放器
+     */
     private var mMediaPlayer: MediaPlayer = MediaPlayer()
     /**
      * 前台通知的相关内容
      */
     private lateinit var mNotificationManager: MediaNotificationManager
-
+    /**
+     * 音频焦点处理
+     */
     private lateinit var mAudioFocusHelper: AudioFocusHelper
 
-    // 播放控制器的事件回调
+    /**
+     * 播放控制器的事件回调，UI 端通过播放控制器发出的指令会在这里接收到，交给真正的音乐播放器处理。
+     */
     private var mSessionCallback = object : MediaSessionCompat.Callback() {
         override fun onMediaButtonEvent(mediaButtonEvent: Intent?): Boolean {
             return super.onMediaButtonEvent(mediaButtonEvent)
@@ -284,15 +304,11 @@ class MusicService : MediaBrowserServiceCompat() {
         super.onCreate()
         mSession = MediaSessionCompat(applicationContext, "MusicService")
         mSession.setCallback(mSessionCallback)
-                mSession.setFlags(
-                    MediaSessionCompat.FLAG_HANDLES_QUEUE_COMMANDS
-                )
+        mSession.setFlags(MediaSessionCompat.FLAG_HANDLES_QUEUE_COMMANDS)
         sessionToken = mSession.sessionToken
         mMediaPlayer.setOnCompletionListener(mCompletionListener)
         mMediaPlayer.setOnPreparedListener(mPreparedListener)
-        mMediaPlayer.setOnErrorListener { mp, what, extra ->
-            true
-        }
+        mMediaPlayer.setOnErrorListener { mp, what, extra -> true }
         mNotificationManager = MediaNotificationManager(this)
         mAudioFocusHelper = AudioFocusHelper(this)
     }

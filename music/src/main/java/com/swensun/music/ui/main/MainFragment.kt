@@ -70,15 +70,27 @@ class MainFragment : Fragment() {
         viewModel.mMusicsLiveData.observe(this, Observer {
             mMusicAdapter.setList(it)
         })
+        /**
+         * 上一首
+         */
         mf_to_previous.setOnClickListener {
             viewModel.skipToPrevious()
         }
+        /**
+         * 下一首
+         */
         mf_to_next.setOnClickListener {
             viewModel.skipToNext()
         }
+        /**
+         * 播放暂停
+         */
         mf_to_play.setOnClickListener {
             viewModel.playOrPause()
         }
+        /**
+         * 加载音乐
+         */
         mf_to_load.setOnClickListener {
             viewModel.getNetworkPlayList()
         }
