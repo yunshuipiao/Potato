@@ -338,6 +338,12 @@ class MusicService : MediaBrowserServiceCompat() {
         result.detach()
         val list = mPlayList.map { MediaBrowserCompat.MediaItem(it.description, MediaBrowserCompat.MediaItem.FLAG_PLAYABLE) }
         result.sendResult(list as MutableList<MediaBrowserCompat.MediaItem>?)
+        mCurrentMedia?.let {
+            val mediaId = it?.description?.mediaId ?: ""
+            val metadata = MusicLibrary.getMeteDataFromId(mediaId)
+            mSession.setMetadata(metadata.putDuration(mMediaPlayer.duration.toLong()))
+            setNewState(mState.state)
+        }
     }
 
     override fun onGetRoot(
