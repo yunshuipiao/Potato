@@ -85,6 +85,7 @@ class MusicService : MediaBrowserServiceCompat() {
                     mSessionCallback.onSkipToPrevious()
                 }
             }
+            mHeadSetClickCount = 0
         }
     }
 
@@ -95,14 +96,15 @@ class MusicService : MediaBrowserServiceCompat() {
         override fun onMediaButtonEvent(mediaButtonEvent: Intent?): Boolean {
             val action = mediaButtonEvent?.action
             val keyevent = mediaButtonEvent?.getParcelableExtra<KeyEvent>(Intent.EXTRA_KEY_EVENT)
-            val keyCode=  keyevent?.keyCode
             MusicHelper.log("action: $action, keyEvent: $keyevent")
 
-            return if (keyevent?.keyCode == KeyEvent.KEYCODE_HEADSETHOOK && keyevent.action == KeyEvent.ACTION_UP) {
-                //耳机单机操作
-                mHeadSetClickCount += 1
-                if (mHeadSetClickCount == 1) {
-                    handler.sendEmptyMessageDelayed(1, 800)
+            return if (keyevent?.keyCode == KeyEvent.KEYCODE_HEADSETHOOK ) {
+                if (keyevent.action == KeyEvent.ACTION_UP) {
+                    //耳机单机操作
+                    mHeadSetClickCount += 1
+                    if (mHeadSetClickCount == 1) {
+                        handler.sendEmptyMessageDelayed(1, 800)
+                    }
                 }
                 true
             } else {
