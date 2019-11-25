@@ -39,10 +39,14 @@ class MainFragment : Fragment() {
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.init(requireContext())
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        viewModel.init(requireContext())
         viewModel.mPlayStateLiveData.observe(this, Observer {
             if (it.state == PlaybackStateCompat.STATE_PLAYING) {
                 mf_to_play.text = "暂停"
