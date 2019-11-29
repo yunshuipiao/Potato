@@ -15,6 +15,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.swensun.potato.R
 import com.swensun.swutils.ui.dp2px
+import kotlinx.android.synthetic.main.item_recycler.*
 import kotlinx.android.synthetic.main.recycler_view_fragment.*
 
 class RecyclerViewFragment : Fragment() {
@@ -39,26 +40,52 @@ class RecyclerViewFragment : Fragment() {
     }
 
     private fun initView() {
-        recycler_view.layoutManager = LinearLayoutManager(requireContext())
+        recycler_view.layoutManager = LinearLayoutManagerWithScrollTop(requireContext())
         val numList = ArrayList<String>()
         (0..50).forEach { num -> numList.add("$num-$num") }
-        val adapter = RAdapter(R.layout.item_recycler, numList)
+        val adapter = RAdapter()
         recycler_view.adapter = adapter
-        recycler_view.addItemDecoration(RItemDecoration())
-
-    }
-
-    class RAdapter(layoutResId: Int, data: MutableList<String>?) :
-        BaseQuickAdapter<String, BaseViewHolder>(layoutResId, data) {
-        override fun convert(holder: BaseViewHolder?, item: String?) {
-            holder?.getView<TextView>(R.id.ir_tv_title)?.text = item
+        adapter.setup(numList)
+        scroll_view.setOnClickListener {
+            var position = 0
+            try {
+                position = edit_view.text.toString().toInt()
+            } catch (e: Exception) {
+            }
+            recycler_view.smoothScrollToPosition(position)
         }
     }
 
-    class RItemDecoration : RecyclerView.ItemDecoration() {
-        override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-            val padding = dp2px(5f)
-            outRect.set(padding, padding, 0, padding)
+    inner class RAdapter :
+        RecyclerView.Adapter<TitleViewHolder>() {
+
+        private var numList = arrayListOf<String>()
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TitleViewHolder {
+            return TitleViewHolder(parent)
+        }
+
+        override fun getItemCount(): Int {
+            return numList.size
+        }
+
+        override fun onBindViewHolder(holder: TitleViewHolder, position: Int) {
+            holder.setup(numList[position])
+        }
+
+        fun setup(list: ArrayList<String>) {
+            numList.clear()
+            numList.addAll(list)
+            notifyDataSetChanged()
+        }
+    }
+
+    inner class TitleViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
+        LayoutInflater.from(parent.context).inflate(R.layout.item_recycler, parent, false)
+    ) {
+        val titleView = itemView.findViewById<TextView>(R.id.ir_tv_title)
+        fun setup(s: String) {
+            titleView.text = s
         }
     }
 }

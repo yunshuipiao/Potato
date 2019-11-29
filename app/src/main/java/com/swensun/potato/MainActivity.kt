@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.view.GestureDetector
 import android.view.GestureDetector.OnGestureListener
 import android.view.MotionEvent
+import androidx.recyclerview.widget.RecyclerView
 import com.swensun.base.BaseActivity
+import com.swensun.potato.demo.RecyclerViewActivity
 import com.swensun.swutils.util.*
+import org.jetbrains.anko.startActivity
 
 
 class MainActivity : BaseActivity() {
@@ -25,11 +28,12 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initView(savedInstanceState: Bundle?) {
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, LayoutFragment.newInstance())
-                .commit()
-        }
+//        if (savedInstanceState == null) {
+//            supportFragmentManager.beginTransaction()
+//                .replace(R.id.container, LayoutFragment.newInstance())
+//                .commit()
+//        }
+        startActivity<RecyclerViewActivity>()
     }
 
 //    override fun onWindowFocusChanged(hasFocus: Boolean) {

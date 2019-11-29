@@ -24,3 +24,4 @@ class TouchEventView @JvmOverloads constructor(
         return super.performClick()
     }
 }
+
