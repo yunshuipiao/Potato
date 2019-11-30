@@ -5,11 +5,9 @@ import android.os.Bundle
 import android.view.GestureDetector
 import android.view.GestureDetector.OnGestureListener
 import android.view.MotionEvent
-import androidx.recyclerview.widget.RecyclerView
 import com.swensun.base.BaseActivity
-import com.swensun.potato.demo.RecyclerViewActivity
-import com.swensun.swutils.util.*
-import org.jetbrains.anko.startActivity
+import com.swensun.swutils.util.LogUtils
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : BaseActivity() {
@@ -33,7 +31,9 @@ class MainActivity : BaseActivity() {
 //                .replace(R.id.container, LayoutFragment.newInstance())
 //                .commit()
 //        }
-        startActivity<RecyclerViewActivity>()
+        hello.setOnClickListener {
+            hello.text = "hello1"
+        }
     }
 
 //    override fun onWindowFocusChanged(hasFocus: Boolean) {
