@@ -23,7 +23,7 @@ class MainActivityTest {
     fun findHello() {
         onView(withId(R.id.hello))
             .check(matches(withText("hello")))
-        onView(withId(R.id.hello)).perform(click()).check(matches(withText("hello")))
+        onView(withId(R.id.hello)).perform(click()).check(matches(withText("hello1")))
 
     }
 }

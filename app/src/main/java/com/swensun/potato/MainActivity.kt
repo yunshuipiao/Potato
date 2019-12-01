@@ -5,12 +5,15 @@ import android.os.Bundle
 import android.view.GestureDetector
 import android.view.GestureDetector.OnGestureListener
 import android.view.MotionEvent
+import androidx.lifecycle.ViewModelProviders
 import com.swensun.base.BaseActivity
 import com.swensun.swutils.util.LogUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : BaseActivity() {
+
+    lateinit var viewModel: MainViewModel
     
     override fun getContentSubView(): Int {
         return R.layout.activity_main
@@ -22,6 +25,7 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         initView(savedInstanceState)
     }
 
