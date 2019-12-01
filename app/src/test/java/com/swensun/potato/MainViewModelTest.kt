@@ -13,7 +13,9 @@ import org.junit.runners.JUnit4
 class MainViewModelTest {
 
     lateinit var viewModel: MainViewModel
-    @get:Rule
+
+    @Rule
+    @JvmField
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
 
