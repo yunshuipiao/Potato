@@ -35,6 +35,7 @@ class MainActivity : BaseActivity() {
 //                .replace(R.id.container, LayoutFragment.newInstance())
 //                .commit()
 //        }
+        LogUtils.d("mMedia- ${this}, $application")
         hello.setOnClickListener {
             hello.text = "hello1"
         }

@@ -20,11 +20,11 @@ class MainViewModel : ViewModel() {
     /**
      * 播放控制器，对 Service 发出播放，暂停，上下一曲的指令
      */
-    private lateinit var mMediaControllerCompat: MediaControllerCompat
+    private var mMediaControllerCompat: MediaControllerCompat? = null
     /**
      * 媒体浏览器，负责连接 Service，得到 Service 的相关信息
      */
-    private lateinit var mMediaBrowserCompat: MediaBrowserCompat
+    private var mMediaBrowserCompat: MediaBrowserCompat? = null
     /**
      * 播放状态的数据(是否正在播放，播放进度)
      */
@@ -45,7 +45,7 @@ class MainViewModel : ViewModel() {
         override fun onQueueChanged(queue: MutableList<MediaSessionCompat.QueueItem>?) {
             super.onQueueChanged(queue)
             // 服务端的queue变化
-            MusicHelper.log("onQueueChanged: $queue" )
+            MusicHelper.log("onQueueChanged: $queue")
             mMusicsLiveData.postValue(queue?.map { it.description } as MutableList<MediaDescriptionCompat>)
 
         }
@@ -88,10 +88,12 @@ class MainViewModel : ViewModel() {
             super.onConnected()
             // 连接成功
             MusicHelper.log("onConnected")
-            mMediaControllerCompat = MediaControllerCompat(mContext, mMediaBrowserCompat.sessionToken)
-            mMediaControllerCompat.registerCallback(mMediaControllerCompatCallback)
-            mMediaBrowserCompat.subscribe(mMediaBrowserCompat.root, mMediaBrowserCompatSubscriptionCallback)
-            mMediaControllerCompat.transportControls.setRepeatMode(PlaybackStateCompat.REPEAT_MODE_ALL)
+            mMediaBrowserCompat?.let {
+                mMediaControllerCompat = MediaControllerCompat(mContext, it.sessionToken)
+                mMediaControllerCompat?.registerCallback(mMediaControllerCompatCallback)
+                it.subscribe(it.root, mMediaBrowserCompatSubscriptionCallback)
+                mMediaControllerCompat?.transportControls?.setRepeatMode(PlaybackStateCompat.REPEAT_MODE_ALL)
+            }
         }
 
         override fun onConnectionSuspended() {
@@ -114,53 +116,56 @@ class MainViewModel : ViewModel() {
             super.onChildrenLoaded(parentId, children)
             // 服务器 setChildLoad 的回调方法
             MusicHelper.log("onChildrenLoaded, $children")
-            mMusicsLiveData.postValue(children.map { it.description } as  MutableList<MediaDescriptionCompat>)
+            mMusicsLiveData.postValue(children.map { it.description } as MutableList<MediaDescriptionCompat>)
 
         }
     }
+
     fun init(context: Context) {
         mContext = context
-        mMediaBrowserCompat = MediaBrowserCompat(context, ComponentName(context, MusicService::class.java),
-            mMediaBrowserCompatConnectionCallback, null)
-        mMediaBrowserCompat.connect()
+        mMediaBrowserCompat = MediaBrowserCompat(
+            context, ComponentName(context, MusicService::class.java),
+            mMediaBrowserCompatConnectionCallback, null
+        )
+        mMediaBrowserCompat?.connect()
     }
 
     override fun onCleared() {
         super.onCleared()
-        mMediaControllerCompat.unregisterCallback(mMediaControllerCompatCallback)
-        if (mMediaBrowserCompat.isConnected) {
-            mMediaBrowserCompat.disconnect()
+        mMediaControllerCompat?.unregisterCallback(mMediaControllerCompatCallback)
+        if (mMediaBrowserCompat?.isConnected == true) {
+            mMediaBrowserCompat?.disconnect()
         }
     }
 
     fun skipToNext() {
-        mMediaControllerCompat.transportControls.skipToNext()
+        mMediaControllerCompat?.transportControls?.skipToNext()
     }
 
     fun skipToPrevious() {
-        mMediaControllerCompat.transportControls.skipToPrevious()
+        mMediaControllerCompat?.transportControls?.skipToPrevious()
     }
 
     fun playOrPause() {
         if (mPlayStateLiveData.value?.state == PlaybackStateCompat.STATE_PLAYING) {
-            mMediaControllerCompat.transportControls.pause()
+            mMediaControllerCompat?.transportControls?.pause()
         } else {
-            mMediaControllerCompat.transportControls.play()
+            mMediaControllerCompat?.transportControls?.play()
         }
     }
 
     fun seekTo(progress: Int) {
-        mMediaControllerCompat.transportControls.seekTo(progress.toLong())
+        mMediaControllerCompat?.transportControls?.seekTo(progress.toLong())
     }
 
     fun getNetworkPlayList() {
-       val playList =  MusicLibrary.getMusicList()
+        val playList = MusicLibrary.getMusicList()
         playList.forEach {
-            mMediaControllerCompat.addQueueItem(it.description)
+            mMediaControllerCompat?.addQueueItem(it.description)
         }
     }
 
     fun playFromMediaId(mediaId: String) {
-        mMediaControllerCompat.transportControls.playFromMediaId(mediaId, null)
+        mMediaControllerCompat?.transportControls?.playFromMediaId(mediaId, null)
     }
 }

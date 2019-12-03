@@ -85,6 +85,7 @@ class MainFragment : Fragment() {
          */
         mf_to_next.setOnClickListener {
             viewModel.skipToNext()
+            viewModel.init(requireContext())
         }
         /**
          * 播放暂停
