@@ -11,7 +11,7 @@ import android.os.StatFs
 
 
 @SuppressLint("StaticFieldLeak")
-val context: Context = SwUtils.application.applicationContext
+private val context: Context = SwUtils.application.applicationContext
 
 fun getRamInfo(): String {
     val manager = context.getSystemService(ACTIVITY_SERVICE) as ActivityManager

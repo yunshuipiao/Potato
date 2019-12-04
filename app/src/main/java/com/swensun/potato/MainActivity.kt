@@ -38,7 +38,12 @@ class MainActivity : BaseActivity() {
         LogUtils.d("mMedia- ${this}, $application")
         hello.setOnClickListener {
             hello.text = "hello1"
+
+            val path = getExternalFilesDir("log")
+            LogUtils.d("path, ${path?.path}")
         }
+//        startActivity<RecyclerViewActivity>()
+
     }
 
 //    override fun onWindowFocusChanged(hasFocus: Boolean) {

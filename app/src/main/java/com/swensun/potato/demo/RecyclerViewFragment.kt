@@ -52,7 +52,8 @@ class RecyclerViewFragment : Fragment() {
                 position = edit_view.text.toString().toInt()
             } catch (e: Exception) {
             }
-            recycler_view.smoothScrollToPosition(position)
+            val layoutManager = recycler_view.layoutManager as LinearLayoutManager
+            layoutManager.scrollToPositionWithOffset(position, 0)
         }
     }
 

@@ -1,22 +1,31 @@
 package com.swensun.swutils.util
 
-import com.orhanobut.logger.Logger
-import java.lang.Exception
-import java.util.logging.LogManager
+import com.blankj.utilcode.util.LogUtils
+import com.swensun.swutils.SwUtils
 
 
 object LogUtils {
+
+    init {
+        val config = LogUtils.getConfig()
+        config.isLog2FileSwitch = true
+        config.setBorderSwitch(false)
+        config.isLogHeadSwitch = false
+    }
+
     fun d(msg: String) {
         d(null, msg)
     }
 
     fun d(any: Any) {
-        Logger.d(any)
+        LogUtils.d(any)
+        LogUtils.file(any)
     }
 
     fun d(tag: String? = null, msg: String = "") {
         val tempTag = if(tag.isNullOrBlank()) "" else "$tag:"
-        Logger.d(msg)
+        LogUtils.d("$tempTag: $msg")
+        LogUtils.file(tempTag, msg)
     }
 }
 

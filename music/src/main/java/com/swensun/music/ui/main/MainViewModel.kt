@@ -85,7 +85,10 @@ class MainViewModel : ViewModel() {
     private var mMediaBrowserCompatConnectionCallback: MediaBrowserCompat.ConnectionCallback = object :
         MediaBrowserCompat.ConnectionCallback() {
         override fun onConnected() {
-            super.onConnected()
+            try {
+                super.onConnected()
+            } catch (e: Exception) {
+            }
             // 连接成功
             MusicHelper.log("onConnected")
             mMediaBrowserCompat?.let {
@@ -123,11 +126,13 @@ class MainViewModel : ViewModel() {
 
     fun init(context: Context) {
         mContext = context
-        mMediaBrowserCompat = MediaBrowserCompat(
-            context, ComponentName(context, MusicService::class.java),
-            mMediaBrowserCompatConnectionCallback, null
-        )
-        mMediaBrowserCompat?.connect()
+        if (mMediaBrowserCompat == null) {
+            mMediaBrowserCompat = MediaBrowserCompat(
+                context, ComponentName(context, MusicService::class.java),
+                mMediaBrowserCompatConnectionCallback, null
+            )
+            mMediaBrowserCompat?.connect()
+        }
     }
 
     override fun onCleared() {
@@ -140,6 +145,7 @@ class MainViewModel : ViewModel() {
 
     fun skipToNext() {
         mMediaControllerCompat?.transportControls?.skipToNext()
+
     }
 
     fun skipToPrevious() {

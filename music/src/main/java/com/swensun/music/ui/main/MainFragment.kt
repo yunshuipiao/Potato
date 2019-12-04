@@ -78,14 +78,14 @@ class MainFragment : Fragment() {
          * 上一首
          */
         mf_to_previous.setOnClickListener {
-            viewModel.skipToPrevious()
+            viewModel.init(requireContext())
         }
         /**
          * 下一首
          */
         mf_to_next.setOnClickListener {
             viewModel.skipToNext()
-            viewModel.init(requireContext())
+
         }
         /**
          * 播放暂停

@@ -16,15 +16,15 @@ class PotatoApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        val callback = object : Choreographer.FrameCallback {
-            override fun doFrame(frameTimeNanos: Long) {
-                val diff = frameTimeNanos / 1000000 - startTime
-                LogUtils.d("diff: $diff")
-                Choreographer.getInstance().postFrameCallback(this)
-            }
-        }
-        startTime = System.currentTimeMillis()
-        Choreographer.getInstance().postFrameCallback(callback)
+//        val callback = object : Choreographer.FrameCallback {
+//            override fun doFrame(frameTimeNanos: Long) {
+//                val diff = frameTimeNanos / 1000000 - startTime
+//                LogUtils.d("diff: $diff")
+//                Choreographer.getInstance().postFrameCallback(this)
+//            }
+//        }
+//        startTime = System.currentTimeMillis()
+//        Choreographer.getInstance().postFrameCallback(callback)
     }
     
 }

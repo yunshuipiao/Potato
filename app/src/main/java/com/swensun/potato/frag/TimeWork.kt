@@ -1,12 +1,9 @@
 package com.swensun.potato.frag
 
 import android.content.Context
-import android.content.SharedPreferences
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.swensun.swutils.shareprefence.SharePreferencesManager
-import com.swensun.swutils.util.context
-import org.jetbrains.anko.startActivity
 
 val KEY_TIME = "current_time"
 
