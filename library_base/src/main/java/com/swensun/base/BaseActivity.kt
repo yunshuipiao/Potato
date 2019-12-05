@@ -12,7 +12,6 @@ abstract class BaseActivity : RxAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapterScreen()
         setContentView(R.layout.activity_base)
         setSupportActionBar(toolbar)
         layoutInflater.inflate(getContentSubView(), container)
@@ -20,9 +19,4 @@ abstract class BaseActivity : RxAppCompatActivity() {
 
     @LayoutRes
     abstract fun getContentSubView(): Int
-
-    override fun onDestroy() {
-        super.onDestroy()
-        resetScreen()
-    }
 }

@@ -2,13 +2,8 @@ package com.swensun.potato.application
 
 import android.app.Application
 import android.content.Context
-import android.view.Choreographer
-import com.swensun.swutils.util.LogUtils
-import java.util.logging.LogManager
 
 class PotatoApplication : Application() {
-
-    var startTime: Long = 0
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
