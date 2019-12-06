@@ -1,9 +1,9 @@
 package com.swensun.music
 
-import com.swensun.swutils.util.LogUtils
+import com.swensun.swutils.util.Logger
 
 object MusicHelper {
     fun log(msg: String) {
-        LogUtils.d("music", msg)
+        Logger.d("music", msg)
     }
 }

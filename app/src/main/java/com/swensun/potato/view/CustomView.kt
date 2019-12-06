@@ -4,8 +4,6 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
-import com.swensun.base.BaseLifecycleObserver
-import com.swensun.swutils.util.LogUtils
 
 /**
  * https://blog.csdn.net/lue2009/article/details/45692009 View的生命周期方法和Activity生命周期方法关系
@@ -30,7 +28,7 @@ class CustomView @JvmOverloads constructor(
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-//        LogUtils.d("$widthMeasureSpec -- $heightMeasureSpec")
+//        Logger.d("$widthMeasureSpec -- $heightMeasureSpec")
     }
     
     override fun onDraw(canvas: Canvas?) {

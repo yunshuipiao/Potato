@@ -1,18 +1,11 @@
 package com.swensun.potato
 
-import android.content.Context
-import android.content.res.Resources
 import android.os.Bundle
-import android.view.GestureDetector
-import android.view.GestureDetector.OnGestureListener
-import android.view.MotionEvent
 import androidx.lifecycle.ViewModelProviders
-import com.blankj.utilcode.util.AdaptScreenUtils
 import com.swensun.base.BaseActivity
-import com.swensun.potato.demo.RecyclerViewActivity
-import com.swensun.swutils.util.LogUtils
+import com.swensun.swutils.util.Logger
+import com.swensun.swutils.util.SystemPropUtils
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.startActivity
 
 
 class MainActivity : BaseActivity() {
@@ -35,11 +28,11 @@ class MainActivity : BaseActivity() {
 //                .replace(R.id.container, LayoutFragment.newInstance())
 //                .commit()
 //        }
-        progress_circular.show()
-        progress_circular.postDelayed({
-            startActivity<RecyclerViewActivity>()
-            progress_circular.hide()
-        }, 3000)
+        log.setOnClickListener {
+            val key = "test"
+            Logger.d("getProp: $key = ${SystemPropUtils.getProp(key)}")
+            Logger.i("getProp: $key = ${SystemPropUtils.getProp(key)}")
+        }
     }
 }
 

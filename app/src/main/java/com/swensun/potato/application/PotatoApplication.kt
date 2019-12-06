@@ -14,7 +14,7 @@ class PotatoApplication : Application() {
 //        val callback = object : Choreographer.FrameCallback {
 //            override fun doFrame(frameTimeNanos: Long) {
 //                val diff = frameTimeNanos / 1000000 - startTime
-//                LogUtils.d("diff: $diff")
+//                Logger.d("diff: $diff")
 //                Choreographer.getInstance().postFrameCallback(this)
 //            }
 //        }

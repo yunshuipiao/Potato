@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.swensun.swutils.util.LogUtils
+import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.fragment_layout.*
 
 class LayoutFragment : Fragment() {
@@ -34,7 +34,7 @@ class LayoutFragment : Fragment() {
 
     private fun initView() {
         setTypeFace(rootView, "eng.ttf")
-        LogUtils.d("tv size:" + tv1.textSize + " / " + tv2.textSize)
+        Logger.d("tv size:" + tv1.textSize + " / " + tv2.textSize)
     }
 
 

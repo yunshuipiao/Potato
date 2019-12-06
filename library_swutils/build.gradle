@@ -82,11 +82,6 @@ dependencies {
     // jsoup
     api "org.jsoup:jsoup:$prop_jsoup_version"
 
-    implementation "com.orhanobut:logger:$prop_logger_version"
     api "androidx.work:work-runtime:$prop_work_version"
     api 'com.blankj:utilcodex:1.26.0'
-
-}
-repositories {
-    mavenCentral()
 }

@@ -41,7 +41,6 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
 
-    implementation "com.orhanobut:logger:$prop_logger_version"
 
     implementation "com.squareup.okio:okio:$prop_okio_version"
     implementation 'org.conscrypt:conscrypt-android:2.1.0'
