@@ -36,11 +36,26 @@
 //    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 //}
 
-class GreetingPlugin implements Plugin<Project> {
-    void apply(Project project) {
-        println 'Hello from the GreetingPlugin'
+open class GreetingPluginExtension {
+    var message = "Hello from GreetingPlugin"
+}
+
+class GreetingPlugin : Plugin<Project> {
+
+
+    override fun apply(project: Project) {
+
+        val extension = project.extensions.create<GreetingPluginExtension>("greeting")
+
+
+        project.task("hello") {
+            doLast {
+                println(extension.message)
+            }
+        }
     }
 }
 
+apply<GreetingPlugin>()
 
-apply plugin: GreetingPlugin
+the<GreetingPluginExtension>().message = "Hi from Gradle"
