@@ -1,6 +1,7 @@
 apply plugin: 'groovy'
 apply plugin: 'maven'
 apply plugin: 'java'
+apply plugin: 'kotlin'
 
 dependencies {
     implementation gradleApi()   //gradle sdk

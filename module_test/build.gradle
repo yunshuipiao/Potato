@@ -1,7 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'com.swensun.plugin.time'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
