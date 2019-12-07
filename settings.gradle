@@ -1,2 +1,2 @@
-include ':app', ':library_base',  ':library_swutils', ':library_lower_23', ':time', ':music', ':module_test', ':library_gradle'
+include ':app', ':library_base',  ':library_swutils', ':library_lower_23', ':time', ':music', ':module_test', ':library_gradle', ':library_koltin_gradle'
 //include ':library_third'
