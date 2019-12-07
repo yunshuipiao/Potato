@@ -1,0 +1,26 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+apply plugin: 'java'
+
+dependencies {
+    implementation gradleApi()   //gradle sdk
+    implementation localGroovy() //groovy sdk
+
+    implementation "com.android.tools.build:gradle:$prop_gradle_version"
+}
+
+repositories {
+    jcenter()
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: uri('../gradle_repo'))
+        pom.groupId = "com.swensun.plugin"
+        pom.artifactId = 'time'
+        pom.version = '1.0.0'
+    }
+}
+
+
+
