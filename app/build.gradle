@@ -1,8 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'com.swensun.plugin'
-
 
 android {
     compileSdkVersion prop_compileSdkVersion.toInteger()
