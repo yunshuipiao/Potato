@@ -3,8 +3,6 @@ package com.swensun.potato
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProviders
 import com.swensun.base.BaseActivity
-import com.swensun.swutils.util.Logger
-import com.swensun.swutils.util.SystemPropUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -29,10 +27,15 @@ class MainActivity : BaseActivity() {
 //                .commit()
 //        }
         log.setOnClickListener {
-            val key = "test"
-            Logger.d("getProp: $key = ${SystemPropUtils.getProp(key)}")
-            Logger.i("getProp: $key = ${SystemPropUtils.getProp(key)}")
+//            val key = "test"
+//            Logger.d("getProp: $key = ${SystemPropUtils.getProp(key)}")
+//            Logger.i("getProp: $key = ${SystemPropUtils.getProp(key)}")
+            test()
         }
+    }
+
+    fun test() {
+        
     }
 }
 

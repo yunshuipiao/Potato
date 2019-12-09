@@ -4,9 +4,9 @@ import com.android.build.api.transform.*
 import com.android.build.gradle.internal.pipeline.TransformManager.CONTENT_CLASS
 import com.android.build.gradle.internal.pipeline.TransformManager.SCOPE_FULL_PROJECT
 import com.android.utils.FileUtils
-import org.apache.commons.codec.digest.DigestUtils
+import org.gradle.api.Project
 
-class TimeTransform : Transform() {
+class TimeTransform(val project: Project) : Transform() {
     override fun getName(): String {
         return "TimeTransform"
     }
@@ -28,14 +28,14 @@ class TimeTransform : Transform() {
         transformInvocation?.inputs?.forEach { transformInput ->
             transformInput.directoryInputs.forEach { directoryInput ->
                 // 注入代码
-
+                TimeInjectByJavassist.injectToast(directoryInput.file.absolutePath, project)
                 
                 // 复制修改过的目录到对应的文件夹
                 val dest = transformInvocation.outputProvider.getContentLocation(
                     directoryInput.name, directoryInput.contentTypes, directoryInput.scopes,
                     Format.DIRECTORY
                 )
-                dest.copyRecursively(directoryInput.file, true)
+                FileUtils.copyDirectory(directoryInput.file, dest)
 
             }
             transformInput.jarInputs.forEach { jarInput ->
@@ -43,7 +43,7 @@ class TimeTransform : Transform() {
                     jarInput.name, jarInput.contentTypes, jarInput.scopes,
                     Format.JAR
                 )
-                dest.copyTo(jarInput.file, true)
+                FileUtils.copyFile(jarInput.file, dest)
             }
         }
         println(" ------- transform end ---------")
