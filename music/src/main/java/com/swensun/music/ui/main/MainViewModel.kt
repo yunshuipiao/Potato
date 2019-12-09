@@ -120,7 +120,6 @@ class MainViewModel : ViewModel() {
             // 服务器 setChildLoad 的回调方法
             MusicHelper.log("onChildrenLoaded, $children")
             mMusicsLiveData.postValue(children.map { it.description } as MutableList<MediaDescriptionCompat>)
-
         }
     }
 
