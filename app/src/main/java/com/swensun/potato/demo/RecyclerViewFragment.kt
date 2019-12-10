@@ -8,7 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -41,19 +43,27 @@ class RecyclerViewFragment : Fragment() {
 
     private fun initView() {
         recycler_view.layoutManager = LinearLayoutManagerWithScrollTop(requireContext())
-        val numList = ArrayList<String>()
+        var numList = ArrayList<String>()
         (0..50).forEach { num -> numList.add("$num-$num") }
-        val adapter = RAdapter()
+        val adapter = RRAdapter()
         recycler_view.adapter = adapter
-        adapter.setup(numList)
+        adapter.submitList(numList)
         scroll_view.setOnClickListener {
-            var position = 0
-            try {
-                position = edit_view.text.toString().toInt()
-            } catch (e: Exception) {
-            }
-            val layoutManager = recycler_view.layoutManager as LinearLayoutManager
-            layoutManager.scrollToPositionWithOffset(position, 0)
+//            var position = 0
+//            try {
+//                position = edit_view.text.toString().toInt()
+//            } catch (e: Exception) {
+//            }
+//            val layoutManager = recycler_view.layoutManager as LinearLayoutManager
+//            layoutManager.scrollToPositionWithOffset(position, 0)
+            numList = numList.mapIndexed { index, s ->
+                  if (index % 2 == 1) {
+                      s + "1"
+                  } else {
+                      s
+                  }
+            } as ArrayList<String>
+            adapter.submitList(numList)
         }
     }
 
@@ -87,6 +97,26 @@ class RecyclerViewFragment : Fragment() {
         val titleView = itemView.findViewById<TextView>(R.id.ir_tv_title)
         fun setup(s: String) {
             titleView.text = s
+        }
+    }
+
+    inner class RRAdapter: ListAdapter<String, TitleViewHolder>(TitleDiffCallback()) {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TitleViewHolder {
+            return TitleViewHolder(parent)
+        }
+
+        override fun onBindViewHolder(holder: TitleViewHolder, position: Int) {
+            holder.setup(getItem(position))
+        }
+    }
+
+    class TitleDiffCallback: DiffUtil.ItemCallback<String>() {
+        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+            return oldItem == newItem
         }
     }
 }

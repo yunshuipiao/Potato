@@ -3,7 +3,9 @@ package com.swensun.potato
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProviders
 import com.swensun.base.BaseActivity
+import com.swensun.potato.demo.RecyclerViewActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.startActivity
 
 
 class MainActivity : BaseActivity() {
@@ -35,7 +37,7 @@ class MainActivity : BaseActivity() {
     }
 
     fun test() {
-        
+        startActivity<RecyclerViewActivity>()
     }
 }
 

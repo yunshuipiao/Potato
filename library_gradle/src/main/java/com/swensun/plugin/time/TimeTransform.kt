@@ -36,7 +36,6 @@ class TimeTransform(val project: Project) : Transform() {
                     Format.DIRECTORY
                 )
                 FileUtils.copyDirectory(directoryInput.file, dest)
-
             }
             transformInput.jarInputs.forEach { jarInput ->
                 val dest = transformInvocation.outputProvider.getContentLocation(
