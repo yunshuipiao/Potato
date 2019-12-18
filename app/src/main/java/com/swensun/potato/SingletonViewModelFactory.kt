@@ -21,7 +21,7 @@ object SharedViewModelFactory : ViewModelProvider.Factory {
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
-
+    
     fun clearViewModel() {
         viewModelMap.clear()
     }
