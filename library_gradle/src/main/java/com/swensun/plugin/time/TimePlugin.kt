@@ -9,7 +9,7 @@ class TimePlugin : Plugin<Project> {
 
 
         val android = target.extensions.getByType(AppExtension::class.java)
-        android.registerTransform(TimeTransform())
+        android.registerTransform(TimeTransform(target))
         println("--------------")
         println("Hello ---  TimePlugin")
         println("--------------")
