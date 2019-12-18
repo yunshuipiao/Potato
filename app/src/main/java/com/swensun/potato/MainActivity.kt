@@ -50,7 +50,7 @@ class MainActivity : BaseActivity() {
 //            val key = "test"
 //            Logger.d("getProp: $key = ${SystemPropUtils.getProp(key)}")
 //            Logger.i("getProp: $key = ${SystemPropUtils.getProp(key)}")
-//            test()
+            test()
             
         }
     }

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DiffUtil
@@ -13,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.swensun.potato.R
 import com.swensun.potato.SharedViewModelFactory
 import com.swensun.potato.UserViewModel
+import kotlinx.android.synthetic.main.item_recycler.*
+import kotlinx.android.synthetic.main.item_recycler.view.*
 import kotlinx.android.synthetic.main.recycler_view_fragment.*
 
 class RecyclerViewFragment : Fragment() {
@@ -95,9 +96,8 @@ class RecyclerViewFragment : Fragment() {
     inner class TitleViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_recycler, parent, false)
     ) {
-        val titleView = itemView.findViewById<TextView>(R.id.ir_tv_title)
         fun setup(s: String) {
-            titleView.text = s
+            itemView.ir_tv_title.text = s
         }
     }
 
@@ -118,6 +118,6 @@ class RecyclerViewFragment : Fragment() {
 
         override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
-        }
+        } 
     }
 }
