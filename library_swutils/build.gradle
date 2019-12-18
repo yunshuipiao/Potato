@@ -63,6 +63,7 @@ dependencies {
 
     /// Okhttp3
     api "com.squareup.okhttp3:okhttp:$prop_okhttp_version"
+    api "com.google.code.gson:gson:$prop_gson_okhttp"
 
     /// Wire
     api "com.squareup.wire:wire-runtime:$prop_wire_version"
