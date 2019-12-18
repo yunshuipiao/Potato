@@ -18,7 +18,7 @@ object Logger {
     }
 
     fun d(msg: String) {
-        if (SwUtils.isDebug && debug) {
+        if (SwUtils.isDebug || debug) {
             LogUtils.d(msg)
         }
     }
