@@ -1,9 +1,8 @@
 package com.swensun.potato
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 
-object SharedViewModelFactory : ViewModelProvider.Factory {
+object SharedViewModelFactory : ViewModelProvider.Factory, LifecycleObserver {
 
     val viewModelMap = hashMapOf<String, ViewModel>()
 
@@ -21,7 +20,8 @@ object SharedViewModelFactory : ViewModelProvider.Factory {
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
-    
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun clearViewModel() {
         viewModelMap.clear()
     }

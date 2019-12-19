@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.swensun.potato.R
 import com.swensun.potato.SharedViewModelFactory
 import com.swensun.potato.UserViewModel
-import kotlinx.android.synthetic.main.item_recycler.*
 import kotlinx.android.synthetic.main.item_recycler.view.*
 import kotlinx.android.synthetic.main.recycler_view_fragment.*
 
@@ -120,4 +119,5 @@ class RecyclerViewFragment : Fragment() {
             return oldItem == newItem
         } 
     }
+    
 }
