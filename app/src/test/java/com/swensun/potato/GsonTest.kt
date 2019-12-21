@@ -37,6 +37,7 @@ data class Student(var id: Int = 10) {
     var map = hashMapOf<String, Int>()
 }
 
+
 class UserInfo {
     var name = ""
     var like: String = ""

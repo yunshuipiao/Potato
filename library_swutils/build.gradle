@@ -61,19 +61,10 @@ dependencies {
     api "androidx.lifecycle:lifecycle-common-java8:$prop_androidx_lifecycle_version"
 
 
-    /// Okhttp3
-    api "com.squareup.okhttp3:okhttp:$prop_okhttp_version"
-    api "com.google.code.gson:gson:$prop_gson_okhttp"
-
-    /// Wire
-    api "com.squareup.wire:wire-runtime:$prop_wire_version"
 
     /// Retrofit2
-    api("com.squareup.retrofit2:retrofit:$prop_retrofit_version") {
-        exclude(module: 'okhttp')
-    }
-    api "com.squareup.retrofit2:adapter-rxjava2:$prop_retrofit_version"
-    api "com.squareup.retrofit2:converter-wire:$prop_retrofit_version"
+    api("com.squareup.retrofit2:retrofit:$prop_retrofit_version")
+    api "com.squareup.retrofit2:converter-gson:$prop_retrofit_version"
     api 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
     api "org.jetbrains.anko:anko:$prop_anko_version"
     api "org.jetbrains.kotlin:kotlin-reflect:$prop_kotlin_version"
