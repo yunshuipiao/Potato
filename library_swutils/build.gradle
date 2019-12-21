@@ -55,10 +55,13 @@ dependencies {
     api "com.google.android.material:material:$prop_material_version"
 
     /// Architecture Components
-    api "androidx.lifecycle:lifecycle-runtime:$prop_androidx_lifecycle_version"
-    api "androidx.lifecycle:lifecycle-extensions:$prop_androidx_lifecycle_version"
-    kapt "androidx.lifecycle:lifecycle-compiler:$prop_androidx_lifecycle_version"
-    api "androidx.lifecycle:lifecycle-common-java8:$prop_androidx_lifecycle_version"
+
+    //添加Jetpack中架构组件的依赖，注意viewmodel要添加viewmodel-ktx的依赖
+    api "androidx.lifecycle:lifecycle-livedata:2.1.0"
+    api 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
+    api "androidx.lifecycle:lifecycle-extensions:2.1.0"
+    
+
 
 
     /// Okhttp3
