@@ -46,7 +46,6 @@ class MainActivity : BaseActivity() {
 //                .replace(R.id.container, LayoutFragment.newInstance())
 //                .commit()
 //        }
-        lifecycle.coroutineScope
         log.text = i.toString()
         log.setOnClickListener {
 //            val key = "test"
@@ -55,10 +54,13 @@ class MainActivity : BaseActivity() {
             test()
             
         }
+        mainViewModel.first.observe(this, Observer {
+            log.text = it
+        })
     }
 
     fun test() {
-        startActivity<RecyclerViewActivity>()
+//        startActivity<RecyclerViewActivity>()
     }
 }
 
