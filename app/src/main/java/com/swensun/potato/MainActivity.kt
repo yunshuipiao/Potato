@@ -3,6 +3,7 @@ package com.swensun.potato
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.coroutineScope
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.swensun.base.BaseActivity
@@ -45,6 +46,7 @@ class MainActivity : BaseActivity() {
 //                .replace(R.id.container, LayoutFragment.newInstance())
 //                .commit()
 //        }
+        lifecycle.coroutineScope
         log.text = i.toString()
         log.setOnClickListener {
 //            val key = "test"
