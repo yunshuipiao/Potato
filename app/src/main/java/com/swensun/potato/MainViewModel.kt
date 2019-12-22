@@ -2,25 +2,17 @@ package com.swensun.potato
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
+import com.swensun.swutils.aac.Event
 
 class MainViewModel : ViewModel() {
 
-    var countLiveData = MutableLiveData<Int>()
+    val navigationLiveData = MutableLiveData<Event<String>>(Event("1"))
 
-    fun countToast(count: Int) {
-        countLiveData.value = (count)
-
-        viewModelScope.launch {
-
-        }
+    init {
+        navigationLiveData.postValue(Event("2"))
     }
 
-    val first = liveData {
-        emit("123")
+    fun navigation() {
+        navigationLiveData.postValue(Event("3"))
     }
 }
