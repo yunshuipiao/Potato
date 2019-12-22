@@ -3,6 +3,9 @@ package com.swensun.potato
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ktx.SingleEvent
+import androidx.lifecycle.ktx.SingleEventObserver
+import androidx.lifecycle.ktx.noSticky
 import com.swensun.base.BaseActivity
 import com.swensun.potato.demo.RecyclerViewActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -34,13 +37,11 @@ class MainActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        mainViewModel.navigationLiveData.observe(this, Observer { event ->
-            event.getContentIfNotHandled()?.let {
-                if (it == "3") {
+        mainViewModel.navigationLiveData.noSticky().observe(this, SingleEventObserver {
+            if (it == "3") {
                     startActivity<RecyclerViewActivity>()
                 }
                 log.text = it
-            }
         })
     }
 
@@ -48,4 +49,6 @@ class MainActivity : BaseActivity() {
         mainViewModel.navigation()
     }
 }
+
+
 
