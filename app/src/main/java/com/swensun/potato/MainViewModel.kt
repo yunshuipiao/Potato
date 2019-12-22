@@ -15,9 +15,7 @@ class MainViewModel : ViewModel() {
         navigationLiveData.postValue(SingleEvent("4"))
         navigationLiveData.postValue(SingleEvent("5"))
         navigationLiveData.postValue(SingleEvent("6"))
-
     }
-
 
     fun navigation() {
         navigationLiveData.postValue(SingleEvent("3"))
