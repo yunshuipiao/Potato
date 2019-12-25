@@ -14,7 +14,6 @@ class ViewPagerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_pager)
         initView()
-
     }
 
     private fun initView() {
@@ -23,7 +22,7 @@ class ViewPagerActivity : AppCompatActivity() {
         val fragmentList = arrayListOf<Fragment>()
         val titleList = arrayListOf<String>()
         (0 until 10).forEach {
-            fragmentList.add(OuterFragment.newInstance(it))
+            fragmentList.add(OuterFragment.newInstance(it.toString()))
             titleList.add(it.toString())
         }
         adapter.setup(fragmentList, titleList)
