@@ -18,7 +18,7 @@ open class SingleEvent<out T>(private val content: T? = null) {
             content
         }
     }
-
+    
     /**
      * Returns the content, even if it's already been handled.
      */
