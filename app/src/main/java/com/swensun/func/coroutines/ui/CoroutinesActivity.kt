@@ -1,4 +1,4 @@
-package com.swensun.func.ui.coroutines
+package com.swensun.func.coroutines.ui
 
 import android.os.Bundle
 import com.swensun.base.BaseActivity
@@ -15,7 +15,9 @@ class CoroutinesActivity : BaseActivity() {
         supportActionBar?.title = getString(R.string.coroutines)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, CoroutinesFragment.newInstance())
+                .replace(R.id.container,
+                    CoroutinesFragment.newInstance()
+                )
                 .commit()
         }
     }
