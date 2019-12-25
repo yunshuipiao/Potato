@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Potato</string>
     <string name="coroutines">协程</string>
+    <string name="viewpager">ViewPager</string>
 </resources>
