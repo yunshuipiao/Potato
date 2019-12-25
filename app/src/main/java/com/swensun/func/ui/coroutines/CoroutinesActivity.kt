@@ -1,8 +1,7 @@
-package com.swensun.func
+package com.swensun.func.ui.coroutines
 
 import android.os.Bundle
 import com.swensun.base.BaseActivity
-import com.swensun.func.ui.coroutines.CoroutinesFragment
 import com.swensun.potato.R
 
 class CoroutinesActivity : BaseActivity() {
@@ -17,7 +16,7 @@ class CoroutinesActivity : BaseActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, CoroutinesFragment.newInstance())
+                .commit()
         }
     }
-    
 }

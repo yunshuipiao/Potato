@@ -2,7 +2,7 @@ package com.swensun.potato
 
 import android.os.Bundle
 import com.swensun.base.BaseActivity
-import com.swensun.func.CoroutinesActivity
+import com.swensun.func.ui.coroutines.CoroutinesActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
 
