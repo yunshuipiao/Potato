@@ -15,7 +15,7 @@ import kotlin.system.measureTimeMillis
 class CoroutinesViewModel : StateViewModel() {
 
     
-    private val apiService = HttpClient.retrofit.create(ApiService::class.java)
+    private val apiService = HttpClient.createService<ApiService>()
 
 
     fun fetchData() {

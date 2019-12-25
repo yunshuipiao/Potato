@@ -23,4 +23,8 @@ object HttpClient {
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(base_url).build()
     }
+
+    inline fun <reified T> createService(): T {
+        return retrofit.create(T::class.java)
+    }
 }
