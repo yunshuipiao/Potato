@@ -28,15 +28,6 @@ class Retrofit_Test {
     @Test
     fun listRepos_test() {
         val githubService = retrofit.create(GitHubService::class.java)
-//        val response = githubService
-//            .listRepos("octocat")
-//            .execute()
-//        println("code: ${response.code()}, body: ${GsonUtils.toJson(response.body())}")
-
-//        GlobalScope.launch(Dispatchers.Default) {
-//            val res = githubService.listRepos2("123")
-//            println("res: 123")
-//        }
         runBlocking {
             val response = githubService.listRepos2("octocat")
             println("res, body: ${GsonUtils.toJson(response)}")

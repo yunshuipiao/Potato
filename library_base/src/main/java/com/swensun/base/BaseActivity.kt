@@ -15,8 +15,11 @@ abstract class BaseActivity : RxAppCompatActivity() {
         setContentView(R.layout.activity_base)
         setSupportActionBar(toolbar)
         layoutInflater.inflate(getContentSubView(), container)
+        initView(savedInstanceState)
     }
 
     @LayoutRes
     abstract fun getContentSubView(): Int
+
+    abstract fun initView(savedInstanceState: Bundle?)
 }
