@@ -33,14 +33,14 @@ class CoroutinesFragment : Fragment() {
         viewModel.stateLiveData.observe(this, Observer {
             when (it) {
                 StateEvent.LOADING -> {
-                    Logger.d("loading")
+                    Logger.d("loading ${it.msg}")
                 }
                 StateEvent.SUCCESS -> {
                     Logger.d("SUCCESS")
 
                 }
                 StateEvent.ERROR -> {
-                    Logger.d("ERROR")
+                    Logger.d("ERROR ${it.msg}")
                 }
             }
         })

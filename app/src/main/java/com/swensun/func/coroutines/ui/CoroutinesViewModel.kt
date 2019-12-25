@@ -22,7 +22,8 @@ class CoroutinesViewModel : StateViewModel() {
         /**
          * 启动一个协程
          */
-        postLoading()
+        postLoading("...")
+        postLoading("123")
         viewModelScope.launch {
             //loading
             val timeDiff = measureTimeMillis {
