@@ -2,6 +2,7 @@ package com.swensun.potato
 
 import android.os.Bundle
 import com.swensun.base.BaseActivity
+import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
 import com.swensun.func.viewpager.ViewPagerActivity
 import com.swensun.func.viewpager.ViewPagerAdapter
@@ -21,6 +22,9 @@ class MainActivity : BaseActivity() {
         }
         btn_viewpager.setOnClickListener {
             startActivity<ViewPagerActivity>()
+        }
+        btn_bottom.setOnClickListener {
+            startActivity<BottomActivity>()
         }
     }
 }

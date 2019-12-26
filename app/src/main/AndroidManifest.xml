@@ -10,7 +10,10 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name="com.swensun.func.viewpager.ViewPagerActivity"></activity>
+        <activity
+                android:name="com.swensun.func.bottom.BottomActivity"
+                android:label="@string/title_activity_bottom"></activity>
+        <activity android:name="com.swensun.func.viewpager.ViewPagerActivity" />
         <activity android:name="com.swensun.func.coroutines.ui.CoroutinesActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

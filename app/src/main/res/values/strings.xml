@@ -2,4 +2,9 @@
     <string name="app_name">Potato</string>
     <string name="coroutines">协程</string>
     <string name="viewpager">ViewPager</string>
+    <string name="title_activity_bottom">BottomActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="bottom_navigation">BottomNavigation</string>
 </resources>
