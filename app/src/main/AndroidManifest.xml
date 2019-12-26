@@ -12,7 +12,8 @@
             android:theme="@style/AppTheme.NoActionBar">
         <activity
                 android:name="com.swensun.func.bottom.BottomActivity"
-                android:label="@string/title_activity_bottom"></activity>
+                android:label="@string/title_activity_bottom"
+                android:theme="@style/AppTheme"></activity>
         <activity android:name="com.swensun.func.viewpager.ViewPagerActivity" />
         <activity android:name="com.swensun.func.coroutines.ui.CoroutinesActivity" />
         <activity android:name=".MainActivity">
