@@ -4,8 +4,8 @@ import android.os.Bundle
 import com.swensun.base.BaseActivity
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
+import com.swensun.func.trans.TransFontActivity
 import com.swensun.func.viewpager.ViewPagerActivity
-import com.swensun.func.viewpager.ViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
 
@@ -25,6 +25,9 @@ class MainActivity : BaseActivity() {
         }
         btn_bottom.setOnClickListener {
             startActivity<BottomActivity>()
+        }
+        btn_font_trans.setOnClickListener {
+            startActivity<TransFontActivity>()
         }
     }
 }

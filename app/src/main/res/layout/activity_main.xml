@@ -30,6 +30,13 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="@string/bottom_navigation"/>
+
+        <Button
+                android:id="@+id/btn_font_trans"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/font_and_trans"/>
     </LinearLayout>
 
 

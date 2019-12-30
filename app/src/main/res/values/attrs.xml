@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PotatoTextView">
+        <attr name="apply_font" format="string" />
+        <attr name="translatable" format="boolean" />
+    </declare-styleable>
+</resources>
