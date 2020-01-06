@@ -10,7 +10,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name="com.swensun.func.trans.TransFontActivity"></activity>
+        <activity android:name="com.swensun.func.room.RoomActivity"></activity>
+        <activity android:name="com.swensun.func.trans.TransFontActivity" />
         <activity
                 android:name="com.swensun.func.bottom.BottomActivity"
                 android:label="@string/title_activity_bottom"

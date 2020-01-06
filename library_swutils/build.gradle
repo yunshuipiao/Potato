@@ -52,13 +52,16 @@ dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$prop_kotlin_version"
     api "org.jetbrains.anko:anko:$prop_anko_version"
 
-
-
     // 添加Jetpack中架构组件的依赖，注意viewmodel要添加viewmodel-ktx的依赖
     api "androidx.lifecycle:lifecycle-livedata:2.1.0"
     api 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
     api "androidx.lifecycle:lifecycle-extensions:2.1.0"
     api "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0-rc03"
+
+    //room
+    api "androidx.room:room-runtime:$prop_room_version"
+    kapt "androidx.room:room-compiler:$prop_room_version"
+    api "androidx.room:room-ktx:$prop_room_version"
 
 
     api "com.google.code.gson:gson:$prop_gson_okhttp"

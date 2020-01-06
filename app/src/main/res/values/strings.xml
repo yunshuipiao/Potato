@@ -8,4 +8,5 @@
     <string name="title_notifications">Notifications</string>
     <string name="bottom_navigation">BottomNavigation</string>
     <string name="font_and_trans">字体和翻译</string>
+    <string name="room">Room</string>
 </resources>
