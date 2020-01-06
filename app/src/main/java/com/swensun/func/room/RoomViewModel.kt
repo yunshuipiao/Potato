@@ -4,7 +4,6 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import com.swensun.func.room.database.RoomDataBaseUtils
 import com.swensun.func.room.database.RoomEntity
-import com.swensun.swutils.util.Logger
 
 class RoomViewModel : ViewModel() {
 
@@ -38,8 +37,14 @@ class RoomViewModel : ViewModel() {
     }
 
     fun queryRooms() {
-        val list = roomDao.queryRooms2()
-        Logger.d("--$list")
+        val list = arrayListOf<RoomEntity>().apply {
+            (0 until 50).forEach { add(RoomEntity().apply {
+                this.id = it
+            }) }
+        }
+        multiRoomLiveData.value?.let {
+            list.addAll(it)
+        }
         multiRoomLiveData.postValue(list)
     }   
 }
