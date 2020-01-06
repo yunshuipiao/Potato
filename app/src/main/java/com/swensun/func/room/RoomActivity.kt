@@ -2,7 +2,7 @@ package com.swensun.func.room
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.swensun.func.room.ui.room.RoomFragment
+import com.swensun.potato.R
 
 class RoomActivity : AppCompatActivity() {
 
