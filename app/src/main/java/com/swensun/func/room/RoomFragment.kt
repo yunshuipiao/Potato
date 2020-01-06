@@ -40,6 +40,9 @@ class RoomFragment : Fragment() {
     }
 
     private fun initView() {
+        viewModel.multiRoomLiveData.observe(this, Observer {
+            adapter.submitList(it)
+        })
         recycler_view.layoutManager = LinearLayoutManager(context)
         recycler_view.setHasFixedSize(true)
         recycler_view.adapter = adapter
@@ -56,10 +59,6 @@ class RoomFragment : Fragment() {
         btn_query.setOnClickListener {
             Logger.d("query: ${viewModel.queryRooms()}")
         }
-
-        viewModel.queryRooms().observe(this, Observer {
-            adapter.submitList(it)
-        })
     }
 
     private fun getEditContent(): Int {
@@ -99,7 +98,7 @@ class RoomCallBack : DiffUtil.ItemCallback<RoomEntity>() {
     }
 
     override fun areItemsTheSame(oldItem: RoomEntity, newItem: RoomEntity): Boolean {
-        return oldItem == newItem
+        return oldItem.id == newItem.id
     }
 
 }

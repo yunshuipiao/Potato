@@ -7,6 +7,9 @@ import androidx.room.*
 interface RoomDao {
     @Query("select * from RoomEntity")
     fun queryRooms(): LiveData<List<RoomEntity>>
+
+    @Query("select * from RoomEntity")
+    fun queryRooms2(): List<RoomEntity>
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertRoom(rooms: List<RoomEntity>)

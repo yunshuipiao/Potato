@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 class RoomEntity {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     var id = 0
     
     val title: String
