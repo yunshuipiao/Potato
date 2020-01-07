@@ -40,9 +40,11 @@ class RoomFragment : Fragment() {
     }
 
     private fun initView() {
-        viewModel.multiRoomLiveData.observe(this, Observer {
-            adapter.submitList(it)
+
+        viewModel.roomQueryLiveData.observe(this, Observer {
+//            adapter.submitList(it)
         })
+
         recycler_view.layoutManager = LinearLayoutManager(context)
         recycler_view.setHasFixedSize(true)
         recycler_view.adapter = adapter
@@ -57,7 +59,7 @@ class RoomFragment : Fragment() {
             viewModel.delete(getEditContent())
         }
         btn_query.setOnClickListener {
-            Logger.d("query: ${viewModel.queryRooms()}")
+            Logger.d("query: ${viewModel.roomQueryLiveData.value}")
         }
     }
 

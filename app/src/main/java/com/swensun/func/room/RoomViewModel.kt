@@ -1,5 +1,6 @@
 package com.swensun.func.room
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import com.swensun.func.room.database.RoomDataBaseUtils
@@ -9,15 +10,9 @@ class RoomViewModel : ViewModel() {
 
     val roomDao by lazy { RoomDataBaseUtils.getRoomDao() }
 
-    val multiRoomLiveData = MediatorLiveData<List<RoomEntity>>()
+    val roomQueryLiveData = roomDao.queryRooms()
 
-
-    init {
-        multiRoomLiveData.addSource(roomDao.queryRooms()) {
-            multiRoomLiveData.postValue(it)
-        }
-    }
-
+    
     fun add(id: Int) {
         roomDao.insertRoom(listOf(RoomEntity().apply {
             this.id = id
@@ -35,16 +30,5 @@ class RoomViewModel : ViewModel() {
             this.id = id
         })
     }
-
-    fun queryRooms() {
-        val list = arrayListOf<RoomEntity>().apply {
-            (0 until 50).forEach { add(RoomEntity().apply {
-                this.id = it
-            }) }
-        }
-        multiRoomLiveData.value?.let {
-            list.addAll(it)
-        }
-        multiRoomLiveData.postValue(list)
-    }   
+    
 }
