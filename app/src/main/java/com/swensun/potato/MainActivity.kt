@@ -5,6 +5,7 @@ import com.swensun.base.BaseActivity
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
 import com.swensun.func.room.RoomActivity
+import com.swensun.func.time.TimeAboutActivity
 import com.swensun.func.trans.TransFontActivity
 import com.swensun.func.viewpager.ViewPagerActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -32,6 +33,9 @@ class MainActivity : BaseActivity() {
         }
         btn_room.setOnClickListener {
             startActivity<RoomActivity>()
+        }
+        btn_time.setOnClickListener {
+            startActivity<TimeAboutActivity>()
         }
     }
 }

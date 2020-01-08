@@ -23,6 +23,8 @@ class RoomFragment : Fragment() {
         fun newInstance() = RoomFragment()
     }
 
+    var index = 0
+
     private val adapter = RoomAdapter()
     private lateinit var viewModel: RoomViewModel
 
@@ -40,11 +42,7 @@ class RoomFragment : Fragment() {
     }
 
     private fun initView() {
-
-        viewModel.roomQueryLiveData.observe(this, Observer {
-//            adapter.submitList(it)
-        })
-
+        
         recycler_view.layoutManager = LinearLayoutManager(context)
         recycler_view.setHasFixedSize(true)
         recycler_view.adapter = adapter
@@ -59,7 +57,15 @@ class RoomFragment : Fragment() {
             viewModel.delete(getEditContent())
         }
         btn_query.setOnClickListener {
-            Logger.d("query: ${viewModel.roomQueryLiveData.value}")
+            if (index % 2 == 0) {
+                viewModel.roomQueryLiveData.observe(this, Observer {
+                    adapter.submitList(it)
+                    Logger.d("livedata ${viewModel.roomQueryLiveData}")
+                })
+            } else {
+                viewModel.roomQueryLiveData.removeObservers(this)
+            }
+            index += 1
         }
     }
 

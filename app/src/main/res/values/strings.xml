@@ -9,4 +9,6 @@
     <string name="bottom_navigation">BottomNavigation</string>
     <string name="font_and_trans">字体和翻译</string>
     <string name="room">Room</string>
+    <string name="time">时间相关</string>
+    <string name="debounce">debounce</string>
 </resources>
