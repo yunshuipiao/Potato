@@ -11,4 +11,6 @@
     <string name="room">Room</string>
     <string name="time">时间相关</string>
     <string name="debounce">debounce</string>
+    <string name="lifecycle">lifecycle</string>
+    <string name="post_self">post self</string>
 </resources>

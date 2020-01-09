@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.swensun.base.BaseActivity
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
+import com.swensun.func.lifecycle.LifecycleActivity
 import com.swensun.func.room.RoomActivity
 import com.swensun.func.time.TimeAboutActivity
 import com.swensun.func.trans.TransFontActivity
@@ -36,6 +37,9 @@ class MainActivity : BaseActivity() {
         }
         btn_time.setOnClickListener {
             startActivity<TimeAboutActivity>()
+        }
+        btn_lifecycle.setOnClickListener {
+            startActivity<LifecycleActivity>()
         }
     }
 }
