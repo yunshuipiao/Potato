@@ -9,7 +9,7 @@ import com.swensun.potato.R
 import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.fragment_inner.*
 
-class InnerFragment : Fragment() {
+class InnerFragment : BaseFragment() {
 
     companion object {
         fun newInstance(id: String): InnerFragment {
@@ -26,18 +26,12 @@ class InnerFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Logger.d("onCreateView ${arguments?.get("id")}")
         return inflater.inflate(R.layout.fragment_inner, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        tv_content.text = arguments?.getString("id")
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Logger.d("onDestroyView ${arguments?.get("id")}")
-
+    override fun loadData() {
+        val id = arguments?.getString("id")
+        tv_content.text = id
+        Logger.d("id--: $id")
     }
 }

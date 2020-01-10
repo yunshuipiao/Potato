@@ -24,6 +24,7 @@ class ViewPagerActivity : AppCompatActivity() {
         (0 until 10).forEach {
             fragmentList.add(OuterFragment.newInstance(it.toString()))
             titleList.add(it.toString())
+            viewpager.offscreenPageLimit = fragmentList.size - 1
         }
         adapter.setup(fragmentList, titleList)
     }

@@ -7,11 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.swensun.potato.R
 import com.swensun.swutils.util.Logger
+import kotlinx.android.synthetic.main.activity_view_pager.*
 import kotlinx.android.synthetic.main.fragment_outer.*
+import kotlinx.android.synthetic.main.fragment_outer.tab_layout
+import kotlinx.android.synthetic.main.fragment_outer.viewpager
 import java.util.logging.LogManager
 
 
-class OuterFragment : Fragment() {
+class OuterFragment : BaseFragment() {
 
     lateinit var adapter: ViewPagerAdapter
 
@@ -30,13 +33,11 @@ class OuterFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Logger.d("onCreateView ${arguments?.get("id")}")
         return inflater.inflate(R.layout.fragment_outer, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
+    override fun loadData() {
+        val id = arguments?.get("id")
         childFragmentManager.let {
             adapter = ViewPagerAdapter(it)
             viewpager.adapter = adapter
@@ -45,16 +46,13 @@ class OuterFragment : Fragment() {
             val titleList = arrayListOf<String>()
             (0 until 10).forEach {
                 fragmentList.add(
-                    InnerFragment.newInstance("${arguments?.get("id")}-$it")
+                    InnerFragment.newInstance("${id}-$it")
                 )
-                titleList.add("${arguments?.get("id")}-$it")
+                titleList.add("${id}-$it")
+                viewpager.offscreenPageLimit = fragmentList.size - 1
             }
             adapter.setup(fragmentList, titleList)
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Logger.d("onDestroyView ${arguments?.get("id")}")
+        Logger.d("id--: $id")
     }
 }
