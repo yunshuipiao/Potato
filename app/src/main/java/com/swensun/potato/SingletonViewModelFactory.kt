@@ -1,27 +1,24 @@
 package com.swensun.potato
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 
-object SharedViewModelFactory : ViewModelProvider.Factory {
+object SharedViewModelFactory : ViewModelProvider.Factory, LifecycleObserver {
 
-    val viewModelMap = hashMapOf<String, ViewModel>()
+    private val viewModelMap = hashMapOf<String, ViewModel>()
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         val canonicalName = modelClass.canonicalName ?: ""
-        if (modelClass == UserViewModel::class.java) {
-            return if (viewModelMap.containsKey(canonicalName)) {
-                viewModelMap[canonicalName] as T
-            } else {
-                val viewModel = modelClass.newInstance()
-                viewModelMap[canonicalName] = viewModel
-                viewModel as T
-            }
+        val viewModel = viewModelMap[canonicalName]
+        if (viewModel == null) {
+            val newViewModel =  modelClass.newInstance()
+            viewModelMap[canonicalName] = newViewModel as ViewModel
+            return newViewModel
+        } else {
+            return viewModel as T
         }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
-    
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun clearViewModel() {
         viewModelMap.clear()
     }

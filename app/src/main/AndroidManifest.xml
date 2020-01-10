@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.swensun.potato">
+        package="com.swensun.potato">
 
     <application
             android:name=".application.PotatoApplication"
@@ -10,15 +10,24 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".demo.RecyclerViewActivity">
-        </activity>
+        <activity android:name="com.swensun.func.multidialog.MultiDialogActivity"></activity>
+        <activity android:name="com.swensun.func.lifecycle.LifecycleActivity" />
+        <activity android:name="com.swensun.func.time.TimeAboutActivity" />
+        <activity android:name="com.swensun.func.room.RoomActivity" />
+        <activity android:name="com.swensun.func.trans.TransFontActivity" />
+        <activity
+                android:name="com.swensun.func.bottom.BottomActivity"
+                android:label="@string/title_activity_bottom"
+                android:theme="@style/AppTheme" />
+        <activity android:name="com.swensun.func.viewpager.ViewPagerActivity" />
+        <activity android:name="com.swensun.func.coroutines.ui.CoroutinesActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
     </application>
 
 </manifest>

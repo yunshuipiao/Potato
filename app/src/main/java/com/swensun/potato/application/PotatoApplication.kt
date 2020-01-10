@@ -5,7 +5,8 @@ import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import com.swensun.potato.MainActivity
-import com.swensun.potato.SharedViewModelFactory
+import com.swensun.swutils.util.Logger
+
 
 class PotatoApplication : Application() {
 
@@ -24,12 +25,19 @@ class PotatoApplication : Application() {
 //        }
 //        startTime = System.currentTimeMillis()
 //        Choreographer.getInstance().postFrameCallback(callback)
-        registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
+        registerActivityLifecycleCallbacks(object: ActivityLifecycleCallbacks {
+            private var  mMainOnPaused = false;
+            private var  mMainOnResumed = false;
             override fun onActivityPaused(activity: Activity?) {
-                
+                mMainOnPaused = activity is MainActivity
             }
 
             override fun onActivityResumed(activity: Activity?) {
+                mMainOnResumed = activity is MainActivity
+                if (mMainOnPaused && mMainOnResumed) {
+                    Logger.d("$activity from launcher or other app")
+                    
+                }
                 
             }
 
@@ -38,9 +46,7 @@ class PotatoApplication : Application() {
             }
 
             override fun onActivityDestroyed(activity: Activity?) {
-                if (activity is MainActivity) {
-                    SharedViewModelFactory.clearViewModel()
-                }
+                
             }
 
             override fun onActivitySaveInstanceState(activity: Activity?, outState: Bundle?) {
@@ -54,9 +60,8 @@ class PotatoApplication : Application() {
             override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
                 
             }
-        })
-    }
 
-    
-    
+        })
+
+    }
 }

@@ -57,7 +57,6 @@ class MainFragment : Fragment() {
             } else {
                 mf_to_play.text = "播放"
                 handler.removeMessages(1)
-
             }
         })
         viewModel.mMetaDataLiveData.observe(this, Observer {
@@ -85,7 +84,6 @@ class MainFragment : Fragment() {
          */
         mf_to_next.setOnClickListener {
             viewModel.skipToNext()
-
         }
         /**
          * 播放暂停

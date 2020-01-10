@@ -2,6 +2,7 @@ package com.swensun.potato
 
 
 import com.blankj.utilcode.util.GsonUtils
+import com.swensun.http.BaseResponse
 import kotlinx.coroutines.runBlocking
 import okhttp3.*
 import org.junit.Test
@@ -28,19 +29,27 @@ class Retrofit_Test {
     @Test
     fun listRepos_test() {
         val githubService = retrofit.create(GitHubService::class.java)
-//        val response = githubService
-//            .listRepos("octocat")
-//            .execute()
-//        println("code: ${response.code()}, body: ${GsonUtils.toJson(response.body())}")
-
-//        GlobalScope.launch(Dispatchers.Default) {
-//            val res = githubService.listRepos2("123")
-//            println("res: 123")
-//        }
         runBlocking {
             val response = githubService.listRepos2("octocat")
             println("res, body: ${GsonUtils.toJson(response)}")
         }
+    }
+
+    @Test
+    fun gson_test() {
+        val successRes = BaseResponse<String>().apply {
+            result = 0
+            message = ""
+            data = "swensun"
+        }
+        val errorRes = BaseResponse<String>().apply {
+            result = 101
+            message = "parameter error"
+        }
+
+        println(GsonUtils.getGson().toJson(successRes))
+        println(GsonUtils.getGson().toJson(errorRes))
+
     }
 }
 
@@ -76,11 +85,6 @@ interface GitHubService {
     suspend fun listRepos2(@Path("user") user: String): BaseResponse<String>
 }
 
-class BaseResponse<T> {
-    var result = 0
-    var message = ""
-    var data: T? = null
-}
 
 class Repo(var id: Int = 0) {
 }

@@ -1,6 +1,18 @@
 <resources>
     <string name="app_name">Potato</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="coroutines">协程</string>
+    <string name="viewpager">ViewPager</string>
+    <string name="title_activity_bottom">BottomActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="bottom_navigation">BottomNavigation</string>
+    <string name="font_and_trans">字体和翻译</string>
+    <string name="room">Room</string>
+    <string name="time">时间相关</string>
+    <string name="debounce">debounce</string>
+    <string name="lifecycle">lifecycle</string>
+    <string name="post_self">post self</string>
+    <string name="multi_dialog">multi dialog</string>
+    <string name="bottom_sheet">bottom_sheet</string>
 </resources>

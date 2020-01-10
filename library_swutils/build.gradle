@@ -49,14 +49,25 @@ dependencies {
     api "androidx.constraintlayout:constraintlayout:$prop_androidx_constraintLayout_version"
     api "androidx.appcompat:appcompat:$prop_androidx_appcompat_version"
     api "com.google.android.material:material:$prop_material_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$prop_kotlin_version"
+    api "org.jetbrains.anko:anko:$prop_anko_version"
 
-    /// Architecture Components
-    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$prop_androidx_lifecycle_version"
+    // 添加Jetpack中架构组件的依赖，注意viewmodel要添加viewmodel-ktx的依赖
+    api "androidx.lifecycle:lifecycle-livedata:2.1.0"
+    api 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
+    api "androidx.lifecycle:lifecycle-extensions:2.1.0"
     api "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0-rc03"
-    api "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-rc03"
-    api "androidx.lifecycle:lifecycle-extensions:$prop_androidx_lifecycle_version"
-    /// Retrofit2
-    api("com.squareup.retrofit2:retrofit:$prop_retrofit_version")
+
+    //room
+    api "androidx.room:room-runtime:$prop_room_version"
+    kapt "androidx.room:room-compiler:$prop_room_version"
+    api "androidx.room:room-ktx:$prop_room_version"
+
+
+    api "com.google.code.gson:gson:$prop_gson_okhttp"
+
+    // Retrofit2
+    api "com.squareup.retrofit2:retrofit:$prop_retrofit_version"
     api "com.squareup.retrofit2:converter-gson:$prop_retrofit_version"
     api 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
     api "org.jetbrains.anko:anko:$prop_anko_version"
@@ -70,4 +81,7 @@ dependencies {
 
     api "androidx.work:work-runtime:$prop_work_version"
     api 'com.blankj:utilcodex:1.26.0'
+
+    api "me.grantland:autofittextview:0.2.1"
+
 }

@@ -1,31 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-    <!--    <androidx.core.widget.ContentLoadingProgressBar-->
-    <!--            android:id="@+id/progress_circular"-->
-    <!--            android:layout_width="80dp"-->
-    <!--            android:layout_height="80dp"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            app:layout_constraintLeft_toLeftOf="parent"-->
-    <!--            app:layout_constraintRight_toRightOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent"-->
-    <!--            style="?android:attr/progressBarStyleLarge"-->
-    <!--            app:flow_horizontalBias="0.3"-->
-    <!--    />-->
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <Button
-            android:id="@+id/log"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:text="log"
-            android:gravity="center"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <Button
+                android:id="@+id/btn_coroutines"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/coroutines"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+                android:id="@+id/btn_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/viewpager"/>
+        <Button
+                android:id="@+id/btn_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/bottom_navigation"/>
+
+        <Button
+                android:id="@+id/btn_font_trans"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/font_and_trans"/>
+
+        <Button
+                android:id="@+id/btn_room"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/room"/>
+        <Button
+                android:id="@+id/btn_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/time"/>
+        <Button
+                android:id="@+id/btn_lifecycle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/lifecycle"/>
+        <Button
+                android:id="@+id/btn_multi_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/multi_dialog"/>
+    </LinearLayout>
+
+
+</androidx.core.widget.NestedScrollView>
