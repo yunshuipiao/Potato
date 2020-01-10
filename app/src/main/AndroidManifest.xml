@@ -10,7 +10,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name="com.swensun.func.lifecycle.LifecycleActivity"></activity>
+        <activity android:name="com.swensun.func.multidialog.MultiDialogActivity"></activity>
+        <activity android:name="com.swensun.func.lifecycle.LifecycleActivity" />
         <activity android:name="com.swensun.func.time.TimeAboutActivity" />
         <activity android:name="com.swensun.func.room.RoomActivity" />
         <activity android:name="com.swensun.func.trans.TransFontActivity" />

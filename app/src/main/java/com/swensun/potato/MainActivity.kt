@@ -5,6 +5,7 @@ import com.swensun.base.BaseActivity
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
 import com.swensun.func.lifecycle.LifecycleActivity
+import com.swensun.func.multidialog.MultiDialogActivity
 import com.swensun.func.room.RoomActivity
 import com.swensun.func.time.TimeAboutActivity
 import com.swensun.func.trans.TransFontActivity
@@ -40,6 +41,9 @@ class MainActivity : BaseActivity() {
         }
         btn_lifecycle.setOnClickListener {
             startActivity<LifecycleActivity>()
+        }
+        btn_multi_dialog.setOnClickListener {
+            startActivity<MultiDialogActivity>()
         }
     }
 }

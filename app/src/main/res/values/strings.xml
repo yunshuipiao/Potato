@@ -13,4 +13,6 @@
     <string name="debounce">debounce</string>
     <string name="lifecycle">lifecycle</string>
     <string name="post_self">post self</string>
+    <string name="multi_dialog">multi dialog</string>
+    <string name="bottom_sheet">bottom_sheet</string>
 </resources>
