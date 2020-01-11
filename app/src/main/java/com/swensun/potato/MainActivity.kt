@@ -1,10 +1,12 @@
 package com.swensun.potato
 
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import com.swensun.base.BaseActivity
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
 import com.swensun.func.lifecycle.LifecycleActivity
+import com.swensun.func.livedata.LiveDataActivity
 import com.swensun.func.multidialog.MultiDialogActivity
 import com.swensun.func.room.RoomActivity
 import com.swensun.func.time.TimeAboutActivity
@@ -12,15 +14,20 @@ import com.swensun.func.trans.TransFontActivity
 import com.swensun.func.viewpager.ViewPagerActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
 
 class MainActivity : BaseActivity() {
-    
+
     override fun getContentSubView(): Int {
         return R.layout.activity_main
     }
-    
+
+
+
+
     override fun initView(savedInstanceState: Bundle?) {
+
         btn_coroutines.setOnClickListener {
             startActivity<CoroutinesActivity>()
         }
@@ -45,6 +52,16 @@ class MainActivity : BaseActivity() {
         btn_multi_dialog.setOnClickListener {
             startActivity<MultiDialogActivity>()
         }
+        btn_livedata.setOnClickListener {
+            startActivity<LiveDataActivity>()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        LiveDataBus.get<String>("1").observe(this, Observer {
+            toast("m: $it")
+        })
     }
 }
 
