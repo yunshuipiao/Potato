@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
+import com.swensun.potato.AppStatusUtils
 import com.swensun.potato.MainActivity
 import com.swensun.swutils.util.Logger
 
@@ -25,6 +26,7 @@ class PotatoApplication : Application() {
 //        }
 //        startTime = System.currentTimeMillis()
 //        Choreographer.getInstance().postFrameCallback(callback)
+        AppStatusUtils.init(this)
         registerActivityLifecycleCallbacks(object: ActivityLifecycleCallbacks {
             private var  mMainOnPaused = false;
             private var  mMainOnResumed = false;
