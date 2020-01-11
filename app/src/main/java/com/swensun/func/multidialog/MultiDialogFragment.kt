@@ -1,11 +1,11 @@
 package com.swensun.func.multidialog
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import com.swensun.potato.R
 
 class MultiDialogFragment : Fragment() {
@@ -26,7 +26,5 @@ class MultiDialogFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MultiDialogViewModel::class.java)
-        // TODO: Use the ViewModel
     }
-
 }
