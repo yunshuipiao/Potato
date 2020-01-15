@@ -28,8 +28,8 @@ class PotatoApplication : Application() {
 //        Choreographer.getInstance().postFrameCallback(callback)
         AppStatusUtils.init(this)
         registerActivityLifecycleCallbacks(object: ActivityLifecycleCallbacks {
-            private var  mMainOnPaused = false;
-            private var  mMainOnResumed = false;
+            private var  mMainOnPaused = false
+            private var  mMainOnResumed = false
             override fun onActivityPaused(activity: Activity?) {
                 mMainOnPaused = activity is MainActivity
             }
@@ -38,7 +38,6 @@ class PotatoApplication : Application() {
                 mMainOnResumed = activity is MainActivity
                 if (mMainOnPaused && mMainOnResumed) {
                     Logger.d("$activity from launcher or other app")
-                    
                 }
                 
             }
