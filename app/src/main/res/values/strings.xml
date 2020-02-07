@@ -16,4 +16,5 @@
     <string name="multi_dialog">multi dialog</string>
     <string name="bottom_sheet">bottom_sheet</string>
     <string name="livedata">livedata</string>
+    <string name="recyclerview">recyclerview</string>
 </resources>

@@ -8,6 +8,7 @@ import com.swensun.func.coroutines.ui.CoroutinesActivity
 import com.swensun.func.lifecycle.LifecycleActivity
 import com.swensun.func.livedata.LiveDataActivity
 import com.swensun.func.multidialog.MultiDialogActivity
+import com.swensun.func.recycler.RecyclerViewActivity
 import com.swensun.func.room.RoomActivity
 import com.swensun.func.time.TimeAboutActivity
 import com.swensun.func.trans.TransFontActivity
@@ -54,6 +55,9 @@ class MainActivity : BaseActivity() {
         }
         btn_livedata.setOnClickListener {
             startActivity<LiveDataActivity>()
+        }
+        btn_recycler.setOnClickListener {
+            startActivity<RecyclerViewActivity>()
         }
     }
 
