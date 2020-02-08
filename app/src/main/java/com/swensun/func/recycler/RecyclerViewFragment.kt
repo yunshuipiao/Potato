@@ -20,7 +20,7 @@ class RecyclerViewFragment : Fragment() {
         fun newInstance() = RecyclerViewFragment()
     }
 
-    private val adapter = RAdapter()
+    private val adapter = R2Adapter()
     private lateinit var viewModel: RecyclerViewViewModel
     private val datas = arrayListOf<RItem>()
     private var index = 0
@@ -42,14 +42,14 @@ class RecyclerViewFragment : Fragment() {
         recycler_view.setHasFixedSize(true)
         recycler_view.adapter = adapter
         recycler_view.layoutManager = LinearLayoutManager(requireContext())
-        adapter.setLoadMoreListener{
+        adapter.setLoadMoreListener {
             loadMoreData()
         }
         loadMoreData()
     }
 
     private fun loadMoreData() {
-        (0 until 30).forEach {
+        (0 until 10).forEach {
             datas.add(RItem().apply { id = index++ })
         }
         adapter.updateList(datas)
@@ -105,6 +105,72 @@ class RecyclerViewFragment : Fragment() {
 
         override fun areContentsTheSame(oldItem: RItem, newItem: RItem): Boolean {
             return oldItem.id == newItem.id
+        }
+    }
+
+    inner class R2Adapter : RecyclerView.Adapter<RViewHolder>() {
+        override fun getItemCount(): Int {
+            return itemList.size
+        }
+
+        val itemList = arrayListOf<RItem>()
+        private var loadMore: (() -> Unit)? = null
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RViewHolder {
+            return RViewHolder(parent)
+        }
+
+        override fun onBindViewHolder(holder: RViewHolder, position: Int) {
+            if (position == itemList.size - 1) {
+                //下拉刷新
+                loadMore?.invoke()
+            }
+            holder.setup(itemList[position])
+        }
+
+        fun updateList(list: List<RItem>) {
+            recycler_view.post {
+                val callback = DiffCallback(itemList, list)
+                val result = DiffUtil.calculateDiff(callback)
+                result.dispatchUpdatesTo(adapter)
+                itemList.clear()
+                itemList.addAll(list)
+            }
+
+        }
+
+        fun setLoadMoreListener(loadMore: (() -> Unit)?) {
+            this.loadMore = loadMore
+        }
+    }
+
+    class DiffCallback(ol: List<RItem>, nl: List<RItem>) : DiffUtil.Callback() {
+
+
+        val oldList = arrayListOf<RItem>()
+        val newList = arrayListOf<RItem>()
+
+        init {
+            oldList.clear()
+            newList.clear()
+            oldList.addAll(ol)
+            newList.addAll(nl)
+        }
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition] == newList[newItemPosition]
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition].id == newList[newItemPosition].id
+        }
+
+        override fun getOldListSize(): Int {
+            return oldList.size
+        }
+
+        override fun getNewListSize(): Int {
+            return newList.size
         }
     }
 }
