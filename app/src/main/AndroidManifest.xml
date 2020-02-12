@@ -10,7 +10,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name="com.swensun.func.recycler.RecyclerViewActivity"></activity>
+        <activity android:name="com.swensun.func.memory.MemoryActivity"></activity>
+        <activity android:name="com.swensun.func.recycler.RecyclerViewActivity" />
         <activity android:name="com.swensun.func.livedata.LiveDataActivity" />
         <activity android:name="com.swensun.func.multidialog.MultiDialogActivity" />
         <activity android:name="com.swensun.func.lifecycle.LifecycleActivity" />
