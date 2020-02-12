@@ -9,7 +9,7 @@ object Logger {
 
     private var tag = "swensun"
     private val debug = Log.isLoggable(tag, Log.DEBUG)
-    
+
     init {
         val config = LogUtils.getConfig()
         config.isLog2FileSwitch = true
@@ -17,7 +17,7 @@ object Logger {
         config.isLogHeadSwitch = false
     }
 
-    fun d(msg: String) {
+    fun d(msg: Any) {
         if (SwUtils.isDebug || debug) {
             LogUtils.d(msg)
         }

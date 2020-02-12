@@ -6,9 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.lifecycleScope
+import com.blankj.utilcode.util.GsonUtils
+import com.blankj.utilcode.util.LogUtils
 import com.swensun.potato.R
+import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.memory_fragment.*
 import okhttp3.OkHttpClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.GET
+import retrofit2.http.Path
+
 
 class MemoryFragment : Fragment() {
 
@@ -17,7 +29,7 @@ class MemoryFragment : Fragment() {
     }
 
     private lateinit var viewModel: MemoryViewModel
-    private val instanceList = arrayListOf<OkHttpClient>()
+    private val instanceList = arrayListOf<Retrofit>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,15 +45,43 @@ class MemoryFragment : Fragment() {
     }
 
     private fun intiView() {
+        newRetrofitClient()
         btn_okhttp_instance.setOnClickListener {
             (0 until 10).forEach {
-                instanceList.add(newOkHttpClient())
+                instanceList.add(newRetrofitClient())
             }
         }
     }
 
-    private fun newOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder().build()
+    private fun newRetrofitClient(): Retrofit {
+
+        val okHttpClient = OkHttpClient.Builder()
+            .build()
+        val retrofit = Retrofit.Builder()
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl("https://api.github.com/")
+            .build()
+
+        val service = retrofit.create(GitHubService::class.java)
+        lifecycleScope.launchWhenResumed {
+            try {
+                val l = service.listRepos("octocat")
+                Logger.d(l)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+        return retrofit
     }
 
+}
+
+interface GitHubService {
+    @GET("users/{user}/repos")
+    suspend fun listRepos(@Path("user") user: String): List<Repo>
+}
+
+class Repo {
+    val id = ""
 }
