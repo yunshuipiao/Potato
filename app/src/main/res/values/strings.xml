@@ -17,4 +17,6 @@
     <string name="bottom_sheet">bottom_sheet</string>
     <string name="livedata">livedata</string>
     <string name="recyclerview">recyclerview</string>
+    <string name="okhttp">okhttp</string>
+    <string name="memory">memory</string>
 </resources>

@@ -7,6 +7,7 @@ import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
 import com.swensun.func.lifecycle.LifecycleActivity
 import com.swensun.func.livedata.LiveDataActivity
+import com.swensun.func.memory.MemoryActivity
 import com.swensun.func.multidialog.MultiDialogActivity
 import com.swensun.func.recycler.RecyclerViewActivity
 import com.swensun.func.room.RoomActivity
@@ -23,8 +24,6 @@ class MainActivity : BaseActivity() {
     override fun getContentSubView(): Int {
         return R.layout.activity_main
     }
-
-
 
 
     override fun initView(savedInstanceState: Bundle?) {
@@ -59,13 +58,13 @@ class MainActivity : BaseActivity() {
         btn_recycler.setOnClickListener {
             startActivity<RecyclerViewActivity>()
         }
+        btn_memory.setOnClickListener {
+            startActivity<MemoryActivity>()
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        LiveDataBus.get<String>("1").observe(this, Observer {
-            toast("m: $it")
-        })
     }
 }
 

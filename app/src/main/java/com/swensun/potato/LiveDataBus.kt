@@ -1,6 +1,5 @@
 package com.swensun.potato
 
-import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.MutableLiveData
 import com.swensun.swutils.ui.showToast
 import java.util.concurrent.ConcurrentHashMap
