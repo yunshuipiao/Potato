@@ -1,10 +1,14 @@
 package com.swensun.func.customview.view
 
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.support.v4.media.session.PlaybackStateCompat
 import android.util.AttributeSet
 import android.view.View
+import android.view.animation.LinearInterpolator
 import com.swensun.potato.R
 import com.swensun.swutils.ui.dp2px
 import com.swensun.swutils.ui.getColor
@@ -20,18 +24,40 @@ class TaijiView @JvmOverloads constructor(
 
     }
 
+    val anim = ObjectAnimator.ofFloat(this, "rotation", 0f, 360f)
+        .apply {
+            duration = 800
+            repeatCount = ValueAnimator.INFINITE
+            interpolator = LinearInterpolator()
+        }
+
     val DEFAULT_SIZE = if (getWinWidth() < getWinHeight()) getWinWidth() else getWinHeight()
-    val STROKE_WIDTH = dp2px(5f).toFloat()
+    val STROKE_WIDTH = dp2px(1f).toFloat()
 
     var size: Int = 0
         get() = if (measuredWidth < measuredHeight) measuredWidth else measuredHeight
 
     init {
-        setBackgroundColor(getColor(R.color.colorPrimary))
+//        setBackgroundColor(getColor(R.color.colorPrimary))
         paint.color = getColor(R.color.black)
-        paint.style = Paint.Style.STROKE
+        paint.style = Paint.Style.FILL
         paint.strokeWidth = STROKE_WIDTH
         paint.isAntiAlias = true
+        setOnClickListener {
+            doAnim()
+        }
+    }
+
+    fun doAnim() {
+        if (!anim.isStarted) {
+            anim.start()
+            return
+        }
+        if (anim.isPaused) {
+            anim.resume()
+            return
+        }
+        anim.pause()
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -57,6 +83,24 @@ class TaijiView @JvmOverloads constructor(
         super.onDraw(canvas)
         val xCenter = (right - left) / 2f
         val yCenter = (bottom - top) / 2f
+        paint.color = getColor(R.color.white)
         canvas?.drawCircle(xCenter, yCenter, (size - STROKE_WIDTH) / 2, paint)
+
+        paint.color = getColor(R.color.black)
+        canvas?.drawArc(
+            0f, 0f, size.toFloat(), size.toFloat(), -90f, 180f, false, paint
+        )
+        canvas?.drawCircle(xCenter, yCenter * 1.5f, size / 4f, paint)
+        paint.color = getColor(R.color.white)
+        canvas?.drawCircle(xCenter, yCenter * 0.5f, size / 4f, paint)
+        canvas?.drawCircle(xCenter, yCenter * 1.5f, size / 16f, paint)
+        paint.color = getColor(R.color.black)
+        canvas?.drawCircle(xCenter, yCenter * 0.5f, size / 16f, paint)
+//        invalidate()
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        anim.cancel()
     }
 }
