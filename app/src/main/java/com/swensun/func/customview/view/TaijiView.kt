@@ -6,6 +6,7 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import com.swensun.potato.R
+import com.swensun.swutils.ui.dp2px
 import com.swensun.swutils.ui.getColor
 import com.swensun.swutils.ui.getWinHeight
 import com.swensun.swutils.ui.getWinWidth
@@ -19,10 +20,18 @@ class TaijiView @JvmOverloads constructor(
 
     }
 
-    val size = if (getWinWidth() < getWinHeight()) getWinWidth() else getWinHeight()
+    val DEFAULT_SIZE = if (getWinWidth() < getWinHeight()) getWinWidth() else getWinHeight()
+    val STROKE_WIDTH = dp2px(5f).toFloat()
+
+    var size: Int = 0
+        get() = if (measuredWidth < measuredHeight) measuredWidth else measuredHeight
 
     init {
         setBackgroundColor(getColor(R.color.colorPrimary))
+        paint.color = getColor(R.color.black)
+        paint.style = Paint.Style.STROKE
+        paint.strokeWidth = STROKE_WIDTH
+        paint.isAntiAlias = true
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -36,15 +45,18 @@ class TaijiView @JvmOverloads constructor(
         val hSpecSize = MeasureSpec.getSize(heightMeasureSpec)
 
         if (wSpecMode == MeasureSpec.AT_MOST && hSpecMode == MeasureSpec.AT_MOST) {
-            setMeasuredDimension(size, size)
+            setMeasuredDimension(DEFAULT_SIZE, DEFAULT_SIZE)
         } else if (wSpecMode == MeasureSpec.AT_MOST) {
-            setMeasuredDimension(size, hSpecSize)
+            setMeasuredDimension(DEFAULT_SIZE, hSpecSize)
         } else if (hSpecMode == MeasureSpec.AT_MOST) {
-            setMeasuredDimension(wSpecSize, size)
+            setMeasuredDimension(wSpecSize, DEFAULT_SIZE)
         }
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
+        val xCenter = (right - left) / 2f
+        val yCenter = (bottom - top) / 2f
+        canvas?.drawCircle(xCenter, yCenter, (size - STROKE_WIDTH) / 2, paint)
     }
 }
