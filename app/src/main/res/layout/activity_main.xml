@@ -12,80 +12,88 @@
             android:orientation="vertical">
 
         <Button
+                android:id="@+id/btn_custom_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/custom_view" />
+
+        <Button
+                android:id="@+id/btn_memory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/memory" />
+
+        <Button
+                android:id="@+id/btn_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/recyclerview" />
+
+        <Button
+                android:id="@+id/btn_multi_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/multi_dialog" />
+
+        <Button
+                android:id="@+id/btn_lifecycle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/lifecycle" />
+
+        <Button
+                android:id="@+id/btn_livedata"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/livedata" />
+
+        <Button
                 android:id="@+id/btn_coroutines"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="@string/coroutines"/>
+                android:text="@string/coroutines" />
 
         <Button
                 android:id="@+id/btn_viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="@string/viewpager"/>
+                android:text="@string/viewpager" />
+
         <Button
                 android:id="@+id/btn_bottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="@string/bottom_navigation"/>
+                android:text="@string/bottom_navigation" />
 
         <Button
                 android:id="@+id/btn_font_trans"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="@string/font_and_trans"/>
+                android:text="@string/font_and_trans" />
 
         <Button
                 android:id="@+id/btn_room"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="@string/room"/>
+                android:text="@string/room" />
+
         <Button
                 android:id="@+id/btn_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="@string/time"/>
-        <Button
-                android:id="@+id/btn_lifecycle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/lifecycle"/>
-        <Button
-                android:id="@+id/btn_multi_dialog"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/multi_dialog"/>
-        <Button
-                android:id="@+id/btn_livedata"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/livedata"/>
-        <Button
-                android:id="@+id/btn_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/recyclerview"/>
-        <Button
-                android:id="@+id/btn_memory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/memory"/>
-        <Button
-                android:id="@+id/btn_custom_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/custom_view"/>
+                android:text="@string/time" />
     </LinearLayout>
 
 
