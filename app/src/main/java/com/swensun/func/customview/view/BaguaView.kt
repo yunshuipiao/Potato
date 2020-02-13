@@ -38,7 +38,7 @@ class BaguaView @JvmOverloads constructor(
     val paint = Paint().apply {
 
     }
-    
+
     val anim = ValueAnimator.ofFloat(0f, 360f)
         .apply {
             duration = 2000
@@ -130,7 +130,7 @@ class BaguaView @JvmOverloads constructor(
         canvas?.drawCircle(xCenter, yCenter * 0.75f, size / 32f, paint)
         canvas?.rotate(startAngle * -2 * direction, xCenter, yCenter)
         threeLineList.forEachIndexed { index, list ->
-            canvas?.rotate(index * 45f, xCenter, yCenter)
+            canvas?.rotate(if (index == 0) 0f else 45f, xCenter, yCenter)
             drawThreeLine(canvas, list)
         }
     }
