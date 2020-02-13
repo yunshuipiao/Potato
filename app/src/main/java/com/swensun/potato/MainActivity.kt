@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer
 import com.swensun.base.BaseActivity
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
+import com.swensun.func.customview.CustomViewActivity
 import com.swensun.func.lifecycle.LifecycleActivity
 import com.swensun.func.livedata.LiveDataActivity
 import com.swensun.func.memory.MemoryActivity
@@ -14,6 +15,7 @@ import com.swensun.func.room.RoomActivity
 import com.swensun.func.time.TimeAboutActivity
 import com.swensun.func.trans.TransFontActivity
 import com.swensun.func.viewpager.ViewPagerActivity
+import com.swensun.potato.view.CustomView
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -60,6 +62,9 @@ class MainActivity : BaseActivity() {
         }
         btn_memory.setOnClickListener {
             startActivity<MemoryActivity>()
+        }
+        btn_custom_view.setOnClickListener {
+            startActivity<CustomViewActivity>()
         }
     }
 

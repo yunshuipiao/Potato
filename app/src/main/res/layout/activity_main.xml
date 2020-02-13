@@ -80,6 +80,12 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="@string/memory"/>
+        <Button
+                android:id="@+id/btn_custom_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/custom_view"/>
     </LinearLayout>
 
 
