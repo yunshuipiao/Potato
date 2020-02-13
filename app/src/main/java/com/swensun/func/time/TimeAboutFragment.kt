@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.swensun.potato.R
-import com.swensun.swutils.util.Logger
-import com.swensun.swutils.util.debounce
 import kotlinx.android.synthetic.main.time_about_fragment.*
 
 class TimeAboutFragment : Fragment() {
@@ -34,10 +32,6 @@ class TimeAboutFragment : Fragment() {
 
     private fun initView() {
         btn_debounce.setOnClickListener {
-            val logger = { Logger.d("debounce") }
-            debounce(500){
-                logger.invoke()
-            }
         }
     }
 }
