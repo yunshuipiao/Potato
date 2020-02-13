@@ -5,7 +5,6 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
-import android.support.v4.media.session.PlaybackStateCompat
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.LinearInterpolator
@@ -24,6 +23,7 @@ class TaijiView @JvmOverloads constructor(
 
     }
 
+
     val anim = ObjectAnimator.ofFloat(this, "rotation", 0f, 360f)
         .apply {
             duration = 800
@@ -36,6 +36,11 @@ class TaijiView @JvmOverloads constructor(
 
     var size: Int = 0
         get() = if (measuredWidth < measuredHeight) measuredWidth else measuredHeight
+
+    val reactWidth
+        get() = size / 6f
+    val reactHeight
+        get() = reactWidth / 5f
 
     init {
 //        setBackgroundColor(getColor(R.color.colorPrimary))
@@ -62,7 +67,7 @@ class TaijiView @JvmOverloads constructor(
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        // 获取宽的测量模式
+        // 获取宽的测量模式                                                              
         val wSpecMode = MeasureSpec.getMode(widthMeasureSpec)
         // 获取符控件提供的 view 宽的最大值
         val wSpecSize = MeasureSpec.getSize(widthMeasureSpec)
@@ -88,19 +93,43 @@ class TaijiView @JvmOverloads constructor(
 
         paint.color = getColor(R.color.black)
         canvas?.drawArc(
-            0f, 0f, size.toFloat(), size.toFloat(), -90f, 180f, false, paint
+            0f + size * 0.25f,
+            0f + size * 0.25f,
+            size.toFloat() * 0.75f,
+            size.toFloat() * 0.75f,
+            -90f,
+            180f,
+            false,
+            paint
         )
-        canvas?.drawCircle(xCenter, yCenter * 1.5f, size / 4f, paint)
+        canvas?.drawCircle(xCenter, yCenter * 1.25f, size / 8f, paint)
         paint.color = getColor(R.color.white)
-        canvas?.drawCircle(xCenter, yCenter * 0.5f, size / 4f, paint)
-        canvas?.drawCircle(xCenter, yCenter * 1.5f, size / 16f, paint)
+        canvas?.drawCircle(xCenter, yCenter * 0.75f, size / 8f, paint)
+        canvas?.drawCircle(xCenter, yCenter * 1.25f, size / 32f, paint)
         paint.color = getColor(R.color.black)
-        canvas?.drawCircle(xCenter, yCenter * 0.5f, size / 16f, paint)
-//        invalidate()
+        canvas?.drawCircle(xCenter, yCenter * 0.75f, size / 32f, paint)
+        (0 until 8).forEach {
+//            canvas?.rotate(it * 45f)
+            drawThreeLine(canvas, arrayListOf(false, false, false))
+        }
     }
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         anim.cancel()
+    }
+
+    fun drawThreeLine(
+        canvas: Canvas?,
+        list: ArrayList<Boolean>
+    ) {
+        val firstTop = size * 0.2f - reactHeight / 2
+        list.forEachIndexed { index, b ->
+            val left = size * 0.5f - reactWidth / 2
+            val top = firstTop - (index * 2) * reactHeight
+            val right = left + reactWidth
+            val bottom = top + reactHeight
+            canvas?.drawRect(left, top, right, bottom, paint)
+        }
     }
 }
