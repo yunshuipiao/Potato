@@ -66,6 +66,9 @@ class MainActivity : BaseActivity() {
         btn_custom_view.setOnClickListener {
             startActivity<CustomViewActivity>()
         }
+
+        btn_custom_view.performClick()
+
     }
 
     override fun onResume() {
