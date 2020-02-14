@@ -43,4 +43,51 @@
             app:layout_constraintTop_toBottomOf="@id/taiji_view"
             app:layout_constraintWidth_percent="0.5" />
 
+    <com.swensun.func.customview.view.SkleView
+            android:id="@+id/skle_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fo_view"
+            app:layout_constraintWidth_percent="0.5">
+
+        <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/colorPrimary" />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/colorPrimary" />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/colorPrimary" />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/colorPrimary" />
+
+        </LinearLayout>
+
+
+    </com.swensun.func.customview.view.SkleView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
