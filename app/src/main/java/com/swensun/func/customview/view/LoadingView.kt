@@ -1,14 +1,11 @@
 package com.swensun.func.customview.view
 
-import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.DecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import com.swensun.potato.R
 import com.swensun.swutils.ui.dp2px
@@ -21,10 +18,13 @@ class LoadingView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
+    private var isAdd: Int = 1
     private var startAngle: Float = 0f
+    private var endAngle = 40f
     val paint = Paint().apply {
 
     }
+
 
     val DEFAULT_SIZE = if (getWinWidth() < getWinHeight()) getWinWidth() else getWinHeight()
     val STROKE_WIDTH = dp2px(20f).toFloat()
@@ -35,12 +35,14 @@ class LoadingView @JvmOverloads constructor(
         .apply {
             duration = 1000
             repeatCount = ValueAnimator.INFINITE
+            repeatMode = ValueAnimator.RESTART
             interpolator = LinearInterpolator()
             addUpdateListener {
                 startAngle = it.animatedValue as Float
                 invalidate()
             }
         }
+
 
     init {
 //        setBackgroundColor(getColor(R.color.colorPrimary))
@@ -91,13 +93,19 @@ class LoadingView @JvmOverloads constructor(
         super.onDraw(canvas)
         val xCenter = (right - left) / 2f
         val yCenter = (bottom - top) / 2f
+        if (endAngle <= 45) {
+            isAdd = 1
+        } else if (endAngle >= 330) {
+            isAdd = -1
+        }
+        endAngle += (2 * isAdd)
         canvas?.drawArc(
             0f + STROKE_WIDTH / 2,
             0f + STROKE_WIDTH / 2,
             size.toFloat() - STROKE_WIDTH / 2,
             size.toFloat() - STROKE_WIDTH / 2,
             startAngle,
-            if (anim.isPaused) 360f else 330f,
+            endAngle,
             false,
             paint
         )
