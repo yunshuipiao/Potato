@@ -35,7 +35,6 @@ import android.view.ViewGroup;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.swensun.swutils.util.Logger;
 import com.tmall.ultraviewpager.transformer.UltraVerticalTransformer;
 
 /**
