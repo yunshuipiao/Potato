@@ -31,11 +31,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 
+import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 /**
@@ -403,5 +407,35 @@ public class UltraViewPagerIndicator extends View implements ViewPager.OnPageCha
 
     public void setIndicatorBuildListener(UltraViewPagerIndicatorListener listener) {
         this.indicatorBuildListener = listener;
+    }
+
+    /**
+     * 根据resId获取到bitmap，自定义的
+     *
+     * @param context
+     * @param resId
+     * @return
+     */
+    public static Bitmap convertResToBitmap(Context context, int resId) {
+
+        try {
+            Drawable drawable = ContextCompat.getDrawable(context, resId);
+            //这个是图片资源
+            if (drawable instanceof BitmapDrawable) {
+                return ((BitmapDrawable) drawable).getBitmap();
+            }
+            //这个可能是自定义drawable
+            if (drawable instanceof GradientDrawable) {
+                Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                        drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+                Canvas canvas = new Canvas(bitmap);
+                drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+                drawable.draw(canvas);
+                return bitmap;
+            }
+            return BitmapFactory.decodeResource(context.getResources(), resId);
+        } catch (Exception e) {
+        }
+        return null;
     }
 }

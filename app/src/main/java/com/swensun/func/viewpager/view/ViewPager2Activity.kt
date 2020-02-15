@@ -6,6 +6,7 @@ import android.view.Gravity
 import androidx.appcompat.app.AppCompatActivity
 import com.swensun.potato.R
 import com.tmall.ultraviewpager.UltraViewPager
+import com.tmall.ultraviewpager.UltraViewPagerIndicator
 import kotlinx.android.synthetic.main.activity_view_pager_2.*
 
 
@@ -34,9 +35,10 @@ class ViewPager2Activity : AppCompatActivity() {
 //设置indicator样式
         viewpager.indicator
             .setOrientation(UltraViewPager.Orientation.HORIZONTAL)
-            .setFocusColor(Color.GREEN)
-            .setNormalColor(Color.WHITE)
-            .setRadius(20)
+            .setFocusIcon(UltraViewPagerIndicator.convertResToBitmap(this, R.drawable.view_pager_focus))
+            .setNormalIcon(UltraViewPagerIndicator.convertResToBitmap(this, R.drawable.view_pager_normal))
+//            .setFocusColor(Color.GREEN)
+//            .setNormalColor(Color.WHITE)
             .setMargin(20, 20, 20, 20)
 //设置indicator对齐方式
         viewpager.indicator.setGravity(Gravity.LEFT or Gravity.BOTTOM)
