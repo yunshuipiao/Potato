@@ -1,4 +1,4 @@
-package com.swensun.func.viewpager
+package com.swensun.func.viewpager.fragment
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,7 +8,11 @@ import kotlinx.android.synthetic.main.activity_view_pager.*
 
 class ViewPagerActivity : AppCompatActivity() {
 
-    val adapter by lazy { ViewPagerAdapter(supportFragmentManager) }
+    val adapter by lazy {
+        ViewPagerAdapter(
+            supportFragmentManager
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +26,11 @@ class ViewPagerActivity : AppCompatActivity() {
         val fragmentList = arrayListOf<Fragment>()
         val titleList = arrayListOf<String>()
         (0 until 10).forEach {
-            fragmentList.add(OuterFragment.newInstance(it.toString()))
+            fragmentList.add(
+                OuterFragment.newInstance(
+                    it.toString()
+                )
+            )
             titleList.add(it.toString())
             viewpager.offscreenPageLimit = fragmentList.size - 1
         }

@@ -23,7 +23,7 @@
                 android:name="com.swensun.func.bottom.BottomActivity"
                 android:label="@string/title_activity_bottom"
                 android:theme="@style/AppTheme" />
-        <activity android:name="com.swensun.func.viewpager.ViewPagerActivity" />
+        <activity android:name="com.swensun.func.viewpager.fragment.ViewPagerActivity" />
         <activity android:name="com.swensun.func.coroutines.ui.CoroutinesActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -32,6 +32,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.swensun.func.viewpager.view.ViewPager2Activity" />
     </application>
 
 </manifest>

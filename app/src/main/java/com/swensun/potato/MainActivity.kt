@@ -1,7 +1,6 @@
 package com.swensun.potato
 
 import android.os.Bundle
-import androidx.lifecycle.Observer
 import com.swensun.base.BaseActivity
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
@@ -14,11 +13,10 @@ import com.swensun.func.recycler.RecyclerViewActivity
 import com.swensun.func.room.RoomActivity
 import com.swensun.func.time.TimeAboutActivity
 import com.swensun.func.trans.TransFontActivity
-import com.swensun.func.viewpager.ViewPagerActivity
-import com.swensun.potato.view.CustomView
+import com.swensun.func.viewpager.fragment.ViewPagerActivity
+import com.swensun.func.viewpager.view.ViewPager2Activity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
 
 
 class MainActivity : BaseActivity() {
@@ -34,7 +32,7 @@ class MainActivity : BaseActivity() {
             startActivity<CoroutinesActivity>()
         }
         btn_viewpager.setOnClickListener {
-            startActivity<ViewPagerActivity>()
+            startActivity<ViewPager2Activity>()
         }
         btn_bottom.setOnClickListener {
             startActivity<BottomActivity>()
@@ -67,7 +65,7 @@ class MainActivity : BaseActivity() {
             startActivity<CustomViewActivity>()
         }
 
-        btn_custom_view.performClick()
+        btn_viewpager.performClick()
 
     }
 

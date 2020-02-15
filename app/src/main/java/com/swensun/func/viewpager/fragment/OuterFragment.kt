@@ -1,4 +1,4 @@
-package com.swensun.func.viewpager
+package com.swensun.func.viewpager.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.swensun.potato.R
 import com.swensun.swutils.util.Logger
-import kotlinx.android.synthetic.main.activity_view_pager.*
-import kotlinx.android.synthetic.main.fragment_outer.*
 import kotlinx.android.synthetic.main.fragment_outer.tab_layout
 import kotlinx.android.synthetic.main.fragment_outer.viewpager
-import java.util.logging.LogManager
 
 
 class OuterFragment : BaseFragment() {

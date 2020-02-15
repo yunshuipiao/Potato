@@ -1,4 +1,4 @@
-package com.swensun.func.viewpager
+package com.swensun.func.viewpager.fragment
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

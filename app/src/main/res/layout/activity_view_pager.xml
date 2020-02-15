@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.swensun.func.viewpager.ViewPagerActivity">
+        tools:context="com.swensun.func.viewpager.fragment.ViewPagerActivity">
 
     <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
