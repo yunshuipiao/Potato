@@ -13,7 +13,7 @@ import com.swensun.swutils.ui.getColor
 import com.swensun.swutils.ui.getWinHeight
 import com.swensun.swutils.ui.getWinWidth
 
-class SkleView @JvmOverloads constructor(
+class SkeletonView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 

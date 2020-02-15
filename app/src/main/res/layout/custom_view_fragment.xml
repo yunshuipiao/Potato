@@ -43,7 +43,7 @@
             app:layout_constraintTop_toBottomOf="@id/taiji_view"
             app:layout_constraintWidth_percent="0.5" />
 
-    <com.swensun.func.customview.view.SkleView
+    <com.swensun.func.customview.view.SkeletonView
             android:id="@+id/skle_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -88,6 +88,6 @@
         </LinearLayout>
 
 
-    </com.swensun.func.customview.view.SkleView>
+    </com.swensun.func.customview.view.SkeletonView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
