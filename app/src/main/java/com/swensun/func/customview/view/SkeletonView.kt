@@ -5,8 +5,8 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.util.AttributeSet
-import android.view.animation.LinearInterpolator
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.ImageView
 import com.swensun.potato.R
 import com.swensun.swutils.ui.dp2px
 import com.swensun.swutils.ui.getColor
@@ -15,36 +15,36 @@ import com.swensun.swutils.ui.getWinWidth
 
 class SkeletonView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : ConstraintLayout(context, attrs, defStyleAttr) {
+) : ImageView(context, attrs, defStyleAttr) {
 
     val paint = Paint().apply {
 
     }
 
-    var animPercent = 0f
+    //    var animPercent = 0f
     val DEFAULT_SIZE = if (getWinWidth() < getWinHeight()) getWinWidth() else getWinHeight()
     val STROKE_WIDTH = dp2px(20f).toFloat()
     var size: Int = 0
         get() = if (measuredWidth < measuredHeight) measuredWidth else measuredHeight
 
-    val anim = ValueAnimator.ofFloat(0f, 1f)
+    val anim = ValueAnimator.ofFloat(0.1f, 0.18f, 0.1f)
         .apply {
             duration = 1000
             repeatCount = ValueAnimator.INFINITE
-            interpolator = LinearInterpolator()
+            interpolator = AccelerateDecelerateInterpolator()
             addUpdateListener {
-                animPercent = it.animatedValue as Float
-                invalidate()
+                //                animPercent = it.animatedValue as Float
+                alpha = it.animatedValue as Float
+//                invalidate()
             }
         }
 
     init {
-        setBackgroundColor(getColor(R.color.white))
-        paint.color = getColor(R.color.white)
-        paint.style = Paint.Style.STROKE
+        paint.color = getColor(R.color.black)
+        paint.style = Paint.Style.FILL
         paint.isAntiAlias = true
         paint.strokeWidth = STROKE_WIDTH
-
+//        setBackgroundColor(getColor(R.color.black))
         setOnClickListener {
             doAnim()
         }
@@ -75,36 +75,25 @@ class SkeletonView @JvmOverloads constructor(
         val hSpecSize = MeasureSpec.getSize(heightMeasureSpec)
 
         if (wSpecMode == MeasureSpec.AT_MOST && hSpecMode == MeasureSpec.AT_MOST) {
-            setMeasuredDimension(DEFAULT_SIZE, DEFAULT_SIZE)
+            setMeasuredDimension(getWinWidth(), getWinHeight())
         } else if (wSpecMode == MeasureSpec.AT_MOST) {
-            setMeasuredDimension(DEFAULT_SIZE, hSpecSize)
+            setMeasuredDimension(getWinWidth(), hSpecSize)
         } else if (hSpecMode == MeasureSpec.AT_MOST) {
-            setMeasuredDimension(wSpecSize, DEFAULT_SIZE)
+            setMeasuredDimension(wSpecSize, getWinHeight())
         }
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        val xCenter = (right - left) / 2f
-        val yCenter = (bottom - top) / 2f
-//        canvas?.drawLine(
-//            0f + size * animPercent,
-//            0f,
-//            size * animPercent - dp2px(50f),
-//            size.toFloat(),
-//            paint
-//        )
-    }
-
-    override fun onDrawForeground(canvas: Canvas?) {
-        super.onDrawForeground(canvas)
-        val xCenter = (right - left) / 2f
-        val yCenter = (bottom - top) / 2f
-        canvas?.drawLine(
-            0f + size * animPercent,
-            0f - STROKE_WIDTH,
-            size * animPercent - dp2px(50f),
-            size.toFloat() + STROKE_WIDTH,
+//        alpha = animPercent
+//        canvas?.drawCircle(100f, 100f, 10f, paint)
+        val r = (measuredWidth.toFloat() / 20).coerceAtMost(measuredHeight.toFloat() / 20)
+        canvas?.drawRoundRect(
+            0f,
+            0f,
+            measuredWidth.toFloat(),
+            measuredHeight.toFloat(),
+            r, r,
             paint
         )
     }

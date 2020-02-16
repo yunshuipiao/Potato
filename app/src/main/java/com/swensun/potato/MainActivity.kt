@@ -65,7 +65,7 @@ class MainActivity : BaseActivity() {
             startActivity<CustomViewActivity>()
         }
 
-        btn_viewpager.performClick()
+        btn_custom_view.performClick()
 
     }
 
