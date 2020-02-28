@@ -28,6 +28,7 @@ class PotatoApplication : Application() {
 //        Choreographer.getInstance().postFrameCallback(callback)
         AppStatusUtils.init(this)
         registerActivityLifecycleCallbacks(object: ActivityLifecycleCallbacks {
+            private var count = 0
             private var  mMainOnPaused = false
             private var  mMainOnResumed = false
             override fun onActivityPaused(activity: Activity?) {
@@ -43,6 +44,8 @@ class PotatoApplication : Application() {
             }
 
             override fun onActivityStarted(activity: Activity?) {
+                count += 1
+                Logger.d("onActivityStarted, $activity, $count")
                 
             }
 
@@ -54,8 +57,10 @@ class PotatoApplication : Application() {
                 
             }
 
-            override fun onActivityStopped(activity: Activity?) {
-                
+            override fun onActivityStopped(activity: Activity?) {                  
+                count -= 1
+                Logger.d("onActivityStopped, $activity, $count")
+
             }
 
             override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
