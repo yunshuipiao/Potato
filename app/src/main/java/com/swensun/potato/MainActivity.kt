@@ -1,6 +1,5 @@
 package com.swensun.potato
 
-import android.app.Activity
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -8,9 +7,6 @@ import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorInt
-import com.blankj.utilcode.util.ActivityUtils
-import com.blankj.utilcode.util.AppUtils
-import com.blankj.utilcode.util.Utils
 import com.swensun.base.BaseActivity
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
@@ -27,7 +23,6 @@ import com.swensun.func.viewpager.view.ViewPager2Activity
 import com.swensun.swutils.ui.isRtl
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
 
 
 class MainActivity : BaseActivity() {
@@ -89,18 +84,6 @@ class MainActivity : BaseActivity() {
             isRtl(list[index])
             index = (index + 1) % list.size
         }
-
-        AppUtils.registerAppStatusChangedListener(object: Utils.OnAppStatusChangedListener
-        {
-            override fun onBackground(activity: Activity?) {
-                toast("后台, $activity")
-
-            }
-
-            override fun onForeground(activity: Activity?) {
-                toast("前台, $activity")
-            }
-        })
     }
 }
 
