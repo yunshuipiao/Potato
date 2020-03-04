@@ -1,6 +1,8 @@
 package com.swensun.potato
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -96,4 +98,5 @@ fun TextView.setHighlightText(text: String, highlightText: String, @ColorInt col
     }
     this.text = span
 }
+
 
