@@ -13,6 +13,7 @@ import com.swensun.base.BaseActivity
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
 import com.swensun.func.customview.CustomViewActivity
+import com.swensun.func.exoplayer.ExoPlayerActivity
 import com.swensun.func.lifecycle.LifecycleActivity
 import com.swensun.func.livedata.LiveDataActivity
 import com.swensun.func.memory.MemoryActivity
@@ -73,9 +74,8 @@ class MainActivity : BaseActivity() {
             startActivity<CustomViewActivity>()
         }
         btn_exo_player.setOnClickListener {
-            
+            startActivity<ExoPlayerActivity>()
         }
-
     }
 }
 

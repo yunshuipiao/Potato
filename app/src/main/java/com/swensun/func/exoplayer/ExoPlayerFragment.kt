@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.swensun.func.exoplayer.R
+import com.swensun.potato.R
 
 class ExoPlayerFragment : Fragment() {
 
