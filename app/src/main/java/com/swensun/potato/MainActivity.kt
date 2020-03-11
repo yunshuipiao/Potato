@@ -72,20 +72,10 @@ class MainActivity : BaseActivity() {
         btn_custom_view.setOnClickListener {
             startActivity<CustomViewActivity>()
         }
-
-        val wy = "نى ئىزدەش"
-        var index = 0
-        val list = arrayListOf<String>()
-            .apply {
-                add("$wy \"hello\"")
-                add("\"hello\" $wy")
-            }
-        btn_custom_view.textDirection = View.TEXT_DIRECTION_LTR
-        btn_custom_view.setOnClickListener {
-            btn_custom_view.text = list[index]
-            isRtl(list[index])
-            index = (index + 1) % list.size
+        btn_exo_player.setOnClickListener {
+            
         }
+
     }
 }
 

@@ -20,4 +20,5 @@
     <string name="okhttp">okhttp</string>
     <string name="memory">memory</string>
     <string name="custom_view">customview</string>
+    <string name="exoplayer">exoplayer</string>
 </resources>
