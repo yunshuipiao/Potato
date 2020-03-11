@@ -341,9 +341,9 @@ class ExoPlayerView @JvmOverloads constructor(
 
         // Subtitle view.
         subtitleView = findViewById(R.id.exo_subtitles)
-        if (subtitleView != null) {
-            subtitleView!!.setUserDefaultStyle()
-            subtitleView!!.setUserDefaultTextSize()
+        subtitleView?.let{
+            it.setUserDefaultStyle()
+            it.setUserDefaultTextSize()
         }
 
         // Buffering view.
