@@ -66,5 +66,7 @@ dependencies {
 
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-2'
 
+    implementation 'com.google.android.exoplayer:exoplayer:2.11.3'
+
     testImplementation group: 'org.json', name: 'json', version: '20190722'
 }
