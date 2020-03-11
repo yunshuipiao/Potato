@@ -13,11 +13,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.ui.DefaultTimeBar
-import com.google.android.exoplayer2.ui.R
 import com.google.android.exoplayer2.ui.TimeBar
 import com.google.android.exoplayer2.util.Assertions
 import com.google.android.exoplayer2.util.RepeatModeUtil
 import com.google.android.exoplayer2.util.Util
+import com.swensun.potato.R
 import java.util.*
 import java.util.concurrent.CopyOnWriteArrayList
 
@@ -328,7 +328,7 @@ open class ExoPlayerControlView(
     }
 
     init {
-        var controllerLayoutId = R.layout.exo_player_control_view
+        var controllerLayoutId = R.layout.exo_play_control_view
         rewindMs = DEFAULT_REWIND_MS
         fastForwardMs = DEFAULT_FAST_FORWARD_MS
         showTimeoutMs = DEFAULT_SHOW_TIMEOUT_MS
@@ -339,24 +339,24 @@ open class ExoPlayerControlView(
         if (playbackAttrs != null) {
             val a = context
                 .theme
-                .obtainStyledAttributes(playbackAttrs, R.styleable.PlayerControlView, 0, 0)
+                .obtainStyledAttributes(playbackAttrs, R.styleable.ExoPlayerControlView, 0, 0)
             try {
-                rewindMs = a.getInt(R.styleable.PlayerControlView_rewind_increment, rewindMs)
+                rewindMs = a.getInt(R.styleable.ExoPlayerControlView_rewind_increment, rewindMs)
                 fastForwardMs =
-                    a.getInt(R.styleable.PlayerControlView_fastforward_increment, fastForwardMs)
-                showTimeoutMs = a.getInt(R.styleable.PlayerControlView_show_timeout, showTimeoutMs)
+                    a.getInt(R.styleable.ExoPlayerControlView_fastforward_increment, fastForwardMs)
+                showTimeoutMs = a.getInt(R.styleable.ExoPlayerControlView_show_timeout, showTimeoutMs)
                 controllerLayoutId = a.getResourceId(
-                    R.styleable.PlayerControlView_controller_layout_id,
+                    R.styleable.ExoPlayerControlView_controller_layout_id,
                     controllerLayoutId
                 )
                 repeatToggleModes = getRepeatToggleModes(a, repeatToggleModes)
                 showShuffleButton = a.getBoolean(
-                    R.styleable.PlayerControlView_show_shuffle_button,
+                    R.styleable.ExoPlayerControlView_show_shuffle_button,
                     showShuffleButton
                 )
                 setTimeBarMinUpdateInterval(
                     a.getInt(
-                        R.styleable.PlayerControlView_time_bar_min_update_interval,
+                        R.styleable.ExoPlayerControlView_time_bar_min_update_interval,
                         timeBarMinUpdateIntervalMs
                     )
                 )
@@ -1247,7 +1247,7 @@ open class ExoPlayerControlView(
         private fun getRepeatToggleModes(
             a: TypedArray, @RepeatModeUtil.RepeatToggleModes repeatToggleModes: Int
         ): Int {
-            return a.getInt(R.styleable.PlayerControlView_repeat_toggle_modes, repeatToggleModes)
+            return a.getInt(R.styleable.ExoPlayerControlView_repeat_toggle_modes, repeatToggleModes)
         }
 
         @SuppressLint("InlinedApi")

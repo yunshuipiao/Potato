@@ -16,14 +16,14 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [
-                        "room.schemaLocation":"$projectDir/schemas".toString(),
-                        "room.incremental":"true",
-                        "room.expandProjection":"true"]
-            }
-        }
+//        javaCompileOptions {
+//            annotationProcessorOptions {
+//                arguments = [
+//                        "room.schemaLocation":"$projectDir/schemas".toString(),
+//                        "room.incremental":"true",
+//                        "room.expandProjection":"true"]
+//            }
+//        }
     }
     buildTypes {
 
