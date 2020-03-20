@@ -35,6 +35,7 @@ class ExoPlayerFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         viewModel = ViewModelProviders.of(this).get(ExoPlayerViewModel::class.java)
         playView.player = exoplayer
 

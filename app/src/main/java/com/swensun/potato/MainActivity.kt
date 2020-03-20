@@ -9,6 +9,7 @@ import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorInt
+import androidx.appcompat.app.AppCompatActivity
 import com.swensun.base.BaseActivity
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
@@ -23,21 +24,25 @@ import com.swensun.func.room.RoomActivity
 import com.swensun.func.time.TimeAboutActivity
 import com.swensun.func.trans.TransFontActivity
 import com.swensun.func.viewpager.view.ViewPager2Activity
+import com.swensun.potato.databinding.ActivityMainBinding
 import com.swensun.swutils.ui.isRtl
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
 
 
-class MainActivity : BaseActivity() {
+class MainActivity : AppCompatActivity() {
 
-    override fun getContentSubView(): Int {
-        return R.layout.activity_main
+    private var mBinding: ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(mBinding.root)
+        initView(savedInstanceState)
     }
 
+    private fun initView(savedInstanceState: Bundle?) {
 
-    override fun initView(savedInstanceState: Bundle?) {
-
-        btn_coroutines.setOnClickListener {
+        mBinding.btnCoroutines.setOnClickListener {
             startActivity<CoroutinesActivity>()
         }
         btn_viewpager.setOnClickListener {
