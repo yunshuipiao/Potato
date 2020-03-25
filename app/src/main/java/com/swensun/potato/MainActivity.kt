@@ -1,18 +1,13 @@
 package com.swensun.potato
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Message
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
-import com.swensun.base.BaseActivity
 import com.swensun.func.bottom.BottomActivity
-import com.swensun.func.cardview.CardViewActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
 import com.swensun.func.customview.CustomViewActivity
 import com.swensun.func.exoplayer.ExoPlayerActivity
@@ -26,7 +21,6 @@ import com.swensun.func.time.TimeAboutActivity
 import com.swensun.func.trans.TransFontActivity
 import com.swensun.func.viewpager.view.ViewPager2Activity
 import com.swensun.potato.databinding.ActivityMainBinding
-import com.swensun.swutils.ui.isRtl
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
 
@@ -81,9 +75,6 @@ class MainActivity : AppCompatActivity() {
         }
         btn_exo_player.setOnClickListener {
             startActivity<ExoPlayerActivity>()
-        }
-        btn_card_view.setOnClickListener {
-            startActivity<CardViewActivity>()
         }
     }
 }
