@@ -9,5 +9,8 @@ class List_Test {
     @Test
     fun remove_test() {
         println()
+
+        var s: String = ""
+        
     }
 }

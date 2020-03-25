@@ -12,6 +12,7 @@ import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
 import com.swensun.base.BaseActivity
 import com.swensun.func.bottom.BottomActivity
+import com.swensun.func.cardview.CardViewActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
 import com.swensun.func.customview.CustomViewActivity
 import com.swensun.func.exoplayer.ExoPlayerActivity
@@ -80,6 +81,9 @@ class MainActivity : AppCompatActivity() {
         }
         btn_exo_player.setOnClickListener {
             startActivity<ExoPlayerActivity>()
+        }
+        btn_card_view.setOnClickListener {
+            startActivity<CardViewActivity>()
         }
     }
 }
