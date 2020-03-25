@@ -3,6 +3,7 @@ package com.swensun.func.cardview
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.swensun.func.cardview.ui.cardview.CardViewFragment
+import com.swensun.potato.R
 
 class CardViewActivity : AppCompatActivity() {
 

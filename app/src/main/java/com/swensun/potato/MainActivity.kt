@@ -33,7 +33,7 @@ import org.jetbrains.anko.startActivity
 
 class MainActivity : AppCompatActivity() {
 
-    private var mBinding: ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
+    private val mBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

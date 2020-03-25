@@ -2,9 +2,13 @@ package com.swensun.swutils.ui
 
 import android.content.res.ColorStateList
 import android.graphics.Rect
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.view.View
+import android.widget.ImageView
+import androidx.annotation.DrawableRes
+import com.bumptech.glide.Glide
 import org.jetbrains.anko.backgroundDrawable
 
 const val TOP_LEFT = 1
@@ -58,4 +62,11 @@ fun View.isCover(): Boolean {
     return if (cover) {
         rect.width() < measuredWidth || rect.height() < measuredHeight
     } else true
+}
+
+fun ImageView.setImageSrc(@DrawableRes drawable: Int) {
+    Glide.with(this.context).load(drawable).into(this)
+}
+fun ImageView.setImageSrc(url: String) {
+    Glide.with(this.context).load(url).into(this)
 }
