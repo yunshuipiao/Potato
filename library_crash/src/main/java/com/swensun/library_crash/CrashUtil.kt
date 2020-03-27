@@ -40,23 +40,29 @@ object CrashUtil {
         Thread.setDefaultUncaughtExceptionHandler(UncaughtExceptionHandler())
     }
 
-    private  class UncaughtExceptionHandler : Thread.UncaughtExceptionHandler {
+    private class UncaughtExceptionHandler : Thread.UncaughtExceptionHandler {
         override fun uncaughtException(t: Thread?, e: Throwable?) {
             caughtException(t, e)
         }
     }
 
-    private fun  caughtException(t: Thread?, e: Throwable?) {
-        val sw =  StringWriter()
+    private fun caughtException(t: Thread?, e: Throwable?) {
+        val sw = StringWriter()
         val pw = PrintWriter(sw)
         e?.printStackTrace(pw)
-        AlertDialog.Builder(resumeActivity)
-            .setTitle(if (debug) "debug ${t?.name}" else t?.name)
-            .setMessage(sw.toString())
-            .show()
+        val message = "线程信息: \n${t?.name}\n" +
+                "堆栈信息:\n $sw"
+        Handler(Looper.getMainLooper()).post {
+            AlertDialog.Builder(resumeActivity)
+                .setTitle("发生崩溃,信息如下")
+                .setMessage(message)
+                .setPositiveButton("确认", null)
+                .setCancelable(false)
+                .show()
+        }
     }
-    
-    private open class ActivityLifecycleCallbacks: Application.ActivityLifecycleCallbacks {
+
+    private open class ActivityLifecycleCallbacks : Application.ActivityLifecycleCallbacks {
         override fun onActivityPaused(activity: Activity?) {
 
         }

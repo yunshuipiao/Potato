@@ -84,7 +84,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_exo_player.setOnClickListener {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute {
                 1 / 0
+            }
         }
     }
 }
