@@ -3,12 +3,10 @@ package com.swensun.potato.application
 import android.app.Activity
 import android.app.Application
 import android.content.Context
-import android.os.Bundle
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.Utils
+import com.swensun.library_crash.CrashUtil
 import com.swensun.potato.AppStatusUtils
-import com.swensun.potato.MainActivity
-import com.swensun.swutils.util.Logger
 import org.jetbrains.anko.toast
 
 
@@ -41,5 +39,6 @@ class PotatoApplication : Application() {
                 toast("前台, $activity")
             }
         })
+        CrashUtil.init(this)
     }
 }

@@ -1,8 +1,10 @@
 package com.swensun.potato
 
+import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.format.DateFormat
 import android.text.style.ForegroundColorSpan
 import android.widget.TextView
 import androidx.annotation.ColorInt
@@ -21,13 +23,17 @@ import com.swensun.func.time.TimeAboutActivity
 import com.swensun.func.trans.TransFontActivity
 import com.swensun.func.viewpager.view.ViewPager2Activity
 import com.swensun.potato.databinding.ActivityMainBinding
+import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.longToast
 import org.jetbrains.anko.startActivity
 
 
 class MainActivity : AppCompatActivity() {
 
     private val mBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    private val today
+        get() = DateFormat.format("yyyyMMdd, hh-mm-ss", System.currentTimeMillis()).toString()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +81,10 @@ class MainActivity : AppCompatActivity() {
         }
         btn_exo_player.setOnClickListener {
             startActivity<ExoPlayerActivity>()
+        }
+
+        btn_exo_player.setOnClickListener {
+                1 / 0
         }
     }
 }

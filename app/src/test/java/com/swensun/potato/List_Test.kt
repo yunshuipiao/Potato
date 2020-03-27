@@ -11,6 +11,5 @@ class List_Test {
         println()
 
         var s: String = ""
-        
     }
 }

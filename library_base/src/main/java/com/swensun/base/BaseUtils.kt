@@ -13,5 +13,6 @@ object BaseUtils {
 
     fun init(context: Context) {
         this.context = context
+        
     }
 }

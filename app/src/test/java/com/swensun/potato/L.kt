@@ -5,18 +5,29 @@ import org.junit.Test
 class L {
     @Test
     fun t() {
-        val i = 4
-        val b = 2
-        var s: String = "1"
-        when {
-            i == 4 ->  {
-                
-            }
-            b == 3 -> {
+        val l = arrayListOf(A(), B())
+        l.forEach {
+            when {
+                (it is A) -> {
 
+                }
             }
         }
+    }
+}
 
-        println(s)
+interface Visible {
+
+}
+
+class A : Visible {
+    fun a() {
+        println()
+    }
+}
+
+class B : Visible {
+    fun b() {
+        println()
     }
 }
