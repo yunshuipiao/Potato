@@ -6,6 +6,14 @@ apply plugin: 'kotlin-android-extensions'
 
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('/Users/sunwen/dev/android/swensun/Potato/keystore/keystore')
+            storePassword '123456'
+            keyAlias = 'potato'
+            keyPassword '123456'
+        }
+    }
     compileSdkVersion prop_compileSdkVersion.toInteger()
     defaultConfig {
         applicationId "com.swensun.potato"
@@ -32,12 +40,14 @@ android {
     buildTypes {
 
         debug {
+            applicationIdSuffix ".debug"
             multiDexKeepFile file('multidex-config.txt')
         }
 
 
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -73,7 +83,7 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.2.0'
     api project(':library_base')
     api project(':library_third')
-    debugImplementation project(':library_crash')
+    implementation project(':library_crash')
     api project(':module_test')
     kapt "androidx.room:room-compiler:$prop_room_version"
 

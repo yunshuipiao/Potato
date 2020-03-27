@@ -1,4 +1,5 @@
-include ':app', ':library_base',  ':library_swutils', ':library_lower_23', ':module_test', ':library_gradle', ':library_kotlin_gradle'
+include ':app', ':library_base',  ':library_swutils', ':library_lower_23', ':module_test', ':library_gradle'
+//include: ':library_kotlin_gradle'
 include ':library_third'
 //include ':time', ':music'
 include ':library_crash'

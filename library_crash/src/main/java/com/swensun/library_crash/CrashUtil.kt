@@ -3,6 +3,7 @@ package com.swensun.library_crash
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Application
+import android.content.pm.ApplicationInfo
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -13,10 +14,13 @@ object CrashUtil {
 
     var resumeActivity: Activity? = null
     lateinit var application: Application
+    var debug = false
 
 
     fun init(application: Application) {
         this.application = application
+        debug = (application.applicationInfo.flags
+                and ApplicationInfo.FLAG_DEBUGGABLE) != 0
         application.registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks() {
             override fun onActivityResumed(activity: Activity?) {
                 resumeActivity = activity
@@ -47,7 +51,7 @@ object CrashUtil {
         val pw = PrintWriter(sw)
         e?.printStackTrace(pw)
         AlertDialog.Builder(resumeActivity)
-            .setTitle(t?.name)
+            .setTitle(if (debug) "debug ${t?.name}" else t?.name)
             .setMessage(sw.toString())
             .show()
     }
