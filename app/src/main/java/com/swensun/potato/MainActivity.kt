@@ -27,6 +27,7 @@ import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.longToast
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
 
 class MainActivity : AppCompatActivity() {
@@ -84,9 +85,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_exo_player.setOnClickListener {
-            AsyncTask.THREAD_POOL_EXECUTOR.execute {
-                1 / 0
-            }
+                Thread.sleep(1000)
+                Logger.d("do sleep")
         }
     }
 }
