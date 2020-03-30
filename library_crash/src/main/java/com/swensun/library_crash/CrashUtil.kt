@@ -7,10 +7,12 @@ import android.content.pm.ApplicationInfo
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.Choreographer
 import com.swensun.swutils.util.Logger
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.util.concurrent.TimeoutException
+import java.util.logging.LogManager
 
 object CrashUtil {
 
@@ -19,7 +21,6 @@ object CrashUtil {
     lateinit var application: Application
     var debug = false
     var startTs = 0L
-
 
     fun init(application: Application) {
         this.application = application
@@ -82,9 +83,8 @@ object CrashUtil {
                     .setCancelable(false)
                     .show()
             }
-        } else {
-            // report
         }
+//        report()
     }
 
     private open class ActivityLifecycleCallbacks : Application.ActivityLifecycleCallbacks {

@@ -1,5 +1,7 @@
 package com.swensun.potato
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Spannable
@@ -29,6 +31,8 @@ import org.jetbrains.anko.longToast
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
+
+val bitmapList = arrayListOf<Bitmap>()
 
 class MainActivity : AppCompatActivity() {
 
@@ -85,7 +89,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_exo_player.setOnClickListener {
-                1 / 0
+            (0..200).forEach {
+                val bitmap = BitmapFactory.decodeResource(resources, R.drawable.ic_movie)
+                bitmapList.add(bitmap)
+            }
         }
     }
 }
