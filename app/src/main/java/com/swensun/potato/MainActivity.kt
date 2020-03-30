@@ -85,8 +85,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_exo_player.setOnClickListener {
-                Thread.sleep(1000)
-                Logger.d("do sleep")
+                1 / 0
         }
     }
 }
