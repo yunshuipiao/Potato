@@ -89,10 +89,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_exo_player.setOnClickListener {
-            (0..200).forEach {
-                val bitmap = BitmapFactory.decodeResource(resources, R.drawable.ic_movie)
-                bitmapList.add(bitmap)
-            }
+//            (0..1000).forEach { _ ->
+//                val bitmap = BitmapFactory.decodeResource(resources, R.drawable.ic_movie)
+//                bitmapList.add(bitmap)
+//            }
+            NullPointClass.nullPointTest()
         }
     }
 }
@@ -102,7 +103,12 @@ fun TextView.setHighlightText(text: String, highlightText: String, @ColorInt col
     val newHighlightText = highlightText.trim()
     val index = text.indexOf(newHighlightText, 0, true)
     if (index != -1) {
-        span.setSpan(ForegroundColorSpan(color), index, index + newHighlightText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        span.setSpan(
+            ForegroundColorSpan(color),
+            index,
+            index + newHighlightText.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
     }
     this.text = span
 }

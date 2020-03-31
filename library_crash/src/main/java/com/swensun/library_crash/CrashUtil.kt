@@ -9,6 +9,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.Choreographer
 import com.swensun.swutils.util.Logger
+import com.swensun.swutils.util.SystemPropUtils
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.util.concurrent.TimeoutException
