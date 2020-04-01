@@ -1,8 +1,7 @@
 package com.swensun.potato
 
+import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -15,6 +14,7 @@ import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
 import com.swensun.func.customview.CustomViewActivity
 import com.swensun.func.exoplayer.ExoPlayerActivity
+import com.swensun.func.launchermode.LauncherModeActivity
 import com.swensun.func.lifecycle.LifecycleActivity
 import com.swensun.func.livedata.LiveDataActivity
 import com.swensun.func.memory.MemoryActivity
@@ -25,9 +25,7 @@ import com.swensun.func.time.TimeAboutActivity
 import com.swensun.func.trans.TransFontActivity
 import com.swensun.func.viewpager.view.ViewPager2Activity
 import com.swensun.potato.databinding.ActivityMainBinding
-import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.longToast
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
@@ -88,14 +86,27 @@ class MainActivity : AppCompatActivity() {
             startActivity<ExoPlayerActivity>()
         }
 
-        btn_exo_player.setOnClickListener {
-//            (0..1000).forEach { _ ->
-//                val bitmap = BitmapFactory.decodeResource(resources, R.drawable.ic_movie)
-//                bitmapList.add(bitmap)
-//            }
-            NullPointClass.nullPointTest()
+        mBinding.btnLauncherMode.setOnClickListener {
+            startActivity<LauncherModeActivity>()
         }
     }
+
+    override fun onDestroy() {
+        toast("main destroy")
+        super.onDestroy()
+    }
+
+//    override fun onBackPressed() {
+//        try {
+//            val launcherIntent = Intent(Intent.ACTION_MAIN)
+//            launcherIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//            launcherIntent.addCategory(Intent.CATEGORY_HOME)
+//            startActivity(launcherIntent)
+////            moveTaskToBack(true)
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//        }
+//    }
 }
 
 fun TextView.setHighlightText(text: String, highlightText: String, @ColorInt color: Int) {

@@ -30,17 +30,17 @@ class PotatoApplication : Application() {
 //        startTime = System.currentTimeMillis()
 //        Choreographer.getInstance().postFrameCallback(callback)
         AppStatusUtils.init(this)
-        AppUtils.registerAppStatusChangedListener(object: Utils.OnAppStatusChangedListener
-        {
-            override fun onBackground(activity: Activity?) {
-                toast("后台, $activity")
-
-            }
-
-            override fun onForeground(activity: Activity?) {
-                toast("前台, $activity")
-            }
-        })
+//        AppUtils.registerAppStatusChangedListener(object: Utils.OnAppStatusChangedListener
+//        {
+//            override fun onBackground(activity: Activity?) {
+//                toast("后台, $activity")
+//
+//            }
+//
+//            override fun onForeground(activity: Activity?) {
+//                toast("前台, $activity")
+//            }
+//        })
         CrashUtil.init(this)
     }
 }
