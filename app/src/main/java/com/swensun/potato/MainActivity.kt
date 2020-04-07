@@ -24,7 +24,7 @@ import com.swensun.func.room.RoomActivity
 import com.swensun.func.time.TimeAboutActivity
 import com.swensun.func.trans.TransFontActivity
 import com.swensun.func.viewpager.view.ViewPager2Activity
-import com.swensun.potato.databinding.ActivityMainBinding
+import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -34,19 +34,19 @@ val bitmapList = arrayListOf<Bitmap>()
 
 class MainActivity : AppCompatActivity() {
 
-    private val mBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+//    private val mBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val today
         get() = DateFormat.format("yyyyMMdd, hh-mm-ss", System.currentTimeMillis()).toString()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(mBinding.root)
+        setContentView(R.layout.activity_main)
         initView(savedInstanceState)
     }
 
     private fun initView(savedInstanceState: Bundle?) {
 
-        mBinding.btnCoroutines.setOnClickListener {
+        btn_coroutines.setOnClickListener {
             startActivity<CoroutinesActivity>()
         }
         btn_viewpager.setOnClickListener {
@@ -86,8 +86,9 @@ class MainActivity : AppCompatActivity() {
             startActivity<ExoPlayerActivity>()
         }
 
-        mBinding.btnLauncherMode.setOnClickListener {
-            startActivity<LauncherModeActivity>()
+        btn_launcher_mode.setOnClickListener {
+//            startActivity<LauncherModeActivity>()
+            1 / 0
         }
     }
 
@@ -106,6 +107,11 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Logger.d("onSave")
     }
 }
 

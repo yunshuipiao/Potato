@@ -1,14 +1,9 @@
 package com.swensun.potato.application
 
-import android.app.Activity
 import android.app.Application
 import android.content.Context
-import android.view.Choreographer
-import com.blankj.utilcode.util.AppUtils
-import com.blankj.utilcode.util.Utils
 import com.swensun.library_crash.CrashUtil
-import com.swensun.potato.AppStatusUtils
-import com.swensun.swutils.util.Logger
+import com.swensun.swutils.SwUtils
 import org.jetbrains.anko.toast
 
 
@@ -29,7 +24,6 @@ class PotatoApplication : Application() {
 //        }
 //        startTime = System.currentTimeMillis()
 //        Choreographer.getInstance().postFrameCallback(callback)
-        AppStatusUtils.init(this)
 //        AppUtils.registerAppStatusChangedListener(object: Utils.OnAppStatusChangedListener
 //        {
 //            override fun onBackground(activity: Activity?) {
@@ -41,6 +35,9 @@ class PotatoApplication : Application() {
 //                toast("前台, $activity")
 //            }
 //        })
-        CrashUtil.init(this)
+        if (SwUtils.debug) {
+            CrashUtil.init(this)
+        }
+        toast("application init")
     }
 }

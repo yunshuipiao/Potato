@@ -8,7 +8,7 @@ import com.swensun.swutils.SwUtils
 object Logger {
 
     private var tag = "swensun"
-    private val debug = Log.isLoggable(tag, Log.DEBUG)
+    private val loggable = Log.isLoggable(tag, Log.DEBUG)
 
     init {
         val config = LogUtils.getConfig()
@@ -18,7 +18,7 @@ object Logger {
     }
 
     fun d(msg: Any) {
-        if (SwUtils.isDebug || debug) {
+        if (SwUtils.debug || loggable) {
             LogUtils.d(msg)
         }
     }
@@ -28,7 +28,7 @@ object Logger {
     }
 
     fun i(msg: String) {
-        if (debug) {
+        if (loggable) {
             LogUtils.i(msg)
         }
     }
