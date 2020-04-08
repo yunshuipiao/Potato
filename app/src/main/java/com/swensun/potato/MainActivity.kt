@@ -10,6 +10,7 @@ import android.text.style.ForegroundColorSpan
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
 import com.swensun.func.customview.CustomViewActivity
@@ -89,7 +90,9 @@ class MainActivity : AppCompatActivity() {
         btn_launcher_mode.setOnClickListener {
 //            startActivity<LauncherModeActivity>()
             1 / 0
+            RecyclerView.SCROLL_STATE_IDLE
         }
+
     }
 
     override fun onDestroy() {

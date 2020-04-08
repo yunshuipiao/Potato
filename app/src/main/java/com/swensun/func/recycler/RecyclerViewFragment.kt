@@ -1,20 +1,23 @@
 package com.swensun.func.recycler
 
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.blankj.utilcode.util.LogUtils
+import androidx.recyclerview.widget.RecyclerView.OnScrollListener
+import com.blankj.utilcode.util.ScreenUtils
 import com.swensun.potato.R
-import com.swensun.swutils.util.Logger
+import com.swensun.swutils.ui.dp2px
+import com.swensun.swutils.ui.getWinWidth
 import kotlinx.android.synthetic.main.item_recycler_view.view.*
 import kotlinx.android.synthetic.main.recycler_view_fragment.*
+
 
 class RecyclerViewFragment : Fragment() {
 
@@ -22,10 +25,10 @@ class RecyclerViewFragment : Fragment() {
         fun newInstance() = RecyclerViewFragment()
     }
 
-    private val adapter = R2Adapter()
+    private val adapter = RAdapter()
     private lateinit var viewModel: RecyclerViewViewModel
-    private val datas = arrayListOf<RItem>()
     private var index = 0
+    private var dataList = arrayListOf<Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,140 +46,115 @@ class RecyclerViewFragment : Fragment() {
     private fun initView() {
         recycler_view.setHasFixedSize(true)
         recycler_view.adapter = adapter
-        recycler_view.layoutManager = LinearLayoutManager(requireContext())
-        adapter.setLoadMoreListener {
-            loadMoreData()
+        recycler_view.layoutManager =
+            object: LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, true) {
+//                override fun calculateExtraLayoutSpace(
+//                    state: RecyclerView.State,
+//                    extraLayoutSpace: IntArray
+//                ) {
+//                    extraLayoutSpace[0] = 1000
+//                    extraLayoutSpace[1] = 1000
+//                    super.calculateExtraLayoutSpace(state, extraLayoutSpace)
+//                }
+
+                override fun getExtraLayoutSpace(state: RecyclerView.State?): Int {
+                    return getWinWidth()
+                }
+            }
+//        adapter.setLoadMoreListener {
+//            loadMoreData()
+//        }
+        recycler_view.setChildDrawingOrderCallback { childCount, i ->
+            childCount - i - 1
         }
+        recycler_view.addItemDecoration(RItemDecoration())
+        LeftLinearSnapHelper().attachToRecyclerView(recycler_view)
+        recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val childCount = recyclerView.childCount
+                (0 until childCount).forEach {
+                    val child = recyclerView.getChildAt(it)
+                    var right = getWinWidth() - child.right
+                    if (right < 0) {
+                        right = 0
+                    }
+                    val scale = right / getWinWidth().toFloat()
+                    child.scaleY = 1 - scale * 0.1f
+                    child.scaleX = 1 - scale * 0.1f
+                    child.translationX = scale * dp2px(100f)
+                }
+            }
+        })
+        recycler_view.addOnScrollListener(object: OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recycler_view.layoutManager as LinearLayoutManager
+                val first = layoutManager.findFirstVisibleItemPosition()
+                val last = layoutManager.findLastVisibleItemPosition()
+                (first..last).forEach {
+                    var str = "position: $it "
+                    recyclerView.findViewHolderForLayoutPosition(it)?.itemView?.let {
+                        str += "left: ${it.left}, right:${it.right} "
+                        it.tv_id?.text = str
+                    }
+                }
+            }
+        })
         loadMoreData()
     }
 
     private fun loadMoreData() {
         (0 until 10).forEach {
-            datas.add(RItem().apply { id = index++ })
+            dataList.add(it)
         }
-        adapter.updateList(datas)
-    }
-
-
-    class RItem {
-        var id = 0
+        adapter.notifyDataSetChanged()
     }
 
     inner class RViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_recycler_view, parent, false)
     ) {
 
-        fun setup(item: RItem) {
-            itemView.tv_id.text = item.id.toString()
+        init {
+            val lp = itemView.layoutParams
+            lp.width = (ScreenUtils.getScreenWidth() / 2.3).toInt()
+            itemView.layoutParams = lp
         }
 
-    }
-
-//    inner class RAdapter : ListAdapter<RItem, RViewHolder>(DiffItemCallback()) {
-//
-//        val itemList = arrayListOf<RItem>()
-//        private var loadMore: (() -> Unit)? = null
-//
-//        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RViewHolder {
-//            return RViewHolder(parent)
-//        }
-//
-//        override fun onBindViewHolder(holder: RViewHolder, position: Int) {
-//
-//            if (position == itemList.size - 1) {
-//                //下拉刷新
-//                loadMore?.invoke()
-//            }
-//            holder.setup(getItem(position))
-//
-//        }
-//
-//        fun updateList(list: List<RItem>) {
-//            itemList.clear()
-//            itemList.addAll(list)
-//            submitList(itemList.toList())
-//        }
-//
-//        fun setLoadMoreListener(loadMore: (() -> Unit)?) {
-//            this.loadMore = loadMore
-//        }
-//    }
-
-    class DiffItemCallback : DiffUtil.ItemCallback<RItem>() {
-        override fun areItemsTheSame(oldItem: RItem, newItem: RItem): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: RItem, newItem: RItem): Boolean {
-            return oldItem.id == newItem.id
+        fun setup() {
+            itemView.tv_id.text = dataList.getOrNull(adapterPosition).toString()
         }
     }
 
-    inner class R2Adapter : RecyclerView.Adapter<RViewHolder>() {
-        override fun getItemCount(): Int {
-            return itemList.size
-        }
+    inner class RAdapter : RecyclerView.Adapter<RViewHolder>() {
 
-        val itemList = arrayListOf<RItem>()
         private var loadMore: (() -> Unit)? = null
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RViewHolder {
             return RViewHolder(parent)
         }
 
+        override fun getItemCount(): Int {
+            return dataList.size
+        }
+
         override fun onBindViewHolder(holder: RViewHolder, position: Int) {
-            Logger.d("onbind ---")
-            if (position == itemList.size - 1) {
-                //下拉刷新
-                loadMore?.invoke()
-            }
-            holder.setup(itemList[position])
+            holder.setup()
         }
 
-        fun updateList(list: List<RItem>) {
-            recycler_view.post {
-//                val callback = DiffCallback(itemList, list)
-//                val result = DiffUtil.calculateDiff(callback)
-//                result.dispatchUpdatesTo(adapter)
-                itemList.clear()
-                itemList.addAll(list)
-                notifyDataSetChanged()
-            }
-
-        }
-
-        fun setLoadMoreListener(loadMore: (() -> Unit)?) {
-            this.loadMore = loadMore
+        fun setLoadMoreListener(function: () -> Unit) {
+            this.loadMore = function
         }
     }
 
-    class DiffCallback(ol: List<RItem>, nl: List<RItem>) : DiffUtil.Callback() {
-
-
-        val oldList = arrayListOf<RItem>()
-        val newList = arrayListOf<RItem>()
-
-        init {
-            oldList.clear()
-            newList.clear()
-            oldList.addAll(ol)
-            newList.addAll(nl)
-        }
-
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition] == newList[newItemPosition]
-        }
-
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition].id == newList[newItemPosition].id
-        }
-
-        override fun getOldListSize(): Int {
-            return oldList.size
-        }
-
-        override fun getNewListSize(): Int {
-            return newList.size
+    class RItemDecoration : RecyclerView.ItemDecoration() {
+        override fun getItemOffsets(
+            outRect: Rect,
+            view: View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
+            super.getItemOffsets(outRect, view, parent, state)
         }
     }
 }
