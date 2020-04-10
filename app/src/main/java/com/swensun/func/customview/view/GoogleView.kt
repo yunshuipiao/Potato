@@ -8,6 +8,12 @@ import android.util.AttributeSet
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
+import com.swensun.func.customview.LifecycleInterface
 import com.swensun.potato.R
 import com.swensun.swutils.ui.dp2px
 import com.swensun.swutils.ui.getColor
@@ -16,7 +22,7 @@ import com.swensun.swutils.ui.getWinWidth
 
 class GoogleView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : ImageView(context, attrs, defStyleAttr) {
+) : AppCompatImageView(context, attrs, defStyleAttr), LifecycleInterface {
 
     val paint = Paint().apply {
 
@@ -90,5 +96,9 @@ class GoogleView @JvmOverloads constructor(
         canvas?.drawCircle(measuredWidth * 0.4f, y, circleSize, paint)
         canvas?.drawCircle(measuredWidth * 0.6f, y, circleSize, paint)
         canvas?.drawCircle(measuredWidth * 0.8f, y, circleSize, paint)
+    }
+    
+    override fun onDestroy() {
+        anim.cancel()
     }
 }

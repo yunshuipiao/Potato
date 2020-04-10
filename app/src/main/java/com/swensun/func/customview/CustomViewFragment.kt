@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.swensun.potato.R
+import kotlinx.android.synthetic.main.custom_view_fragment.*
 
 class CustomViewFragment : Fragment() {
 
@@ -26,5 +27,11 @@ class CustomViewFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(CustomViewViewModel::class.java)
+        activity?.lifecycle?.addObserver(loading_view)
+        activity?.lifecycle?.addObserver(skeleton_view)
+        activity?.lifecycle?.addObserver(google_view)
+        activity?.lifecycle?.addObserver(bagua_view)
+        activity?.lifecycle?.addObserver(fo_view)
+        activity?.lifecycle?.addObserver(taiji_view)
     }
 }

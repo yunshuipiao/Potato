@@ -4,9 +4,15 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
+import com.swensun.func.customview.LifecycleInterface
 import com.swensun.potato.R
 import com.swensun.swutils.ui.dp2px
 import com.swensun.swutils.ui.getColor
@@ -15,13 +21,14 @@ import com.swensun.swutils.ui.getWinWidth
 
 class SkeletonView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : ImageView(context, attrs, defStyleAttr) {
+) : AppCompatImageView(context, attrs, defStyleAttr), LifecycleInterface {
 
     val paint = Paint().apply {
 
     }
 
     //    var animPercent = 0f
+    val rectF = RectF()
     val DEFAULT_SIZE = if (getWinWidth() < getWinHeight()) getWinWidth() else getWinHeight()
     val STROKE_WIDTH = dp2px(20f).toFloat()
     var size: Int = 0
@@ -88,13 +95,16 @@ class SkeletonView @JvmOverloads constructor(
 //        alpha = animPercent
 //        canvas?.drawCircle(100f, 100f, 10f, paint)
         val r = (measuredWidth.toFloat() / 20).coerceAtMost(measuredHeight.toFloat() / 20)
-        canvas?.drawRoundRect(
-            0f,
-            0f,
-            measuredWidth.toFloat(),
-            measuredHeight.toFloat(),
-            r, r,
-            paint
-        )
+        rectF.left = 0f
+        rectF.top = 0f
+        rectF.right = measuredWidth.toFloat()
+        rectF.bottom = measuredHeight.toFloat()
+        canvas?.drawRoundRect(rectF, r, r, paint)
     }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    override fun onDestroy() {
+        anim.cancel()
+    }
+
 }

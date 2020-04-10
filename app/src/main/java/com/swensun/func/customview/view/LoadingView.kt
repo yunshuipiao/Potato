@@ -4,9 +4,14 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.LinearInterpolator
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
+import com.swensun.func.customview.LifecycleInterface
 import com.swensun.potato.R
 import com.swensun.swutils.ui.dp2px
 import com.swensun.swutils.ui.getColor
@@ -16,7 +21,7 @@ import com.swensun.swutils.ui.getWinWidth
 
 class LoadingView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr) {
+) : View(context, attrs, defStyleAttr), LifecycleInterface {
 
     private var isAdd: Int = 1
     private var startAngle: Float = 0f
@@ -24,6 +29,7 @@ class LoadingView @JvmOverloads constructor(
     val paint = Paint().apply {
 
     }
+    val rectF = RectF()
 
 
     val DEFAULT_SIZE = if (getWinWidth() < getWinHeight()) getWinWidth() else getWinHeight()
@@ -99,15 +105,22 @@ class LoadingView @JvmOverloads constructor(
             isAdd = -1
         }
         endAngle += (2 * isAdd)
+        rectF.left = 0f + STROKE_WIDTH / 2
+        rectF.top = 0f + STROKE_WIDTH / 2
+        rectF.right = size.toFloat() - STROKE_WIDTH / 2
+        rectF.bottom = size.toFloat() - STROKE_WIDTH / 2
         canvas?.drawArc(
-            0f + STROKE_WIDTH / 2,
-            0f + STROKE_WIDTH / 2,
-            size.toFloat() - STROKE_WIDTH / 2,
-            size.toFloat() - STROKE_WIDTH / 2,
+            rectF,
             startAngle,
             endAngle,
             false,
             paint
         )
+    }
+
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    override fun onDestroy() {
+        anim.cancel()
     }
 }

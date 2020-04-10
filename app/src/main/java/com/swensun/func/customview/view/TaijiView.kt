@@ -8,6 +8,7 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.LinearInterpolator
+import com.swensun.func.customview.LifecycleInterface
 import com.swensun.potato.R
 import com.swensun.swutils.ui.dp2px
 import com.swensun.swutils.ui.getColor
@@ -17,12 +18,11 @@ import com.swensun.swutils.ui.getWinWidth
 
 class TaijiView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr) {
+) : View(context, attrs, defStyleAttr), LifecycleInterface {
 
     val paint = Paint().apply {
 
     }
-
     val anim = ObjectAnimator.ofFloat(this, "rotation", 0f, 360f)
         .apply {
             duration = 800
@@ -100,6 +100,10 @@ class TaijiView @JvmOverloads constructor(
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
+        anim.cancel()
+    }
+
+    override fun onDestroy() {
         anim.cancel()
     }
 }

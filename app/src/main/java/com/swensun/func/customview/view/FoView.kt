@@ -8,6 +8,7 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.LinearInterpolator
+import com.swensun.func.customview.LifecycleInterface
 import com.swensun.potato.R
 import com.swensun.swutils.ui.dp2px
 import com.swensun.swutils.ui.getColor
@@ -17,7 +18,7 @@ import com.swensun.swutils.ui.getWinWidth
 
 class FoView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr) {
+) : View(context, attrs, defStyleAttr), LifecycleInterface {
 
     private var startAngle: Float = 0f
     val paint = Paint().apply {
@@ -122,5 +123,9 @@ class FoView @JvmOverloads constructor(
             measuredHeight / 2f + STROKE_WIDTH / 2,
             paint
         )
+    }
+
+    override fun onDestroy() {
+        anim.cancel()
     }
 }

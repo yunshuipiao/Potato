@@ -7,6 +7,7 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.LinearInterpolator
+import com.swensun.func.customview.LifecycleInterface
 import com.swensun.potato.R
 import com.swensun.swutils.ui.dp2px
 import com.swensun.swutils.ui.getColor
@@ -16,7 +17,7 @@ import com.swensun.swutils.ui.getWinWidth
 
 class BaguaView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr) {
+) : View(context, attrs, defStyleAttr), LifecycleInterface {
 
     private var startAngle: Float = 0f
     private val threeLineList = arrayListOf<List<Boolean>>().apply {
@@ -162,5 +163,9 @@ class BaguaView @JvmOverloads constructor(
                 canvas?.drawRect(l, t, r, b, paint)
             }
         }
+    }
+
+    override fun onDestroy() {
+        anim.cancel()
     }
 }
