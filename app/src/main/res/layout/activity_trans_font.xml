@@ -12,16 +12,153 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="10dp"
-            android:text="翻译"/>
+            android:text="قىسىملىق"
+            android:textSize="8sp"
+            app:translatable="false" />
 
     <com.swensun.func.trans.PotatoTextView
             android:id="@+id/tv2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="10dp"
-            android:text="不翻译"
-            app:translatable="false"/>
+            android:text="قىسىملىق"
+            android:textSize="10sp"
+            app:translatable="false" />
 
+    <com.swensun.func.trans.PotatoTextView
+            android:id="@+id/tv3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+
+            android:text="قىسىملىق"
+            android:textSize="12sp"
+            app:translatable="false" />
+
+    <com.swensun.func.trans.PotatoTextView
+            android:id="@+id/tv4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+
+            android:text="قىسىملىق"
+            android:textSize="14sp"
+            app:translatable="false" />
+
+    <com.swensun.func.trans.PotatoTextView
+            android:id="@+id/tv5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+
+            android:text="قىسىملىق"
+            android:textSize="16sp"
+            app:translatable="false" />
+
+    <com.swensun.func.trans.PotatoTextView
+            android:id="@+id/tv6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+
+            android:text="قىسىملىق"
+            android:textSize="18sp"
+            app:translatable="false" />
+
+    <com.swensun.func.trans.PotatoTextView
+            android:id="@+id/tv7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="قىسىملىق"
+            android:textSize="20sp"
+            app:translatable="false"
+            android:layout_marginBottom="20dp"/>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="English"
+            android:gravity="center"
+            android:textSize="8sp"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="English"
+            android:gravity="center"
+            android:textSize="10sp"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="English"
+            android:gravity="center"
+            android:textSize="12sp"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="English"
+            android:gravity="center"
+            android:textSize="14sp"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="English"
+            android:gravity="center"
+            android:textSize="16sp"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="English"
+            android:gravity="center"
+            android:textSize="18sp"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="English"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:layout_marginBottom="20dp"/>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="一二三四"
+            android:gravity="center"
+            android:textSize="8sp"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="一二三四"
+            android:gravity="center"
+            android:textSize="10sp"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="一二三四"
+            android:gravity="center"
+            android:textSize="12sp"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="一二三四"
+            android:gravity="center"
+            android:textSize="14sp"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="一二三四"
+            android:gravity="center"
+            android:textSize="16sp"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="一二三四"
+            android:gravity="center"
+            android:textSize="18sp"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="一二三四"
+            android:gravity="center"
+            android:textSize="20sp"/>
 </LinearLayout>
