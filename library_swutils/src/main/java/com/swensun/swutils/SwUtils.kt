@@ -13,9 +13,7 @@ object SwUtils {
                 and ApplicationInfo.FLAG_DEBUGGABLE) != 0
         SharePreferencesManager.init(application)
     }
-
-    var debug: Boolean by Delegates.notNull()
-        private set
+    var debug = false
     lateinit var application: Application
         private set
 }

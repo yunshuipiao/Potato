@@ -2,19 +2,24 @@ package com.swensun.potato.application
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
+import com.blankj.utilcode.util.ProcessUtils
 import com.swensun.library_crash.CrashUtil
 import com.swensun.swutils.SwUtils
+import com.swensun.swutils.util.Logger
 import org.jetbrains.anko.toast
 
 
 class PotatoApplication : Application() {
 
     override fun attachBaseContext(base: Context?) {
+
         super.attachBaseContext(base)
     }
 
     override fun onCreate() {
         super.onCreate()
+        SwUtils.init(this)
 //        val callback = object : Choreographer.FrameCallback {
 //            override fun doFrame(frameTimeNanos: Long) {
 //                val diff = frameTimeNanos / 1000000 - startTime
@@ -35,9 +40,10 @@ class PotatoApplication : Application() {
 //                toast("前台, $activity")
 //            }
 //        })
-        if (SwUtils.debug) {
-            CrashUtil.init(this)
-        }
-        toast("application init")
+        
+
+        //进程
+        val processName = ProcessUtils.getCurrentProcessName()
+        Logger.d("processName",  "$processName")
     }
 }

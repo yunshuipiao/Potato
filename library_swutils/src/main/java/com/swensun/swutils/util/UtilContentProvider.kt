@@ -5,6 +5,8 @@ import android.content.ContentProvider
 import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
+import android.util.Log
+import com.blankj.utilcode.util.ProcessUtils
 import com.swensun.swutils.SwUtils
 
 class UtilContentProvider : ContentProvider() {
@@ -19,7 +21,7 @@ class UtilContentProvider : ContentProvider() {
     }
 
     override fun onCreate(): Boolean {
-        SwUtils.init(context as Application)
+//        SwUtils.init(context as Application)
         return true
     }
 
