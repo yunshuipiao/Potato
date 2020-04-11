@@ -3,6 +3,7 @@ package com.swensun.potato
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.os.Handler
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.format.DateFormat
@@ -22,6 +23,9 @@ import com.swensun.func.memory.MemoryActivity
 import com.swensun.func.multidialog.MultiDialogActivity
 import com.swensun.func.recycler.RecyclerViewActivity
 import com.swensun.func.room.RoomActivity
+import com.swensun.func.share.handle.HandleActivity
+import com.swensun.func.share.io.IOActivity
+import com.swensun.func.share.thread.ConcurrencyActivity
 import com.swensun.func.time.TimeAboutActivity
 import com.swensun.func.trans.TransFontActivity
 import com.swensun.func.viewpager.view.ViewPager2Activity
@@ -88,11 +92,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_launcher_mode.setOnClickListener {
-//            startActivity<LauncherModeActivity>()
-            1 / 0
-            RecyclerView.SCROLL_STATE_IDLE
+            startActivity<LauncherModeActivity>()
         }
 
+        btn_concurrency.setOnClickListener {
+            startActivity<ConcurrencyActivity>()
+        }
+        btn_io.setOnClickListener {
+            startActivity<IOActivity>()
+        }
+        btn_handler.setOnClickListener {
+            startActivity<HandleActivity>()
+        }
     }
 
     override fun onDestroy() {

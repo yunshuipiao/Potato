@@ -21,5 +21,4 @@ class TransFontActivity : AppCompatActivity() {
             toast("text: ${it.height}")
         }
     }
-    
 }

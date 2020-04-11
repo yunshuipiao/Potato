@@ -12,18 +12,24 @@
             android:orientation="vertical">
 
         <Button
-                android:id="@+id/btn_launcher_mode"
+                android:id="@+id/btn_concurrency"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="@string/launcher_mode" />
+                android:text="进程 线程 协程"/>
 
         <Button
-                android:id="@+id/btn_exo_player"
+                android:id="@+id/btn_handler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="@string/exoplayer" />
+                android:text="handler"/>
+        <Button
+                android:id="@+id/btn_io"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="io"/>
 
         <Button
                 android:id="@+id/btn_test1"
@@ -51,6 +57,19 @@
                 android:padding="5dp" />
 
 
+        <Button
+                android:id="@+id/btn_launcher_mode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/launcher_mode" />
+
+        <Button
+                android:id="@+id/btn_exo_player"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/exoplayer" />
         <Button
                 android:id="@+id/btn_custom_view"
                 android:layout_width="match_parent"
