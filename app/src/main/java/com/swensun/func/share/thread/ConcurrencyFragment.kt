@@ -1,24 +1,22 @@
 package com.swensun.func.share.thread
 
 import android.annotation.SuppressLint
-import android.app.Service
-import android.os.AsyncTask
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.blankj.utilcode.util.ProcessUtils
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.lifecycleScope
 import com.swensun.potato.R
 import com.swensun.swutils.ui.getColor
-import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.concurrency_fragment.*
-import org.jetbrains.anko.doAsync
-import java.util.concurrent.Executors
-import java.util.concurrent.ThreadPoolExecutor
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ConcurrencyFragment : Fragment() {
 
@@ -58,12 +56,26 @@ class ConcurrencyFragment : Fragment() {
 //            Thread.sleep(6000)
 
 //            2.更新UI
-            AsyncTask.THREAD_POOL_EXECUTOR.execute {
-                Thread.sleep(1000)
-//                change_ui.post { change_ui.setBackgroundColor(getColor("#ff0000")) }
+//            AsyncTask.THREAD_POOL_EXECUTOR.execute {
+//                Thread.sleep(1000)
+////                change_ui.post { change_ui.setBackgroundColor(getColor("#ff0000")) }
+//
+////             3. handler
+//                handler.sendEmptyMessage(1)
+//            }
 
-//             3. handler
-                handler.sendEmptyMessage(1)
+            lifecycleScope.launch {
+                val redColor = withContext(Dispatchers.IO) {
+                    delay(1000)
+                    getColor("#ff0000")
+
+                }
+                change_ui.setBackgroundColor(redColor)
+                val greenColor = withContext(Dispatchers.IO) {
+                    delay(1000)
+                    getColor("#00ff00")
+                }
+                change_ui.setBackgroundColor(greenColor)
             }
         }
     }
