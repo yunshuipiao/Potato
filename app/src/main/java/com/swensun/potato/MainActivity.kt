@@ -98,12 +98,6 @@ class MainActivity : AppCompatActivity() {
         btn_concurrency.setOnClickListener {
             startActivity<ConcurrencyActivity>()
         }
-        btn_io.setOnClickListener {
-            startActivity<IOActivity>()
-        }
-        btn_handler.setOnClickListener {
-            startActivity<HandleActivity>()
-        }
     }
 
     override fun onDestroy() {

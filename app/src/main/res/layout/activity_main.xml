@@ -17,20 +17,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="进程 线程 协程"/>
-
-        <Button
-                android:id="@+id/btn_handler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="handler"/>
-        <Button
-                android:id="@+id/btn_io"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="io"/>
-
+        
         <Button
                 android:id="@+id/btn_test1"
                 android:layout_width="match_parent"
