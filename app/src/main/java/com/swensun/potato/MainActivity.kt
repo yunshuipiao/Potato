@@ -89,10 +89,8 @@ class MainActivity : AppCompatActivity() {
 
         btn_launcher_mode.setOnClickListener {
 //            startActivity<LauncherModeActivity>()
-            1 / 0
-            RecyclerView.SCROLL_STATE_IDLE
+            
         }
-
     }
 
     override fun onDestroy() {
