@@ -10,6 +10,8 @@ import android.text.style.ForegroundColorSpan
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
@@ -91,6 +93,9 @@ class MainActivity : AppCompatActivity() {
 //            startActivity<LauncherModeActivity>()
             
         }
+
+
+        lifecycle.coroutineScope
     }
 
     override fun onDestroy() {
