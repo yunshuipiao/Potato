@@ -23,4 +23,5 @@
     <string name="exoplayer">exoplayer</string>
     <string name="card_view">CardView</string>
     <string name="launcher_mode">Launcher Mode</string>
+    <string name="framelayout">framelayout</string>
 </resources>

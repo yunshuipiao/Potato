@@ -10,14 +10,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+        <Button
+                android:id="@+id/btn_framelayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/framelayout" />
         
         <Button
                 android:id="@+id/btn_launcher_mode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-
-                android:layout_marginTop="20dp"
                 android:text="@string/launcher_mode" />
 
         <Button

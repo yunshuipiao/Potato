@@ -7,15 +7,18 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.format.DateFormat
 import android.text.style.ForegroundColorSpan
+import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import com.swensun.TimeLog
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
 import com.swensun.func.customview.CustomViewActivity
+import com.swensun.func.customview.FrameLayoutActivity
 import com.swensun.func.exoplayer.ExoPlayerActivity
 import com.swensun.func.launchermode.LauncherModeActivity
 import com.swensun.func.lifecycle.LifecycleActivity
@@ -26,8 +29,15 @@ import com.swensun.func.recycler.RecyclerViewActivity
 import com.swensun.func.room.RoomActivity
 import com.swensun.func.time.TimeAboutActivity
 import com.swensun.func.trans.TransFontActivity
+import com.swensun.func.viewpager.fragment.ViewPagerActivity
 import com.swensun.func.viewpager.view.ViewPager2Activity
 import com.swensun.swutils.util.Logger
+import io.reactivex.Observable
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.BiFunction
+import io.reactivex.rxkotlin.Observables
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -37,7 +47,7 @@ val bitmapList = arrayListOf<Bitmap>()
 
 class MainActivity : AppCompatActivity() {
 
-//    private val mBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    //    private val mBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val today
         get() = DateFormat.format("yyyyMMdd, hh-mm-ss", System.currentTimeMillis()).toString()
 
@@ -45,6 +55,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initView(savedInstanceState)
+        TimeLog.log("main activity onCreate")
     }
 
     private fun initView(savedInstanceState: Bundle?) {
@@ -53,7 +64,7 @@ class MainActivity : AppCompatActivity() {
             startActivity<CoroutinesActivity>()
         }
         btn_viewpager.setOnClickListener {
-            startActivity<ViewPager2Activity>()
+            startActivity<ViewPagerActivity>()
         }
         btn_bottom.setOnClickListener {
             startActivity<BottomActivity>()
@@ -91,11 +102,13 @@ class MainActivity : AppCompatActivity() {
 
         btn_launcher_mode.setOnClickListener {
 //            startActivity<LauncherModeActivity>()
-            
+
+        }
+        btn_framelayout.setOnClickListener {
+            startActivity<FrameLayoutActivity>()
         }
 
-
-        lifecycle.coroutineScope
+        btn_framelayout.performClick()
     }
 
     override fun onDestroy() {
@@ -119,6 +132,27 @@ class MainActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
         Logger.d("onSave")
     }
+
+    private fun sleep1(): Observable<Int> {
+        return Observable.just(safe {
+            Thread.sleep(1000)
+            1000
+        } ?: 0)
+    }
+
+    private fun sleep2(): Observable<Int> {
+        return Observable.just(safe {
+            Thread.sleep(2000)
+            2000
+        } ?: 0)
+    }
+
+    private fun sleep3(): Observable<Int> {
+        return Observable.just(safe {
+            Thread.sleep(3000)
+            3000
+        } ?: 0)
+    }
 }
 
 fun TextView.setHighlightText(text: String, highlightText: String, @ColorInt color: Int) {
@@ -135,5 +169,17 @@ fun TextView.setHighlightText(text: String, highlightText: String, @ColorInt col
     }
     this.text = span
 }
+
+fun <T> safe(block: () -> T): T? {
+    return try {
+        block.invoke()
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null
+    }
+}
+
+
+
 
 

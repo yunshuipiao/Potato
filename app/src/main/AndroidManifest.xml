@@ -10,10 +10,11 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name="com.swensun.func.launchermode.LauncherModeActivity"
+        <activity android:name="com.swensun.func.customview.FrameLayoutActivity"></activity>
+        <activity
+                android:name="com.swensun.func.launchermode.LauncherModeActivity"
                 android:launchMode="singleTask"
-                android:taskAffinity="com.swensun.lala"
-                />
+                android:taskAffinity="com.swensun.lala" />
         <activity
                 android:name="com.swensun.func.exoplayer.ExoPlayerActivity"
                 android:screenOrientation="landscape" />
@@ -32,8 +33,7 @@
                 android:theme="@style/AppTheme" />
         <activity android:name="com.swensun.func.viewpager.fragment.ViewPagerActivity" />
         <activity android:name="com.swensun.func.coroutines.ui.CoroutinesActivity" />
-        <activity android:name=".MainActivity"
-                >
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
