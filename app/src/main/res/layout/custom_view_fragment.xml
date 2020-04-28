@@ -66,6 +66,14 @@
                 app:layout_constraintTop_toBottomOf="@id/loading_view"
                 app:layout_constraintWidth_percent="0.5" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/float_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_margin="40dp"/>
+        
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

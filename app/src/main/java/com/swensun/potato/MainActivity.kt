@@ -2,25 +2,20 @@ package com.swensun.potato
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.format.DateFormat
 import android.text.style.ForegroundColorSpan
-import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.coroutineScope
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.RecyclerView
 import com.swensun.TimeLog
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
 import com.swensun.func.customview.CustomViewActivity
-import com.swensun.func.customview.FrameLayoutActivity
 import com.swensun.func.exoplayer.ExoPlayerActivity
-import com.swensun.func.launchermode.LauncherModeActivity
 import com.swensun.func.lifecycle.LifecycleActivity
 import com.swensun.func.livedata.LiveDataActivity
 import com.swensun.func.memory.MemoryActivity
@@ -30,17 +25,10 @@ import com.swensun.func.room.RoomActivity
 import com.swensun.func.time.TimeAboutActivity
 import com.swensun.func.trans.TransFontActivity
 import com.swensun.func.viewpager.fragment.ViewPagerActivity
-import com.swensun.func.viewpager.view.ViewPager2Activity
 import com.swensun.swutils.util.Logger
 import io.reactivex.Observable
-import io.reactivex.Scheduler
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.BiFunction
-import io.reactivex.rxkotlin.Observables
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
 
 
 val bitmapList = arrayListOf<Bitmap>()
@@ -55,7 +43,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initView(savedInstanceState)
-        TimeLog.log("main activity onCreate")
     }
 
     private fun initView(savedInstanceState: Bundle?) {
@@ -105,14 +92,23 @@ class MainActivity : AppCompatActivity() {
 
         }
         btn_framelayout.setOnClickListener {
-            startActivity<FrameLayoutActivity>()
+//            startActivity<FrameLayoutActivity>()
+            TimeLog.reset()
+            AsyncTask.SERIAL_EXECUTOR.execute {
+                Thread.sleep(1000)
+                TimeLog.log("1")
+            }
+            AsyncTask.SERIAL_EXECUTOR.execute {
+                Thread.sleep(2000)
+                TimeLog.log("2")
+            }
+
         }
 
-        btn_framelayout.performClick()
+//        btn_framelayout.performClick()
     }
 
     override fun onDestroy() {
-        toast("main destroy")
         super.onDestroy()
     }
 
