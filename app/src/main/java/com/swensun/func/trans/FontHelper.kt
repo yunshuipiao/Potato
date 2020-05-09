@@ -9,6 +9,9 @@ private val map = ConcurrentHashMap<String, Typeface>()
 val alkaTipTorTom: Typeface?
     get() = createFromAsset("fonts/ALKATIP_Tor_Tom.ttf")
 
+val ukijqara by lazy { createFromAsset("fonts/ukijqara.ttf") }
+
+
 fun createFromAsset(path: String): Typeface? {
     if (map.containsKey(path)) {
         return map[path]
@@ -37,7 +40,7 @@ object FontHelper {
 
     private var typeFaceChangeCallBack: TypefaceChangeCallBack = object: TypefaceChangeCallBack{
         override fun getCurrentTypeFace(): Typeface? {
-            return alkaTipTorTom
+            return ukijqara
         }
     }
     /**

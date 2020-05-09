@@ -15,6 +15,7 @@ import com.swensun.TimeLog
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
 import com.swensun.func.customview.CustomViewActivity
+import com.swensun.func.customview.FrameLayoutActivity
 import com.swensun.func.exoplayer.ExoPlayerActivity
 import com.swensun.func.lifecycle.LifecycleActivity
 import com.swensun.func.livedata.LiveDataActivity
@@ -89,23 +90,12 @@ class MainActivity : AppCompatActivity() {
 
         btn_launcher_mode.setOnClickListener {
 //            startActivity<LauncherModeActivity>()
-
         }
         btn_framelayout.setOnClickListener {
-//            startActivity<FrameLayoutActivity>()
-            TimeLog.reset()
-            AsyncTask.SERIAL_EXECUTOR.execute {
-                Thread.sleep(1000)
-                TimeLog.log("1")
-            }
-            AsyncTask.SERIAL_EXECUTOR.execute {
-                Thread.sleep(2000)
-                TimeLog.log("2")
-            }
-
+            startActivity<FrameLayoutActivity>()
         }
 
-//        btn_framelayout.performClick()
+        btn_framelayout.performClick()
     }
 
     override fun onDestroy() {
