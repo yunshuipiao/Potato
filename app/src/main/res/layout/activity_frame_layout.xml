@@ -6,23 +6,32 @@
         android:layout_height="match_parent"
         tools:context="com.swensun.func.customview.FrameLayoutActivity">
 
-    <View
-            android:id="@+id/view1"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="#ff0000"
-            android:visibility="invisible"
+    <TextView
+            android:id="@+id/tv_bg"
+            android:layout_width="120dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintDimensionRatio="33:44"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-            android:id="@+id/view2"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="#ffff00"
-            android:layout_marginStart="10dp"
-            app:layout_goneMarginStart="30dp"
-            app:layout_constraintLeft_toRightOf="@id/view1"
-            app:layout_constraintTop_toTopOf="parent" />
+    <Button
+            android:id="@+id/btn_load"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/tv_bg"
+            app:layout_constraintBottom_toBottomOf="@id/tv_bg"
+            app:layout_constraintLeft_toRightOf="@id/tv_bg"
+            android:layout_margin="10dp"
+            android:text="glide_load"/>
+
+    <ImageView
+            android:id="@+id/iv_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/xiyouji"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_bg" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
