@@ -31,42 +31,8 @@ class FrameLayoutActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_frame_layout)
-
-        tv_bg.setOnClickListener {
-            toast(it)
+        iv_view.setOnClickListener {
+            status_view.getChildAt(0)
         }
-        btn_load.setOnClickListener {
-            Glide.with(this)
-                .asBitmap()
-                .load(R.drawable.cat)
-//                .sizeMultiplier(0.5f)
-//                .override(tv_bg.width, tv_bg.height)
-                .skipMemoryCache(true)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .into(object : SimpleTarget<Bitmap>() {
-                    override fun onResourceReady(
-                        bitmap: Bitmap,
-                        transition: Transition<in Bitmap>?
-                    ) {
-                        toast("bitmap :${bitmap.width}, ${bitmap.height}, ${readableFileSize(bitmap.allocationByteCount.toLong())}")
-                        tv_bg.background = BitmapDrawable(resources, bitmap)
-                    }
-                })
-        }
-        iv_bg.setOnClickListener {
-            toast(it)
-        }
-    }
-    private fun toast(view: View) {
-        toast("width: ${view.width}, height, ${view.height}")
-    }
-
-    private fun readableFileSize(size: Long): String {
-        if (size <= 0) {
-            return "0"
-        }
-        val units = arrayOf("B", "kB", "MB", "GB", "TB")
-        val digitGroups = (log10(size.toDouble()) / log10(1024.0)).toInt()
-        return DecimalFormat("#,##0.#").format(size / 1024.0.pow(digitGroups.toDouble())) + " " + units[digitGroups]
     }
 }
