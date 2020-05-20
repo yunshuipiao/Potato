@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity() {
             startActivity<FrameLayoutActivity>()
         }
 
-        btn_framelayout.performClick()
+        btn_room.performClick()
     }
 
     override fun onDestroy() {

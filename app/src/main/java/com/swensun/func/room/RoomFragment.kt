@@ -7,10 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
 import com.swensun.func.room.database.RoomEntity
 import com.swensun.potato.R
 import com.swensun.swutils.util.Logger
@@ -42,8 +39,8 @@ class RoomFragment : Fragment() {
     }
 
     private fun initView() {
-        
-        recycler_view.layoutManager = LinearLayoutManager(context)
+
+        recycler_view.layoutManager = GridLayoutManager(context, 4)
         recycler_view.setHasFixedSize(true)
         recycler_view.adapter = adapter
 
@@ -56,16 +53,17 @@ class RoomFragment : Fragment() {
         btn_delete.setOnClickListener {
             viewModel.delete(getEditContent())
         }
-        btn_query.setOnClickListener {
-            if (index % 2 == 0) {
-                viewModel.roomQueryLiveData.observe(this, Observer {
-                    adapter.submitList(it)
-                    Logger.d("livedata ${viewModel.roomQueryLiveData}")
-                })
-            } else {
-                viewModel.roomQueryLiveData.removeObservers(this)
+        viewModel.roomQueryLiveData.observe(this, Observer {
+            adapter.submitList(it)
+            Logger.d("livedata ${viewModel.roomQueryLiveData}")
+        })
+        refresh_view.setOnRefreshListener {
+            val list = arrayListOf<RoomEntity>().apply {
+                addAll(adapter.currentList)
             }
-            index += 1
+            list.add(0, RoomEntity().apply { id = getEditContent() })
+            adapter.submitList(list)
+            refresh_view.isRefreshing = false
         }
     }
 
