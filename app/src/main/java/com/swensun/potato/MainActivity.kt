@@ -3,7 +3,6 @@ package com.swensun.potato
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.os.Handler
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.format.DateFormat
@@ -11,11 +10,12 @@ import android.text.style.ForegroundColorSpan
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
+import androidx.arch.core.executor.ArchTaskExecutor
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
 import com.swensun.func.customview.CustomViewActivity
 import com.swensun.func.exoplayer.ExoPlayerActivity
+import com.swensun.func.framelayout.FrameLayoutActivity
 import com.swensun.func.launchermode.LauncherModeActivity
 import com.swensun.func.lifecycle.LifecycleActivity
 import com.swensun.func.livedata.LiveDataActivity
@@ -23,8 +23,6 @@ import com.swensun.func.memory.MemoryActivity
 import com.swensun.func.multidialog.MultiDialogActivity
 import com.swensun.func.recycler.RecyclerViewActivity
 import com.swensun.func.room.RoomActivity
-import com.swensun.func.share.handle.HandleActivity
-import com.swensun.func.share.io.IOActivity
 import com.swensun.func.share.thread.ConcurrencyActivity
 import com.swensun.func.time.TimeAboutActivity
 import com.swensun.func.trans.TransFontActivity
@@ -98,6 +96,10 @@ class MainActivity : AppCompatActivity() {
         btn_concurrency.setOnClickListener {
             startActivity<ConcurrencyActivity>()
         }
+        btn_framelayout.setOnClickListener {
+            startActivity<FrameLayoutActivity>()
+        }
+        btn_framelayout.performClick()
     }
 
     override fun onDestroy() {

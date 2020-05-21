@@ -10,10 +10,10 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name="com.swensun.func.share.io.IOActivity"/>
+        <activity android:name="com.swensun.func.framelayout.FrameLayoutActivity"></activity>
+        <activity android:name="com.swensun.func.share.io.IOActivity" />
         <activity android:name="com.swensun.func.share.handle.HandleActivity" />
-        <activity android:name="com.swensun.func.share.thread.ConcurrencyActivity"
-                />
+        <activity android:name="com.swensun.func.share.thread.ConcurrencyActivity" />
         <activity
                 android:name="com.swensun.func.launchermode.LauncherModeActivity"
                 android:launchMode="singleTask"
