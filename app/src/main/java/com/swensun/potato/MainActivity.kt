@@ -10,7 +10,7 @@ import android.text.style.ForegroundColorSpan
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
-import androidx.arch.core.executor.ArchTaskExecutor
+import androidx.lifecycle.ViewModelProvider
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
 import com.swensun.func.customview.CustomViewActivity
@@ -37,6 +37,8 @@ val bitmapList = arrayListOf<Bitmap>()
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var viewModel: MainViewModel
+
 //    private val mBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val today
         get() = DateFormat.format("yyyyMMdd, hh-mm-ss", System.currentTimeMillis()).toString()
@@ -44,6 +46,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         initView(savedInstanceState)
     }
 
