@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         tools:context="com.swensun.func.framelayout.FrameLayoutActivity">
 
-    <ImageView
+    <pl.droidsonroids.gif.GifImageView
             android:id="@+id/iv_loading"
             android:layout_width="0dp"
             android:layout_height="0dp"

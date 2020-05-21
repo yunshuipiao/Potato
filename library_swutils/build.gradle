@@ -83,5 +83,6 @@ dependencies {
     api 'com.blankj:utilcodex:1.26.0'
 
     api "me.grantland:autofittextview:0.2.1"
+    api 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
 
 }
