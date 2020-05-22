@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.*
 import com.swensun.func.room.database.RoomEntity
@@ -34,7 +35,7 @@ class RoomFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(RoomViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(RoomViewModel::class.java)
         initView()
     }
 

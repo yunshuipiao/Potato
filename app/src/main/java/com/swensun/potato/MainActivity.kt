@@ -2,7 +2,6 @@ package com.swensun.potato
 
 import android.content.Intent
 import android.graphics.Bitmap
-import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -11,7 +10,6 @@ import android.text.style.ForegroundColorSpan
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
-import com.swensun.TimeLog
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
 import com.swensun.func.customview.CustomViewActivity
