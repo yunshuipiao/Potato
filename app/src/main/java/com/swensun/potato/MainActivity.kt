@@ -116,27 +116,6 @@ class MainActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
         Logger.d("onSave")
     }
-
-    private fun sleep1(): Observable<Int> {
-        return Observable.just(safe {
-            Thread.sleep(1000)
-            1000
-        } ?: 0)
-    }
-
-    private fun sleep2(): Observable<Int> {
-        return Observable.just(safe {
-            Thread.sleep(2000)
-            2000
-        } ?: 0)
-    }
-
-    private fun sleep3(): Observable<Int> {
-        return Observable.just(safe {
-            Thread.sleep(3000)
-            3000
-        } ?: 0)
-    }
 }
 
 fun TextView.setHighlightText(text: String, highlightText: String, @ColorInt color: Int) {
@@ -152,15 +131,6 @@ fun TextView.setHighlightText(text: String, highlightText: String, @ColorInt col
         )
     }
     this.text = span
-}
-
-fun <T> safe(block: () -> T): T? {
-    return try {
-        block.invoke()
-    } catch (e: Exception) {
-        e.printStackTrace()
-        null
-    }
 }
 
 
