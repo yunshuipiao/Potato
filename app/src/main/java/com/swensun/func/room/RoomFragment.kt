@@ -103,28 +103,13 @@ class RoomAdapter : ListAdapter<RoomEntity, RoomAdapter.RoomViewHolder>(RoomCall
     override fun onBindViewHolder(holder: RoomViewHolder, position: Int) {
         holder.setup(getItem(position))
     }
-
-    override fun onBindViewHolder(
-        holder: RoomViewHolder,
-        position: Int,
-        payloads: MutableList<Any>
-    ) {
-        if (payloads.isEmpty()) {
-            onBindViewHolder(holder, position)
-        } else {
-            val id = payloads.getOrNull(0) as? Int
-            id?.let {
-                holder.itemView.tv_count.text = id.toString()
-            }
-        }
-    }
-
+    
     inner class RoomViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_room, parent, false)
     ) {
         fun setup(item: RoomEntity?) {
             item?.let {
-                itemView.tv_title.text = "title"
+                itemView.tv_title.text = item.title
                 itemView.tv_count.text = item.id.toString()
             }
 
@@ -145,6 +130,6 @@ class RoomCallBack : DiffUtil.ItemCallback<RoomEntity>() {
     }
 
     override fun getChangePayload(oldItem: RoomEntity, newItem: RoomEntity): Any? {
-        return newItem.id
+        return Any()
     }
 }
