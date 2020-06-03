@@ -14,6 +14,7 @@ import com.swensun.potato.R
 import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.item_room.view.*
 import kotlinx.android.synthetic.main.room_fragment.*
+import org.w3c.dom.Entity
 
 class RoomFragment : Fragment() {
 
@@ -41,8 +42,20 @@ class RoomFragment : Fragment() {
 
     private fun initView() {
 
-        recycler_view.layoutManager = GridLayoutManager(context, 4)
+        recycler_view.layoutManager = GridLayoutManager(context, 1)
         recycler_view.setHasFixedSize(true)
+        adapter.clickListener = object : (Int) -> Unit {
+            override fun invoke(position: Int) {
+                val list = adapter.currentList
+                val entity = list.getOrNull(position)
+                entity?.let {
+                    val newEntity = RoomEntity().apply {
+                        id = it.id + 1
+                    }
+                    adapter.submitList(list.mapIndexed { index, roomEntity -> if (index == position) newEntity else roomEntity })
+                }
+            }
+        }
         recycler_view.adapter = adapter
 
         btn_add.setOnClickListener {
@@ -59,11 +72,11 @@ class RoomFragment : Fragment() {
             Logger.d("livedata ${viewModel.roomQueryLiveData}")
         })
         refresh_view.setOnRefreshListener {
-            val list = arrayListOf<RoomEntity>().apply {
-                addAll(adapter.currentList)
-            }
-            list.add(0, RoomEntity().apply { id = getEditContent() })
-            adapter.submitList(list)
+//            val list = arrayListOf<RoomEntity>().apply {
+//                addAll(adapter.currentList)
+//            }
+//            list.add(0, RoomEntity().apply { id = getEditContent() })
+//            adapter.submitList(list)
             refresh_view.isRefreshing = false
         }
     }
@@ -80,6 +93,9 @@ class RoomFragment : Fragment() {
 
 
 class RoomAdapter : ListAdapter<RoomEntity, RoomAdapter.RoomViewHolder>(RoomCallBack()) {
+
+    var clickListener: ((position: Int) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomViewHolder {
         return RoomViewHolder(parent)
     }
@@ -88,12 +104,32 @@ class RoomAdapter : ListAdapter<RoomEntity, RoomAdapter.RoomViewHolder>(RoomCall
         holder.setup(getItem(position))
     }
 
+    override fun onBindViewHolder(
+        holder: RoomViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        if (payloads.isEmpty()) {
+            onBindViewHolder(holder, position)
+        } else {
+            val id = payloads.getOrNull(0) as? Int
+            id?.let {
+                holder.itemView.tv_count.text = id.toString()
+            }
+        }
+    }
+
     inner class RoomViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_room, parent, false)
     ) {
         fun setup(item: RoomEntity?) {
             item?.let {
-                itemView.tv_title.text = item.title
+                itemView.tv_title.text = "title"
+                itemView.tv_count.text = item.id.toString()
+            }
+
+            itemView.setOnClickListener {
+                clickListener?.invoke(adapterPosition)
             }
         }
     }
@@ -105,7 +141,10 @@ class RoomCallBack : DiffUtil.ItemCallback<RoomEntity>() {
     }
 
     override fun areItemsTheSame(oldItem: RoomEntity, newItem: RoomEntity): Boolean {
-        return oldItem.id == newItem.id
+        return true
     }
 
+    override fun getChangePayload(oldItem: RoomEntity, newItem: RoomEntity): Any? {
+        return newItem.id
+    }
 }
