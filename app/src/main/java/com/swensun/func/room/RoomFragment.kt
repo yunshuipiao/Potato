@@ -50,9 +50,12 @@ class RoomFragment : Fragment() {
                 val entity = list.getOrNull(position)
                 entity?.let {
                     val newEntity = RoomEntity().apply {
-                        id = it.id + 1
+                        id = it.id
+                        title = "${it.id + 1}"
                     }
-                    adapter.submitList(list.mapIndexed { index, roomEntity -> if (index == position) newEntity else roomEntity })
+                    val newL =
+                        list.mapIndexed { index, roomEntity -> if (index == position) newEntity else roomEntity }
+                    adapter.submitList(newL)
                 }
             }
         }
@@ -76,7 +79,15 @@ class RoomFragment : Fragment() {
 //                addAll(adapter.currentList)
 //            }
 //            list.add(0, RoomEntity().apply { id = getEditContent() })
-//            adapter.submitList(list)
+            val list = arrayListOf<RoomEntity>()
+            list.addAll(adapter.currentList)
+            (1 until 3).forEach {
+                val entity = RoomEntity().apply {
+                    id = adapter.currentList.size + it
+                }
+                list.add(entity)
+            }
+            adapter.submitList(list)
             refresh_view.isRefreshing = false
         }
     }
@@ -103,7 +114,22 @@ class RoomAdapter : ListAdapter<RoomEntity, RoomAdapter.RoomViewHolder>(RoomCall
     override fun onBindViewHolder(holder: RoomViewHolder, position: Int) {
         holder.setup(getItem(position))
     }
-    
+
+    override fun onBindViewHolder(
+        holder: RoomViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        if (payloads.isEmpty()) {
+            onBindViewHolder(holder, position)
+        } else {
+            val any = payloads.getOrNull(0)
+            if (any is RoomEntity) {
+                holder.itemView.tv_title.text = any.title
+            }
+        }
+    }
+
     inner class RoomViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_room, parent, false)
     ) {
@@ -122,14 +148,16 @@ class RoomAdapter : ListAdapter<RoomEntity, RoomAdapter.RoomViewHolder>(RoomCall
 
 class RoomCallBack : DiffUtil.ItemCallback<RoomEntity>() {
     override fun areContentsTheSame(oldItem: RoomEntity, newItem: RoomEntity): Boolean {
-        return oldItem.id == newItem.id
+        var result = oldItem.title == newItem.title
+        return result
     }
 
     override fun areItemsTheSame(oldItem: RoomEntity, newItem: RoomEntity): Boolean {
-        return true
+        val result = oldItem.id == newItem.id
+        return result
     }
 
     override fun getChangePayload(oldItem: RoomEntity, newItem: RoomEntity): Any? {
-        return Any()
+        return newItem
     }
 }
