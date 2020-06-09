@@ -20,8 +20,7 @@ class Retrofit_Test {
         .addInterceptor { throw RuntimeException("error") }
         .build()
 
-    val retrofit = Retrofit.Builder().
-        client(okHttpClient)
+    val retrofit = Retrofit.Builder().client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
         .baseUrl("https://api.github.com/").build()
 
