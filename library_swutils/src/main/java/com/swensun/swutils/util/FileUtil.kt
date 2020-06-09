@@ -1,9 +1,12 @@
 package com.swensun.swutils.util
 
 import java.io.*
+import java.text.DecimalFormat
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
 import java.util.zip.ZipOutputStream
+import kotlin.math.log10
+import kotlin.math.pow
 
 /**
  * 创建文件
@@ -241,6 +244,18 @@ fun unzip(filePath: String, outPutFolder: String): Boolean {
 
     }
     return true
+}
+
+/**
+ * 格式化文件大小
+ */
+fun readableFileSize(size: Long): String {
+    if (size <= 0) {
+        return "0"
+    }
+    val units = arrayOf("B", "kB", "MB", "GB", "TB")
+    val digitGroups = (log10(size.toDouble()) / log10(1024.0)).toInt()
+    return DecimalFormat("#,##0.#").format(size / 1024.0.pow(digitGroups.toDouble())) + " " + units[digitGroups]
 }
 
 

@@ -55,7 +55,7 @@ dependencies {
     // 添加Jetpack中架构组件的依赖，注意viewmodel要添加viewmodel-ktx的依赖
     api "androidx.lifecycle:lifecycle-livedata:2.1.0"
     api 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
-    api "androidx.lifecycle:lifecycle-extensions:2.1.0"
+    api "androidx.lifecycle:lifecycle-extensions:2.2.0"
     api "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0-rc03"
 
     //room

@@ -13,12 +13,10 @@ class PotatoApplication : Application() {
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
-        TimeLog.reset()
     }
 
     override fun onCreate() {
         super.onCreate()
-        TimeLog.log("1")
 //        val callback = object : Choreographer.FrameCallback {
 //            override fun doFrame(frameTimeNanos: Long) {
 //                val diff = frameTimeNanos / 1000000 - startTime
@@ -43,7 +41,6 @@ class PotatoApplication : Application() {
         if (SwUtils.debug) {
             CrashUtil.init(this)
         }
-        toast("application init")
         TimeLog.log("2")
     }
 }

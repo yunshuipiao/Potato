@@ -10,7 +10,6 @@ import android.text.style.ForegroundColorSpan
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
-import com.swensun.TimeLog
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
 import com.swensun.func.customview.CustomViewActivity
@@ -29,7 +28,6 @@ import com.swensun.swutils.util.Logger
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
 
 
 val bitmapList = arrayListOf<Bitmap>()
@@ -44,7 +42,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initView(savedInstanceState)
-        TimeLog.log("main activity onCreate")
     }
 
     private fun initView(savedInstanceState: Bundle?) {
@@ -91,16 +88,15 @@ class MainActivity : AppCompatActivity() {
 
         btn_launcher_mode.setOnClickListener {
 //            startActivity<LauncherModeActivity>()
-
         }
         btn_framelayout.setOnClickListener {
             startActivity<FrameLayoutActivity>()
         }
 
+        btn_room.performClick()
     }
 
     override fun onDestroy() {
-        toast("main destroy")
         super.onDestroy()
     }
 
@@ -120,27 +116,6 @@ class MainActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
         Logger.d("onSave")
     }
-
-    private fun sleep1(): Observable<Int> {
-        return Observable.just(safe {
-            Thread.sleep(1000)
-            1000
-        } ?: 0)
-    }
-
-    private fun sleep2(): Observable<Int> {
-        return Observable.just(safe {
-            Thread.sleep(2000)
-            2000
-        } ?: 0)
-    }
-
-    private fun sleep3(): Observable<Int> {
-        return Observable.just(safe {
-            Thread.sleep(3000)
-            3000
-        } ?: 0)
-    }
 }
 
 fun TextView.setHighlightText(text: String, highlightText: String, @ColorInt color: Int) {
@@ -156,15 +131,6 @@ fun TextView.setHighlightText(text: String, highlightText: String, @ColorInt col
         )
     }
     this.text = span
-}
-
-fun <T> safe(block: () -> T): T? {
-    return try {
-        block.invoke()
-    } catch (e: Exception) {
-        e.printStackTrace()
-        null
-    }
 }
 
 

@@ -6,10 +6,7 @@ import com.swensun.func.coroutines.ApiService
 import com.swensun.http.BaseResponse
 import com.swensun.http.HttpClient
 import com.swensun.swutils.util.Logger
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import kotlin.system.measureTimeMillis
 
 class CoroutinesViewModel : StateViewModel() {
@@ -28,9 +25,9 @@ class CoroutinesViewModel : StateViewModel() {
             //loading
             val timeDiff = measureTimeMillis {
                 withContext(Dispatchers.IO) {
-                    val responseOne =  apiFetchOne()
-                    val responseTwo =  apiFetchTwo()
-                    if (responseOne.success && responseTwo.success) {
+                    val responseOne =  async { apiFetchOne() }
+                    val responseTwo =  async { apiFetchTwo() }
+                    if (responseOne.await().success && responseTwo.await().success) {
                         // success
                         postSuccess()
                     } else {
@@ -48,7 +45,7 @@ class CoroutinesViewModel : StateViewModel() {
          * 模拟网络请求，耗时 1s，打印请求线程
          */
         Logger.d("apiFetchOne current thread: ${Thread.currentThread().name}")
-        delay(5000)
+        delay(2000)
         return apiService.fetchData()
     }
 

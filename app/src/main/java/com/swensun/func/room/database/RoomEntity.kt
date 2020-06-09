@@ -8,8 +8,5 @@ class RoomEntity {
     @PrimaryKey
     var id = 0
     
-    val title: String
-        get() {
-            return "title-$id"
-        }
+    var title: String = ""
 }

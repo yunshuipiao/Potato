@@ -6,16 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
 import com.swensun.func.room.database.RoomEntity
 import com.swensun.potato.R
 import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.item_room.view.*
 import kotlinx.android.synthetic.main.room_fragment.*
+import org.w3c.dom.Entity
 
 class RoomFragment : Fragment() {
 
@@ -37,14 +36,29 @@ class RoomFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(RoomViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(RoomViewModel::class.java)
         initView()
     }
 
     private fun initView() {
-        
-        recycler_view.layoutManager = LinearLayoutManager(context)
+
+        recycler_view.layoutManager = GridLayoutManager(context, 1)
         recycler_view.setHasFixedSize(true)
+        adapter.clickListener = object : (Int) -> Unit {
+            override fun invoke(position: Int) {
+                val list = adapter.currentList
+                val entity = list.getOrNull(position)
+                entity?.let {
+                    val newEntity = RoomEntity().apply {
+                        id = it.id
+                        title = "${it.id + 1}"
+                    }
+                    val newL =
+                        list.mapIndexed { index, roomEntity -> if (index == position) newEntity else roomEntity }
+                    adapter.submitList(newL)
+                }
+            }
+        }
         recycler_view.adapter = adapter
 
         btn_add.setOnClickListener {
@@ -56,16 +70,25 @@ class RoomFragment : Fragment() {
         btn_delete.setOnClickListener {
             viewModel.delete(getEditContent())
         }
-        btn_query.setOnClickListener {
-            if (index % 2 == 0) {
-                viewModel.roomQueryLiveData.observe(this, Observer {
-                    adapter.submitList(it)
-                    Logger.d("livedata ${viewModel.roomQueryLiveData}")
-                })
-            } else {
-                viewModel.roomQueryLiveData.removeObservers(this)
+        viewModel.roomQueryLiveData.observe(this, Observer {
+            adapter.submitList(it)
+            Logger.d("livedata ${viewModel.roomQueryLiveData}")
+        })
+        refresh_view.setOnRefreshListener {
+//            val list = arrayListOf<RoomEntity>().apply {
+//                addAll(adapter.currentList)
+//            }
+//            list.add(0, RoomEntity().apply { id = getEditContent() })
+            val list = arrayListOf<RoomEntity>()
+            list.addAll(adapter.currentList)
+            (1 until 3).forEach {
+                val entity = RoomEntity().apply {
+                    id = adapter.currentList.size + it
+                }
+                list.add(entity)
             }
-            index += 1
+            adapter.submitList(list)
+            refresh_view.isRefreshing = false
         }
     }
 
@@ -81,6 +104,9 @@ class RoomFragment : Fragment() {
 
 
 class RoomAdapter : ListAdapter<RoomEntity, RoomAdapter.RoomViewHolder>(RoomCallBack()) {
+
+    var clickListener: ((position: Int) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomViewHolder {
         return RoomViewHolder(parent)
     }
@@ -89,12 +115,32 @@ class RoomAdapter : ListAdapter<RoomEntity, RoomAdapter.RoomViewHolder>(RoomCall
         holder.setup(getItem(position))
     }
 
+    override fun onBindViewHolder(
+        holder: RoomViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        if (payloads.isEmpty()) {
+            onBindViewHolder(holder, position)
+        } else {
+            val any = payloads.getOrNull(0)
+            if (any is RoomEntity) {
+                holder.itemView.tv_title.text = any.title
+            }
+        }
+    }
+
     inner class RoomViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_room, parent, false)
     ) {
         fun setup(item: RoomEntity?) {
             item?.let {
                 itemView.tv_title.text = item.title
+                itemView.tv_count.text = item.id.toString()
+            }
+
+            itemView.setOnClickListener {
+                clickListener?.invoke(adapterPosition)
             }
         }
     }
@@ -102,11 +148,16 @@ class RoomAdapter : ListAdapter<RoomEntity, RoomAdapter.RoomViewHolder>(RoomCall
 
 class RoomCallBack : DiffUtil.ItemCallback<RoomEntity>() {
     override fun areContentsTheSame(oldItem: RoomEntity, newItem: RoomEntity): Boolean {
-        return oldItem.id == newItem.id
+        var result = oldItem.title == newItem.title
+        return result
     }
 
     override fun areItemsTheSame(oldItem: RoomEntity, newItem: RoomEntity): Boolean {
-        return oldItem.id == newItem.id
+        val result = oldItem.id == newItem.id
+        return result
     }
 
+    override fun getChangePayload(oldItem: RoomEntity, newItem: RoomEntity): Any? {
+        return newItem
+    }
 }
