@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.swensun.potato.R
 import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.fragment_inner.*
+import org.jetbrains.anko.support.v4.toast
 
 class InnerFragment : BaseFragment() {
 

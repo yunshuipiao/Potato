@@ -1,7 +1,6 @@
 package com.swensun.potato
 
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -10,6 +9,8 @@ import android.text.style.ForegroundColorSpan
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ktx.SingleEvent
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
 import com.swensun.func.customview.CustomViewActivity
@@ -25,18 +26,19 @@ import com.swensun.func.time.TimeAboutActivity
 import com.swensun.func.trans.TransFontActivity
 import com.swensun.func.viewpager.fragment.ViewPagerActivity
 import com.swensun.swutils.util.Logger
-import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
 
-
-val bitmapList = arrayListOf<Bitmap>()
-
 class MainActivity : AppCompatActivity() {
 
-    //    private val mBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val today
         get() = DateFormat.format("yyyyMMdd, hh-mm-ss", System.currentTimeMillis()).toString()
+
+    private val globalEventObserver = Observer<SingleEvent<GlobalEvent>> {
+        window?.decorView?.postDelayed({
+            Logger.d("global-main: from:${it.peekContent()?.from}")
+        }, 1000)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,11 +94,14 @@ class MainActivity : AppCompatActivity() {
         btn_framelayout.setOnClickListener {
             startActivity<FrameLayoutActivity>()
         }
-
-        btn_room.performClick()
+        lifecycle.addObserver(GlobalViewModel)
+        Logger.d("global_value, ${GlobalViewModel.globalLiveData.value?.peekContent()?.from}")
+        btn_viewpager.performClick()
+        GlobalViewModel.globalLiveData.observe(this, globalEventObserver)
     }
 
     override fun onDestroy() {
+//        GlobalViewModel.numberLiveData.removeObserver(globalEventObserver)
         super.onDestroy()
     }
 
