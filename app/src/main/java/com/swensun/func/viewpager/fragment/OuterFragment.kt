@@ -5,8 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ktx.SingleEvent
+import com.swensun.potato.Global
 import com.swensun.potato.GlobalEvent
-import com.swensun.potato.GlobalViewModel
+import com.swensun.potato.LiveDataBus
 import com.swensun.potato.R
 import kotlinx.android.synthetic.main.fragment_outer.*
 
@@ -37,9 +38,10 @@ class OuterFragment : BaseFragment() {
 
     override fun loadData() {
         btn_send_event.setOnClickListener {
-            GlobalViewModel.globalLiveData.postValue(SingleEvent(GlobalEvent().apply {
-                from = "outer-${vid}"
-            }))
+            LiveDataBus.get<GlobalEvent>(LiveDataBus.Global)
+                .postValue(SingleEvent(GlobalEvent().apply {
+                    from = "outer-${vid}"
+                }))
         }
 //        childFragmentManager.let {
 //            adapter = ViewPagerAdapter(it)

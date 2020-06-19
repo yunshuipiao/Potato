@@ -94,14 +94,16 @@ class MainActivity : AppCompatActivity() {
         btn_framelayout.setOnClickListener {
             startActivity<FrameLayoutActivity>()
         }
-        lifecycle.addObserver(GlobalViewModel)
-        Logger.d("global_value, ${GlobalViewModel.globalLiveData.value?.peekContent()?.from}")
+        Logger.d("global_value, ${LiveDataBus.get<GlobalEvent>(LiveDataBus.Global).value?.peekContent()?.from}")
         btn_viewpager.performClick()
-        GlobalViewModel.globalLiveData.observe(this, globalEventObserver)
+        LiveDataBus.get<GlobalEvent>(LiveDataBus.Global).observe(this, Observer { it ->
+            it.peekContent()?.let {
+                Logger.d("global-main:${it.from}")
+            }
+        })
     }
 
     override fun onDestroy() {
-//        GlobalViewModel.numberLiveData.removeObserver(globalEventObserver)
         super.onDestroy()
     }
 
