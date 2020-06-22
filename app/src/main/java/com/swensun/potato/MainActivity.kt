@@ -16,6 +16,7 @@ import com.swensun.func.coroutines.ui.CoroutinesActivity
 import com.swensun.func.customview.CustomViewActivity
 import com.swensun.func.customview.FrameLayoutActivity
 import com.swensun.func.exoplayer.ExoPlayerActivity
+import com.swensun.func.feature.FeatureActivity
 import com.swensun.func.lifecycle.LifecycleActivity
 import com.swensun.func.livedata.LiveDataActivity
 import com.swensun.func.memory.MemoryActivity
@@ -96,14 +97,20 @@ class MainActivity : AppCompatActivity() {
             startActivity<FrameLayoutActivity>()
         }
         btn_framelayout.setOnClickListener {
-            Logger.d("student, simpleName:${Student::class.simpleName}, " +
-                    "jvmName:${Student::class.jvmName}, " +
-                    "qualifiedName:${Student::class.qualifiedName}, " +
-                    "name:${Student::class.java.name}, " +
-                    "canonicalName:${Student::class.java.canonicalName}, " +
-                    "simpleName2:${Student::class.java.simpleName}, " +
-                    "")
+            Logger.d(
+                "student, simpleName:${Student::class.simpleName}, " +
+                        "jvmName:${Student::class.jvmName}, " +
+                        "qualifiedName:${Student::class.qualifiedName}, " +
+                        "name:${Student::class.java.name}, " +
+                        "canonicalName:${Student::class.java.canonicalName}, " +
+                        "simpleName2:${Student::class.java.simpleName}, " +
+                        ""
+            )
         }
+        btn_feature.setOnClickListener {
+            startActivity<FeatureActivity>()
+        }
+        btn_feature.performClick()
     }
 
     override fun onDestroy() {
