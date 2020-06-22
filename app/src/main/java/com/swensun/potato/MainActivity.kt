@@ -28,6 +28,7 @@ import com.swensun.func.viewpager.fragment.ViewPagerActivity
 import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
+import kotlin.reflect.jvm.jvmName
 
 class MainActivity : AppCompatActivity() {
 
@@ -94,13 +95,15 @@ class MainActivity : AppCompatActivity() {
         btn_framelayout.setOnClickListener {
             startActivity<FrameLayoutActivity>()
         }
-        Logger.d("global_value, ${LiveDataBus.get<GlobalEvent>(LiveDataBus.Global).value?.peekContent()?.from}")
-        btn_viewpager.performClick()
-        LiveDataBus.get<GlobalEvent>(LiveDataBus.Global).observe(this, Observer { it ->
-            it.peekContent()?.let {
-                Logger.d("global-main:${it.from}")
-            }
-        })
+        btn_framelayout.setOnClickListener {
+            Logger.d("student, simpleName:${Student::class.simpleName}, " +
+                    "jvmName:${Student::class.jvmName}, " +
+                    "qualifiedName:${Student::class.qualifiedName}, " +
+                    "name:${Student::class.java.name}, " +
+                    "canonicalName:${Student::class.java.canonicalName}, " +
+                    "simpleName2:${Student::class.java.simpleName}, " +
+                    "")
+        }
     }
 
     override fun onDestroy() {
@@ -138,6 +141,10 @@ fun TextView.setHighlightText(text: String, highlightText: String, @ColorInt col
         )
     }
     this.text = span
+}
+
+class Student {
+
 }
 
 
