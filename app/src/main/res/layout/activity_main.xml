@@ -12,6 +12,13 @@
             android:orientation="vertical">
 
         <Button
+                android:id="@+id/btn_status_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/status_bar" />
+
+        <Button
                 android:id="@+id/btn_feature"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -24,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="@string/framelayout" />
-        
+
         <Button
                 android:id="@+id/btn_launcher_mode"
                 android:layout_width="match_parent"
@@ -38,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="@string/exoplayer" />
-        
+
         <Button
                 android:id="@+id/btn_custom_view"
                 android:layout_width="match_parent"

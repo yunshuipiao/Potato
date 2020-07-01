@@ -23,6 +23,8 @@ import com.swensun.func.memory.MemoryActivity
 import com.swensun.func.multidialog.MultiDialogActivity
 import com.swensun.func.recycler.RecyclerViewActivity
 import com.swensun.func.room.RoomActivity
+import com.swensun.func.status.StatusBarActivity
+import com.swensun.func.status.StatusBarFragment
 import com.swensun.func.time.TimeAboutActivity
 import com.swensun.func.trans.TransFontActivity
 import com.swensun.func.viewpager.fragment.ViewPagerActivity
@@ -110,7 +112,10 @@ class MainActivity : AppCompatActivity() {
         btn_feature.setOnClickListener {
             startActivity<FeatureActivity>()
         }
-        btn_framelayout.performClick()
+        btn_status_navigation.setOnClickListener {
+            startActivity<StatusBarActivity>()
+        }
+        btn_status_navigation.performClick()
     }
 
     override fun onDestroy() {

@@ -25,4 +25,5 @@
     <string name="launcher_mode">Launcher Mode</string>
     <string name="framelayout">framelayout</string>
     <string name="feature">feature</string>
+    <string name="status_bar">状态栏和导航栏</string>
 </resources>
