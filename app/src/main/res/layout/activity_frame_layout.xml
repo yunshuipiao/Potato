@@ -1,21 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.swensun.func.customview.StatusView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/status_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/status_view"
+        android:orientation="horizontal"
         tools:context="com.swensun.func.customview.FrameLayoutActivity">
 
-    <ImageView
-            android:id="@+id/iv_view"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="#00ff00"
-            android:layout_gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:orientation="horizontal">
 
-</com.swensun.func.customview.StatusView>
+        <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="12fdfdadfsafadfasdfasdfasdfasdfasdfasdfbasdbadbasdbasa" />
+    </LinearLayout>
+
+    <Button
+            android:id="@+id/btn_1"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="100"
+            android:minWidth="100dp"
+            android:text="1" />
+
+
+</LinearLayout>

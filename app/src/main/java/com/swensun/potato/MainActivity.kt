@@ -96,21 +96,21 @@ class MainActivity : AppCompatActivity() {
         btn_framelayout.setOnClickListener {
             startActivity<FrameLayoutActivity>()
         }
-        btn_framelayout.setOnClickListener {
-            Logger.d(
-                "student, simpleName:${Student::class.simpleName}, " +
-                        "jvmName:${Student::class.jvmName}, " +
-                        "qualifiedName:${Student::class.qualifiedName}, " +
-                        "name:${Student::class.java.name}, " +
-                        "canonicalName:${Student::class.java.canonicalName}, " +
-                        "simpleName2:${Student::class.java.simpleName}, " +
-                        ""
-            )
-        }
+//        btn_framelayout.setOnClickListener {
+//            Logger.d(
+//                "student, simpleName:${Student::class.simpleName}, " +
+//                        "jvmName:${Student::class.jvmName}, " +
+//                        "qualifiedName:${Student::class.qualifiedName}, " +
+//                        "name:${Student::class.java.name}, " +
+//                        "canonicalName:${Student::class.java.canonicalName}, " +
+//                        "simpleName2:${Student::class.java.simpleName}, " +
+//                        ""
+//            )
+//        }
         btn_feature.setOnClickListener {
             startActivity<FeatureActivity>()
         }
-        btn_feature.performClick()
+        btn_framelayout.performClick()
     }
 
     override fun onDestroy() {
