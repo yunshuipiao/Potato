@@ -1,6 +1,7 @@
 package com.swensun.func.status
 
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -61,16 +62,38 @@ class StatusBarFragment : Fragment() {
         }
 
         btn_status_bar_trans.setOnClickListener {
-            translucent()
+            val lightStatus = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            } else {
+                0
+            }
+            val lightNavigation = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+            } else {
+                0
+            }
+            activity?.window?.decorView?.apply {
+                systemUiVisibility =
+                    if (mCount % 2 == 0) {
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or lightNavigation or lightStatus
+                    } else {
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    }
+            }
+            activity?.window?.apply {
+                addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                statusBarColor = Color.TRANSPARENT
+                if (mCount % 2 == 0) {
+                    navigationBarColor = Color.BLACK
+                } else {
+                    navigationBarColor = Color.WHITE
+                }
+            }
+            mCount += 1
         }
     }
 
     private fun translucent() {
-        activity?.window?.apply {
-            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            statusBarColor = Color.TRANSPARENT
-            addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
-        }
+
     }
 }
