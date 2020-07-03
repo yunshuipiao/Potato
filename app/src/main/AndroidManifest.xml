@@ -13,8 +13,11 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name="com.swensun.func.status.StatusBarActivity"></activity>
-        <activity android:name="com.swensun.func.feature.FeatureActivity" />
+        <activity
+                android:name="com.swensun.func.status.StatusBarActivity" />
+        <activity android:name="com.swensun.func.feature.FeatureActivity"
+                android:configChanges="orientation|keyboardHidden|screenSize"
+                />
         <activity android:name="com.swensun.func.customview.FrameLayoutActivity" />
         <activity
                 android:name="com.swensun.func.launchermode.LauncherModeActivity"

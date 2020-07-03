@@ -17,4 +17,10 @@
             android:layout_height="50dp"
             android:text="权限" />
 
+    <Button
+            android:id="@+id/btn_full_screen"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="横屏" />
+
 </LinearLayout>

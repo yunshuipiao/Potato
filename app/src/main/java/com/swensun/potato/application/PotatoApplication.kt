@@ -1,12 +1,13 @@
 package com.swensun.potato.application
 
+import android.app.Activity
 import android.app.Application
 import android.content.Context
+import android.os.Bundle
 import com.swensun.TimeLog
+import com.swensun.http.SimpleActivityLifecycleCallbacks
 import com.swensun.library_crash.CrashUtil
 import com.swensun.swutils.SwUtils
-import kotlinx.coroutines.coroutineScope
-import org.jetbrains.anko.toast
 
 
 class PotatoApplication : Application() {
@@ -37,7 +38,13 @@ class PotatoApplication : Application() {
 //                toast("前台, $activity")
 //            }
 //        })
-        
+
+        registerActivityLifecycleCallbacks(object : SimpleActivityLifecycleCallbacks() {
+            override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
+                super.onActivityCreated(activity, savedInstanceState)
+            }
+        })
+
         if (SwUtils.debug) {
             CrashUtil.init(this)
         }
