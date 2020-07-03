@@ -15,7 +15,7 @@ class StatusBarActivity : AppCompatActivity() {
             lp.layoutInDisplayCutoutMode =
                 WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
         }
-        this.window.attributes = lp;
+        this.window.attributes = lp
         setContentView(R.layout.status_bar_activity)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()

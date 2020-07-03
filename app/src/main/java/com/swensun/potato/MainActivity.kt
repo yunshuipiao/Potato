@@ -123,17 +123,17 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    override fun onBackPressed() {
-        try {
-            val launcherIntent = Intent(Intent.ACTION_MAIN)
-            launcherIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            launcherIntent.addCategory(Intent.CATEGORY_HOME)
-            startActivity(launcherIntent)
-//            moveTaskToBack(true)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
+//    override fun onBackPressed() {
+//        try {
+//            val launcherIntent = Intent(Intent.ACTION_MAIN)
+//            launcherIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//            launcherIntent.addCategory(Intent.CATEGORY_HOME)
+//            startActivity(launcherIntent)
+////            moveTaskToBack(true)
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//        }
+//    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
