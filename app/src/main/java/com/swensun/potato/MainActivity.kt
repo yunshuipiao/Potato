@@ -30,6 +30,7 @@ import com.swensun.func.trans.TransFontActivity
 import com.swensun.func.viewpager.fragment.ViewPagerActivity
 import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.status_bar_fragment.*
 import org.jetbrains.anko.startActivity
 import kotlin.reflect.jvm.jvmName
 
@@ -115,7 +116,7 @@ class MainActivity : AppCompatActivity() {
         btn_status_navigation.setOnClickListener {
             startActivity<StatusBarActivity>()
         }
-        btn_feature.performClick()
+        btn_status_navigation.performClick()
     }
 
     override fun onDestroy() {
