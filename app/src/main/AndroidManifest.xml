@@ -13,11 +13,10 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name="com.swensun.func.status.StatusBarActivity" />
         <activity
-                android:name="com.swensun.func.status.StatusBarActivity" />
-        <activity android:name="com.swensun.func.feature.FeatureActivity"
-                android:configChanges="orientation|keyboardHidden|screenSize"
-                />
+                android:name="com.swensun.func.feature.FeatureActivity"
+                android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity android:name="com.swensun.func.customview.FrameLayoutActivity" />
         <activity
                 android:name="com.swensun.func.launchermode.LauncherModeActivity"
@@ -41,8 +40,9 @@
                 android:theme="@style/AppTheme" />
         <activity android:name="com.swensun.func.viewpager.fragment.ViewPagerActivity" />
         <activity android:name="com.swensun.func.coroutines.ui.CoroutinesActivity" />
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".SplashActivity"
+        <activity android:name=".MainActivity" />
+        <activity
+                android:name=".SplashActivity"
                 android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

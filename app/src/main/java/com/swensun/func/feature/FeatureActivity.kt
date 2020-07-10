@@ -1,16 +1,18 @@
 package com.swensun.func.feature
 
-import android.content.res.Configuration
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import com.swensun.potato.R
-import com.swensun.swutils.util.Logger
 import org.jetbrains.anko.toast
 
 class FeatureActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        window?.decorView?.setBackgroundColor(Color.TRANSPARENT)
+        window?.decorView?.let {
+        }
         setContentView(R.layout.feature_activity)
         toast("FeatureActivity create")
         if (savedInstanceState == null) {

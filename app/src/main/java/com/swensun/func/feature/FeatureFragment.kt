@@ -46,7 +46,7 @@ class FeatureFragment : Fragment() {
         Logger.d("FeatureActivity onConfigurationChanged, $newConfig")
         showOrientation(newConfig.orientation)
     }
-    
+
     private fun showOrientation(orientation: Int) {
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             btn_full_screen.text = "切换横屏"
