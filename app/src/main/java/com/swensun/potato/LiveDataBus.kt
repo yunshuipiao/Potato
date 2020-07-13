@@ -2,10 +2,11 @@ package com.swensun.potato
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ktx.SingleEvent
+import com.swensun.func.customview.LifecycleInterface
 import com.swensun.swutils.ui.showToast
 import java.util.concurrent.ConcurrentHashMap
 
-object LiveDataBus {
+object LiveDataBus : LifecycleInterface {
 
     private val map = ConcurrentHashMap<String, MutableLiveData<Any>>()
     fun <T> get(key: String): MutableLiveData<SingleEvent<T>> {
@@ -18,11 +19,8 @@ object LiveDataBus {
         return liveData as MutableLiveData<SingleEvent<T>>
     }
 
-    fun onDestory() {
+    override fun onDestroy() {
         map.clear()
         showToast("livedatabus reset")
     }
 }
-
-val LiveDataBus.Global: String
-    get() = "global"

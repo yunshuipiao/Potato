@@ -1,16 +1,10 @@
 package com.swensun.base
 
-import android.app.Activity
-import android.app.Dialog
 import android.content.Context
-import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.DialogFragment
 import com.swensun.swutils.ui.dp2px
 
 abstract class BaseDialog(context: Context) : AlertDialog(context) {

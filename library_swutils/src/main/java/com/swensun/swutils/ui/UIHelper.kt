@@ -17,7 +17,6 @@ import android.os.Build
 import android.os.Environment
 import android.os.StatFs
 import android.provider.Settings
-import android.text.TextPaint
 import android.text.format.DateFormat
 import android.text.format.Formatter
 import android.util.DisplayMetrics
@@ -29,7 +28,6 @@ import android.view.WindowManager
 import android.view.accessibility.AccessibilityManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
