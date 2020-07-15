@@ -116,7 +116,7 @@ class MainActivity : AppCompatActivity() {
         btn_status_navigation.setOnClickListener {
             startActivity<StatusBarActivity>()
         }
-        btn_status_navigation.performClick()
+        btn_recycler.performClick()
     }
 
     override fun onDestroy() {
