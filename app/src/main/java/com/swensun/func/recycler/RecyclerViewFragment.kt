@@ -1,26 +1,18 @@
 package com.swensun.func.recycler
 
-import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.OnScrollListener
-import com.blankj.utilcode.util.ScreenUtils
-import com.swensun.func.customview.CustomViewActivity
 import com.swensun.potato.R
-import com.swensun.swutils.ui.dp2px
-import com.swensun.swutils.ui.getColor
-import com.swensun.swutils.ui.getWinWidth
-import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.item_recycler_view.view.*
 import kotlinx.android.synthetic.main.recycler_view_fragment.*
-import org.jetbrains.anko.support.v4.startActivity
-import org.jetbrains.anko.support.v4.toast
 
 
 class RecyclerViewFragment : Fragment() {
@@ -55,47 +47,26 @@ class RecyclerViewFragment : Fragment() {
         recycler_view.setHasFixedSize(true)
         recycler_view.adapter = adapter
         recycler_view.layoutManager = linearLayoutManager
-        recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    if (!recyclerView.canScrollVertically(1)) {
-                        recyclerView.smoothScrollBy(0, -dp2px(300f))
-                    }
-                    if (!recyclerView.canScrollVertically(-1)) {
-                        recyclerView.smoothScrollBy(0, dp2px(300f))
-                    }
-                }
-            }
-        })
         loadMoreData()
+        btn_refresh.setOnClickListener {
+            val newList =
+                adapter.currentList.filterIndexed { index, rInt -> index != 0 }.map { RInt(it.id) }
+            adapter.submitList(newList)
+        }
     }
 
     private fun loadMoreData() {
-        (0 until 30).forEach {
-            dataList.add(it)
-        }
-        adapter.notifyDataSetChanged()
+        val list = (0..30).map { RInt(it) }
+        adapter.submitList(list)
     }
 
-    inner class RAdapter : RecyclerView.Adapter<RViewHolder>() {
-
-        private var loadMore: (() -> Unit)? = null
-
+    inner class RAdapter : ListAdapter<RInt, RViewHolder>(RCallback()) {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RViewHolder {
-            val viewHolder = RViewHolder(parent)
-            return viewHolder
-        }
-
-        override fun getItemCount(): Int {
-            return dataList.size
+            return RViewHolder(parent)
         }
 
         override fun onBindViewHolder(holder: RViewHolder, position: Int) {
-            holder.setup()
-        }
-
-        fun setLoadMoreListener(function: () -> Unit) {
-            this.loadMore = function
+            holder.setup(getItem(position))
         }
     }
 
@@ -103,8 +74,21 @@ class RecyclerViewFragment : Fragment() {
         LayoutInflater.from(parent.context).inflate(R.layout.item_recycler_view, parent, false)
     ) {
 
-        fun setup() {
-            itemView.tv_id.text = "$adapterPosition"
+        fun setup(item: RInt) {
+            itemView.tv_id.text = "${item.id}"
         }
     }
 }
+
+class RCallback : DiffUtil.ItemCallback<RInt>() {
+    override fun areItemsTheSame(oldItem: RInt, newItem: RInt): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: RInt, newItem: RInt): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+}
+
+class RInt(val id: Int)

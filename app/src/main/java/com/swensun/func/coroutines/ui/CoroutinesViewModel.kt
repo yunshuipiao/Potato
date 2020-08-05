@@ -11,7 +11,7 @@ import kotlin.system.measureTimeMillis
 
 class CoroutinesViewModel : StateViewModel() {
 
-    
+
     private val apiService = HttpClient.createService<ApiService>()
 
 
@@ -25,8 +25,8 @@ class CoroutinesViewModel : StateViewModel() {
             //loading
             val timeDiff = measureTimeMillis {
                 withContext(Dispatchers.IO) {
-                    val responseOne =  async { apiFetchOne() }
-                    val responseTwo =  async { apiFetchTwo() }
+                    val responseOne = async { apiFetchOne() }
+                    val responseTwo = async { apiFetchTwo() }
                     if (responseOne.await().success && responseTwo.await().success) {
                         // success
                         postSuccess()
@@ -54,5 +54,4 @@ class CoroutinesViewModel : StateViewModel() {
         delay(3000)
         return apiService.fetchData()
     }
-
 }
