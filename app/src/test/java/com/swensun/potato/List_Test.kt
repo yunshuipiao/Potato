@@ -1,32 +1,24 @@
 package com.swensun.potato
 
+import com.swensun.swutils.util.deepClone
 import org.junit.Test
+import java.io.Serializable
 
 import java.util.ArrayList
+import kotlin.reflect.typeOf
 
 class List_Test {
 
     @Test
     fun remove_test() {
-        val al = arrayListOf<S>().apply {
-            add(S("a"))
-            add(S("b"))
-            add(S("c"))
+        val timestamp = System.currentTimeMillis()
+        val s = (0..10).map { S("$it") }
+        (0..3).forEach {
+            val ss = s.deepClone()
+            println(ss.getOrNull(0))
         }
-        val bl = arrayListOf<S>().apply {
-            add(S("a"))
-            add(S("b"))
-            add(S("c"))
-        }
-
-        val p = al.zip(bl)
-        val result  = p.all {
-            it.first.a == it.second.a
-        }
-        println(result)
+        println(System.currentTimeMillis() - timestamp)
     }
 }
 
-class S(var a: String = "") {
-
-}
+class S(var a: String = "") : Serializable
