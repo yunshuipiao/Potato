@@ -18,14 +18,15 @@ open class SingleEvent<out T>(private val content: T? = null) {
             content
         }
     }
-    
+
     /**
      * Returns the content, even if it's already been handled.
      */
     fun peekContent(): T? = content
 }
 
-class SingleEventObserver<T>(private val onEventUnhandledContent: (T) -> Unit) : Observer<SingleEvent<T>> {
+class SingleEventObserver<T>(private val onEventUnhandledContent: (T) -> Unit) :
+    Observer<SingleEvent<T>> {
     override fun onChanged(event: SingleEvent<T>?) {
         event?.getContentIfNotHandled()?.let { value ->
             if (value != null) {
