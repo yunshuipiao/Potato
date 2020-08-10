@@ -27,6 +27,7 @@ import com.swensun.func.status.StatusBarActivity
 import com.swensun.func.status.StatusBarFragment
 import com.swensun.func.time.TimeAboutActivity
 import com.swensun.func.trans.TransFontActivity
+import com.swensun.func.utilcode.UtilCodeActivity
 import com.swensun.func.viewpager.fragment.ViewPagerActivity
 import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.activity_main.*
@@ -116,6 +117,9 @@ class MainActivity : AppCompatActivity() {
         }
         btn_status_navigation.setOnClickListener {
             startActivity<StatusBarActivity>()
+        }
+        btn_util_code.setOnClickListener {
+            startActivity<UtilCodeActivity>()
         }
     }
 
