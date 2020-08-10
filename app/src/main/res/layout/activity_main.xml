@@ -13,6 +13,13 @@
             android:orientation="vertical">
 
         <Button
+                android:id="@+id/btn_util_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/util_code" />
+
+        <Button
                 android:id="@+id/btn_status_navigation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

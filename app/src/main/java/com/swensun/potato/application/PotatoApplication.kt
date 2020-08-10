@@ -40,9 +40,6 @@ class PotatoApplication : Application() {
 //        })
 
         registerActivityLifecycleCallbacks(object : SimpleActivityLifecycleCallbacks() {
-            override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
-                super.onActivityCreated(activity, savedInstanceState)
-            }
         })
 
         if (SwUtils.debug) {

@@ -7,18 +7,22 @@ import com.swensun.swutils.util.Logger
 
 open class SimpleActivityLifecycleCallbacks : Application.ActivityLifecycleCallbacks {
     override fun onActivityPaused(activity: Activity?) {
+        Logger.d("--onActivityPaused: $activity")
+
 
     }
 
     override fun onActivityResumed(activity: Activity?) {
-        Logger.d("onActivityResumed: $activity")
+        Logger.d("--onActivityResumed: $activity")
     }
 
     override fun onActivityStarted(activity: Activity?) {
+        Logger.d("--onActivityStarted: $activity")
+
     }
 
     override fun onActivityDestroyed(activity: Activity?) {
-        Logger.d("onActivityDestroyed: $activity")
+        Logger.d("--onActivityDestroyed: $activity")
 
     }
 
@@ -26,9 +30,11 @@ open class SimpleActivityLifecycleCallbacks : Application.ActivityLifecycleCallb
     }
 
     override fun onActivityStopped(activity: Activity?) {
+        Logger.d("--onActivityStopped: $activity")
+
     }
 
     override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
-        Logger.d("onActivityCreated: $activity")
+        Logger.d("--onActivityCreated: $activity")
     }
 }

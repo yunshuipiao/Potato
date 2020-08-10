@@ -82,6 +82,7 @@ class MainActivity : AppCompatActivity() {
         }
         btn_recycler.setOnClickListener {
             startActivity<RecyclerViewActivity>()
+            overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit)
         }
         btn_memory.setOnClickListener {
             startActivity<MemoryActivity>()
@@ -116,7 +117,6 @@ class MainActivity : AppCompatActivity() {
         btn_status_navigation.setOnClickListener {
             startActivity<StatusBarActivity>()
         }
-        btn_recycler.performClick()
     }
 
     override fun onDestroy() {
@@ -154,10 +154,6 @@ fun TextView.setHighlightText(text: String, highlightText: String, @ColorInt col
         )
     }
     this.text = span
-}
-
-class Student {
-
 }
 
 

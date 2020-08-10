@@ -27,7 +27,9 @@
                 android:screenOrientation="landscape" />
         <activity android:name="com.swensun.func.customview.CustomViewActivity" />
         <activity android:name="com.swensun.func.memory.MemoryActivity" />
-        <activity android:name="com.swensun.func.recycler.RecyclerViewActivity" />
+        <activity
+                android:name="com.swensun.func.recycler.RecyclerViewActivity"
+                android:launchMode="singleTop" />
         <activity android:name="com.swensun.func.livedata.LiveDataActivity" />
         <activity android:name="com.swensun.func.multidialog.MultiDialogActivity" />
         <activity android:name="com.swensun.func.lifecycle.LifecycleActivity" />
@@ -40,7 +42,9 @@
                 android:theme="@style/AppTheme" />
         <activity android:name="com.swensun.func.viewpager.fragment.ViewPagerActivity" />
         <activity android:name="com.swensun.func.coroutines.ui.CoroutinesActivity" />
-        <activity android:name=".MainActivity" />
+        <activity
+                android:name=".MainActivity"
+                android:launchMode="singleTop" />
         <activity
                 android:name=".SplashActivity"
                 android:theme="@style/SplashTheme">

@@ -2,6 +2,7 @@ package com.swensun.func.recycler
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Window
 import com.swensun.potato.R
 
 class RecyclerViewActivity : AppCompatActivity() {
@@ -16,4 +17,8 @@ class RecyclerViewActivity : AppCompatActivity() {
         }
     }
 
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit)
+    }
 }
