@@ -27,4 +27,6 @@
     <string name="feature">feature</string>
     <string name="status_bar">状态栏和导航栏</string>
     <string name="util_code">util_code</string>
+    <string name="push">push</string>
+    <string name="send_notification">send_notification</string>
 </resources>

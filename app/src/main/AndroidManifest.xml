@@ -13,7 +13,10 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name="com.swensun.func.utilcode.UtilCodeActivity"></activity>
+        <activity
+                android:name="com.swensun.func.push.PushActivity"
+                android:launchMode="singleTask" />
+        <activity android:name="com.swensun.func.utilcode.UtilCodeActivity" />
         <activity android:name="com.swensun.func.status.StatusBarActivity" />
         <activity
                 android:name="com.swensun.func.feature.FeatureActivity"

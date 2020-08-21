@@ -2,7 +2,6 @@ package com.swensun.func.recycler
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Window
 import com.swensun.potato.R
 
 class RecyclerViewActivity : AppCompatActivity() {

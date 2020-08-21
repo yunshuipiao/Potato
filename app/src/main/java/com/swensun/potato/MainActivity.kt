@@ -1,5 +1,7 @@
 package com.swensun.potato
 
+import android.app.PendingIntent
+import android.content.Intent
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -7,6 +9,8 @@ import android.text.format.DateFormat
 import android.text.style.ForegroundColorSpan
 import android.widget.TextView
 import androidx.annotation.ColorInt
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ktx.SingleEvent
 import com.swensun.base.BaseActivity
@@ -20,13 +24,16 @@ import com.swensun.func.lifecycle.LifecycleActivity
 import com.swensun.func.livedata.LiveDataActivity
 import com.swensun.func.memory.MemoryActivity
 import com.swensun.func.multidialog.MultiDialogActivity
+import com.swensun.func.push.PushActivity
 import com.swensun.func.recycler.RecyclerViewActivity
 import com.swensun.func.room.RoomActivity
 import com.swensun.func.status.StatusBarActivity
 import com.swensun.func.time.TimeAboutActivity
 import com.swensun.func.trans.TransFontActivity
 import com.swensun.func.utilcode.UtilCodeActivity
+import com.swensun.func.utilcode.UtilCodeFragment
 import com.swensun.func.viewpager.fragment.ViewPagerActivity
+import com.swensun.potato.application.createNotificationChannel
 import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
@@ -114,7 +121,23 @@ class MainActivity : BaseActivity() {
         btn_util_code.setOnClickListener {
             startActivity<UtilCodeActivity>()
         }
-        btn_util_code.performClick()
+        btn_send_notification.setOnClickListener {
+            // Create an explicit intent for an Activity in your app
+            val intent = Intent(it.context, PushActivity::class.java)
+            intent.putExtra("extra", "jump")
+            val pendingIntent: PendingIntent = PendingIntent.getActivity(it.context, 0, intent, 0)
+            val channelId = createNotificationChannel("1", "2", "3")
+            val notification = NotificationCompat.Builder(it.context, channelId)
+                .setSmallIcon(R.drawable.exo_notification_small_icon)
+                .setContentTitle("通知标题")
+                .setContentText("通知内容")
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+                .build()
+            NotificationManagerCompat.from(it.context)
+                .notify(UtilCodeFragment.notification_id, notification)
+        }
     }
 
     override fun onDestroy() {

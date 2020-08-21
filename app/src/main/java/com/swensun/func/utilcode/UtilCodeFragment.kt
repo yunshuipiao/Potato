@@ -13,6 +13,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.AppUtils
 import com.swensun.func.customview.FrameLayoutActivity
+import com.swensun.func.push.PushActivity
 import com.swensun.potato.R
 import com.swensun.potato.application.createNotificationChannel
 import com.swensun.swutils.util.Logger
@@ -46,25 +47,6 @@ class UtilCodeFragment : Fragment() {
             infos.map { it.versionName }.forEach {
                 Logger.d("info:${it}")
             }
-        }
-        btn_notification.setOnClickListener {
-
-            // Create an explicit intent for an Activity in your app
-            val intent = Intent(it.context, FrameLayoutActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            }
-            val pendingIntent: PendingIntent = PendingIntent.getActivity(it.context, 0, intent, 0)
-            val channelId = createNotificationChannel("1", "2", "3")
-            val notification = NotificationCompat.Builder(it.context, channelId)
-                .setSmallIcon(R.drawable.exo_notification_small_icon)
-                .setContentTitle("通知标题")
-                .setContentText("通知内容")
-                .setPriority(NotificationCompat.PRIORITY_MAX)
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true)
-                .build()
-            NotificationManagerCompat.from(it.context)
-                .notify(notification_id, notification)
         }
     }
 }

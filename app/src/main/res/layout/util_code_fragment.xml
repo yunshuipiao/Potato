@@ -13,12 +13,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
-        <Button
-                android:id="@+id/btn_notification"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="Notification" />
+        
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
