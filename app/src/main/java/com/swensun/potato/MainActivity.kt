@@ -1,6 +1,5 @@
 package com.swensun.potato
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -24,16 +23,13 @@ import com.swensun.func.multidialog.MultiDialogActivity
 import com.swensun.func.recycler.RecyclerViewActivity
 import com.swensun.func.room.RoomActivity
 import com.swensun.func.status.StatusBarActivity
-import com.swensun.func.status.StatusBarFragment
 import com.swensun.func.time.TimeAboutActivity
 import com.swensun.func.trans.TransFontActivity
 import com.swensun.func.utilcode.UtilCodeActivity
 import com.swensun.func.viewpager.fragment.ViewPagerActivity
 import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.status_bar_fragment.*
 import org.jetbrains.anko.startActivity
-import kotlin.reflect.jvm.jvmName
 
 class MainActivity : AppCompatActivity() {
 

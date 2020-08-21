@@ -5,6 +5,9 @@ import android.text.SpannableString
 import android.text.style.ImageSpan
 import android.view.CenterImageSpan
 import com.swensun.base.BaseActivity
+import com.swensun.base.fitStatusBarHeight
+import com.swensun.base.setNavigationBarColor
+import com.swensun.base.setTransparentStatusBar
 import com.swensun.potato.R
 import com.swensun.swutils.ui.dp2px
 import kotlinx.android.synthetic.main.activity_frame_layout.*
@@ -15,11 +18,13 @@ class FrameLayoutActivity : BaseActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        setTransparentStatusBar(false)
+        setTransparentStatusBar(false, R.color.colorPrimary)
+        setNavigationBarColor(R.color.colorPrimary)
+        fitStatusBarHeight()
         val text =
             "123456x789014567890"
         val span = SpannableString(text)
-        val highLight = "x"
+        val highLight = "01"
         val newHighlightText = highLight.trim()
         val index = text.indexOf(newHighlightText, 0, true)
         val drawable = getDrawable(R.drawable.ad)
