@@ -114,7 +114,7 @@ class MainActivity : BaseActivity() {
         btn_util_code.setOnClickListener {
             startActivity<UtilCodeActivity>()
         }
-        btn_framelayout.performClick()
+        btn_util_code.performClick()
     }
 
     override fun onDestroy() {

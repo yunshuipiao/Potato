@@ -17,6 +17,8 @@ class FrameLayoutActivity : BaseActivity() {
         return R.layout.activity_frame_layout
     }
 
+    
+
     override fun initView(savedInstanceState: Bundle?) {
         val text =
             "123456x789014567890"
