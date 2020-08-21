@@ -7,9 +7,9 @@ import android.text.format.DateFormat
 import android.text.style.ForegroundColorSpan
 import android.widget.TextView
 import androidx.annotation.ColorInt
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ktx.SingleEvent
+import com.swensun.base.BaseActivity
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
 import com.swensun.func.customview.CustomViewActivity
@@ -31,7 +31,7 @@ import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private val today
         get() = DateFormat.format("yyyyMMdd, hh-mm-ss", System.currentTimeMillis()).toString()
@@ -42,14 +42,11 @@ class MainActivity : AppCompatActivity() {
         }, 1000)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        initView(savedInstanceState)
+    override fun getContentSubView(): Int {
+        return R.layout.activity_main
     }
 
-    private fun initView(savedInstanceState: Bundle?) {
-
+    override fun initView(savedInstanceState: Bundle?) {
         btn_coroutines.setOnClickListener {
             startActivity<CoroutinesActivity>()
         }

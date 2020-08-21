@@ -10,4 +10,8 @@
 
     <style name="SplashTheme" parent="AppTheme">
     </style>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>

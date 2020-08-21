@@ -18,9 +18,6 @@ class FrameLayoutActivity : BaseActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        setTransparentStatusBar(false, R.color.colorPrimary)
-        setNavigationBarColor(R.color.colorPrimary)
-        fitStatusBarHeight()
         val text =
             "123456x789014567890"
         val span = SpannableString(text)

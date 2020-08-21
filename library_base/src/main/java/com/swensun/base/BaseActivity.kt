@@ -19,6 +19,8 @@ abstract class BaseActivity : RxAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_base)
         setSupportActionBar(toolbar)
+        setTransparentStatusBar(false, R.color.colorPrimary)
+        fitStatusBarHeight()
         layoutInflater.inflate(getContentSubView(), container)
         initView(savedInstanceState)
     }
