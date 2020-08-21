@@ -26,7 +26,7 @@ abstract class BaseActivity : RxAppCompatActivity() {
 
     abstract fun initView(savedInstanceState: Bundle?)
 
-    fun setTransparentStatusBar(lightMode: Boolean, @ColorRes navigationBarResId: Int = 0) {
+    fun setTransparentStatusBar(lightMode: Boolean = false, @ColorRes navigationBarResId: Int = 0) {
         val lightStatus = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         } else {

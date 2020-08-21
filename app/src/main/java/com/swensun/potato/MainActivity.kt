@@ -121,6 +121,7 @@ class MainActivity : AppCompatActivity() {
         btn_util_code.setOnClickListener {
             startActivity<UtilCodeActivity>()
         }
+        btn_framelayout.performClick()
     }
 
     override fun onDestroy() {

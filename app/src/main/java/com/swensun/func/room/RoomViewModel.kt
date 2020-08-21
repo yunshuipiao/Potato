@@ -36,5 +36,4 @@ class RoomViewModel : ViewModel() {
             this.id = id
         })
     }
-
 }

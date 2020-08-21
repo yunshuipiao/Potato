@@ -15,5 +15,4 @@ class RoomActivity : AppCompatActivity() {
                 .commitNow()
         }
     }
-
 }
