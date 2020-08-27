@@ -3,6 +3,7 @@ package com.swensun.potato
 import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.format.DateFormat
@@ -34,9 +35,12 @@ import com.swensun.func.utilcode.UtilCodeActivity
 import com.swensun.func.utilcode.UtilCodeFragment
 import com.swensun.func.viewpager.fragment.ViewPagerActivity
 import com.swensun.potato.application.createNotificationChannel
+import com.swensun.swutils.SwUtils
 import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
+import java.util.*
 
 class MainActivity : BaseActivity() {
 
@@ -138,12 +142,16 @@ class MainActivity : BaseActivity() {
             NotificationManagerCompat.from(it.context)
                 .notify(UtilCodeFragment.notification_id, notification)
         }
+        fab.setOnClickListener {
+            val androidID = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
+            toast("androidID:${androidID}")
+            
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
     }
-
 //    override fun onBackPressed() {
 //        try {
 //            val launcherIntent = Intent(Intent.ACTION_MAIN)

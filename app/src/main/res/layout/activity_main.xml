@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -7,146 +7,163 @@
         android:background="@color/white"
         tools:context=".MainActivity">
 
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-
-        <Button
-                android:id="@+id/btn_send_notification"
+        <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/send_notification" />
-        
-        <Button
-                android:id="@+id/btn_util_code"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/util_code" />
-
-        <Button
-                android:id="@+id/btn_status_navigation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/status_bar" />
-
-        <Button
-                android:id="@+id/btn_feature"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/feature" />
-
-        <Button
-                android:id="@+id/btn_framelayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/framelayout" />
-
-        <Button
-                android:id="@+id/btn_launcher_mode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/launcher_mode" />
-
-        <Button
-                android:id="@+id/btn_exo_player"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/exoplayer" />
-
-        <Button
-                android:id="@+id/btn_custom_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/custom_view"
-                android:textAlignment="gravity" />
-
-        <Button
-                android:id="@+id/btn_memory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/memory" />
-
-        <Button
-                android:id="@+id/btn_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/recyclerview" />
-
-        <Button
-                android:id="@+id/btn_multi_dialog"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/multi_dialog" />
-
-        <Button
-                android:id="@+id/btn_lifecycle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/lifecycle" />
-
-        <Button
-                android:id="@+id/btn_livedata"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/livedata" />
-
-        <Button
-                android:id="@+id/btn_coroutines"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/coroutines" />
-
-        <Button
-                android:id="@+id/btn_viewpager"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/viewpager" />
-
-        <Button
-                android:id="@+id/btn_bottom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/bottom_navigation" />
-
-        <Button
-                android:id="@+id/btn_font_trans"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/font_and_trans" />
-
-        <Button
-                android:id="@+id/btn_room"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/room" />
-
-        <Button
-                android:id="@+id/btn_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/time" />
-    </LinearLayout>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
 
-</androidx.core.widget.NestedScrollView>
+            <Button
+                    android:id="@+id/btn_send_notification"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/send_notification" />
+
+            <Button
+                    android:id="@+id/btn_util_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/util_code" />
+
+            <Button
+                    android:id="@+id/btn_status_navigation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/status_bar" />
+
+            <Button
+                    android:id="@+id/btn_feature"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/feature" />
+
+            <Button
+                    android:id="@+id/btn_framelayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/framelayout" />
+
+            <Button
+                    android:id="@+id/btn_launcher_mode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/launcher_mode" />
+
+            <Button
+                    android:id="@+id/btn_exo_player"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/exoplayer" />
+
+            <Button
+                    android:id="@+id/btn_custom_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/custom_view"
+                    android:textAlignment="gravity" />
+
+            <Button
+                    android:id="@+id/btn_memory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/memory" />
+
+            <Button
+                    android:id="@+id/btn_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/recyclerview" />
+
+            <Button
+                    android:id="@+id/btn_multi_dialog"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/multi_dialog" />
+
+            <Button
+                    android:id="@+id/btn_lifecycle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/lifecycle" />
+
+            <Button
+                    android:id="@+id/btn_livedata"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/livedata" />
+
+            <Button
+                    android:id="@+id/btn_coroutines"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/coroutines" />
+
+            <Button
+                    android:id="@+id/btn_viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/viewpager" />
+
+            <Button
+                    android:id="@+id/btn_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/bottom_navigation" />
+
+            <Button
+                    android:id="@+id/btn_font_trans"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/font_and_trans" />
+
+            <Button
+                    android:id="@+id/btn_room"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/room" />
+
+            <Button
+                    android:id="@+id/btn_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/time" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
