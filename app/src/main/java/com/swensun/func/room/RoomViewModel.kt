@@ -9,7 +9,7 @@ import com.swensun.swutils.util.Logger
 
 class RoomViewModel : ViewModel() {
 
-    val roomDao by lazy { RoomDataBaseUtils.getRoomDao() }
+    val roomDao by lazy { RoomDataBaseUtils.INSTANCE.roomDao() }
 
     val roomQueryLiveData
         get() = queryRooms()

@@ -9,4 +9,6 @@ class RoomEntity {
     var id = 0
     
     var title: String = ""
+
+//    var size = 0
 }

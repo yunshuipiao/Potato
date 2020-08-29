@@ -70,24 +70,13 @@ class RoomFragment : Fragment() {
         btn_delete.setOnClickListener {
             viewModel.delete(getEditContent())
         }
-        viewModel.roomQueryLiveData.observe(this, Observer {
+        viewModel.roomQueryLiveData.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
-            Logger.d("livedata ${viewModel.roomQueryLiveData}")
         })
         refresh_view.setOnRefreshListener {
-//            val list = arrayListOf<RoomEntity>().apply {
-//                addAll(adapter.currentList)
-//            }
-//            list.add(0, RoomEntity().apply { id = getEditContent() })
-            val list = arrayListOf<RoomEntity>()
-            list.addAll(adapter.currentList)
             (1 until 3).forEach {
-                val entity = RoomEntity().apply {
-                    id = adapter.currentList.size + it
-                }
-                list.add(entity)
+                viewModel.add(adapter.itemCount + it)
             }
-            adapter.submitList(list)
             refresh_view.isRefreshing = false
         }
     }

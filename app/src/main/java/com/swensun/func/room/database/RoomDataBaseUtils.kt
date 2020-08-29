@@ -6,15 +6,10 @@ import androidx.room.RoomDatabase
 import com.swensun.swutils.SwUtils
 
 object RoomDataBaseUtils {
-    private val INSTANCE by lazy {
+    val INSTANCE by lazy {
         Room.databaseBuilder(SwUtils.application, RDataBase::class.java, "room.db")
-            .fallbackToDestructiveMigration()
             .allowMainThreadQueries()
             .build()
-    }
-
-    fun getRoomDao(): RoomDao {
-        return INSTANCE.roomDao()
     }
 }
 

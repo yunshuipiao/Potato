@@ -147,6 +147,7 @@ class MainActivity : BaseActivity() {
             toast("androidID:${androidID}")
             
         }
+        btn_room.performClick()
     }
 
     override fun onDestroy() {
