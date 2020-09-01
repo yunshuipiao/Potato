@@ -145,7 +145,7 @@ class MainActivity : BaseActivity() {
         }
         fab.setOnClickListener {
             try {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("potato://potato/push/customview?name=potato"))
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("potato://potato/push?name=potato"))
                 startActivity(intent)
             } catch (e: Exception) {
                 e.printStackTrace()

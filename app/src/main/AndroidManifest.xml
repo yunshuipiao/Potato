@@ -25,7 +25,6 @@
                 <data
                         android:host="potato"
                         android:scheme="potato"
-                        android:pathPrefix="/"
                         android:path="/push"/>
             </intent-filter>
 
