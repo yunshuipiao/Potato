@@ -15,7 +15,20 @@
             android:theme="@style/AppTheme.NoActionBar">
         <activity
                 android:name="com.swensun.func.push.PushActivity"
-                android:launchMode="singleTask" />
+                android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                        android:host="potato"
+                        android:scheme="potato"
+                        android:path="/push"/>
+            </intent-filter>
+
+        </activity>
         <activity android:name="com.swensun.func.utilcode.UtilCodeActivity" />
         <activity android:name="com.swensun.func.status.StatusBarActivity" />
         <activity
