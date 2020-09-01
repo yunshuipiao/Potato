@@ -2,6 +2,7 @@ package com.swensun.potato
 
 import android.app.PendingIntent
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.text.Spannable
@@ -143,9 +144,12 @@ class MainActivity : BaseActivity() {
                 .notify(UtilCodeFragment.notification_id, notification)
         }
         fab.setOnClickListener {
-            val androidID = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
-            toast("androidID:${androidID}")
-            
+            try {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("potato://potato/push/customview?name=potato"))
+                startActivity(intent)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
 //        btn_room.performClick()
     }
