@@ -1,22 +1,14 @@
 package com.swensun.func.utilcode
 
-import android.app.PendingIntent
 import android.content.Intent
-import androidx.lifecycle.ViewModelProviders
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.ViewModelProvider
-import com.blankj.utilcode.util.AppUtils
-import com.swensun.func.customview.FrameLayoutActivity
-import com.swensun.func.push.PushActivity
 import com.swensun.potato.R
-import com.swensun.potato.application.createNotificationChannel
-import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.util_code_fragment.*
 
 class UtilCodeFragment : Fragment() {
@@ -43,9 +35,12 @@ class UtilCodeFragment : Fragment() {
 
     private fun initView() {
         btn_test.setOnClickListener {
-            val infos = AppUtils.getAppsInfo()
-            infos.map { it.versionName }.forEach {
-                Logger.d("info:${it}")
+            try {
+                val intent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse("potato://potato/push?name=potato"))
+                startActivity(intent)
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }

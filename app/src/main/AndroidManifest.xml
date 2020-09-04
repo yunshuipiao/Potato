@@ -14,7 +14,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
         <activity
-                android:name="com.swensun.func.push.PushActivity"
+                android:name="com.swensun.func.push.DeeplinkActivity"
                 android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -61,15 +61,21 @@
         <activity android:name="com.swensun.func.coroutines.ui.CoroutinesActivity" />
         <activity
                 android:name=".MainActivity"
-                android:launchMode="singleTop" />
-        <activity
-                android:name=".SplashActivity"
-                android:theme="@style/SplashTheme">
+                android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+                android:name=".SplashActivity"
+                android:theme="@style/SplashTheme">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity android:name="com.swensun.func.viewpager.view.ViewPager2Activity" />
     </application>
