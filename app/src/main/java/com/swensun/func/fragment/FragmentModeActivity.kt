@@ -25,8 +25,16 @@ class FragmentModeActivity : BaseActivity() {
                 .replace(R.id.container, SecondFragment.newInstance())
                 .commit()
         }
-        tv_delete.setOnClickListener {
+//        tv_delete.setOnClickListener {
+//            supportFragmentManager.popBackStack()
+//        }
+    }
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount > 0) {
             supportFragmentManager.popBackStack()
+        } else {
+            finish()
         }
     }
 }
