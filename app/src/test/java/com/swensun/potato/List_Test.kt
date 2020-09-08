@@ -10,15 +10,11 @@ import kotlin.reflect.typeOf
 class List_Test {
 
     @Test
-    fun remove_test() {
-        val timestamp = System.currentTimeMillis()
-        val s = (0..10).map { S("$it") }
-        (0..3).forEach {
-            val ss = s.deepClone()
-            println(ss.getOrNull(0))
-        }
-        println(System.currentTimeMillis() - timestamp)
+    fun add_test() {
+        val list = arrayListOf(1, 1, 1, 1, 4, 4, 4, 4, 7, 7, 7, 7)
+        val index1 = list.indexOfLast { it == 7 }
+        list.addAll(index1 + 1, arrayListOf(2, 2))
+        println(list)
     }
 }
 
-class S(var a: String = "") : Serializable
