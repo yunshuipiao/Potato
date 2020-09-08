@@ -21,6 +21,7 @@ import com.swensun.func.customview.CustomViewActivity
 import com.swensun.func.customview.FrameLayoutActivity
 import com.swensun.func.exoplayer.ExoPlayerActivity
 import com.swensun.func.feature.FeatureActivity
+import com.swensun.func.fragment.FragmentModeActivity
 import com.swensun.func.lifecycle.LifecycleActivity
 import com.swensun.func.livedata.LiveDataActivity
 import com.swensun.func.memory.MemoryActivity
@@ -102,17 +103,6 @@ class MainActivity : BaseActivity() {
         btn_framelayout.setOnClickListener {
             startActivity<FrameLayoutActivity>()
         }
-//        btn_framelayout.setOnClickListener {
-//            Logger.d(
-//                "student, simpleName:${Student::class.simpleName}, " +
-//                        "jvmName:${Student::class.jvmName}, " +
-//                        "qualifiedName:${Student::class.qualifiedName}, " +
-//                        "name:${Student::class.java.name}, " +
-//                        "canonicalName:${Student::class.java.canonicalName}, " +
-//                        "simpleName2:${Student::class.java.simpleName}, " +
-//                        ""
-//            )
-//        }
         btn_feature.setOnClickListener {
             startActivity<FeatureActivity>()
         }
@@ -141,13 +131,17 @@ class MainActivity : BaseActivity() {
         }
         fab.setOnClickListener {
             try {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("potato://potato/push?name=potato"))
+                val intent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse("potato://potato/push?name=potato"))
                 startActivity(intent)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
-//        btn_room.performClick()
+        btn_fragment.setOnClickListener {
+            startActivity<FragmentModeActivity>()
+        }
+        btn_fragment.performClick()
     }
 
     override fun onDestroy() {
