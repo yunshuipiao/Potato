@@ -33,6 +33,11 @@ class SecondFragment : Fragment() {
         Logger.d("SecondFragment onResume")
     }
 
+    override fun onPause() {
+        super.onPause()
+        Logger.d("SecondFragment onPause")
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         Logger.d("SecondFragment onDestroyView")

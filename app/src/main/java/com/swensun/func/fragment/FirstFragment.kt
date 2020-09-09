@@ -33,11 +33,27 @@ class FirstFragment : Fragment() {
         Logger.d("FirstFragment onResume")
     }
 
+    override fun onPause() {
+        super.onPause()
+        Logger.d("FirstFragment onPause")
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         Logger.d("FirstFragment onDestroyView")
     }
 
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        Logger.d("FirstFragment onHiddenChanged $hidden")
+    }
 
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        Logger.d("FirstFragment onsetUserVisibleHint $isVisibleToUser")
+    }
+
+    
 }
 
