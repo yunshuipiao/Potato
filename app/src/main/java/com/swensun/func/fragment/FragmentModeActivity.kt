@@ -22,7 +22,7 @@ class FragmentModeActivity : BaseActivity() {
         tv_add.setOnClickListener {
             supportFragmentManager.beginTransaction()
                 .addToBackStack(null)
-                .replace(R.id.container, SecondFragment.newInstance())
+                .add(R.id.container, SecondFragment.newInstance())
                 .commit()
         }
 //        tv_delete.setOnClickListener {
