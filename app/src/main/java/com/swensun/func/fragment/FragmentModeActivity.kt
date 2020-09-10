@@ -1,9 +1,15 @@
 package com.swensun.func.fragment
 
+import android.content.Context
 import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.swensun.base.BaseActivity
 import com.swensun.potato.R
+import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.activity_fragment_mode.*
+import org.jetbrains.anko.toast
 
 class FragmentModeActivity : BaseActivity() {
 
@@ -25,9 +31,87 @@ class FragmentModeActivity : BaseActivity() {
                 .add(R.id.container, SecondFragment.newInstance())
                 .commit()
         }
-//        tv_delete.setOnClickListener {
-//            supportFragmentManager.popBackStack()
-//        }
+        tv_delete.setOnClickListener {
+        }
+        supportFragmentManager.registerFragmentLifecycleCallbacks(object :
+            FragmentManager.FragmentLifecycleCallbacks() {
+            override fun onFragmentViewCreated(
+                fm: FragmentManager,
+                f: Fragment,
+                v: View,
+                savedInstanceState: Bundle?
+            ) {
+                Logger.d("")
+            }
+
+            override fun onFragmentStopped(fm: FragmentManager, f: Fragment) {
+                super.onFragmentStopped(fm, f)
+            }
+
+            override fun onFragmentCreated(
+                fm: FragmentManager,
+                f: Fragment,
+                savedInstanceState: Bundle?
+            ) {
+                super.onFragmentCreated(fm, f, savedInstanceState)
+            }
+
+            override fun onFragmentResumed(fm: FragmentManager, f: Fragment) {
+                super.onFragmentResumed(fm, f)
+            }
+
+            override fun onFragmentAttached(fm: FragmentManager, f: Fragment, context: Context) {
+                super.onFragmentAttached(fm, f, context)
+            }
+
+            override fun onFragmentPreAttached(fm: FragmentManager, f: Fragment, context: Context) {
+                super.onFragmentPreAttached(fm, f, context)
+            }
+
+            override fun onFragmentDestroyed(fm: FragmentManager, f: Fragment) {
+                super.onFragmentDestroyed(fm, f)
+            }
+
+            override fun onFragmentSaveInstanceState(
+                fm: FragmentManager,
+                f: Fragment,
+                outState: Bundle
+            ) {
+                super.onFragmentSaveInstanceState(fm, f, outState)
+            }
+
+            override fun onFragmentStarted(fm: FragmentManager, f: Fragment) {
+                super.onFragmentStarted(fm, f)
+            }
+
+            override fun onFragmentViewDestroyed(fm: FragmentManager, f: Fragment) {
+                super.onFragmentViewDestroyed(fm, f)
+            }
+
+            override fun onFragmentPreCreated(
+                fm: FragmentManager,
+                f: Fragment,
+                savedInstanceState: Bundle?
+            ) {
+                super.onFragmentPreCreated(fm, f, savedInstanceState)
+            }
+
+            override fun onFragmentActivityCreated(
+                fm: FragmentManager,
+                f: Fragment,
+                savedInstanceState: Bundle?
+            ) {
+                super.onFragmentActivityCreated(fm, f, savedInstanceState)
+            }
+
+            override fun onFragmentPaused(fm: FragmentManager, f: Fragment) {
+                super.onFragmentPaused(fm, f)
+            }
+
+            override fun onFragmentDetached(fm: FragmentManager, f: Fragment) {
+                super.onFragmentDetached(fm, f)
+            }
+        }, true)
     }
 
     override fun onBackPressed() {
@@ -36,5 +120,9 @@ class FragmentModeActivity : BaseActivity() {
         } else {
             finish()
         }
+    }
+
+    inline fun log(msg: String) {
+//        val methodName = Thread.currentThread().
     }
 }

@@ -4,10 +4,7 @@ import android.accessibilityservice.AccessibilityServiceInfo
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityManager
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
-import android.content.Intent
+import android.content.*
 import android.graphics.Color
 import android.graphics.Point
 import android.graphics.drawable.Drawable
@@ -33,6 +30,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.fragment.app.FragmentActivity
 import com.google.android.material.snackbar.Snackbar
 import com.swensun.swutils.R
 import com.swensun.swutils.SwUtils
@@ -188,6 +186,19 @@ fun openAccessibilitySetting(context: Context) {
 fun getActivityRootView(activity: Activity): View {
     return activity.window.decorView.findViewById(R.id.content)
 }
+
+val View.activity: FragmentActivity
+    get() {
+        var context = context
+        while (context is ContextWrapper) {
+            if (context is FragmentActivity) {
+                return context
+            }
+            context = context.baseContext
+        }
+        throw IllegalArgumentException("View could not get activity")
+
+    }
 
 fun showSnackBar(@NotNull activity: Activity, @StringRes res: Int) =
         Snackbar.make(getActivityRootView(activity), getString(res),Snackbar.LENGTH_SHORT).show()

@@ -19,28 +19,6 @@ class SecondFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Logger.d("SecondFragment onCreateView")
         return inflater.inflate(R.layout.second_fragment, container, false)
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        Logger.d("SecondFragment onActivityCreated")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Logger.d("SecondFragment onResume")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Logger.d("SecondFragment onPause")
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Logger.d("SecondFragment onDestroyView")
-    }
 }
-
