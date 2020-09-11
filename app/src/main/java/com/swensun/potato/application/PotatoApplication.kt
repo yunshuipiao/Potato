@@ -1,17 +1,13 @@
 package com.swensun.potato.application
 
-import android.app.Activity
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
-import android.os.Bundle
 import com.swensun.TimeLog
-import com.swensun.base.BaseUtils
 import com.swensun.http.SimpleActivityLifecycleCallbacks
 import com.swensun.library_crash.CrashUtil
-import com.swensun.potato.R
 import com.swensun.swutils.SwUtils
 
 
