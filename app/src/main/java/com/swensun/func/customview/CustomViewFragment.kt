@@ -33,5 +33,11 @@ class CustomViewFragment : Fragment() {
         activity?.lifecycle?.addObserver(bagua_view)
         activity?.lifecycle?.addObserver(fo_view)
         activity?.lifecycle?.addObserver(taiji_view)
+
+        val lo = LifecycleObject()
+        activity?.lifecycle?.addObserver(lo)
+        float_btn.setOnClickListener {
+            lo.print()
+        }
     }
 }
