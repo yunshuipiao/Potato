@@ -85,4 +85,7 @@ dependencies {
     api "me.grantland:autofittextview:0.2.1"
     api 'com.yanzhenjie:permission:2.0.0'
 
+    // tag 布局
+    api 'com.google.android:flexbox:2.0.1'
+
 }
