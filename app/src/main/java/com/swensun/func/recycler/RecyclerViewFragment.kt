@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.*
 import androidx.viewpager2.widget.ViewPager2
+import com.drakeet.multitype.ItemViewBinder
+import com.drakeet.multitype.MultiTypeAdapter
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
@@ -42,57 +44,63 @@ class RecyclerViewFragment : Fragment() {
 
     private fun initView() {
         recycler_view.setHasFixedSize(true)
-        recycler_view.adapter = adapter
+
 //        val layoutManager = FlexboxLayoutManager(context).apply {
 //            flexDirection = FlexDirection.ROW
 //            justifyContent = JustifyContent.FLEX_START
 //        }
-        val layoutManager = StaggeredGridLayoutManager(column, StaggeredGridLayoutManager.VERTICAL)
+//        val layoutManager = StaggeredGridLayoutManager(column, StaggeredGridLayoutManager.VERTICAL)
+        val layoutManager = LinearLayoutManager(context)
         recycler_view.layoutManager = layoutManager
-        loadMoreData()
-        btn_refresh.setOnClickListener {
-            val newList =
-                adapter.currentList.filterIndexed { index, rInt -> index != 0 }.map { RInt(it.id) }
-            adapter.submitList(newList)
+
+
+        val adapter = MultiTypeAdapter()
+        recycler_view.adapter = adapter
+        adapter.register(RViewDelegate())
+//        loadMoreData()
+        val items = arrayListOf<Any>()
+        (0..30).map {
+            items.add(RInt(it))
         }
+        adapter.items = items
+        adapter.notifyDataSetChanged()
     }
 
     private fun loadMoreData() {
         val list = (0..30).map { RInt(it) }
         adapter.submitList(list)
     }
+}
 
-    inner class RAdapter : ListAdapter<RInt, RViewHolder>(RCallback()) {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RViewHolder {
-            return RViewHolder(parent)
-        }
-
-        override fun onBindViewHolder(holder: RViewHolder, position: Int) {
-            holder.setup(getItem(position))
-        }
+class RAdapter : ListAdapter<RInt, RViewHolder>(RCallback()) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RViewHolder {
+        return RViewHolder(parent)
     }
 
-    inner class RViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.item_recycler_view, parent, false)
-    ) {
+    override fun onBindViewHolder(holder: RViewHolder, position: Int) {
+        holder.setup(getItem(position))
+    }
+}
 
-        init {
-            itemView.layoutParams.width = getWinWidth() / column
-        }
+class RViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
+    LayoutInflater.from(parent.context).inflate(R.layout.item_recycler_view, parent, false)
+) {
 
-        fun setup(item: RInt) {
-            itemView.tv_id.text = "${item.id}"
-            val height = getWinWidth() / column
-            val h = when (adapterPosition % column) {
-                0 -> 0.8f
-                1 -> 1f
-                2 -> 1.2f
-                3 -> 1.5f
-                else -> 1f
-            }
-            itemView.layoutParams.height = (height * h).toInt()
+    fun setup(item: RInt) {
+        itemView.tv_id.text = "${item.id}"
+    }
+}
 
-        }
+class RViewDelegate : ItemViewBinder<RInt, RViewHolder>() {
+    override fun onBindViewHolder(holder: RViewHolder, item: RInt) {
+        holder.setup(item)
+    }
+
+    override fun onCreateViewHolder(
+        inflater: LayoutInflater,
+        parent: ViewGroup
+    ): RViewHolder {
+        return RViewHolder(parent)
     }
 }
 
@@ -108,3 +116,4 @@ class RCallback : DiffUtil.ItemCallback<RInt>() {
 }
 
 class RInt(val id: Int)
+

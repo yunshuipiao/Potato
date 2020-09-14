@@ -85,7 +85,7 @@ class MainActivity : BaseActivity() {
         }
         btn_recycler.setOnClickListener {
             startActivity<RecyclerViewActivity>()
-            overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit)
+//            overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit)
         }
         btn_memory.setOnClickListener {
             startActivity<MemoryActivity>()
@@ -141,7 +141,7 @@ class MainActivity : BaseActivity() {
         btn_fragment.setOnClickListener {
             startActivity<FragmentModeActivity>()
         }
-        btn_custom_view.performClick()
+        btn_recycler.performClick()
     }
 
     override fun onDestroy() {
