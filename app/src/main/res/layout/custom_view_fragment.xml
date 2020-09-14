@@ -9,7 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
 
         <com.swensun.func.customview.view.BaguaView
@@ -70,10 +70,17 @@
                 android:id="@+id/float_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_margin="40dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_margin="40dp"/>
-        
+                app:layout_constraintRight_toRightOf="parent" />
+
+        <com.swensun.func.customview.bubbledialog.BubbleLayout
+                android:id="@+id/bubble_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/float_btn"
+                app:layout_constraintRight_toRightOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

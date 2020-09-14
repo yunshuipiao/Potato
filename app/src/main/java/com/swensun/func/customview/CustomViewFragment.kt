@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.swensun.func.customview.bubbledialog.BubbleLayout
-import com.swensun.func.customview.bubbledialog.BubblePopupWindow
 import com.swensun.potato.R
 import kotlinx.android.synthetic.main.custom_view_fragment.*
 
@@ -38,13 +37,7 @@ class CustomViewFragment : Fragment() {
 
         val lo = LifecycleObject()
         activity?.lifecycle?.addObserver(lo)
-        float_btn.setOnClickListener {
-            val dialog = BubblePopupWindow(context).withGravity(BubbleLayout.Look.BOTTOM)
-                .withContent("lalalallalalallallalalallallalalallallalalallallala")
-            dialog.withOnCloseClickListener {
-                dialog.dismiss()
-            }
-            dialog.show(it)
-        }
+        bubble_layout.look = BubbleLayout.Look.BOTTOM
+        bubble_layout.lookView(float_btn)
     }
 }

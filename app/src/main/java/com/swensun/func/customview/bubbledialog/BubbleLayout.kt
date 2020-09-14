@@ -11,6 +11,8 @@ import android.view.View
 import android.widget.FrameLayout
 import com.swensun.func.customview.bubbledialog.BubbleLayout.Look
 import com.swensun.potato.R
+import com.swensun.swutils.ui.getWinWidth
+import com.swensun.swutils.util.Logger
 
 /**
  * 气泡布局
@@ -72,7 +74,7 @@ class BubbleLayout @JvmOverloads constructor(
      */
     private fun initValues() {
         mLook = Look.BOTTOM
-        mLookPosition = Utils.dpToPx(context, 40f)
+        mLookPosition = Utils.dpToPx(context, 0f)
         lookWidth = Utils.dpToPx(context, 10f)
         mLookLength = Utils.dpToPx(context, 10f)
         shadowRadius = Utils.dpToPx(context, 3f)
@@ -84,15 +86,13 @@ class BubbleLayout @JvmOverloads constructor(
         bubbleColor = Color.BLACK
     }
 
-    fun initPadding() {
+    private fun initPadding() {
         val p = mBubblePadding * 2
         when (mLook) {
             Look.BOTTOM -> setPadding(p, p, p, mLookLength + p)
             Look.TOP -> setPadding(p, p + mLookLength, p, p)
             Look.LEFT -> setPadding(p + mLookLength, p, p, p)
             Look.RIGHT -> setPadding(p, p, p + mLookLength, p)
-            else -> {
-            }
         }
     }
 
@@ -249,6 +249,19 @@ class BubbleLayout @JvmOverloads constructor(
             initPadding()
         }
 
+
+    fun lookView(refView: View) {
+        refView.post {
+            // 显示位置
+            val l1 = IntArray(2)
+            refView.getLocationOnScreen(l1)
+            val l2 = IntArray(2)
+            getLocationOnScreen(l2)
+            val width = refView.width
+            lookPosition = l1[0] - l2[0] + width / 2 - mLookLength / 2
+        }
+    }
+
     public override fun onSaveInstanceState(): Parcelable {
         val bundle = Bundle()
         bundle.putParcelable("instanceState", super.onSaveInstanceState())
@@ -269,8 +282,6 @@ class BubbleLayout @JvmOverloads constructor(
         return bundle
     }
 
-    //    private int mWidth, mHeight;
-    //    private int mLeft, mTop, mRight, mBottom;
     public override fun onRestoreInstanceState(state: Parcelable) {
         if (state is Bundle) {
             val bundle = state
@@ -306,9 +317,7 @@ class BubbleLayout @JvmOverloads constructor(
     }
 
     init {
-
         val view = LayoutInflater.from(context).inflate(R.layout.dialog_guide_bubble, this)
-
         setLayerType(View.LAYER_TYPE_SOFTWARE, null)
         setWillNotDraw(false)
         initValues()
