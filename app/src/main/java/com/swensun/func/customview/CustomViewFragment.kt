@@ -1,6 +1,7 @@
 package com.swensun.func.customview
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,7 +38,7 @@ class CustomViewFragment : Fragment() {
 
         val lo = LifecycleObject()
         activity?.lifecycle?.addObserver(lo)
-        bubble_layout.look = BubbleLayout.Look.BOTTOM
+        bubble_layout.look = Gravity.BOTTOM
         bubble_layout.lookView(float_btn)
     }
 }

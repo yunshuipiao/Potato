@@ -5,27 +5,20 @@ import android.graphics.*
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.AttributeSet
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
-import com.swensun.func.customview.bubbledialog.BubbleLayout.Look
 import com.swensun.potato.R
-import com.swensun.swutils.ui.getWinWidth
-import com.swensun.swutils.util.Logger
+import com.swensun.swutils.ui.dp2px
 
-/**
- * 气泡布局
- * Created by JiajiXu on 17-12-1.
- */
 class BubbleLayout @JvmOverloads constructor(
-    context: Context?,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
     val paint: Paint
     val path: Path
-    private var mLook: Look? = null
+    private var mLook = Gravity.BOTTOM
     private var mBubblePadding = 0
     private var mWidth = 0
     private var mHeight = 0
@@ -45,43 +38,42 @@ class BubbleLayout @JvmOverloads constructor(
     private var mListener: OnClickEdgeListener? = null
     private val mRegion = Region()
 
-    /**
-     * 箭头指向
-     */
-    enum class Look(var value: Int) {
-        /**
-         * 坐上右下
-         */
-        LEFT(1), TOP(2), RIGHT(3), BOTTOM(4);
-
-        companion object {
-            fun getType(value: Int): Look {
-                var type = BOTTOM
-                when (value) {
-                    1 -> type = LEFT
-                    2 -> type = TOP
-                    3 -> type = RIGHT
-                    4 -> type = BOTTOM
-                }
-                return type
-            }
-        }
-
-    }
+//    /**
+//     * 箭头指向
+//     */
+//    enum class Look(var value: Int) {
+//        /**
+//         * 坐上右下
+//         */
+//        LEFT(1), TOP(2), RIGHT(3), BOTTOM(4);
+//
+//        companion object {
+//            fun getType(value: Int): Look {
+//                var type = BOTTOM
+//                when (value) {
+//                    1 -> type = LEFT
+//                    2 -> type = TOP
+//                    3 -> type = RIGHT
+//                    4 -> type = BOTTOM
+//                }
+//                return type
+//            }
+//        }
+//    }
 
     /**
      * 初始化参数
      */
     private fun initValues() {
-        mLook = Look.BOTTOM
-        mLookPosition = Utils.dpToPx(context, 0f)
-        lookWidth = Utils.dpToPx(context, 10f)
-        mLookLength = Utils.dpToPx(context, 10f)
-        shadowRadius = Utils.dpToPx(context, 3f)
-        shadowX = Utils.dpToPx(context, 0f)
-        shadowY = Utils.dpToPx(context, 0f)
-        bubbleRadius = Utils.dpToPx(context, 3f)
-        mBubblePadding = Utils.dpToPx(context, 5f)
+        mLook = Gravity.BOTTOM
+        mLookPosition = dp2px(0f)
+        lookWidth = dp2px(10f)
+        mLookLength = dp2px(10f)
+        shadowRadius = dp2px(3f)
+        shadowX = dp2px(0f)
+        shadowY = dp2px(0f)
+        bubbleRadius = dp2px(3f)
+        mBubblePadding = dp2px(5f)
         shadowColor = Color.GRAY
         bubbleColor = Color.BLACK
     }
@@ -89,33 +81,13 @@ class BubbleLayout @JvmOverloads constructor(
     private fun initPadding() {
         val p = mBubblePadding * 2
         when (mLook) {
-            Look.BOTTOM -> setPadding(p, p, p, mLookLength + p)
-            Look.TOP -> setPadding(p, p + mLookLength, p, p)
-            Look.LEFT -> setPadding(p + mLookLength, p, p, p)
-            Look.RIGHT -> setPadding(p, p, p + mLookLength, p)
+            Gravity.BOTTOM -> setPadding(p, p, p, mLookLength + p)
+            Gravity.TOP -> setPadding(p, p + mLookLength, p, p)
+            Gravity.LEFT -> setPadding(p + mLookLength, p, p, p)
+            Gravity.RIGHT -> setPadding(p, p, p + mLookLength, p)
         }
     }
 
-    //    private void initAttr(TypedArray a)
-    //    {
-    //        mLook = Look.getType(a.getInt(R.styleable.BubbleLayout_lookAt, Look.BOTTOM.value));
-    //        mLookPosition = a.getDimensionPixelOffset(R.styleable.BubbleLayout_lookPosition, 0);
-    //        mLookWidth = a.getDimensionPixelOffset(R.styleable.BubbleLayout_lookWidth, Util.dpToPx(getContext(),
-    //        17F));
-    //        mLookLength = a.getDimensionPixelOffset(R.styleable.BubbleLayout_lookLength, Util.dpToPx(getContext(),
-    //        17F));
-    //        mShadowRadius = a.getDimensionPixelOffset(R.styleable.BubbleLayout_shadowRadius, Util.dpToPx(getContext
-    //        (), 3.3F));
-    //        mShadowX = a.getDimensionPixelOffset(R.styleable.BubbleLayout_shadowX, Util.dpToPx(getContext(), 1F));
-    //        mShadowY = a.getDimensionPixelOffset(R.styleable.BubbleLayout_shadowY, Util.dpToPx(getContext(), 1F));
-    //        mBubbleRadius = a.getDimensionPixelOffset(R.styleable.BubbleLayout_bubbleRadius, Util.dpToPx(getContext
-    //        (), 7F));
-    //        mBubblePadding = a.getDimensionPixelOffset(R.styleable.BubbleLayout_bubblePadding, Util.dpToPx
-    //        (getContext(), 8));
-    //        mShadowColor = a.getColor(R.styleable.BubbleLayout_shadowColor, Color.GRAY);
-    //        mBubbleColor = a.getColor(R.styleable.BubbleLayout_bubbleColor, Color.WHITE);
-    //        a.recycle();
-    //    }
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         mWidth = w
@@ -144,10 +116,10 @@ class BubbleLayout @JvmOverloads constructor(
             shadowY.toFloat(),
             shadowColor
         )
-        mLeft = mBubblePadding + if (mLook == Look.LEFT) mLookLength else 0
-        mTop = mBubblePadding + if (mLook == Look.TOP) mLookLength else 0
-        mRight = mWidth - mBubblePadding - if (mLook == Look.RIGHT) mLookLength else 0
-        mBottom = mHeight - mBubblePadding - if (mLook == Look.BOTTOM) mLookLength else 0
+        mLeft = mBubblePadding + if (mLook == Gravity.LEFT) mLookLength else 0
+        mTop = mBubblePadding + if (mLook == Gravity.TOP) mLookLength else 0
+        mRight = mWidth - mBubblePadding - if (mLook == Gravity.RIGHT) mLookLength else 0
+        mBottom = mHeight - mBubblePadding - if (mLook == Gravity.BOTTOM) mLookLength else 0
         paint.color = bubbleColor
         path.reset()
         var topOffset = mLookPosition
@@ -161,7 +133,7 @@ class BubbleLayout @JvmOverloads constructor(
         }
         leftOffset = if (leftOffset > mBubblePadding) leftOffset else mBubblePadding
         when (mLook) {
-            Look.LEFT -> {
+            Gravity.LEFT -> {
                 path.moveTo(mLeft.toFloat(), topOffset.toFloat())
                 path.rLineTo(-mLookLength.toFloat(), lookWidth / 2.toFloat())
                 path.rLineTo(mLookLength.toFloat(), lookWidth / 2.toFloat())
@@ -170,7 +142,7 @@ class BubbleLayout @JvmOverloads constructor(
                 path.lineTo(mRight.toFloat(), mTop.toFloat())
                 path.lineTo(mLeft.toFloat(), mTop.toFloat())
             }
-            Look.TOP -> {
+            Gravity.TOP -> {
                 path.moveTo(leftOffset.toFloat(), mTop.toFloat())
                 path.rLineTo(lookWidth / 2.toFloat(), -mLookLength.toFloat())
                 path.rLineTo(lookWidth / 2.toFloat(), mLookLength.toFloat())
@@ -179,7 +151,7 @@ class BubbleLayout @JvmOverloads constructor(
                 path.lineTo(mLeft.toFloat(), mBottom.toFloat())
                 path.lineTo(mLeft.toFloat(), mTop.toFloat())
             }
-            Look.RIGHT -> {
+            Gravity.RIGHT -> {
                 path.moveTo(mRight.toFloat(), topOffset.toFloat())
                 path.rLineTo(mLookLength.toFloat(), lookWidth / 2.toFloat())
                 path.rLineTo(-mLookLength.toFloat(), lookWidth / 2.toFloat())
@@ -188,7 +160,7 @@ class BubbleLayout @JvmOverloads constructor(
                 path.lineTo(mLeft.toFloat(), mTop.toFloat())
                 path.lineTo(mRight.toFloat(), mTop.toFloat())
             }
-            Look.BOTTOM -> {
+            Gravity.BOTTOM -> {
                 path.moveTo(leftOffset.toFloat(), mBottom.toFloat())
                 path.rLineTo(lookWidth / 2.toFloat(), mLookLength.toFloat())
                 path.rLineTo(lookWidth / 2.toFloat(), -mLookLength.toFloat())
@@ -228,7 +200,7 @@ class BubbleLayout @JvmOverloads constructor(
         return super.onTouchEvent(event)
     }
 
-    var look: Look?
+    var look: Int
         get() = mLook
         set(mLook) {
             this.mLook = mLook
