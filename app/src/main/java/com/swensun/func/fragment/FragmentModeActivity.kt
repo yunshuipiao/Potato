@@ -32,6 +32,7 @@ class FragmentModeActivity : BaseActivity() {
                 .commit()
         }
         tv_delete.setOnClickListener {
+            Thread.sleep(6000)
         }
         supportFragmentManager.registerFragmentLifecycleCallbacks(object :
             FragmentManager.FragmentLifecycleCallbacks() {

@@ -141,7 +141,7 @@ class MainActivity : BaseActivity() {
         btn_fragment.setOnClickListener {
             startActivity<FragmentModeActivity>()
         }
-        btn_recycler.performClick()
+        btn_custom_view.performClick()
     }
 
     override fun onDestroy() {
