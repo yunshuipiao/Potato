@@ -130,34 +130,28 @@ class MainActivity : BaseActivity() {
                 .notify(UtilCodeFragment.notification_id, notification)
         }
         fab.setOnClickListener {
-            try {
-                val intent =
-                    Intent(Intent.ACTION_VIEW, Uri.parse("potato://potato/push?name=potato"))
-                startActivity(intent)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            SingleTonUtil.toast()
         }
         btn_fragment.setOnClickListener {
             startActivity<FragmentModeActivity>()
         }
-        btn_room.performClick()
     }
 
     override fun onDestroy() {
         super.onDestroy()
     }
-//    override fun onBackPressed() {
-//        try {
-//            val launcherIntent = Intent(Intent.ACTION_MAIN)
-//            launcherIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-//            launcherIntent.addCategory(Intent.CATEGORY_HOME)
-//            startActivity(launcherIntent)
-////            moveTaskToBack(true)
-//        } catch (e: Exception) {
-//            e.printStackTrace()
-//        }
-//    }
+
+    override fun onBackPressed() {
+        try {
+            val launcherIntent = Intent(Intent.ACTION_MAIN)
+            launcherIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            launcherIntent.addCategory(Intent.CATEGORY_HOME)
+            startActivity(launcherIntent)
+//            moveTaskToBack(true)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
