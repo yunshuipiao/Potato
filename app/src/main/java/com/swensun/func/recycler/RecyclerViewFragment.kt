@@ -47,14 +47,21 @@ class RecyclerViewFragment : Fragment() {
             Logger.d("${adapter.currentList.map { it.count }}")
             adapter.notifyDataSetChanged()
         }
-        adapter.submitList((0 until 3).map {
+        adapter.submitList((100 until 103).map {
             RInt(it)
         })
+
+        btn_refresh.setOnClickListener {
+            val list = ArrayList(adapter.currentList)
+            list.add(1, RInt(100 - list.size))
+            adapter.submitList(list)
+//            adapter.currentList.add(1, RInt(100 - adapter.itemCount))
+//            adapter.notifyDataSetChanged()
+        }
     }
 }
 
 class RAdapter : ListAdapter<RInt, RViewHolder>(RCallback()) {
-    private var countListener: ((position: Int, count: Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RViewHolder {
         return RViewHolder(parent)
@@ -64,9 +71,46 @@ class RAdapter : ListAdapter<RInt, RViewHolder>(RCallback()) {
         holder.setup(getItem(position), countListener)
     }
 
+    private var countListener: ((position: Int, count: Int) -> Unit)? = null
     fun setCountListener(function: (position: Int, count: Int) -> Unit) {
         this.countListener = function
     }
+}
+
+class R2Adapter : RecyclerView.Adapter<RViewHolder>() {
+
+
+    var currentList: ArrayList<RInt> = arrayListOf()
+        set(value) {
+            field.clear()
+            field.addAll(value)
+            notifyDataSetChanged()
+        }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RViewHolder {
+        return RViewHolder(parent)
+    }
+
+    override fun getItemCount(): Int {
+        return currentList.size
+    }
+
+    override fun onBindViewHolder(holder: RViewHolder, position: Int) {
+        holder.setup(currentList[position], countListener)
+    }
+
+
+    private var countListener: ((position: Int, count: Int) -> Unit)? = null
+    fun setCountListener(function: (position: Int, count: Int) -> Unit) {
+        this.countListener = function
+    }
+
+    fun submitList(list: List<RInt>) {
+        currentList.clear()
+        currentList.addAll(list)
+        notifyDataSetChanged()
+    }
+
 }
 
 class RViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
