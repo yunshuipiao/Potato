@@ -15,8 +15,11 @@ import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.swensun.potato.R
 import com.swensun.swutils.ui.getWinWidth
+import com.swensun.swutils.util.Logger
+import com.swensun.swutils.util.deepClone
 import kotlinx.android.synthetic.main.item_recycler_view.view.*
 import kotlinx.android.synthetic.main.recycler_view_fragment.*
+import org.jetbrains.anko.support.v4.toast
 
 
 class RecyclerViewFragment : Fragment() {
@@ -25,9 +28,7 @@ class RecyclerViewFragment : Fragment() {
         fun newInstance() = RecyclerViewFragment()
     }
 
-    private val adapter = RAdapter()
     private lateinit var viewModel: RecyclerViewViewModel
-    private val column = 2
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,25 +55,36 @@ class RecyclerViewFragment : Fragment() {
         recycler_view.layoutManager = layoutManager
 
 
-        val adapter = MultiTypeAdapter()
+        val adapter = RAdapter()
         recycler_view.adapter = adapter
-        adapter.register(RViewDelegate())
-//        loadMoreData()
-        val items = arrayListOf<Any>()
-        (0..30).map {
-            items.add(RInt(it))
+        adapter.setCountListener { position, count ->
+            Logger.d("${adapter.currentList.map { it.count }}")
+//            Logger.d("---- start ------")
+//            val start = System.currentTimeMillis()
+//            var list = adapter.currentList
+////            (0 until 20).forEach {
+////                adapter.currentList.map { it }
+////            }
+//            Logger.d("---- end ${System.currentTimeMillis() - start} ------")
+//            list[position].count = count + 1
+////            adapter.submitList(list)
+//            adapter.notifyDataSetChanged()
+//            toast("${list}, ${position}, $count")
         }
-        adapter.items = items
-        adapter.notifyDataSetChanged()
-    }
+        adapter.submitList((0 until 3).map {
+            RInt(it)
+        })
 
-    private fun loadMoreData() {
-        val list = (0..30).map { RInt(it) }
-        adapter.submitList(list)
+        btn_refresh.setOnClickListener {
+
+        }
+
     }
 }
 
-class RAdapter : ListAdapter<RInt, RViewHolder>(RCallback()) {
+class RAdapter : ListAdapter<RInt, RAdapter.RViewHolder>(RCallback()) {
+    private var countListener: ((position: Int, count: Int) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RViewHolder {
         return RViewHolder(parent)
     }
@@ -80,29 +92,27 @@ class RAdapter : ListAdapter<RInt, RViewHolder>(RCallback()) {
     override fun onBindViewHolder(holder: RViewHolder, position: Int) {
         holder.setup(getItem(position))
     }
-}
 
-class RViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
-    LayoutInflater.from(parent.context).inflate(R.layout.item_recycler_view, parent, false)
-) {
+    fun setCountListener(function: (position: Int, count: Int) -> Unit) {
+        this.countListener = function
+    }
 
-    fun setup(item: RInt) {
-        itemView.tv_id.text = "${item.id}"
+
+    inner class RViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
+        LayoutInflater.from(parent.context).inflate(R.layout.item_recycler_view, parent, false)
+    ) {
+
+        fun setup(item: RInt) {
+            itemView.tv_id.text = "${item.count}"
+            itemView.setOnClickListener {
+                item.count += 1
+                notifyDataSetChanged()
+                countListener?.invoke(adapterPosition, item.count)
+            }
+        }
     }
 }
 
-class RViewDelegate : ItemViewBinder<RInt, RViewHolder>() {
-    override fun onBindViewHolder(holder: RViewHolder, item: RInt) {
-        holder.setup(item)
-    }
-
-    override fun onCreateViewHolder(
-        inflater: LayoutInflater,
-        parent: ViewGroup
-    ): RViewHolder {
-        return RViewHolder(parent)
-    }
-}
 
 class RCallback : DiffUtil.ItemCallback<RInt>() {
     override fun areItemsTheSame(oldItem: RInt, newItem: RInt): Boolean {
@@ -110,10 +120,12 @@ class RCallback : DiffUtil.ItemCallback<RInt>() {
     }
 
     override fun areContentsTheSame(oldItem: RInt, newItem: RInt): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem.count == newItem.count
     }
 
 }
 
-class RInt(val id: Int)
+class RInt(val id: Int) {
+    var count = id
+}
 
