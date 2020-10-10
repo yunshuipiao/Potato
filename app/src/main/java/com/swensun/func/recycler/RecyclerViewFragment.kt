@@ -41,7 +41,7 @@ class RecyclerViewFragment : Fragment() {
         recycler_view.layoutManager = layoutManager
 
 
-        val adapter = RAdapter()
+        val adapter = R2Adapter()
         recycler_view.adapter = adapter
         adapter.setCountListener { position, count ->
             Logger.d("${adapter.currentList.map { it.count }}")
@@ -52,10 +52,14 @@ class RecyclerViewFragment : Fragment() {
         })
 
         btn_refresh.setOnClickListener {
-            val list = ArrayList(adapter.currentList)
-            list.add(1, RInt(100 - list.size))
-            adapter.submitList(list)
-//            adapter.currentList.add(1, RInt(100 - adapter.itemCount))
+            // 1
+//            val list = ArrayList(adapter.currentList)
+//            list.add(1, RInt(100 - list.size))
+//            adapter.submitList(list)
+
+            //2
+            adapter.currentList.add(1, RInt(100 - adapter.itemCount))
+            adapter.notifyItemInserted(2)
 //            adapter.notifyDataSetChanged()
         }
     }
