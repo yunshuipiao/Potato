@@ -1,7 +1,7 @@
 package com.swensun.func.exoplayer
 
 import android.net.Uri
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -36,7 +36,7 @@ class ExoPlayerFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this).get(ExoPlayerViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ExoPlayerViewModel::class.java)
         playView.player = exoplayer
 
         val dataSourceFactory = DefaultDataSourceFactory(context, "swennsun")

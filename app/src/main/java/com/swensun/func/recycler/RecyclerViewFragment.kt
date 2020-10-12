@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.*
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.ItemViewDelegate
 import com.drakeet.multitype.MultiTypeAdapter
 import com.swensun.potato.R
-import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.item_recycler_view.view.*
 import kotlinx.android.synthetic.main.recycler_view_fragment.*
 
@@ -33,7 +33,7 @@ class RecyclerViewFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(RecyclerViewViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(RecyclerViewViewModel::class.java)
         initView()
     }
 

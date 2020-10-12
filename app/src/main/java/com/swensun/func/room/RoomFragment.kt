@@ -5,16 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.*
-import com.swensun.func.room.database.RoomEntity
 import com.swensun.potato.R
-import com.swensun.swutils.util.Logger
-import kotlinx.android.synthetic.main.item_room.view.*
 import kotlinx.android.synthetic.main.room_fragment.*
-import org.w3c.dom.Entity
 
 class RoomFragment : Fragment() {
 

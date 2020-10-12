@@ -1,6 +1,6 @@
 package com.swensun.func.lifecycle
 
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -29,7 +29,7 @@ class LifecycleFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(LifecycleViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(LifecycleViewModel::class.java)
         initView()
     }
 
