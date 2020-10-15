@@ -15,7 +15,8 @@ class CoroutinesActivity : BaseActivity() {
         supportActionBar?.title = getString(R.string.coroutines)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container,
+                .replace(
+                    R.id.container,
                     CoroutinesFragment.newInstance()
                 )
                 .commit()

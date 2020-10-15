@@ -13,6 +13,7 @@ import com.drakeet.multitype.ItemViewDelegate
 import com.drakeet.multitype.MultiTypeAdapter
 import com.swensun.potato.R
 import kotlinx.android.synthetic.main.item_recycler_view.view.*
+import kotlinx.android.synthetic.main.load_more.view.*
 import kotlinx.android.synthetic.main.recycler_view_fragment.*
 
 
@@ -72,7 +73,28 @@ class RecyclerViewFragment : Fragment() {
                 adapter.notifyDataSetChanged()
             }
         })
-        adapter.items = (0 until 3).map { RInt(it) }
+        adapter.register(LoadMoreDelegate {
+            val items = arrayListOf<Any>().apply {
+                addAll(adapter.items)
+            }
+            if (items.isNotEmpty()) {
+                items.removeLast()
+            }
+            if (items.size < 50) {
+                items.addAll((items.size until items.size + 10).map { RInt(it) })
+                items.add(LoadMore())
+            } else {
+                items.add(LoadMore(false))
+            }
+            adapter.items = items
+            recycler_view.post {
+                adapter.notifyDataSetChanged()
+            }
+        })
+        val items = arrayListOf<Any>()
+        items.addAll((0 until 10).map { RInt(it) })
+        items.add(LoadMore())
+        adapter.items = items
         adapter.notifyDataSetChanged()
 
         btn_refresh.setOnClickListener {
@@ -154,5 +176,36 @@ class RViewHolderDelegate : ItemViewDelegate<RInt, RViewHolder>() {
         return RViewHolder(parent)
     }
 
+}
+
+class LoadMoreDelegate(private val block: () -> Unit) :
+    ItemViewDelegate<LoadMore, LoadMoreDelegate.LoadMoreViewHolder>() {
+
+    inner class LoadMoreViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
+        LayoutInflater.from(parent.context).inflate(R.layout.load_more, parent, false)
+    ) {
+        fun setup(item: LoadMore) {
+            if (item.hasMore) {
+                itemView.tv_more.text = "....."
+            } else {
+                itemView.tv_more.text = "到底了"
+            }
+        }
+    }
+
+    override fun onCreateViewHolder(context: Context, parent: ViewGroup): LoadMoreViewHolder {
+        return LoadMoreViewHolder(parent)
+    }
+
+    override fun onBindViewHolder(holder: LoadMoreViewHolder, item: LoadMore) {
+        holder.setup(item)
+        if (item.hasMore) {
+            block.invoke()
+        }
+    }
+}
+
+class LoadMore(val hasMore: Boolean = true) {
+    var type = 0
 }
 
