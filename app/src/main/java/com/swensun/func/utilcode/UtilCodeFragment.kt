@@ -18,8 +18,6 @@ class UtilCodeFragment : Fragment() {
         const val notification_id = 0x0001
     }
 
-    private lateinit var viewModel: MainViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,7 +27,6 @@ class UtilCodeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         initView()
     }
 

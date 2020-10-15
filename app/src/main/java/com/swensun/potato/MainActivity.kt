@@ -13,6 +13,7 @@ import androidx.annotation.ColorInt
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ktx.SingleEvent
 import com.swensun.base.BaseActivity
 import com.swensun.func.bottom.BottomActivity
@@ -45,6 +46,8 @@ class MainActivity : BaseActivity() {
     private val today
         get() = DateFormat.format("yyyyMMdd, hh-mm-ss", System.currentTimeMillis()).toString()
 
+    lateinit var viewModel: MainViewModel
+
     private val globalEventObserver = Observer<SingleEvent<GlobalEvent>> {
         window?.decorView?.postDelayed({
             Logger.d("global-main: from:${it.peekContent()?.from}")
@@ -56,6 +59,7 @@ class MainActivity : BaseActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?) {
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         btn_coroutines.setOnClickListener {
             startActivity<CoroutinesActivity>()
         }
@@ -130,12 +134,13 @@ class MainActivity : BaseActivity() {
                 .notify(UtilCodeFragment.notification_id, notification)
         }
         fab.setOnClickListener {
-            SingleTonUtil.toast()
+            viewModel.testCoroutines()
         }
         btn_fragment.setOnClickListener {
             startActivity<FragmentModeActivity>()
         }
-        btn_recycler.performClick()
+//        btn_recycler.performClick()
+
     }
 
     override fun onDestroy() {
