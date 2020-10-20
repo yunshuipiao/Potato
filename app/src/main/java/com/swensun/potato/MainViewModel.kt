@@ -26,7 +26,6 @@ class MainViewModel : ViewModel() {
     }
 }
 
-class Model {
-    var s1 = "s1"
-    var s2 = "s2"
+class Model(var id: Int = 0) {
+    var count = id
 }

@@ -1,36 +1,21 @@
 package com.swensun.potato
 
 import org.junit.Test
-import java.util.concurrent.CopyOnWriteArrayList
 
 class List_Test {
 
     @Test
     fun add_test() {
-        test()
+        var l = arrayListOf<RInt>()
+        l.addAll((0 until 10).map {
+            RInt(it)
+        })
+        l.addAll((5 until 15).map { RInt(it) })
+        println(l.distinctBy { it.id }.map { "${it.id}--${it.count}" })
     }
+}
 
-    @Synchronized
-    private fun test() {
-        val l = CopyOnWriteArrayList<Int>()
-        l.add(1)
-        l.add(2)
-        l.add(3)
-        l.add(4)
-        l.forEach {
-            if (it == 2) {
-                remove(l, it)
-            }
-        }
-    }
-
-    fun remove(l: CopyOnWriteArrayList<Int>, it: Int) {
-        l.remove(it)
-    }
-
-    @Synchronized
-    fun remove(l: ArrayList<Int>, it: Int) {
-        l.remove(it)
-    }
+class RInt(var id: Int) {
+    var count = id
 }
 

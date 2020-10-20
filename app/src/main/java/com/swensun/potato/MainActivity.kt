@@ -140,7 +140,6 @@ class MainActivity : BaseActivity() {
             startActivity<FragmentModeActivity>()
         }
         btn_recycler.performClick()
-
     }
 
     override fun onDestroy() {
