@@ -67,11 +67,19 @@ class RecyclerViewFragment : Fragment() {
         /**
          * MultiTypeAdapter
          */
-        val adapter = MultiTypeAdapter()
+        val adapter = DiffMultiAdapter()
         recycler_view.adapter = adapter
         adapter.register(RViewHolderDelegate().apply {
             setCountListener { position, count ->
-                adapter.notifyDataSetChanged()
+                val items = adapterItems.toMutableList()
+                items[position].let {
+                    if (it is RInt) {
+                        val rint = it.clone()
+                        rint.count = count + 1
+                        items[position] = rint
+                        adapter.submitList(items)
+                    }
+                }
             }
         })
         adapter.register(LoadMoreDelegate {
@@ -92,17 +100,10 @@ class RecyclerViewFragment : Fragment() {
                 adapter.notifyDataSetChanged()
             }
         })
-        val items = arrayListOf<Any>()
-        items.addAll((0 until 10).map { RInt(it) })
-        items.add(LoadMore())
-        adapter.items = items
-        adapter.notifyDataSetChanged()
+
+        adapter.submitList((0 until 10).map { RInt(it) })
 
         btn_refresh.setOnClickListener {
-            val list = ArrayList(adapter.items)
-            list.add(1, RInt(100 - adapter.itemCount))
-            adapter.items = list
-            adapter.notifyItemInserted(1)
         }
     }
 }
@@ -152,7 +153,6 @@ class RViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     ) {
         itemView.tv_id.text = "${item.count}"
         itemView.setOnClickListener {
-            item.count += 1
             countListener?.invoke(adapterPosition, item.count)
         }
     }
@@ -160,6 +160,12 @@ class RViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
 
 class RInt(val id: Int) {
     var count = id
+
+    fun clone(): RInt {
+        val rint = RInt(id)
+        rint.count = count
+        return rint
+    }
 }
 
 class RViewHolderDelegate : ItemViewDelegate<RInt, RViewHolder>() {
@@ -241,5 +247,18 @@ class RIntCallback(val oldItems: List<Any>, val newItems: List<Any>) : DiffUtil.
         return false
     }
 
+    override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
+        return newItems[newItemPosition]
+    }
+}
+
+class DiffMultiAdapter : MultiTypeAdapter() {
+
+    fun submitList(newItems: List<Any>) {
+        val callback = RIntCallback(items, newItems)
+        val result = DiffUtil.calculateDiff(callback)
+        items = newItems
+        result.dispatchUpdatesTo(this)
+    }
 }
 
