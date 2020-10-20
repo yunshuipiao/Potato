@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.ItemViewDelegate
@@ -207,5 +208,38 @@ class LoadMoreDelegate(private val block: () -> Unit) :
 
 class LoadMore(val hasMore: Boolean = true) {
     var type = 0
+}
+
+class RIntCallback(val oldItems: List<Any>, val newItems: List<Any>) : DiffUtil.Callback() {
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        val old = oldItems[oldItemPosition]
+        val new = newItems[newItemPosition]
+        when {
+            old is RInt && new is RInt -> {
+                return old.id == new.id
+            }
+        }
+        return false
+    }
+
+    override fun getOldListSize(): Int {
+        return oldItems.size
+    }
+
+    override fun getNewListSize(): Int {
+        return newItems.size
+    }
+
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        val old = oldItems[oldItemPosition]
+        val new = newItems[newItemPosition]
+        when {
+            old is RInt && new is RInt -> {
+                return old.count == new.count
+            }
+        }
+        return false
+    }
+
 }
 
