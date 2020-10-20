@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.drakeet.multitype.ItemViewDelegate
 import com.drakeet.multitype.MultiTypeAdapter
 import com.swensun.potato.R
@@ -40,6 +41,7 @@ class RecyclerViewFragment : Fragment() {
     }
 
     private fun initView() {
+//        recycler_view.closeDefaultAnimator()
         recycler_view.setHasFixedSize(true)
 
         val layoutManager = LinearLayoutManager(context)
@@ -71,13 +73,21 @@ class RecyclerViewFragment : Fragment() {
         recycler_view.adapter = adapter
         adapter.register(RViewHolderDelegate().apply {
             setCountListener { position, count ->
-                val items = adapterItems.toMutableList()
-                items[position].let {
+                // 1.diffutil
+//                val items = adapterItems.toMutableList()
+//                items[position].let {
+//                    if (it is RInt) {
+//                        val rint = it.clone()
+//                        rint.count = count + 1
+//                        items[position] = rint
+//                        adapter.submitList(items)
+//                    }
+//                }
+                // 2
+                adapterItems[position].let {
                     if (it is RInt) {
-                        val rint = it.clone()
-                        rint.count = count + 1
-                        items[position] = rint
-                        adapter.submitList(items)
+                        it.count = count + 1
+                        adapter.notifyDataSetChanged()
                     }
                 }
             }
@@ -104,6 +114,10 @@ class RecyclerViewFragment : Fragment() {
         adapter.submitList((0 until 10).map { RInt(it) })
 
         btn_refresh.setOnClickListener {
+            val items = adapter.items.toMutableList()
+            items.add(0, RInt(items.size))
+            adapter.items = items
+            adapter.notifyItemInserted(0)
         }
     }
 }
@@ -259,6 +273,12 @@ class DiffMultiAdapter : MultiTypeAdapter() {
         val result = DiffUtil.calculateDiff(callback)
         items = newItems
         result.dispatchUpdatesTo(this)
+    }
+}
+
+fun RecyclerView.closeDefaultAnimator() {
+    if (itemAnimator is SimpleItemAnimator) {
+        (this.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
     }
 }
 
