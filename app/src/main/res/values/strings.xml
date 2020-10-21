@@ -30,4 +30,5 @@
     <string name="push">push</string>
     <string name="send_notification">send_notification</string>
     <string name="fragment">framgent</string>
+    <string name="download">download</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.swensun.potato
 
+import android.app.DownloadManager
 import android.app.PendingIntent
 import android.content.Intent
 import android.net.Uri
@@ -20,6 +21,7 @@ import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
 import com.swensun.func.customview.CustomViewActivity
 import com.swensun.func.customview.FrameLayoutActivity
+import com.swensun.func.download.DownloadActivity
 import com.swensun.func.exoplayer.ExoPlayerActivity
 import com.swensun.func.feature.FeatureActivity
 import com.swensun.func.fragment.FragmentModeActivity
@@ -51,7 +53,7 @@ class MainActivity : BaseActivity() {
     private val globalEventObserver = Observer<SingleEvent<GlobalEvent>> {
         window?.decorView?.postDelayed({
             Logger.d("global-main: from:${it.peekContent()?.from}")
-        }, 1000)
+        }, 1000) 
     }
 
     override fun getContentSubView(): Int {
@@ -139,7 +141,11 @@ class MainActivity : BaseActivity() {
         btn_fragment.setOnClickListener {
             startActivity<FragmentModeActivity>()
         }
-        btn_recycler.performClick()
+        btn_download.setOnClickListener {
+            startActivity<DownloadActivity>()
+        }
+
+        btn_download.performClick()
     }
 
     override fun onDestroy() {

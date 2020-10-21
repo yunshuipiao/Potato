@@ -13,7 +13,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name="com.swensun.func.fragment.FragmentModeActivity"></activity>
+        <activity android:name="com.swensun.func.download.DownloadActivity"></activity>
+        <activity android:name="com.swensun.func.fragment.FragmentModeActivity" />
         <activity
                 android:name="com.swensun.func.push.DeeplinkActivity"
                 android:launchMode="singleTask">
