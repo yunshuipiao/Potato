@@ -53,7 +53,7 @@ class MainActivity : BaseActivity() {
     private val globalEventObserver = Observer<SingleEvent<GlobalEvent>> {
         window?.decorView?.postDelayed({
             Logger.d("global-main: from:${it.peekContent()?.from}")
-        }, 1000) 
+        }, 1000)
     }
 
     override fun getContentSubView(): Int {

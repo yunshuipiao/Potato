@@ -1,3 +1,4 @@
+include ':library_dkplayer'
 include ':app', ':library_base',  ':library_swutils', ':library_lower_23', ':module_test', ':library_gradle'
 //include: ':library_kotlin_gradle'
 include ':library_third'
