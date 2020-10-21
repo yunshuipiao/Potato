@@ -80,7 +80,8 @@ dependencies {
     implementation "androidx.viewpager2:viewpager2:1.0.0"
     api project(':library_base')
     api project(':library_third')
-    implementation project(':library_crash')
+    api project(':library_dkplayer')
+    api project(':library_crash')
     api project(':module_test')
     kapt "androidx.room:room-compiler:$prop_room_version"
 
