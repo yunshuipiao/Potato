@@ -6,6 +6,7 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
+
     defaultConfig {
         minSdkVersion 23
         targetSdkVersion 30
@@ -27,11 +28,11 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    api "com.google.android.exoplayer:exoplayer-core:$prop_exo_player"
-    api "com.google.android.exoplayer:exoplayer-dash:$prop_exo_player"
-    api "com.google.android.exoplayer:exoplayer-hls:$prop_exo_player"
-    api "com.google.android.exoplayer:exoplayer-smoothstreaming:$prop_exo_player"
-    api "com.google.android.exoplayer:extension-rtmp:$prop_exo_player"
+    api "com.google.android.exoplayer:exoplayer-core:2.11.3"
+    api "com.google.android.exoplayer:exoplayer-dash:2.11.3"
+    api "com.google.android.exoplayer:exoplayer-hls:2.11.3"
+    api "com.google.android.exoplayer:exoplayer-smoothstreaming:2.11.3"
+    api "com.google.android.exoplayer:extension-rtmp:2.11.3"
     implementation 'androidx.annotation:annotation:1.1.0'
 
 }

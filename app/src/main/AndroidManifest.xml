@@ -40,9 +40,7 @@
                 android:name="com.swensun.func.launchermode.LauncherModeActivity"
                 android:launchMode="singleTask"
                 android:taskAffinity="com.swensun.lala" />
-        <activity
-                android:name="com.swensun.func.exoplayer.ExoPlayerActivity"
-                android:screenOrientation="landscape" />
+        <activity android:name="com.swensun.func.exoplayer.ExoPlayerActivity" />
         <activity android:name="com.swensun.func.customview.CustomViewActivity" />
         <activity android:name="com.swensun.func.memory.MemoryActivity" />
         <activity
