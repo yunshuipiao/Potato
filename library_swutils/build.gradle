@@ -88,4 +88,8 @@ dependencies {
     // tag 布局
     api 'com.google.android:flexbox:2.0.1'
 
+    // okdownload
+    api "com.liulishuo.okdownload:okdownload:1.0.6"
+    api "com.liulishuo.okdownload:sqlite:1.0.6"
+    api "com.liulishuo.okdownload:okhttp:1.0.6"
 }

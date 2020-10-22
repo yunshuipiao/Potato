@@ -16,6 +16,46 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+    <LinearLayout
+            android:id="@+id/layout_download"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/video_view">
+
+        <Button
+                android:id="@+id/download_m3u8"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="download_m3u8" />
+
+
+        <Button
+                android:id="@+id/download_all_ts"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="download_all_ts" />
+
+
+        <Button
+                android:id="@+id/download_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="download_cancel" />
+
+        <Button
+                android:id="@+id/delete_file"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="delete_file" />
+
+
+    </LinearLayout>
+
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
