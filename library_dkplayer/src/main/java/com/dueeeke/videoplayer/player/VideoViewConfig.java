@@ -3,6 +3,7 @@ package com.dueeeke.videoplayer.player;
 
 import androidx.annotation.Nullable;
 
+import com.dueeeke.videoplayer.exo.ExoMediaPlayerFactory;
 import com.dueeeke.videoplayer.render.RenderViewFactory;
 import com.dueeeke.videoplayer.render.TextureRenderViewFactory;
 
@@ -42,7 +43,7 @@ public class VideoViewConfig {
         mScreenScaleType = builder.mScreenScaleType;
         if (builder.mPlayerFactory == null) {
             //默认为AndroidMediaPlayer
-            mPlayerFactory = AndroidMediaPlayerFactory.create();
+            mPlayerFactory = ExoMediaPlayerFactory.create();
         } else {
             mPlayerFactory = builder.mPlayerFactory;
         }

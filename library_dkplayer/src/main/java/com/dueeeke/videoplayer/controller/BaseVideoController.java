@@ -298,7 +298,7 @@ public abstract class BaseVideoController extends FrameLayout
         public void run() {
             int pos = setProgress();
             if (mControlWrapper.isPlaying()) {
-                postDelayed(this, (long) ((1000  - pos % 1000) / mControlWrapper.getSpeed()));
+                postDelayed(this, (long) ((1000 - pos % 1000) / mControlWrapper.getSpeed()));
             } else {
                 mIsStartProgress = false;
             }
