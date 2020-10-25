@@ -37,7 +37,7 @@ public class ExoMediaPlayer extends AbstractPlayer implements VideoListener, Pla
     protected SimpleExoPlayer mInternalPlayer;
     protected MediaSource mMediaSource;
     protected ExoMediaSourceHelper mMediaSourceHelper;
-    protected boolean isCache = false;
+    protected boolean isCache = true;
 
     private PlaybackParameters mSpeedPlaybackParameters;
 
@@ -55,11 +55,11 @@ public class ExoMediaPlayer extends AbstractPlayer implements VideoListener, Pla
         mMediaSourceHelper = ExoMediaSourceHelper.getInstance(context);
     }
 
-    public ExoMediaPlayer(Context context, boolean isCache) {
-        mAppContext = context.getApplicationContext();
-        mMediaSourceHelper = ExoMediaSourceHelper.getInstance(context);
-        this.isCache = isCache;
-    }
+//    public ExoMediaPlayer(Context context, boolean isCache) {
+//        mAppContext = context.getApplicationContext();
+//        mMediaSourceHelper = ExoMediaSourceHelper.getInstance(context);
+//        this.isCache = isCache;
+//    }
 
     @Override
     public void initPlayer() {

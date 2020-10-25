@@ -5,10 +5,14 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
+import com.dueeeke.videoplayer.player.ProgressManager
+import com.dueeeke.videoplayer.player.VideoViewConfig
+import com.dueeeke.videoplayer.player.VideoViewManager
 import com.swensun.TimeLog
 import com.swensun.http.SimpleActivityLifecycleCallbacks
 import com.swensun.library_crash.CrashUtil
 import com.swensun.swutils.SwUtils
+import com.swensun.swutils.shareprefence.SharePreferencesManager
 
 
 class PotatoApplication : Application() {
@@ -47,6 +51,20 @@ class PotatoApplication : Application() {
             CrashUtil.init(this)
         }
         TimeLog.log("2")
+
+        VideoViewManager.setConfig(
+            VideoViewConfig.newBuilder().setProgressManager(object :
+                ProgressManager() {
+                override fun saveProgress(url: String?, progress: Long) {
+                    SharePreferencesManager.put(url ?: "", progress)
+                }
+
+                override fun getSavedProgress(url: String?): Long {
+                    val progress =  SharePreferencesManager[url ?: "", 0L]
+                    return progress
+                }
+            }).build()
+        )
     }
 }
 
