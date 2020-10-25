@@ -145,7 +145,7 @@ class MainActivity : BaseActivity() {
             startActivity<DownloadActivity>()
         }
 
-        btn_exo_player.performClick()
+        btn_download.performClick()
     }
 
     override fun onDestroy() {
