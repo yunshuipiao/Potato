@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.swensun.potato.R
+import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.room_fragment.*
 
 class RoomFragment : Fragment() {
@@ -32,11 +34,14 @@ class RoomFragment : Fragment() {
     }
 
     private fun initView() {
+        viewModel.queryRoom().observe(requireActivity(), Observer {
+            Logger.d("room res: ${it.map { it.id }}")
+        })
         btn_clear.setOnClickListener {
             viewModel.clearAllData()
         }
         btn_query.setOnClickListener {
-            viewModel.queryRoom()
+
         }
         btn_add.setOnClickListener {
             viewModel.addEntity()

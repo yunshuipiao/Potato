@@ -7,10 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.SimpleItemAnimator
+import androidx.recyclerview.widget.*
 import com.drakeet.multitype.ItemViewDelegate
 import com.drakeet.multitype.MultiTypeAdapter
 import com.swensun.potato.R
@@ -65,6 +62,7 @@ class RecyclerViewFragment : Fragment() {
 //            adapter.currentList.add(1, RInt(100 - adapter.itemCount))
 //            adapter.notifyDataSetChanged()
 //        }
+        
 
         /**
          * MultiTypeAdapter
@@ -96,9 +94,9 @@ class RecyclerViewFragment : Fragment() {
             val items = arrayListOf<Any>().apply {
                 addAll(adapter.items)
             }
-            if (items.isNotEmpty()) {
-                items.removeLast()
-            }
+//            if (items.isNotEmpty()) {
+//                items.removeLast()
+//            }
             if (items.size < 50) {
                 items.addAll((items.size until items.size + 10).map { RInt(it) })
                 items.add(LoadMore())
@@ -121,6 +119,7 @@ class RecyclerViewFragment : Fragment() {
         }
     }
 }
+
 
 class RAdapter : RecyclerView.Adapter<RViewHolder>() {
 

@@ -60,7 +60,7 @@ class PotatoApplication : Application() {
                 }
 
                 override fun getSavedProgress(url: String?): Long {
-                    val progress =  SharePreferencesManager[url ?: "", 0L]
+                    val progress = SharePreferencesManager[url ?: "", 0L]
                     return progress
                 }
             }).build()

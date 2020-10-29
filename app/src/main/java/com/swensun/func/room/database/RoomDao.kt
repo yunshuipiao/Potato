@@ -4,19 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
-interface RoomDao {
+abstract class RoomDao : BaseDao<RoomEntity>() {
     @Query("select * from RoomEntity")
-    fun queryRooms(): LiveData<List<RoomEntity>>
+    abstract fun queryRooms(): LiveData<List<RoomEntity>>
 
     @Query("select * from RoomEntity")
-    fun queryRooms2(): List<RoomEntity>
-    
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertRoom(rooms: List<RoomEntity>)
-
-    @Update
-    fun updateRoom(roomEntity: RoomEntity)
-
-    @Delete
-    fun deleteRoom(roomEntity: RoomEntity)
+    abstract fun queryRooms2(): List<RoomEntity>
 }

@@ -3,6 +3,7 @@ package com.swensun.http
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import com.blankj.utilcode.util.AppUtils
 import com.swensun.swutils.util.Logger
 
 open class SimpleActivityLifecycleCallbacks : Application.ActivityLifecycleCallbacks {
