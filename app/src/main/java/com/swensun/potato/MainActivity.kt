@@ -136,7 +136,7 @@ class MainActivity : BaseActivity() {
                 .notify(UtilCodeFragment.notification_id, notification)
         }
         fab.setOnClickListener {
-            viewModel.testCoroutines()
+            viewModel.test()
         }
         btn_fragment.setOnClickListener {
             startActivity<FragmentModeActivity>()

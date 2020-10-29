@@ -51,7 +51,7 @@ class DownloadActivity : AppCompatActivity() {
         //队列调度系统
 
         //先处理正在下载
-        var cachingItems = mItems.sortedByDescending { it.updateTime }
+        var cachingItems = mItems.sortedBy { it.updateTime }
             .filter { it.status == PlayCacheStatus.CACHING }
         cachingItems.forEachIndexed { index, progressStatus ->
             if (index >= MAX_CACHEING) {
@@ -107,13 +107,13 @@ class ProgressViewHolderDelegate :
         init {
 
             downloadRunnable = Runnable {
-                item?.let {
-                    it.progress += 1
-                    if (it.progress == 100) {
-                        it.status = PlayCacheStatus.CACHED
-                    }
-                    statusChangedListener?.invoke(adapterPosition, it)
-                }
+//                item?.let {
+//                    it.progress += 1
+//                    if (it.progress == 100) {
+//                        it.status = PlayCacheStatus.CACHED
+//                    }
+//                    statusChangedListener?.invoke(adapterPosition, it)
+//                }
             }
 
             itemView.setOnClickListener {

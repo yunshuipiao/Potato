@@ -1,5 +1,6 @@
 package com.swensun.potato
 
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.swensun.swutils.util.Logger
@@ -23,6 +24,13 @@ class MainViewModel : ViewModel() {
             val model = Gson().fromJson<Model>(json, Model::class.java)
         }
 //        Logger.d("-- end ${System.currentTimeMillis() - startTime} --")
+    }
+
+    fun test() {
+        val str = "#EXT-X-KEY:METHOD    URI=\"Https://baidu.com\", IV=0x000000"
+        val regexURI = Regex("URI=\"(.*?)\"")
+        val s = regexURI.find(str)
+        Logger.d("u: ${s.toString()}")
     }
 }
 
