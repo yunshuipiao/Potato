@@ -5,9 +5,23 @@
         android:orientation="vertical">
 
     <Button
-            android:id="@+id/btn_livedata"
+            android:id="@+id/btn_livedata_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/livedata"/>
+            android:text="0" />
+
+    <Button
+            android:id="@+id/btn_livedata_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0" />
+
+    <Button
+            android:id="@+id/btn_livedata_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0" />
+
+
 </LinearLayout>
 
