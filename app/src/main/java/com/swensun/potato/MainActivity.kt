@@ -32,7 +32,6 @@ import com.swensun.func.multidialog.MultiDialogActivity
 import com.swensun.func.push.DeeplinkActivity
 import com.swensun.func.recycler.RecyclerViewActivity
 import com.swensun.func.room.RoomActivity
-import com.swensun.func.room.database.RoomDataBaseUtils
 import com.swensun.func.status.StatusBarActivity
 import com.swensun.func.time.TimeAboutActivity
 import com.swensun.func.trans.TransFontActivity
