@@ -9,6 +9,8 @@ class RoomEntity {
 
     var title: String = ""
 
-    var size: Int = 0
+    var count: Int = 0
+
+    var startTime: Int = 0
 }
 

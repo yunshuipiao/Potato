@@ -145,7 +145,7 @@ class MainActivity : BaseActivity() {
             startActivity<DownloadActivity>()
         }
 
-        btn_livedata.performClick()
+        btn_room.performClick()
     }
 
     override fun onDestroy() {

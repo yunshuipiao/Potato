@@ -31,10 +31,5 @@ abstract class RDataBase : RoomDatabase() {
                 })
                 .build()
         }
-        private val M_1_2 = object : Migration(1, 2) {
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("CREATE  INDEX `index_RoomEntity_title` ON `${RoomEntity}` (`title`)")
-            }
-        }
     }
 }

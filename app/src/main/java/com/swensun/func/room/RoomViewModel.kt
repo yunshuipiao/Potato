@@ -14,17 +14,15 @@ class RoomViewModel : ViewModel() {
         return roomDao.queryRooms()
     }
 
-    fun addEntity() {
+    fun addRoomEntity() {
         launchIO {
-            roomDao.upsert(RoomEntity().apply { id = 100 })
+            roomDao.upsert(RoomEntity().apply { id = 30 })
         }
     }
 
-    fun clearAllData() {
-        DataCleanManager.cleanDatabases()
-    }
-
-    fun migration() {
-
+    fun upsert(it: RoomEntity) {
+        launchIO {
+            roomDao.upsert(it)
+        }
     }
 }
