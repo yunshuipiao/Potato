@@ -68,9 +68,7 @@ class PotatoApplication : Application() {
             }).build()
         )
 
-        RDataBase.INSTANCE.roomDao().queryRooms().observeForever {
-            Logger.d("RDataBase data change:${it.size}")
-        }
+        RDataBase.init()
     }
 }
 

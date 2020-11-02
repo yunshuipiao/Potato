@@ -13,6 +13,11 @@ abstract class RDataBase : RoomDatabase() {
     abstract fun roomDao(): RoomDao
 
     companion object {
+        fun init() {
+            INSTANCE.roomDao().queryRooms().observeForever {
+                Logger.d("RDataBase data change:${it.size}")
+            }
+        }
 
         const val RoomEntity = "RoomEntity"
 
