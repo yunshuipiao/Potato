@@ -53,15 +53,21 @@ class RoomFragment : Fragment() {
                 viewModel.upsert(it)
             }
         })
-        viewModel.queryRoom().observe(requireActivity(), Observer {
+        viewModel.allRoomLiveData.observe(requireActivity(), Observer {
             Logger.d("room res: ${it.map { it.id }}")
-            adapter.items = it
+            adapter.items = it.sortedByDescending { it.startTime }
             adapter.notifyDataSetChanged()
         })
         btn_add.setOnClickListener {
-            viewModel.addRoomEntity()
+            (0..10).forEach {
+                viewModel.addRoomEntity()
+            }
         }
-
+        btn_clear.setOnClickListener {
+            viewModel.allRoom.forEach {
+                viewModel.deleta(it)
+            }
+        }
     }
 }
 

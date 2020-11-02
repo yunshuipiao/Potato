@@ -4,6 +4,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -34,9 +35,9 @@ open class StateViewModel : ViewModel() {
     }
 }
 
-fun ViewModel.launchIO(block: (() -> Unit)) {
+fun ViewModel.launchIO(block: suspend CoroutineScope.() -> Unit) {
     viewModelScope.launch(Dispatchers.IO) {
-        block.invoke()
+        block()
     }
 }
 

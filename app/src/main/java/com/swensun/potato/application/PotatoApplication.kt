@@ -9,10 +9,12 @@ import com.dueeeke.videoplayer.player.ProgressManager
 import com.dueeeke.videoplayer.player.VideoViewConfig
 import com.dueeeke.videoplayer.player.VideoViewManager
 import com.swensun.TimeLog
+import com.swensun.func.room.database.RDataBase
 import com.swensun.http.SimpleActivityLifecycleCallbacks
 import com.swensun.library_crash.CrashUtil
 import com.swensun.swutils.SwUtils
 import com.swensun.swutils.shareprefence.SharePreferencesManager
+import com.swensun.swutils.util.Logger
 
 
 class PotatoApplication : Application() {
@@ -65,6 +67,10 @@ class PotatoApplication : Application() {
                 }
             }).build()
         )
+
+        RDataBase.INSTANCE.roomDao().queryRooms().observeForever {
+            Logger.d("RDataBase data change:${it.size}")
+        }
     }
 }
 
