@@ -36,6 +36,8 @@ class StatusPageActivity : BaseActivity() {
             }
         })
 
+        
+
         btn_error.setOnClickListener {
             viewModel.setStatus(StatusEvent.LOADING)
         }
