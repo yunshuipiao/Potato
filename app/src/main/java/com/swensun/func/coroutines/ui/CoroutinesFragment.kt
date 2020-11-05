@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.swensun.StateEvent
+import com.swensun.StatusEvent
 import com.swensun.potato.R
 import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.coroutines_fragment.*
@@ -30,16 +30,16 @@ class CoroutinesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(CoroutinesViewModel::class.java)
-        viewModel.stateLiveData.observe(this, Observer {
+        viewModel.statusLiveData.observe(this, Observer {
             when (it) {
-                StateEvent.LOADING -> {
+                StatusEvent.LOADING -> {
                     Logger.d("loading ${it.msg}")
                 }
-                StateEvent.SUCCESS -> {
+                StatusEvent.SUCCESS -> {
                     Logger.d("SUCCESS")
 
                 }
-                StateEvent.ERROR -> {
+                StatusEvent.ERROR -> {
                     Logger.d("ERROR ${it.msg}")
                 }
             }

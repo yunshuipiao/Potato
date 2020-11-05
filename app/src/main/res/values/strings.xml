@@ -31,4 +31,5 @@
     <string name="send_notification">send_notification</string>
     <string name="fragment">framgent</string>
     <string name="download">download</string>
+    <string name="status">状态页面</string>
 </resources>

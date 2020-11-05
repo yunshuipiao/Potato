@@ -1,6 +1,5 @@
 package com.swensun
 
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,28 +7,28 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-sealed class StateEvent(var msg: String = "") {
-    object LOADING : StateEvent()
-    object SUCCESS : StateEvent()
-    object ERROR : StateEvent()
+sealed class StatusEvent(var msg: String = "") {
+    object LOADING : StatusEvent()
+    object SUCCESS : StatusEvent()
+    object ERROR : StatusEvent()
 }
 
-open class StateViewModel : ViewModel() {
+open class StatusViewModel : ViewModel() {
 
-    val stateLiveData = MutableLiveData<StateEvent>()
+    val statusLiveData = MutableLiveData<StatusEvent>()
 
     protected fun postLoading(msg: String = "") {
-        stateLiveData.postValue(StateEvent.LOADING.apply {
+        statusLiveData.postValue(StatusEvent.LOADING.apply {
             this.msg = msg
         })
     }
 
     protected fun postSuccess() {
-        stateLiveData.postValue(StateEvent.SUCCESS)
+        statusLiveData.postValue(StatusEvent.SUCCESS)
     }
 
     protected fun postError(msg: String = "") {
-        stateLiveData.postValue(StateEvent.ERROR.apply {
+        statusLiveData.postValue(StatusEvent.ERROR.apply {
             this.msg = msg
         })
     }

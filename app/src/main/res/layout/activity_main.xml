@@ -21,11 +21,11 @@
                 android:orientation="vertical">
 
             <Button
-                    android:id="@+id/btn_download"
+                    android:id="@+id/btn_status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:text="@string/download" />
+                    android:text="@string/status" />
 
             <Button
                     android:id="@+id/btn_fragment"

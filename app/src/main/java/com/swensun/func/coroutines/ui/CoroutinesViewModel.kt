@@ -1,7 +1,7 @@
 package com.swensun.func.coroutines.ui
 
 import androidx.lifecycle.viewModelScope
-import com.swensun.StateViewModel
+import com.swensun.StatusViewModel
 import com.swensun.func.coroutines.ApiService
 import com.swensun.http.BaseResponse
 import com.swensun.http.HttpClient
@@ -9,7 +9,7 @@ import com.swensun.swutils.util.Logger
 import kotlinx.coroutines.*
 import kotlin.system.measureTimeMillis
 
-class CoroutinesViewModel : StateViewModel() {
+class CoroutinesViewModel : StatusViewModel() {
 
 
     private val apiService = HttpClient.createService<ApiService>()

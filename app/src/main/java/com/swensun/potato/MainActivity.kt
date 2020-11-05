@@ -19,7 +19,6 @@ import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
 import com.swensun.func.customview.CustomViewActivity
 import com.swensun.func.customview.FrameLayoutActivity
-import com.swensun.func.download.DownloadActivity
 import com.swensun.func.exoplayer.ExoPlayerActivity
 import com.swensun.func.feature.FeatureActivity
 import com.swensun.func.fragment.FragmentModeActivity
@@ -30,6 +29,7 @@ import com.swensun.func.multidialog.MultiDialogActivity
 import com.swensun.func.push.DeeplinkActivity
 import com.swensun.func.recycler.RecyclerViewActivity
 import com.swensun.func.room.RoomActivity
+import com.swensun.func.status.StatusPageActivity
 import com.swensun.func.statusbar.StatusBarActivity
 import com.swensun.func.time.TimeAboutActivity
 import com.swensun.func.trans.TransFontActivity
@@ -39,6 +39,8 @@ import com.swensun.func.viewpager.fragment.ViewPagerActivity
 import com.swensun.potato.application.createNotificationChannel
 import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.btn_status
+import kotlinx.android.synthetic.main.progress_item.*
 import org.jetbrains.anko.startActivity
 
 class MainActivity : BaseActivity() {
@@ -139,11 +141,11 @@ class MainActivity : BaseActivity() {
         btn_fragment.setOnClickListener {
             startActivity<FragmentModeActivity>()
         }
-        btn_download.setOnClickListener {
-            startActivity<DownloadActivity>()
+        btn_status.setOnClickListener {
+            startActivity<StatusPageActivity>()
         }
 
-        btn_room.performClick()
+        btn_status.performClick()
     }
 
     override fun onDestroy() {
