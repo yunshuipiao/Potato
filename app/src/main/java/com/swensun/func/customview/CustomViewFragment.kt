@@ -35,8 +35,6 @@ class CustomViewFragment : Fragment() {
         activity?.lifecycle?.addObserver(fo_view)
         activity?.lifecycle?.addObserver(taiji_view)
 
-        val lo = LifecycleObject()
-        activity?.lifecycle?.addObserver(lo)
         bubble_layout.look = Gravity.BOTTOM
         bubble_layout.lookView(float_btn)
     }

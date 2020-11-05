@@ -11,6 +11,7 @@ sealed class StatusEvent(var msg: String = "") {
     object LOADING : StatusEvent()
     object SUCCESS : StatusEvent()
     object ERROR : StatusEvent()
+    object EMPTY: StatusEvent()
 }
 
 open class StatusViewModel : ViewModel() {

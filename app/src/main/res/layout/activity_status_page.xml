@@ -23,11 +23,11 @@
                 android:text="error" />
 
         <Button
-                android:id="@+id/btn_empty"
+                android:id="@+id/btn_loading"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="empty" />
+                android:text="loading" />
 
         <Button
                 android:id="@+id/btn_success"
@@ -38,7 +38,7 @@
     </LinearLayout>
 
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/root_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -46,6 +46,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_operator" />
+            app:layout_constraintTop_toBottomOf="@id/layout_operator">
+
+        <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:background="#80ffffff"
+                android:elevation="0dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
