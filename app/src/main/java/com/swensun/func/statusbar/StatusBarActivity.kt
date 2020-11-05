@@ -1,13 +1,9 @@
-package com.swensun.func.status
+package com.swensun.func.statusbar
 
-import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.view.WindowManager
-import androidx.annotation.ColorRes
-import com.swensun.base.BaseActivity
 import com.swensun.potato.R
 
 class StatusBarActivity : AppCompatActivity() {

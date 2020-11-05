@@ -1,4 +1,4 @@
-package com.swensun.func.status
+package com.swensun.func.statusbar
 
 import android.graphics.Color
 import android.os.Build
@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import androidx.core.view.DisplayCutoutCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.swensun.potato.R

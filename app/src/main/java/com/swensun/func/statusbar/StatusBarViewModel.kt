@@ -1,4 +1,4 @@
-package com.swensun.func.status
+package com.swensun.func.statusbar
 
 import androidx.lifecycle.ViewModel
 

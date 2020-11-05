@@ -1,9 +1,7 @@
 package com.swensun.potato
 
-import android.app.DownloadManager
 import android.app.PendingIntent
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -32,7 +30,7 @@ import com.swensun.func.multidialog.MultiDialogActivity
 import com.swensun.func.push.DeeplinkActivity
 import com.swensun.func.recycler.RecyclerViewActivity
 import com.swensun.func.room.RoomActivity
-import com.swensun.func.status.StatusBarActivity
+import com.swensun.func.statusbar.StatusBarActivity
 import com.swensun.func.time.TimeAboutActivity
 import com.swensun.func.trans.TransFontActivity
 import com.swensun.func.utilcode.UtilCodeActivity

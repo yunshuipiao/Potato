@@ -32,7 +32,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.swensun.func.utilcode.UtilCodeActivity" />
-        <activity android:name="com.swensun.func.status.StatusBarActivity" />
+        <activity android:name="com.swensun.func.statusbar.StatusBarActivity" />
         <activity
                 android:name="com.swensun.func.feature.FeatureActivity"
                 android:configChanges="orientation|keyboardHidden|screenSize" />
