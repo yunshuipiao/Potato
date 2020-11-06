@@ -15,7 +15,6 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
         <activity android:name="com.swensun.func.status.StatusPageActivity"></activity>
-        <activity android:name="com.swensun.func.download.DownloadActivity" />
         <activity android:name="com.swensun.func.fragment.FragmentModeActivity" />
         <activity
                 android:name="com.swensun.func.push.DeeplinkActivity"
@@ -45,7 +44,8 @@
         <activity
                 android:name="com.swensun.func.exoplayer.ExoPlayerActivity"
                 android:configChanges="orientation|screenSize|keyboardHidden|screenLayout"
-                android:screenOrientation="portrait" />
+                android:screenOrientation="portrait"
+                />
         <activity android:name="com.swensun.func.customview.CustomViewActivity" />
         <activity android:name="com.swensun.func.memory.MemoryActivity" />
         <activity

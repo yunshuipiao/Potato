@@ -22,8 +22,7 @@ import java.io.File
 
 class ExoPlayerActivity : AppCompatActivity() {
 
-    private var video_url =
-        "https://media6.smartstudy.com/ae/07/3997/2/dest.m3u8"
+    private var video_url = "https://media6.smartstudy.com/ae/07/3997/2/dest.m3u8"
 
     private var task: DownloadTask? = null
 
@@ -79,6 +78,4 @@ class ExoPlayerActivity : AppCompatActivity() {
             super.onBackPressed()
         }
     }
-
-
 }
