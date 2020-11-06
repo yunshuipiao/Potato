@@ -11,18 +11,18 @@ class Get {
 
     @Test
     fun test() {
-       runBlocking {
+        runBlocking {
             flow {
                 (1..5).forEach {
                     delay(800)
                     emit(it)
                 }
-            }   .catch {
+            }.catch {
                 println(it.message)
             }
                 .onEach {
-                println("each $it")
-            }.onStart { println("Start") }
+                    println("each $it")
+                }.onStart { println("Start") }
                 .onCompletion { println("completion") }
 
                 .toList()

@@ -3,6 +3,7 @@ package com.swensun.func.room
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
+import androidx.room.Transaction
 import com.swensun.func.room.database.RDataBase
 import com.swensun.func.room.database.RoomEntity
 import com.swensun.launchIO
@@ -23,22 +24,19 @@ class RoomViewModel : ViewModel() {
         }
     }
 
-    fun addRoomEntity() {
+    fun upsertList(entities: List<RoomEntity>) {
         launchIO {
-            val entity = RoomEntity().apply {
-                startTime = (System.currentTimeMillis() / 1000).toInt()
-            }
+            roomDao.upsertList(entities)
+        }
+    }
+
+    fun upsertList(entity: RoomEntity) {
+        launchIO {
             roomDao.upsert(entity)
         }
     }
 
-    fun upsert(it: RoomEntity) {
-        launchIO {
-            roomDao.upsert(it)
-        }
-    }
-
-    fun deleta(it: RoomEntity) {
+    fun delete(it: RoomEntity) {
         launchIO {
             roomDao.delete(it)
         }

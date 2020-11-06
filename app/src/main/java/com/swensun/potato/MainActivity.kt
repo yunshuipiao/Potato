@@ -39,8 +39,6 @@ import com.swensun.func.viewpager.fragment.ViewPagerActivity
 import com.swensun.potato.application.createNotificationChannel
 import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.btn_status
-import kotlinx.android.synthetic.main.progress_item.*
 import org.jetbrains.anko.startActivity
 
 class MainActivity : BaseActivity() {
@@ -145,7 +143,7 @@ class MainActivity : BaseActivity() {
             startActivity<StatusPageActivity>()
         }
 
-        btn_status.performClick()
+        btn_room.performClick()
     }
 
     override fun onDestroy() {

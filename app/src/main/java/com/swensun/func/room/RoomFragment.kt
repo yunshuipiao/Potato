@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -18,7 +17,6 @@ import com.swensun.potato.R
 import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.room_entity_item.view.*
 import kotlinx.android.synthetic.main.room_fragment.*
-import kotlinx.android.synthetic.main.room_fragment.view.*
 
 class RoomFragment : Fragment() {
 
@@ -49,23 +47,25 @@ class RoomFragment : Fragment() {
         recycler_view.adapter = adapter
         adapter.register(RoomEntityDelegate().apply {
             buttonClickListener = {
-                it.count += 1
-                viewModel.upsert(it)
             }
         })
         viewModel.allRoomLiveData.observe(requireActivity(), Observer {
-            Logger.d("room res: ${it.map { it.id }}")
+            Logger.d("room res -- ")
             adapter.items = it.sortedByDescending { it.startTime }
             adapter.notifyDataSetChanged()
         })
         btn_add.setOnClickListener {
-            (0..10).forEach {
-                viewModel.addRoomEntity()
+            viewModel.upsertList(RoomEntity())
+        }
+        btn_add_mul.setOnClickListener {
+            val entities = (0 until 1000).map {
+                RoomEntity().apply { title = "$it" }
             }
+            viewModel.upsertList(entities)
         }
         btn_clear.setOnClickListener {
             viewModel.allRoom.forEach {
-                viewModel.deleta(it)
+                viewModel.delete(it)
             }
         }
     }

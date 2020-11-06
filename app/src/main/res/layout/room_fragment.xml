@@ -29,6 +29,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="add" />
+
+
+        <Button
+                android:id="@+id/btn_add_mul"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="add_mul" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
