@@ -45,7 +45,8 @@ class MainActivity : RxAppCompatActivity() {
 //        playAnim()
         vibrator = getSystemService(Service.VIBRATOR_SERVICE) as Vibrator
     }
-    
+
+
 
     override fun onResume() {
         super.onResume()

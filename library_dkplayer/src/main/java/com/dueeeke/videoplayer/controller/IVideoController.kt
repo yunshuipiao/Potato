@@ -1,60 +1,59 @@
-package com.dueeeke.videoplayer.controller;
+package com.dueeeke.videoplayer.controller
 
-public interface IVideoController {
-
+/**
+ * 播放器控制回调接口
+ */
+interface IVideoController {
     /**
      * 开始控制视图自动隐藏倒计时
      */
-    void startFadeOut();
+    fun startFadeOut()
 
     /**
      * 取消控制视图自动隐藏倒计时
      */
-    void stopFadeOut();
+    fun stopFadeOut()
 
     /**
      * 控制视图是否处于显示状态
      */
-    boolean isShowing();
-
+    val isShowing: Boolean
+    /**
+     * 是否处于锁定状态
+     */
     /**
      * 设置锁定状态
      * @param locked 是否锁定
      */
-    void setLocked(boolean locked);
-
-    /**
-     * 是否处于锁定状态
-     */
-    boolean isLocked();
+    var isLocked: Boolean
 
     /**
      * 开始刷新进度
      */
-    void startProgress();
+    fun startProgress()
 
     /**
      * 停止刷新进度
      */
-    void stopProgress();
+    fun stopProgress()
 
     /**
      * 显示控制视图
      */
-    void hide();
+    fun show()
 
     /**
      * 隐藏控制视图
      */
-    void show();
+    fun hide()
 
     /**
      * 是否需要适配刘海
      */
-    boolean hasCutout();
+    fun hasCutout(): Boolean
 
     /**
      * 获取刘海的高度
      */
-    int getCutoutHeight();
+    val cutoutHeight: Int
 }
