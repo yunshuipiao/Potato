@@ -1,5 +1,6 @@
 package com.swensun.func.exoplayer
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.blankj.utilcode.util.FileUtils
@@ -26,10 +27,12 @@ class ExoPlayerActivity : AppCompatActivity() {
         control.addDefaultControlComponent("dest", false)
         control.setEnableOrientation(true)
         video_view.videoController = control
-        video_view.skipPositionWhenPlay(10000)
         video_view.start()
         fab.setOnClickListener {
-            video_view.replay(false)
+            AlertDialog.Builder(this)
+                .setTitle("lala")
+                .create()
+                .show()
         }
 
         delete_file.setOnClickListener {

@@ -423,7 +423,8 @@ class VideoView<P : AbstractPlayer> @JvmOverloads constructor(
      * 继续播放
      */
     fun resume() {
-        if (isInPlaybackState() && mediaPlayer != null && mediaPlayer?.isPlaying != true) {
+        if (isInPlaybackState() && mediaPlayer?.isPlaying != true) {
+            mediaPlayer?.start()
             setPlayState(STATE_PLAYING)
             audioFocusHelper?.requestFocus()
             playerContainer.keepScreenOn = true
