@@ -1,6 +1,5 @@
 package com.swensun.func.exoplayer
 
-import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.blankj.utilcode.util.FileUtils
@@ -9,9 +8,7 @@ import com.dueeeke.videoplayer.ui.StandardVideoController
 import com.liulishuo.okdownload.DownloadTask
 import com.swensun.func.exoplayer.download.DownloadManager
 import com.swensun.potato.R
-import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.exo_player_activity.*
-import java.io.File
 
 class ExoPlayerActivity : AppCompatActivity() {
 
