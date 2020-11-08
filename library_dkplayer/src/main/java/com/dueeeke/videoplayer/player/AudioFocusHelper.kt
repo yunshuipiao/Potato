@@ -6,7 +6,8 @@ import android.os.Handler
 import android.os.Looper
 import java.lang.ref.WeakReference
 
-class AudioFocusHelper(videoView: VideoView<*>) : AudioManager.OnAudioFocusChangeListener {
+class AudioFocusHelper(videoView: VideoView<out AbstractPlayer>) :
+    AudioManager.OnAudioFocusChangeListener {
 
     private val mWeakVideoView = WeakReference(videoView)
     private val mAudioManager by lazy { videoView.context.getSystemService(Context.AUDIO_SERVICE) as AudioManager }
