@@ -77,7 +77,7 @@ public class ExoMediaPlayer extends AbstractPlayer implements VideoListener, Pla
         setOptions();
 
         //播放器日志
-        if (VideoViewManager.getConfig().isEnableLog() && mTrackSelector instanceof MappingTrackSelector) {
+        if (VideoViewManager.INSTANCE.getConfig().isEnableLog() && mTrackSelector instanceof MappingTrackSelector) {
             mInternalPlayer.addAnalyticsListener(new EventLogger((MappingTrackSelector) mTrackSelector, "ExoPlayer"));
         }
 

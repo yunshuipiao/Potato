@@ -137,7 +137,7 @@ public class VideoView<P extends AbstractPlayer> extends FrameLayout
         super(context, attrs, defStyleAttr);
 
         //读取全局配置
-        VideoViewConfig config = VideoViewManager.getConfig();
+        VideoViewConfig config = VideoViewManager.INSTANCE.getConfig();
         mEnableAudioFocus = config.getEnableAudioFocus();
         mProgressManager = config.getProgressManager();
         mPlayerFactory = (PlayerFactory<P>) config.getPlayerFactory();

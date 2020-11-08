@@ -57,8 +57,7 @@ class PotatoApplication : Application() {
         }
         TimeLog.log("2")
 
-        VideoViewManager.setConfig(
-            VideoViewConfig().apply {
+        VideoViewManager.config = VideoViewConfig().apply {
                 progressManager = object : ProgressManager() {
                     override fun saveProgress(url: String?, progress: Long) {
                         SharePreferencesManager.put(url ?: "", progress)
@@ -70,7 +69,6 @@ class PotatoApplication : Application() {
                     }
                 }
             }
-        )
         RDataBase.init()
     }
 
