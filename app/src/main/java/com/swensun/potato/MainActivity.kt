@@ -143,11 +143,7 @@ class MainActivity : BaseActivity() {
             startActivity<StatusPageActivity>()
         }
 
-        btn_room.performClick()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
+        btn_exo_player.performClick()
     }
 
     override fun onBackPressed() {
