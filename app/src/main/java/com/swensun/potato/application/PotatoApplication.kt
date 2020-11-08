@@ -14,7 +14,7 @@ import com.swensun.http.SimpleActivityLifecycleCallbacks
 import com.swensun.library_crash.CrashUtil
 import com.swensun.swutils.SwUtils
 import com.swensun.swutils.shareprefence.SharePreferencesManager
-import com.swensun.swutils.util.Logger
+import org.jetbrains.anko.alert
 
 
 class PotatoApplication : Application() {
@@ -25,6 +25,9 @@ class PotatoApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        alert {
+
+        }
 //        val callback = object : Choreographer.FrameCallback {
 //            override fun doFrame(frameTimeNanos: Long) {
 //                val diff = frameTimeNanos / 1000000 - startTime
@@ -55,21 +58,22 @@ class PotatoApplication : Application() {
         TimeLog.log("2")
 
         VideoViewManager.setConfig(
-            VideoViewConfig.newBuilder().setProgressManager(object :
-                ProgressManager() {
-                override fun saveProgress(url: String?, progress: Long) {
-                    SharePreferencesManager.put(url ?: "", progress)
-                }
+            VideoViewConfig().apply {
+                progressManager = object : ProgressManager() {
+                    override fun saveProgress(url: String?, progress: Long) {
+                        SharePreferencesManager.put(url ?: "", progress)
+                    }
 
-                override fun getSavedProgress(url: String?): Long {
-                    val progress = SharePreferencesManager[url ?: "", 0L]
-                    return progress
+                    override fun getSavedProgress(url: String?): Long {
+                        val progress = SharePreferencesManager[url ?: "", 0L]
+                        return progress
+                    }
                 }
-            }).build()
+            }
         )
-
         RDataBase.init()
     }
+
 }
 
 fun createNotificationChannel(

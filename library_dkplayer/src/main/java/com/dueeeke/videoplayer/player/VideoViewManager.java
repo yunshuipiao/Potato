@@ -34,7 +34,7 @@ public class VideoViewManager {
     private static VideoViewConfig sConfig;
 
     private VideoViewManager() {
-        mPlayOnMobileNetwork = getConfig().mPlayOnMobileNetwork;
+        mPlayOnMobileNetwork = getConfig().getPlayOnMobileNetWork();
     }
 
     /**
@@ -44,7 +44,7 @@ public class VideoViewManager {
         if (sConfig == null) {
             synchronized (VideoViewConfig.class) {
                 if (sConfig == null) {
-                    sConfig = config == null ? VideoViewConfig.newBuilder().build() : config;
+                    sConfig = config == null ? new VideoViewConfig() : config;
                 }
             }
         }
@@ -85,6 +85,7 @@ public class VideoViewManager {
 
     /**
      * 添加VideoView
+     *
      * @param tag 相同tag的VideoView只会保存一个，如果tag相同则会release并移除前一个
      */
     public void add(VideoView videoView, String tag) {

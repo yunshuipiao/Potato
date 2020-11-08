@@ -16,7 +16,7 @@ public final class L {
 
     private static final String TAG = "DKPlayer";
 
-    private static boolean isDebug = VideoViewManager.getConfig().mIsEnableLog;
+    private static boolean isDebug = VideoViewManager.getConfig().isEnableLog();
 
 
     public static void d(String msg) {

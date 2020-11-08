@@ -138,11 +138,11 @@ public class VideoView<P extends AbstractPlayer> extends FrameLayout
 
         //读取全局配置
         VideoViewConfig config = VideoViewManager.getConfig();
-        mEnableAudioFocus = config.mEnableAudioFocus;
-        mProgressManager = config.mProgressManager;
-        mPlayerFactory = config.mPlayerFactory;
-        mCurrentScreenScaleType = config.mScreenScaleType;
-        mRenderViewFactory = config.mRenderViewFactory;
+        mEnableAudioFocus = config.getEnableAudioFocus();
+        mProgressManager = config.getProgressManager();
+        mPlayerFactory = (PlayerFactory<P>) config.getPlayerFactory();
+        mCurrentScreenScaleType = config.getScreenScaleType();
+        mRenderViewFactory = config.getRenderViewFactory();
 
         //读取xml中的配置，并综合全局配置
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.VideoView);

@@ -81,12 +81,12 @@ abstract class BaseVideoController @JvmOverloads constructor(
     /**
      * 是否根据屏幕方向进入/退出全屏
      */
-    private var mEnableOrientation = VideoViewManager.getConfig().mEnableOrientation
+    private var mEnableOrientation = VideoViewManager.getConfig().enableOrientation
 
     /**
      * 是否适配刘海
      */
-    private var mAdaptCutout = VideoViewManager.getConfig().mAdaptCutout
+    private var mAdaptCutout = VideoViewManager.getConfig().adaptCutout
 
     private var mShowAnim = AlphaAnimation(0f, 1f).apply { duration = 300 }
     private var mHideAnim = AlphaAnimation(1f, 0f).apply { duration = 300 }
