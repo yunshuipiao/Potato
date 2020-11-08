@@ -391,8 +391,7 @@ class VideoViewK<P : AbstractPlayer> @JvmOverloads constructor(
     override var currentPosition: Long = 0
         get() {
             if (isInPlaybackState()) {
-                field = mediaPlayer?.currentPosition ?: 0
-                return field
+                return mediaPlayer?.currentPosition ?: 0
             }
             return 0
         }
