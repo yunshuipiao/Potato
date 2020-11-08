@@ -24,7 +24,6 @@ import com.google.android.exoplayer2.video.VideoListener
 class ExoMediaPlayer(context: Context) : AbstractPlayer(), VideoListener, Player.EventListener {
 
     private val appContext = context.applicationContext
-    private val mediaSourceHelper = ExoMediaSourceHelper.getInstance(context)
     private var internalPlayer: SimpleExoPlayer? = null
 
     private var rendersFactory: RenderersFactory = DefaultRenderersFactory(appContext)
@@ -39,6 +38,10 @@ class ExoMediaPlayer(context: Context) : AbstractPlayer(), VideoListener, Player
 
     private var mediaSource: MediaSource? = null
     private var isCache = true
+
+    init {
+        ExoMediaSourceHelper.init(appContext)
+    }
 
     override fun initPlayer() {
         internalPlayer = SimpleExoPlayer.Builder(
@@ -68,7 +71,9 @@ class ExoMediaPlayer(context: Context) : AbstractPlayer(), VideoListener, Player
     }
 
     override fun setDataSource(path: String?, headers: Map<String?, String?>?) {
-        mediaSource = mediaSourceHelper.getMediaSource(path, headers, isCache)
+        if (path?.isNotBlank() == true) {
+            mediaSource = ExoMediaSourceHelper.getMediaSource(path, headers, isCache)
+        }
     }
 
     override fun setDataSource(fd: AssetFileDescriptor?) {

@@ -143,7 +143,7 @@ class MainActivity : BaseActivity() {
             startActivity<StatusPageActivity>()
         }
 
-        btn_exo_player.performClick()
+//        btn_exo_player.performClick()
     }
 
     override fun onBackPressed() {

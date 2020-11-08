@@ -8,10 +8,8 @@ import android.os.Build
 import com.dueeeke.videoplayer.player.ProgressManager
 import com.dueeeke.videoplayer.player.VideoViewConfig
 import com.dueeeke.videoplayer.player.VideoViewManager
-import com.swensun.TimeLog
 import com.swensun.func.room.database.RDataBase
 import com.swensun.http.SimpleActivityLifecycleCallbacks
-import com.swensun.library_crash.CrashUtil
 import com.swensun.swutils.SwUtils
 import com.swensun.swutils.shareprefence.SharePreferencesManager
 import org.jetbrains.anko.alert
@@ -53,9 +51,8 @@ class PotatoApplication : Application() {
         })
 
         if (SwUtils.debug) {
-            CrashUtil.init(this)
+//            CrashUtil.init(this)
         }
-        TimeLog.log("2")
 
         VideoViewManager.config = VideoViewConfig().apply {
             progressManager = object : ProgressManager() {
