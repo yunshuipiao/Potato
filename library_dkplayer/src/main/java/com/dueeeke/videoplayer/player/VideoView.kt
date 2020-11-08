@@ -1,21 +1,26 @@
 package com.dueeeke.videoplayer.player
 
+import android.app.Activity
 import android.content.ContentResolver
 import android.content.Context
 import android.content.res.AssetFileDescriptor
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
+import android.os.Build
+import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.FrameLayout
 import com.dueeeke.videoplayer.R
 import com.dueeeke.videoplayer.controller.BaseVideoController
 import com.dueeeke.videoplayer.controller.MediaPlayerControl
 import com.dueeeke.videoplayer.render.IRenderView
 import com.dueeeke.videoplayer.render.RenderViewFactory
+import com.dueeeke.videoplayer.util.L.d
 import com.dueeeke.videoplayer.util.PlayerUtils
 import java.io.IOException
 
@@ -23,7 +28,7 @@ import java.io.IOException
 /**
  * 播放器
  */
-class VideoViewK<P : AbstractPlayer> @JvmOverloads constructor(
+class VideoView<P : AbstractPlayer> @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr), MediaPlayerControl,
     AbstractPlayer.PlayerEventListener {
@@ -63,9 +68,29 @@ class VideoViewK<P : AbstractPlayer> @JvmOverloads constructor(
         fun onPlayStateChanged(playState: Int)
     }
 
+    /**
+     * OnStateChangeListener的空实现。用的时候只需要重写需要的方法
+     */
+    class SimpleOnStateChangeListener : VideoView.OnStateChangeListener {
+        override fun onPlayerStateChanged(playerState: Int) {}
+        override fun onPlayStateChanged(playState: Int) {}
+    }
+
     protected var mediaPlayer: AbstractPlayer? = null
-    protected var playerFactory: PlayerFactory<P>? = null
-    protected var videoController: BaseVideoController? = null
+    protected var playerFactory: PlayerFactory<out AbstractPlayer>? = null
+    var videoController: BaseVideoController? = null
+        set(value) {
+            playerContainer.removeView(value)
+            field = value
+            if (value != null) {
+                value.setMediaPlayer(this)
+                val lp = LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+                )
+                playerContainer.addView(field, lp)
+            }
+        }
 
     /**
      * 真正承载播放器视图的容器
@@ -82,7 +107,7 @@ class VideoViewK<P : AbstractPlayer> @JvmOverloads constructor(
      */
     override fun replay(resetPosition: Boolean) {
         if (resetPosition) {
-            currentPosition = 0
+            progressManager?.saveProgress(url, 0)
         }
         addDisplay()
         startPrepare(true)
@@ -139,6 +164,7 @@ class VideoViewK<P : AbstractPlayer> @JvmOverloads constructor(
      */
     protected var playerBackgroundColor: Int = 0
         set(value) {
+            field = value
             if (::playerContainer.isInitialized) {
                 playerContainer.setBackgroundColor(value)
             }
@@ -148,7 +174,7 @@ class VideoViewK<P : AbstractPlayer> @JvmOverloads constructor(
         val config = VideoViewManager.config
         enableAudioFocus = config.enableAudioFocus
         progressManager = config.progressManager
-        playerFactory = config.playerFactory as? PlayerFactory<P>?
+        playerFactory = config.playerFactory
         currentScreenScaleType = config.screenScaleType
         renderViewFactory = config.renderViewFactory
 
@@ -161,8 +187,7 @@ class VideoViewK<P : AbstractPlayer> @JvmOverloads constructor(
         isLooping = a.getBoolean(R.styleable.VideoView_looping, false)
         currentScreenScaleType =
             a.getInt(R.styleable.VideoView_screenScaleType, currentScreenScaleType)
-        playerBackgroundColor =
-            a.getColor(R.styleable.VideoView_playerBackgroundColor, Color.BLACK)
+        playerBackgroundColor = a.getColor(R.styleable.VideoView_playerBackgroundColor, Color.BLACK)
         a.recycle()
 
         initView()
@@ -233,10 +258,8 @@ class VideoViewK<P : AbstractPlayer> @JvmOverloads constructor(
         }
         //监听音频焦点改变
         if (enableAudioFocus) {
-            // todo
-//            audioFocusHelper = AudioFocusHelper()
+            audioFocusHelper = AudioFocusHelper(this)
         }
-        currentPosition = progressManager?.getSavedProgress(url) ?: 0
         initPlayer()
         addDisplay()
         startPrepare(false)
@@ -330,7 +353,7 @@ class VideoViewK<P : AbstractPlayer> @JvmOverloads constructor(
         if (assetFileDescriptor != null) {
             mediaPlayer?.setDataSource(assetFileDescriptor)
             return true
-        } else if (url.isNotBlank()) {
+        } else if (this.url.isNotBlank()) {
             mediaPlayer?.setDataSource(url, headers)
             return true
         }
@@ -411,12 +434,13 @@ class VideoViewK<P : AbstractPlayer> @JvmOverloads constructor(
      * 释放播放器
      */
     fun release() {
+        saveProgress()
         if (isInIdleState() == false) {
             //释放播放器
             mediaPlayer?.release()
             mediaPlayer = null
 
-            //释放renderview
+            //释放RenderView
             playerContainer.removeView(renderView?.view)
             renderView?.release()
             renderView = null
@@ -434,8 +458,6 @@ class VideoViewK<P : AbstractPlayer> @JvmOverloads constructor(
             audioFocusHelper = null
 
             playerContainer.keepScreenOn = false
-            saveProgress()
-            currentPosition = 0
             setPlayState(STATE_IDLE)
         }
     }
@@ -488,12 +510,20 @@ class VideoViewK<P : AbstractPlayer> @JvmOverloads constructor(
      */
     override fun onPrepared() {
         setPlayState(STATE_PREPARED)
-        if (currentPosition > 0) {
-            seekTo(currentPosition)
+        val lastPosition = progressManager?.getSavedProgress(url) ?: 0
+        if (lastPosition > 0) {
+            seekTo(lastPosition)
         }
     }
 
     override fun onVideoSizeChanged(width: Int, height: Int) {
+        videoSize[0] = width
+        videoSize[1] = height
+
+        renderView?.let {
+            it.setScaleType(currentScreenScaleType)
+            it.setVideoSize(width, height)
+        }
     }
 
     override fun seekTo(pos: Long) {
@@ -515,16 +545,16 @@ class VideoViewK<P : AbstractPlayer> @JvmOverloads constructor(
      * @param headers 请求头
      */
     fun setUrl(url: String, headers: Map<String?, String?>? = null) {
+        assetFileDescriptor = null
         this.url = url
         this.headers = headers
-        assetFileDescriptor = null
     }
 
     /**
      * 一开始播放就seek到预先设置好的位置
      */
     fun skipPositionWhenPlay(position: Int) {
-        this.currentPosition = position.toLong()
+        progressManager?.saveProgress(url, position.toLong())
     }
 
 
@@ -538,17 +568,116 @@ class VideoViewK<P : AbstractPlayer> @JvmOverloads constructor(
         mediaPlayer?.setVolume(v1, v2)
     }
 
+    /**
+     * 进入全屏
+     */
     override fun startFullScreen() {
-        TODO("Not yet implemented")
+        if (isFullScreen) {
+            return
+        }
+        val decorView = getDecorView()
+        if (decorView == null) {
+            return
+        }
+        isFullScreen = true
+
+        //隐藏 NavigationBar 和 StatusBar
+        hideSysBar(decorView)
+
+        //从当前 FrameLayout 中移除播放器视图
+        removeView(playerContainer)
+        decorView.addView(playerContainer)
+        setPlayerState(PLAYER_FULL_SCREEN)
+    }
+
+    override fun onWindowFocusChanged(hasWindowFocus: Boolean) {
+        super.onWindowFocusChanged(hasWindowFocus)
+        if (hasWindowFocus && isFullScreen) {
+            //重新获得焦点时保持全屏状态
+            hideSysBar(getDecorView())
+        }
+    }
+
+
+    /**
+     * 获取DecorView
+     */
+    protected fun getDecorView(): ViewGroup? {
+        val activity: Activity = getActivity() ?: return null
+        return activity.window.decorView as ViewGroup
+    }
+
+    /**
+     * 获取Activity，优先通过Controller去获取Activity
+     */
+    protected fun getActivity(): Activity? {
+        var activity: Activity?
+        if (videoController != null) {
+            activity = PlayerUtils.scanForActivity(videoController?.getContext())
+            if (activity == null) {
+                activity = PlayerUtils.scanForActivity(context)
+            }
+        } else {
+            activity = PlayerUtils.scanForActivity(context)
+        }
+        return activity
+    }
+
+
+    private fun hideSysBar(decorView: ViewGroup?) {
+        var uiOptions = decorView?.systemUiVisibility ?: 0
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            uiOptions = uiOptions or SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            uiOptions = uiOptions or SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        }
+        decorView?.systemUiVisibility = uiOptions
+        getActivity()!!.window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
+    }
+
+    private fun showSysBar(decorView: ViewGroup?) {
+        var uiOptions = decorView?.systemUiVisibility ?: 0
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            uiOptions = uiOptions and SYSTEM_UI_FLAG_HIDE_NAVIGATION.inv()
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            uiOptions = uiOptions and SYSTEM_UI_FLAG_IMMERSIVE_STICKY.inv()
+        }
+        decorView?.systemUiVisibility = uiOptions
+        getActivity()!!.window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
     }
 
     override fun stopFullScreen() {
-        TODO("Not yet implemented")
+        if (isFullScreen == false) return
+
+        val decorView = getDecorView() ?: return
+
+        isFullScreen = false
+
+        //显示NavigationBar和StatusBar
+        showSysBar(decorView)
+
+        //把播放器视图从DecorView中移除并添加到当前FrameLayout中即退出了全屏
+        decorView.removeView(playerContainer)
+        this.addView(playerContainer)
+
+        setPlayerState(VideoView.PLAYER_NORMAL)
+    }
+
+    /**
+     * 获取activity中的content view,其id为android.R.id.content
+     */
+    protected fun getContentView(): ViewGroup? {
+        val activity = getActivity() ?: return null
+        return activity.findViewById(android.R.id.content)
     }
 
 
-    override val isFullScreen: Boolean
-        get() = TODO("Not yet implemented")
+    override var isFullScreen: Boolean = false
     override var isMute: Boolean = false
         set(value) {
             field = value
@@ -563,21 +692,46 @@ class VideoViewK<P : AbstractPlayer> @JvmOverloads constructor(
         }
 
     override fun startTinyScreen() {
-        TODO("Not yet implemented")
+        if (isTinyScreen) return
+        val contentView = getContentView() ?: return
+        removeView(playerContainer)
+        var width: Int = tinyScreenSize[0]
+        if (width <= 0) {
+            width = PlayerUtils.getScreenWidth(context, false) / 2
+        }
+
+        var height: Int = tinyScreenSize.get(1)
+        if (height <= 0) {
+            height = width * 9 / 16
+        }
+
+        val params = LayoutParams(width, height)
+        params.gravity = Gravity.BOTTOM or Gravity.END
+        contentView.addView(playerContainer, params)
+        isTinyScreen = true
+        setPlayerState(VideoView.PLAYER_TINY_SCREEN)
     }
 
     override fun stopTinyScreen() {
-        TODO("Not yet implemented")
+        if (isTinyScreen == false) return
+
+        val contentView = getContentView() ?: return
+        contentView.removeView(playerContainer)
+        val params = LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
+        this.addView(playerContainer, params)
+
+        isTinyScreen = false
+        setPlayerState(VideoView.PLAYER_NORMAL)
     }
 
-    override val isTinyScreen: Boolean
-        get() = TODO("Not yet implemented")
+    override var isTinyScreen: Boolean = false
 
-    /**
-     * 是否静音
-     */
     override fun setScreenScaleType(screenScaleType: Int) {
-        TODO("Not yet implemented")
+        currentPlayerState = screenScaleType
+        renderView?.setScaleType(screenScaleType)
     }
 
     override var speed: Float
@@ -595,14 +749,65 @@ class VideoViewK<P : AbstractPlayer> @JvmOverloads constructor(
     override val tcpSpeed: Long
         get() = mediaPlayer?.tcpSpeed ?: 0
 
+    /**
+     * 设置镜像旋转，暂不支持SurfaceView
+     */
     override fun setMirrorRotation(enable: Boolean) {
-        TODO("Not yet implemented")
+        renderView?.view?.scaleX = if (enable) -1f else 1f
     }
 
     override fun doScreenShot(): Bitmap? {
-        TODO("Not yet implemented")
+        return renderView?.doScreenShot()
     }
 
-    override val videoSize: IntArray?
-        get() = TODO("Not yet implemented")
+    override var videoSize: IntArray = intArrayOf(0, 0)
+
+
+    /**
+     * 旋转视频画面
+     *
+     * @param rotation 角度
+     */
+    override fun setRotation(rotation: Float) {
+        super.setRotation(rotation)
+        renderView?.setVideoRotation(rotation.toInt())
+    }
+
+    /**
+     * 添加一个播放状态监听器，播放状态发生变化时将会调用。
+     */
+    fun addOnStateChangeListener(listener: VideoView.OnStateChangeListener) {
+        onStateChangeListeners.add(listener)
+    }
+
+    /**
+     * 移除某个播放状态监听
+     */
+    fun removeOnStateChangeListener(listener: VideoView.OnStateChangeListener) {
+        onStateChangeListeners.remove(listener)
+    }
+
+    /**
+     * 设置一个播放状态监听器，播放状态发生变化时将会调用，
+     * 如果你想同时设置多个监听器，推荐 [.addOnStateChangeListener]。
+     */
+    fun setOnStateChangeListener(listener: VideoView.OnStateChangeListener) {
+        onStateChangeListeners.clear()
+        onStateChangeListeners.add(listener)
+    }
+
+    fun clearOnStateChangeListener() {
+        onStateChangeListeners.clear()
+    }
+
+    fun onBackPressed(): Boolean {
+        return videoController?.onBackPressed() == true
+    }
+
+    override fun onSaveInstanceState(): Parcelable? {
+        d("onSaveInstanceState: $currentPosition")
+        //activity切到后台后可能被系统回收，故在此处进行进度保存
+        saveProgress()
+        return super.onSaveInstanceState()
+    }
 }

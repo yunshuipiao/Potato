@@ -5,19 +5,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.PathUtils
-import com.dueeeke.videoplayer.player.ProgressManager
-import com.dueeeke.videoplayer.player.VideoViewConfig
-import com.dueeeke.videoplayer.player.VideoViewManager
 import com.dueeeke.videoplayer.ui.StandardVideoController
-import com.dueeeke.videoplayer.videocache.HttpProxyCacheServer
-import com.dueeeke.videoplayer.videocache.ProxyVideoCacheManager
 import com.liulishuo.okdownload.DownloadTask
 import com.swensun.func.exoplayer.download.DownloadManager
 import com.swensun.potato.R
-import com.swensun.swutils.shareprefence.SharePreferencesManager
 import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.exo_player_activity.*
-import org.jsoup.helper.DataUtil
 import java.io.File
 
 class ExoPlayerActivity : AppCompatActivity() {
@@ -27,7 +20,7 @@ class ExoPlayerActivity : AppCompatActivity() {
     private var task: DownloadTask? = null
 
     private var local_video_url = PathUtils.getExternalAppDownloadPath() + "/Video/dest/dest.m3u8"
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.exo_player_activity)
@@ -35,12 +28,11 @@ class ExoPlayerActivity : AppCompatActivity() {
         val control = StandardVideoController(this)
         control.addDefaultControlComponent("dest", false)
         control.setEnableOrientation(true)
-        video_view.setVideoController(control)
+        video_view.videoController = control
+        video_view.skipPositionWhenPlay(10000)
         video_view.start()
         fab.setOnClickListener {
-            val file = File(local_video_url)
-            var uri = Uri.parse(video_url)
-            Logger.d("${file}, $uri")
+            video_view.replay(false)
         }
 
         delete_file.setOnClickListener {

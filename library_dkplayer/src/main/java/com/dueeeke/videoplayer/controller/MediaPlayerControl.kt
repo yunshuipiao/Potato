@@ -9,7 +9,7 @@ interface MediaPlayerControl {
     fun start()
     fun pause()
     val duration: Long
-    val currentPosition: Long
+    var currentPosition: Long
     fun seekTo(pos: Long)
     val isPlaying: Boolean
     val bufferedPercentage: Int
@@ -20,7 +20,7 @@ interface MediaPlayerControl {
     fun setScreenScaleType(screenScaleType: Int)
     var speed: Float
     val tcpSpeed: Long
-    fun replay(resetPosition: Boolean)
+    fun replay(resetPosition: Boolean = true)
     fun setMirrorRotation(enable: Boolean)
     fun doScreenShot(): Bitmap?
     val videoSize: IntArray?

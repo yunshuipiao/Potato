@@ -11,7 +11,7 @@ class VideoViewConfig {
     var enableAudioFocus = true
     var isEnableLog = false
     var progressManager: ProgressManager? = null
-    var playerFactory: PlayerFactory<*>? = ExoMediaPlayerFactory.create()
+    var playerFactory: PlayerFactory<out AbstractPlayer>? = ExoMediaPlayerFactory.create()
     var screenScaleType = 0
     var renderViewFactory: RenderViewFactory? = TextureRenderViewFactory.create()
     var adaptCutout = true

@@ -1,34 +1,31 @@
 package com.swensun.potato
 
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.runBlocking
-import okio.IOException
 import org.junit.Test
-import java.io.IOError
 
 class Get {
 
     @Test
     fun test() {
-        runBlocking {
-            flow {
-                (1..5).forEach {
-                    delay(800)
-                    emit(it)
-                }
-            }.catch {
-                println(it.message)
-            }
-                .onEach {
-                    println("each $it")
-                }.onStart { println("Start") }
-                .onCompletion { println("completion") }
-
-                .toList()
-        }
-
+        val ll = II()
+        println(ll.p)
+        ll.p = 20
+        println(ll.p)
     }
 
+}
+
+interface I {
+    var p: Int
+}
+
+class II : I {
+    override var p: Int = 0
+        get() {
+            field = 9
+            return 4 + 5
+        }
+        set(value) {
+            field = value
+        }
 
 }

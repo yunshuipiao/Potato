@@ -24,7 +24,7 @@ class ControlWrapper(
 
     override val duration: Long
         get() = playerControl.duration
-    override val currentPosition: Long
+    override var currentPosition: Long = 0
         get() = playerControl.currentPosition
 
     override fun seekTo(pos: Long) {
