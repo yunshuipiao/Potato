@@ -9,5 +9,5 @@ import android.content.Context
  * 可参照[AndroidMediaPlayer]和[AndroidMediaPlayerFactory]的实现。
  */
 abstract class PlayerFactory<P : AbstractPlayer> {
-    abstract fun createPlayer(context: Context?): P
+    abstract fun createPlayer(context: Context): P
 }
