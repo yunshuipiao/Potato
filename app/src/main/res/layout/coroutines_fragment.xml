@@ -6,13 +6,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <Button
-            android:id="@+id/btn_fetch"
-            android:layout_width="0dp"
+    <LinearLayout
+            android:id="@+id/layout_operate"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="网络请求：协程"
+            android:orientation="horizontal"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+                android:id="@+id/btn_toast"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="delay toast" />
+
+
+        <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="delay cancel" />
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

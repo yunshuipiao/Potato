@@ -5,13 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 sealed class StatusEvent(var msg: String = "") {
     object LOADING : StatusEvent()
     object SUCCESS : StatusEvent()
     object ERROR : StatusEvent()
-    object EMPTY: StatusEvent()
+    object EMPTY : StatusEvent()
 }
 
 open class StatusViewModel : ViewModel() {
@@ -35,8 +36,8 @@ open class StatusViewModel : ViewModel() {
     }
 }
 
-fun ViewModel.launchIO(block: suspend CoroutineScope.() -> Unit) {
-    viewModelScope.launch(Dispatchers.IO) {
+fun ViewModel.launchIO(block: suspend CoroutineScope.() -> Unit): Job {
+    return viewModelScope.launch(Dispatchers.IO) {
         block()
     }
 }
