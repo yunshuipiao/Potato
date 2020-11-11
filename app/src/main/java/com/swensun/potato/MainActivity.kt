@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ktx.SingleEvent
 import com.swensun.base.BaseActivity
+import com.swensun.func.anim.AnimActivity
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
 import com.swensun.func.customview.CustomViewActivity
@@ -142,8 +143,11 @@ class MainActivity : BaseActivity() {
         btn_status.setOnClickListener {
             startActivity<StatusPageActivity>()
         }
+        btn_anim.setOnClickListener {
+            startActivity<AnimActivity>()
+        }
 
-        btn_coroutines.performClick()
+        btn_anim.performClick()
     }
 
     override fun onBackPressed() {
