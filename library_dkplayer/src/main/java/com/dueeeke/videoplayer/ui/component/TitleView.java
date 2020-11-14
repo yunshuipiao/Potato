@@ -25,6 +25,8 @@ import com.dueeeke.videoplayer.controller.IControlComponent;
 import com.dueeeke.videoplayer.player.VideoView;
 import com.dueeeke.videoplayer.util.PlayerUtils;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * 播放器顶部标题栏
  */
