@@ -8,8 +8,6 @@ import android.view.animation.Animation
  */
 interface IControlComponent {
 
-//    val controlWrapper: ControlWrapper
-
     fun attach(controlWrapper: ControlWrapper)
 
 
