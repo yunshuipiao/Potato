@@ -32,7 +32,7 @@ import static com.dueeeke.videoplayer.util.PlayerUtils.stringForTime;
  * 点播底部控制栏
  */
 public class VodControlView extends FrameLayout implements IControlComponent, View.OnClickListener, SeekBar.OnSeekBarChangeListener {
-    
+
     protected ControlWrapper mControlWrapper;
 
     private TextView mTotalTime, mCurrTime;
@@ -57,8 +57,8 @@ public class VodControlView extends FrameLayout implements IControlComponent, Vi
     public VodControlView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
-    
-    
+
+
     {
         setVisibility(GONE);
         LayoutInflater.from(getContext()).inflate(getLayoutId(), this, true);

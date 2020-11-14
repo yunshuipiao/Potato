@@ -3,6 +3,7 @@ package com.swensun.potato
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
+import com.swensun.launchIO
 import com.swensun.swutils.util.Logger
 
 class MainViewModel : ViewModel() {

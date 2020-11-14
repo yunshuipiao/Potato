@@ -67,6 +67,7 @@ public class StandardVideoController extends GestureVideoController implements V
 
     /**
      * 快速添加各个组件
+     *
      * @param title  标题
      * @param isLive 是否为直播
      */

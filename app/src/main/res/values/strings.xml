@@ -32,4 +32,5 @@
     <string name="fragment">framgent</string>
     <string name="download">download</string>
     <string name="status">状态页面</string>
+    <string name="anim">anim</string>
 </resources>

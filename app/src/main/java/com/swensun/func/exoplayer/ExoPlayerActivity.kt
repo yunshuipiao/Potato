@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.exo_player_activity.*
 class ExoPlayerActivity : AppCompatActivity() {
 
     private var video_url = "https://media6.smartstudy.com/ae/07/3997/2/dest.m3u8"
-
+//
     private var task: DownloadTask? = null
 
     private var local_video_url = PathUtils.getExternalAppDownloadPath() + "/Video/dest/dest.m3u8"
@@ -22,7 +22,7 @@ class ExoPlayerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.exo_player_activity)
-        video_view.setUrl(video_url)
+        video_view.setUrl(local_video_url)
         val control = StandardVideoController(this)
         control.addDefaultControlComponent("dest", false)
         control.setEnableOrientation(true)

@@ -11,6 +11,8 @@ import com.swensun.StatusEvent
 import com.swensun.potato.R
 import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.coroutines_fragment.*
+import kotlinx.android.synthetic.main.room_fragment.*
+import kotlinx.coroutines.cancelAndJoin
 
 class CoroutinesFragment : Fragment() {
 
@@ -30,7 +32,7 @@ class CoroutinesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(CoroutinesViewModel::class.java)
-        viewModel.statusLiveData.observe(this, Observer {
+        viewModel.statusLiveData.observe(viewLifecycleOwner, Observer {
             when (it) {
                 StatusEvent.LOADING -> {
                     Logger.d("loading ${it.msg}")
@@ -44,9 +46,11 @@ class CoroutinesFragment : Fragment() {
                 }
             }
         })
-        btn_fetch.setOnClickListener {
-            viewModel.fetchData()
-
+        btn_toast.setOnClickListener {
+            viewModel.delayToast()
+        }
+        btn_cancel.setOnClickListener {
+            viewModel.cancel()
         }
     }
 
