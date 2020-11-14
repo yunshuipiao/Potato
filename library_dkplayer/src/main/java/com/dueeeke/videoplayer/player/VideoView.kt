@@ -107,7 +107,7 @@ class VideoView<P : AbstractPlayer> @JvmOverloads constructor(
      */
     override fun replay(resetPosition: Boolean) {
         if (resetPosition) {
-            progressManager?.saveProgress(url, 0)
+            mCurrentPosition = 0
         }
         addDisplay()
         startPrepare(true)
@@ -414,10 +414,13 @@ class VideoView<P : AbstractPlayer> @JvmOverloads constructor(
     override var currentPosition: Long = 0
         get() {
             if (isInPlaybackState()) {
-                return mediaPlayer?.currentPosition ?: 0
+                mCurrentPosition = mediaPlayer?.currentPosition ?: 0
+                return mCurrentPosition
             }
             return 0
         }
+
+    private var mCurrentPosition: Long = 0
 
     /**
      * 继续播放
@@ -467,8 +470,8 @@ class VideoView<P : AbstractPlayer> @JvmOverloads constructor(
      * 保存播放进度
      */
     protected fun saveProgress() {
-        if (currentPosition > 0) {
-            progressManager?.saveProgress(url, currentPosition)
+        if (mCurrentPosition > 0) {
+            progressManager?.saveProgress(url, mCurrentPosition)
         }
     }
 
@@ -479,7 +482,7 @@ class VideoView<P : AbstractPlayer> @JvmOverloads constructor(
 
     override fun onCompletion() {
         playerContainer.keepScreenOn = false
-        currentPosition = 0L
+        mCurrentPosition = 0L
         progressManager?.saveProgress(url, 0)
         setPlayState(STATE_PLAYBACK_COMPLETED)
     }
@@ -511,9 +514,8 @@ class VideoView<P : AbstractPlayer> @JvmOverloads constructor(
      */
     override fun onPrepared() {
         setPlayState(STATE_PREPARED)
-        val lastPosition = progressManager?.getSavedProgress(url) ?: 0
-        if (lastPosition > 0) {
-            seekTo(lastPosition)
+        if (mCurrentPosition > 0) {
+            seekTo(mCurrentPosition)
         }
     }
 
@@ -554,8 +556,8 @@ class VideoView<P : AbstractPlayer> @JvmOverloads constructor(
     /**
      * 一开始播放就seek到预先设置好的位置
      */
-    fun skipPositionWhenPlay(position: Int) {
-        progressManager?.saveProgress(url, position.toLong())
+    fun skipPositionWhenPlay(position: Long) {
+        mCurrentPosition = position
     }
 
 
@@ -806,7 +808,7 @@ class VideoView<P : AbstractPlayer> @JvmOverloads constructor(
     }
 
     override fun onSaveInstanceState(): Parcelable? {
-        d("onSaveInstanceState: $currentPosition")
+        d("onSaveInstanceState: $mCurrentPosition")
         //activity切到后台后可能被系统回收，故在此处进行进度保存
         saveProgress()
         return super.onSaveInstanceState()

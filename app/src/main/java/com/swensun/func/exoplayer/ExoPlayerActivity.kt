@@ -27,6 +27,7 @@ class ExoPlayerActivity : AppCompatActivity() {
         control.addDefaultControlComponent("dest", false)
         control.setEnableOrientation(true)
         video_view.videoController = control
+        video_view.skipPositionWhenPlay(10000)
         video_view.start()
         fab.setOnClickListener {
             AlertDialog.Builder(this)
