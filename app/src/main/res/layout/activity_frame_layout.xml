@@ -18,7 +18,7 @@
             android:maxLines="1"
             android:text="12345"
             android:textSize="20sp"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/tv_text_right"
