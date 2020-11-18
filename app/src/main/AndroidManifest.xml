@@ -37,7 +37,8 @@
         <activity
                 android:name="com.swensun.func.feature.FeatureActivity"
                 android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity android:name="com.swensun.func.customview.FrameLayoutActivity" />
+        <activity android:name="com.swensun.func.customview.FrameLayoutActivity"
+                android:windowSoftInputMode="adjustNothing"/>
         <activity
                 android:name="com.swensun.func.launchermode.LauncherModeActivity"
                 android:launchMode="singleTask"

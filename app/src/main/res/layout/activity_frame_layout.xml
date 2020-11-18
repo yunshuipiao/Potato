@@ -9,12 +9,40 @@
 
 
     <TextView
-            android:id="@+id/tv_text"
-            android:layout_width="300dp"
+            android:id="@+id/tv_text_left"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:maxLines="3"
-            android:textColor="@color/black"
+            android:background="#80ff0000"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="12345"
             android:textSize="20sp"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/tv_text_right"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_default="wrap" />
+
+    <TextView
+            android:id="@+id/tv_text_right"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="#8000ff00"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="12345"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toRightOf="@id/tv_text_left"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+            android:id="@+id/et"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

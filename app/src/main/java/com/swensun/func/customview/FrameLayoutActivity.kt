@@ -1,7 +1,9 @@
 package com.swensun.func.customview
 
 import android.os.Bundle
+import android.text.Editable
 import android.text.SpannableString
+import android.text.TextWatcher
 import android.text.style.ImageSpan
 import android.view.CenterImageSpan
 import com.swensun.base.BaseActivity
@@ -17,27 +19,20 @@ class FrameLayoutActivity : BaseActivity() {
         return R.layout.activity_frame_layout
     }
 
-    
 
     override fun initView(savedInstanceState: Bundle?) {
-        val text =
-            "123456x789014567890"
-        val span = SpannableString(text)
-        val highLight = "01"
-        val newHighlightText = highLight.trim()
-        val index = text.indexOf(newHighlightText, 0, true)
-        val drawable = getDrawable(R.drawable.ad)
-        drawable?.let {
-            drawable.setBounds(0, 0, dp2px(28f), dp2px(16f))
-            if (index != -1) {
-                span.setSpan(
-                    CenterImageSpan(drawable),
-                    index,
-                    index + newHighlightText.length,
-                    ImageSpan.ALIGN_BASELINE
-                )
+        et.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                tv_text_left.text = s.toString()
             }
-            tv_text.text = span
-        }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+        })
+
     }
 }
