@@ -13,7 +13,9 @@ import androidx.lifecycle.MutableLiveData
 object UserInfoRepository {
 
     var userVipStateChanged = MediatorLiveData<UserInfo>()
-    var userInfoLiveData = MutableLiveData<UserInfo>()
+    val userInfoLiveData = MutableLiveData<UserInfo>()
+    val userInfo: UserInfo
+        get() = userInfoLiveData.value ?: UserInfo()
     var userLoginStateChanged = MediatorLiveData<UserInfo>()
 
     init {
@@ -32,9 +34,8 @@ object UserInfoRepository {
         }
     }
 
-    var userInfo = UserInfo()
-
     fun updateUserInfo(info: UserInfo) {
+        val userInfo = UserInfo()
         userInfo.id = info.id
         userInfo.coins = info.coins
         userInfo.vip = info.vip
@@ -52,10 +53,10 @@ class UserInfo {
     var coins = 0
 
     override fun toString(): String {
-        return "id: $id \n " +
-                "name: $name \n" +
-                "coins: $coins \n" +
-                "vip $vip \n" +
+        return "id: $id - " +
+                "name: $name - " +
+                "coins: $coins - " +
+                "vip $vip - " +
                 "login: $login"
     }
 }

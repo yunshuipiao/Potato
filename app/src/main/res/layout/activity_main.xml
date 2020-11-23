@@ -20,6 +20,14 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+
+            <Button
+                    android:id="@+id/btn_userinfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/userinfo" />
+
             <Button
                     android:id="@+id/btn_anim"
                     android:layout_width="match_parent"

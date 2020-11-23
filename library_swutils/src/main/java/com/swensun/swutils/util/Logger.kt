@@ -19,7 +19,7 @@ object Logger {
 
     fun d(msg: Any) {
         if (SwUtils.debug || loggable) {
-            LogUtils.d(msg)
+            LogUtils.d("__${msg}")
         }
     }
 

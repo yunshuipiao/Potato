@@ -14,7 +14,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name="com.swensun.func.aac.AacActivity"></activity>
+        <activity android:name="com.swensun.func.userinfo.UserInfoActivity"></activity>
         <activity android:name="com.swensun.func.anim.AnimActivity" />
         <activity android:name="com.swensun.func.status.StatusPageActivity" />
         <activity android:name="com.swensun.func.fragment.FragmentModeActivity" />

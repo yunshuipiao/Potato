@@ -34,6 +34,7 @@ import com.swensun.func.status.StatusPageActivity
 import com.swensun.func.statusbar.StatusBarActivity
 import com.swensun.func.time.TimeAboutActivity
 import com.swensun.func.trans.TransFontActivity
+import com.swensun.func.userinfo.UserInfoActivity
 import com.swensun.func.utilcode.UtilCodeActivity
 import com.swensun.func.utilcode.UtilCodeFragment
 import com.swensun.func.viewpager.fragment.ViewPagerActivity
@@ -48,7 +49,7 @@ class MainActivity : BaseActivity() {
         get() = DateFormat.format("yyyyMMdd, hh-mm-ss", System.currentTimeMillis()).toString()
 
     lateinit var viewModel: MainViewModel
-    
+
     override fun getContentSubView(): Int {
         return R.layout.activity_main
     }
@@ -139,8 +140,11 @@ class MainActivity : BaseActivity() {
         btn_anim.setOnClickListener {
             startActivity<AnimActivity>()
         }
+        btn_userinfo.setOnClickListener {
+            startActivity<UserInfoActivity>()
+        }
 
-        btn_anim.performClick()
+        btn_userinfo.performClick()
     }
 
     override fun onBackPressed() {
