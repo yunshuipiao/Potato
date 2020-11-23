@@ -145,6 +145,17 @@ class MainActivity : BaseActivity() {
         }
 
         btn_userinfo.performClick()
+
+        UserInfoRepository.userInfoLiveData.observe(this, Observer {
+            Logger.d("userinfo main activity change: $it")
+        })
+        UserInfoRepository.userVipStateChanged.observe(this, Observer {
+            Logger.d("userinfo main activity vip change: $it")
+        })
+
+        UserInfoRepository.userLoginStateChanged.observe(this, Observer {
+            Logger.d("userinfo main activity login change: $it")
+        })
     }
 
     override fun onBackPressed() {

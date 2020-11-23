@@ -42,7 +42,7 @@ object UserInfoRepository {
         userInfo.login = info.login
         userInfo.name = info.name
         userInfoLiveData.postValue(userInfo)
-        
+
     }
 }
 

@@ -17,14 +17,14 @@ class UserInfoActivity : BaseActivity() {
     override fun initView(savedInstanceState: Bundle?) {
 
         UserInfoRepository.userInfoLiveData.observe(this, Observer {
-            Logger.d("userinfo change: $it")
+            Logger.d("userinfo activity change: $it")
         })
         UserInfoRepository.userVipStateChanged.observe(this, Observer {
-            Logger.d("userinfo vip change: $it")
+            Logger.d("userinfo activity vip change: $it")
         })
 
         UserInfoRepository.userLoginStateChanged.observe(this, Observer {
-            Logger.d("userinfo login change: $it")
+            Logger.d("userinfo activity login change: $it")
         })
 
         btn_update.setOnClickListener {
