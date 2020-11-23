@@ -13,8 +13,9 @@ import kotlinx.android.synthetic.main.exo_player_activity.*
 
 class ExoPlayerActivity : AppCompatActivity() {
 
-//    private var video_url = "https://media6.smartstudy.com/ae/07/3997/2/dest.m3u8"
-    private var video_url = "http://assets.zvod.badambiz.com/room_4361_1605611400_1605612600.m3u8"
+    //    private var video_url = "https://media6.smartstudy.com/ae/07/3997/2/dest.m3u8"
+//    private var video_url = "http://assets.zvod.badambiz.com/room_4361_1605611400_1605612600.m3u8"
+    private var video_url = ""
 
     //
     private var task: DownloadTask? = null

@@ -14,7 +14,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name="com.swensun.func.anim.AnimActivity"></activity>
+        <activity android:name="com.swensun.func.aac.AacActivity"></activity>
+        <activity android:name="com.swensun.func.anim.AnimActivity" />
         <activity android:name="com.swensun.func.status.StatusPageActivity" />
         <activity android:name="com.swensun.func.fragment.FragmentModeActivity" />
         <activity
@@ -37,8 +38,9 @@
         <activity
                 android:name="com.swensun.func.feature.FeatureActivity"
                 android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity android:name="com.swensun.func.customview.FrameLayoutActivity"
-                android:windowSoftInputMode="adjustNothing"/>
+        <activity
+                android:name="com.swensun.func.customview.FrameLayoutActivity"
+                android:windowSoftInputMode="adjustNothing" />
         <activity
                 android:name="com.swensun.func.launchermode.LauncherModeActivity"
                 android:launchMode="singleTask"

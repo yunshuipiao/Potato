@@ -48,13 +48,7 @@ class MainActivity : BaseActivity() {
         get() = DateFormat.format("yyyyMMdd, hh-mm-ss", System.currentTimeMillis()).toString()
 
     lateinit var viewModel: MainViewModel
-
-    private val globalEventObserver = Observer<SingleEvent<GlobalEvent>> {
-        window?.decorView?.postDelayed({
-            Logger.d("global-main: from:${it.peekContent()?.from}")
-        }, 1000)
-    }
-
+    
     override fun getContentSubView(): Int {
         return R.layout.activity_main
     }

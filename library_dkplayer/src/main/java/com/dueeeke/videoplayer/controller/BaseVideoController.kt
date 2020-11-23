@@ -126,6 +126,7 @@ abstract class BaseVideoController @JvmOverloads constructor(
             }
         }
         mOrientationHelper.onOrientationChangeListener = this
+        mOrientationHelper.enable()
     }
 
     /**
