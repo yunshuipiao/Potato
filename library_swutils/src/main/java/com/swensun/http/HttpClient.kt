@@ -19,7 +19,6 @@ object HttpClient {
 
     private val okHttpClient by lazy {
         OkHttpClient.Builder()
-            .addInterceptor(ErrorHandleInterceptor())
             .addInterceptor(MockResponseInterceptor())
             .build()
     }

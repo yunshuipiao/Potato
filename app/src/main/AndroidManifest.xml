@@ -54,7 +54,9 @@
         <activity
                 android:name="com.swensun.func.recycler.RecyclerViewActivity"
                 android:launchMode="singleTop" />
-        <activity android:name="com.swensun.func.livedata.LiveDataActivity" />
+        <activity
+                android:name="com.swensun.func.livedata.LiveDataActivity"
+                android:screenOrientation="portrait" />
         <activity android:name="com.swensun.func.multidialog.MultiDialogActivity" />
         <activity android:name="com.swensun.func.lifecycle.LifecycleActivity" />
         <activity android:name="com.swensun.func.time.TimeAboutActivity" />
