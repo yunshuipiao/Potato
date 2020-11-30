@@ -3,7 +3,7 @@ package com.swensun.http
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import com.blankj.utilcode.util.AppUtils
+import com.swensun.swutils.util.ActUtils
 import com.swensun.swutils.util.Logger
 
 open class SimpleActivityLifecycleCallbacks : Application.ActivityLifecycleCallbacks {
@@ -24,7 +24,6 @@ open class SimpleActivityLifecycleCallbacks : Application.ActivityLifecycleCallb
 
     override fun onActivityDestroyed(activity: Activity?) {
         Logger.d("--onActivityDestroyed: $activity")
-
     }
 
     override fun onActivitySaveInstanceState(activity: Activity?, outState: Bundle?) {
