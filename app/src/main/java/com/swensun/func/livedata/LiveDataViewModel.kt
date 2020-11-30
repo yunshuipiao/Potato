@@ -5,6 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class LiveDataViewModel : ViewModel() {
-    var oneLiveData = MediatorLiveData<String>()
+    var oneLiveData = MediatorLiveData<Boolean>()
     var twoLiveData = MutableLiveData<Int>()
 }

@@ -1,5 +1,6 @@
 package com.swensun.func.livedata
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ktx.debounce
 import com.swensun.potato.R
 import kotlinx.android.synthetic.main.live_data_fragment.*
+import kotlinx.android.synthetic.main.live_data_fragment.view.*
+import org.json.JSONObject
 
 class LiveDataFragment : Fragment() {
 
@@ -29,13 +32,18 @@ class LiveDataFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(LiveDataViewModel::class.java)
+        btn_livedata_1.btn_livedata_1.text = JSONObject().toString()
         btn_livedata_1.setOnClickListener {
-            val last = viewModel.oneLiveData.value ?: "s"
-            viewModel.oneLiveData.postValue("$last-s")
+            val last = viewModel.oneLiveData.value ?: false
+            viewModel.oneLiveData.postValue(!last)
         }
 
         viewModel.oneLiveData.debounce(10).observe(viewLifecycleOwner, Observer {
-            btn_livedata_1.text = it
+            activity?.requestedOrientation = if (it) {
+                ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+            } else {
+                ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+            }
         })
     }
 }

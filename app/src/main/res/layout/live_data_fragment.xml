@@ -5,7 +5,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <com.swensun.swutils.ui.AutoSizeTextView
+    <TextView
             android:id="@+id/btn_livedata_1"
             android:layout_width="100dp"
             android:layout_height="50dp"
@@ -16,7 +16,7 @@
             android:maxLines="1"
             android:text="0"
             android:textSize="20sp"
-            app:minTextSize="12sp" />
+            />
 
 </LinearLayout>
 

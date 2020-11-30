@@ -15,7 +15,7 @@ import android.widget.TextView
  * Potato
  */
 
-class AutoSizeTextView @JvmOverloads constructor(
+open class AutoSizeTextView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : androidx.appcompat.widget.AppCompatTextView(context, attrs, defStyleAttr) {
     // Interface for resize notifications
