@@ -20,6 +20,8 @@ class LiveDataFragment : Fragment() {
         fun newInstance() = LiveDataFragment()
     }
 
+    private var count = 0
+
     private lateinit var viewModel: LiveDataViewModel
 
     override fun onCreateView(
@@ -32,18 +34,12 @@ class LiveDataFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(LiveDataViewModel::class.java)
-        btn_livedata_1.btn_livedata_1.text = JSONObject().toString()
+        btn_livedata_1.btn_livedata_1.text = "0"
         btn_livedata_1.setOnClickListener {
-            val last = viewModel.oneLiveData.value ?: false
-            viewModel.oneLiveData.postValue(!last)
+            viewModel.testCount()
         }
-
-        viewModel.oneLiveData.debounce(10).observe(viewLifecycleOwner, Observer {
-            activity?.requestedOrientation = if (it) {
-                ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-            } else {
-                ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-            }
+        viewModel.oneLiveData.observe(viewLifecycleOwner, Observer {
+            btn_livedata_1.text = it.toString()
         })
     }
 }
