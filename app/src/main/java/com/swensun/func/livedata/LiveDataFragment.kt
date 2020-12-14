@@ -1,6 +1,5 @@
 package com.swensun.func.livedata
 
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,11 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ktx.debounce
 import com.swensun.potato.R
 import kotlinx.android.synthetic.main.live_data_fragment.*
 import kotlinx.android.synthetic.main.live_data_fragment.view.*
-import org.json.JSONObject
 
 class LiveDataFragment : Fragment() {
 

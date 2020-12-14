@@ -1,7 +1,5 @@
-package androidx.lifecycle.ktx
+package androidx.lifecycle
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
@@ -27,3 +25,17 @@ fun <T> LiveData<T>.debounce(
         }
     }
 }
+
+fun <T> LiveData<T>.notStick() = MediatorLiveData<T>().also { mld ->
+    val hasSetValue = this.version != -1
+    var version = 0
+    mld.addSource(this) {
+        if (hasSetValue && version == 0) {
+
+        } else {
+            mld.value = this.value
+        }
+        version += 1
+    }
+}
+

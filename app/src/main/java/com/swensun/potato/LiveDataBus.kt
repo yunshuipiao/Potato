@@ -1,7 +1,7 @@
 package com.swensun.potato
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ktx.SingleEvent
+import androidx.lifecycle.SingleEvent
 import com.swensun.func.customview.LifecycleInterface
 import com.swensun.swutils.ui.showToast
 import java.util.concurrent.ConcurrentHashMap

@@ -11,9 +11,7 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ktx.SingleEvent
 import com.swensun.base.BaseActivity
 import com.swensun.func.anim.AnimActivity
 import com.swensun.func.bottom.BottomActivity

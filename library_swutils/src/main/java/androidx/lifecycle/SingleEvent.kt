@@ -1,6 +1,4 @@
-package androidx.lifecycle.ktx
-
-import androidx.lifecycle.Observer
+package androidx.lifecycle
 
 open class SingleEvent<out T>(private val content: T? = null) {
 
