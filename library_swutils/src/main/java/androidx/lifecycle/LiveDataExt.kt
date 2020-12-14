@@ -26,7 +26,7 @@ fun <T> LiveData<T>.debounce(
     }
 }
 
-fun <T> LiveData<T>.notStick() = MediatorLiveData<T>().also { mld ->
+fun <T> LiveData<T>.notSticky() = MediatorLiveData<T>().also { mld ->
     val hasSetValue = this.version != -1
     var version = 0
     mld.addSource(this) {
