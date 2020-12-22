@@ -15,12 +15,8 @@ class ExoPlayerActivity : AppCompatActivity() {
 
     //    private var video_url = "https://media6.smartstudy.com/ae/07/3997/2/dest.m3u8"
 //    private var video_url = "http://assets.zvod.badambiz.com/room_4361_1605611400_1605612600.m3u8"
-    private var video_url = ""
-
-    //
-    private var task: DownloadTask? = null
-
-    private var local_video_url = PathUtils.getExternalAppDownloadPath() + "/Video/dest/dest.m3u8"
+    private var video_url =
+        "https://549-cn-north-4.cdn-vod.huaweicloud.com/asset/dbaee6a406c4eaab07635ef37106fe19/d314a35329ce6dcd2452e586c7cbced8.mp3"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +26,6 @@ class ExoPlayerActivity : AppCompatActivity() {
         control.addDefaultControlComponent("dest", false)
         control.setEnableOrientation(true)
         video_view.videoController = control
-        video_view.skipPositionWhenPlay(10000)
         video_view.start()
         fab.setOnClickListener {
             AlertDialog.Builder(this)
@@ -42,13 +37,7 @@ class ExoPlayerActivity : AppCompatActivity() {
         delete_file.setOnClickListener {
             FileUtils.delete(PathUtils.getExternalAppDownloadPath() + "/Video/dest")
         }
-
-        download_m3u8.setOnClickListener {
-            task = DownloadManager.downloadM3u8(video_url, "dest")
-        }
-        download_cancel.setOnClickListener {
-            task?.cancel()
-        }
+        
     }
 
     override fun onPause() {

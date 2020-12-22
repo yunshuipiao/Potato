@@ -1,13 +1,15 @@
 package com.swensun
 
 import android.util.Log
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
 
-object TimeLog {
+object TimeLog : CoroutineScope by MainScope() {
     private var timestamp = 0L
     const val TAG = "time_log"
 
     @JvmStatic
-    fun reset(){
+    fun reset() {
         timestamp = System.currentTimeMillis()
         Log.i(TAG, "time log start")
     }

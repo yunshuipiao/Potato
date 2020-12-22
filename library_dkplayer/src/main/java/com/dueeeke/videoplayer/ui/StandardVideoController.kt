@@ -116,7 +116,6 @@ class StandardVideoController @JvmOverloads constructor(
 
     override fun onPlayStateChanged(playState: Int) {
         super.onPlayStateChanged(playState)
-        super.onPlayStateChanged(playState)
         when (playState) {
             VideoView.STATE_IDLE -> {
                 lock.isSelected = false
