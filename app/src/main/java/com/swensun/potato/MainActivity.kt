@@ -159,7 +159,7 @@ class MainActivity : BaseActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        Logger.d("onSave")
+        Logger.d("onSave, $outState")
     }
 }
 
