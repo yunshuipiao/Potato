@@ -1,11 +1,13 @@
 package com.swensun.swutils.ui
 
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.Rect
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.view.View
@@ -107,12 +109,13 @@ fun TextView.setHighlightText(
             index + newHighlightText.length,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
-        // todo 点击效果
         span.setSpan(object : ClickableSpan() {
             override fun onClick(widget: View) {
                 block?.invoke(widget)
             }
         }, index, index + newHighlightText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
     }
+    this.movementMethod = LinkMovementMethod.getInstance()
+    this.highlightColor = Color.TRANSPARENT
     this.text = span
 }
