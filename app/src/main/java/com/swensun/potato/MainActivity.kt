@@ -7,6 +7,7 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.format.DateFormat
 import android.text.style.ForegroundColorSpan
+import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.core.app.NotificationCompat
@@ -37,6 +38,7 @@ import com.swensun.func.utilcode.UtilCodeActivity
 import com.swensun.func.utilcode.UtilCodeFragment
 import com.swensun.func.viewpager.fragment.ViewPagerActivity
 import com.swensun.potato.application.createNotificationChannel
+import com.swensun.swutils.ui.reverseChild
 import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
@@ -128,6 +130,7 @@ class MainActivity : BaseActivity() {
                 .notify(UtilCodeFragment.notification_id, notification)
         }
         fab.setOnClickListener {
+            layout_btn.reverseChild()
         }
         btn_fragment.setOnClickListener {
             startActivity<FragmentModeActivity>()
@@ -141,8 +144,7 @@ class MainActivity : BaseActivity() {
         btn_userinfo.setOnClickListener {
             startActivity<UserInfoActivity>()
         }
-
-        btn_livedata.performClick()
+        btn_time.performClick()
     }
 
     override fun onBackPressed() {
@@ -161,21 +163,6 @@ class MainActivity : BaseActivity() {
         super.onSaveInstanceState(outState)
         Logger.d("onSave, $outState")
     }
-}
-
-fun TextView.setHighlightText(text: String, highlightText: String, @ColorInt color: Int) {
-    val span = SpannableString(text)
-    val newHighlightText = highlightText.trim()
-    val index = text.indexOf(newHighlightText, 0, true)
-    if (index != -1) {
-        span.setSpan(
-            ForegroundColorSpan(color),
-            index,
-            index + newHighlightText.length,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-    }
-    this.text = span
 }
 
 
