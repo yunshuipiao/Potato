@@ -3,6 +3,7 @@ package com.swensun.func.time
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.swensun.potato.R
+import com.swensun.swutils.util.Logger
 
 class TimeAboutActivity : AppCompatActivity() {
 
@@ -14,6 +15,11 @@ class TimeAboutActivity : AppCompatActivity() {
                 .replace(R.id.container, TimeAboutFragment.newInstance())
                 .commitNow()
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Logger.d("")
     }
 
 }

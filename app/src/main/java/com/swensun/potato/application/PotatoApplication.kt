@@ -10,7 +10,6 @@ import android.os.Bundle
 import com.dueeeke.videoplayer.player.ProgressManager
 import com.dueeeke.videoplayer.player.VideoViewConfig
 import com.dueeeke.videoplayer.player.VideoViewManager
-import com.swensun.func.room.database.RDataBase
 import com.swensun.http.SimpleActivityLifecycleCallbacks
 import com.swensun.swutils.SwUtils
 import com.swensun.swutils.shareprefence.SharePreferencesManager
@@ -29,26 +28,6 @@ class PotatoApplication : Application() {
         alert {
 
         }
-//        val callback = object : Choreographer.FrameCallback {
-//            override fun doFrame(frameTimeNanos: Long) {
-//                val diff = frameTimeNanos / 1000000 - startTime
-//                Logger.d("diff: $diff")
-//                Choreographer.getInstance().postFrameCallback(this)
-//            }
-//        }
-//        startTime = System.currentTimeMillis()
-//        Choreographer.getInstance().postFrameCallback(callback)
-//        AppUtils.registerAppStatusChangedListener(object: Utils.OnAppStatusChangedListener
-//        {
-//            override fun onBackground(activity: Activity?) {
-//                toast("后台, $activity")
-//
-//            }
-//
-//            override fun onForeground(activity: Activity?) {
-//                toast("前台, $activity")
-//            }
-//        })
 
         registerActivityLifecycleCallbacks(object : SimpleActivityLifecycleCallbacks() {
             override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
@@ -78,9 +57,7 @@ class PotatoApplication : Application() {
                 }
             }
         }
-        RDataBase.init()
     }
-
 }
 
 fun createNotificationChannel(

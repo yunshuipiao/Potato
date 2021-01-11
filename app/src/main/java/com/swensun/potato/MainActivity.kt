@@ -3,13 +3,7 @@ package com.swensun.potato
 import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
 import android.text.format.DateFormat
-import android.text.style.ForegroundColorSpan
-import android.view.View
-import android.widget.TextView
-import androidx.annotation.ColorInt
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.ViewModelProvider

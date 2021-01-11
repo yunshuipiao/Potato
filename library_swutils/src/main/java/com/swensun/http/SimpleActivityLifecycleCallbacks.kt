@@ -3,38 +3,34 @@ package com.swensun.http
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import com.swensun.swutils.util.ActUtils
 import com.swensun.swutils.util.Logger
 
 open class SimpleActivityLifecycleCallbacks : Application.ActivityLifecycleCallbacks {
-    override fun onActivityPaused(activity: Activity?) {
-        Logger.d("--onActivityPaused: $activity")
 
-
-    }
-
-    override fun onActivityResumed(activity: Activity?) {
-        Logger.d("--onActivityResumed: $activity")
+    override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
+        Logger.d("__onActivityCreated: $activity")
     }
 
     override fun onActivityStarted(activity: Activity?) {
-        Logger.d("--onActivityStarted: $activity")
-
+        Logger.d("__onActivityStarted: $activity")
     }
 
-    override fun onActivityDestroyed(activity: Activity?) {
-        Logger.d("--onActivityDestroyed: $activity")
+    override fun onActivityResumed(activity: Activity?) {
+        Logger.d("__onActivityResumed: $activity")
     }
 
-    override fun onActivitySaveInstanceState(activity: Activity?, outState: Bundle?) {
+    override fun onActivityPaused(activity: Activity?) {
+        Logger.d("__onActivityPaused: $activity, ${activity?.isFinishing}\"")
     }
 
     override fun onActivityStopped(activity: Activity?) {
-        Logger.d("--onActivityStopped: $activity")
-
+        Logger.d("__onActivityStopped: $activity, ${activity?.isFinishing}")
     }
 
-    override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
-        Logger.d("--onActivityCreated: $activity")
+    override fun onActivityDestroyed(activity: Activity?) {
+        Logger.d("__onActivityDestroyed: $activity")
+    }
+
+    override fun onActivitySaveInstanceState(activity: Activity?, outState: Bundle?) {
     }
 }
