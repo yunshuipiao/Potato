@@ -7,6 +7,7 @@ import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
@@ -112,6 +113,13 @@ fun TextView.setHighlightText(
         span.setSpan(object : ClickableSpan() {
             override fun onClick(widget: View) {
                 block?.invoke(widget)
+            }
+
+            override fun updateDrawState(ds: TextPaint) {
+                /**set textColor**/
+                ds.color = ds.linkColor;
+                /**Remove the underline**/
+                ds.isUnderlineText = false;
             }
         }, index, index + newHighlightText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
     }
