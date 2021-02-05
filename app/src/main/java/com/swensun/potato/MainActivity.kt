@@ -52,7 +52,7 @@ class MainActivity : BaseActivity() {
     override fun getContentSubView(): Int {
         return R.layout.activity_main
     }
-    
+
     override fun initView(savedInstanceState: Bundle?) {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         btn_coroutines.setOnClickListener {
@@ -143,7 +143,7 @@ class MainActivity : BaseActivity() {
         btn_userinfo.setOnClickListener {
             startActivity<UserInfoActivity>()
         }
-        btn_time.performClick()
+        btn_viewpager.performClick()
     }
 
     override fun onBackPressed() {
