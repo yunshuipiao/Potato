@@ -3,15 +3,14 @@ package com.swensun.func.viewpager.fragment
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.google.android.material.tabs.TabLayoutMediator
 import com.swensun.potato.R
 import kotlinx.android.synthetic.main.activity_view_pager.*
 
 class ViewPagerActivity : AppCompatActivity() {
 
     val adapter by lazy {
-        ViewPagerAdapter(
-            supportFragmentManager
-        )
+        ViewPager2Adapter(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,8 +20,10 @@ class ViewPagerActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        viewpager.adapter = adapter
-        tab_layout.setupWithViewPager(viewpager)
+        viewpager2.adapter = adapter
+        TabLayoutMediator(tab_layout, viewpager2) { tab, position ->
+            tab.text = " -- $position -- "
+        }.attach()
         val fragmentList = arrayListOf<Fragment>()
         val titleList = arrayListOf<String>()
         (0 until 4).forEach {
@@ -32,8 +33,8 @@ class ViewPagerActivity : AppCompatActivity() {
                 )
             )
             titleList.add(it.toString())
-            viewpager.offscreenPageLimit = fragmentList.size - 1
         }
+        viewpager2.offscreenPageLimit = fragmentList.size - 1
         adapter.setup(fragmentList, titleList)
     }
 }

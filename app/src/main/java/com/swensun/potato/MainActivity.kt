@@ -1,11 +1,14 @@
 package com.swensun.potato
 
+import android.app.Activity
 import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
 import android.text.format.DateFormat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.swensun.base.BaseActivity
 import com.swensun.func.anim.AnimActivity
@@ -35,7 +38,9 @@ import com.swensun.potato.application.createNotificationChannel
 import com.swensun.swutils.ui.reverseChild
 import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.clipboardManager
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
 class MainActivity : BaseActivity() {
 
@@ -47,7 +52,7 @@ class MainActivity : BaseActivity() {
     override fun getContentSubView(): Int {
         return R.layout.activity_main
     }
-
+    
     override fun initView(savedInstanceState: Bundle?) {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         btn_coroutines.setOnClickListener {
@@ -158,6 +163,9 @@ class MainActivity : BaseActivity() {
         Logger.d("onSave, $outState")
     }
 }
+
+
+   
 
 
 

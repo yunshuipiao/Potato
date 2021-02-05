@@ -1,27 +1,15 @@
 package com.swensun.func.viewpager.fragment
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
-import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class ViewPager2Adapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
 
     val fragmentList = arrayListOf<Fragment>()
     val titleList = arrayListOf<String>()
 
-    override fun getItem(position: Int): Fragment {
-        return fragmentList[position]
-    }
-
-    override fun getCount(): Int {
-        return fragmentList.size
-    }
-
-    override fun getPageTitle(position: Int): CharSequence? {
-        return titleList[position]
-    }
-
+    
     fun setup(
         fragmentList: ArrayList<Fragment>,
         titleList: ArrayList<String>
@@ -31,6 +19,14 @@ class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         this.titleList.addAll(titleList)
         this.titleList.addAll(titleList)
         notifyDataSetChanged()
+    }
+
+    override fun getItemCount(): Int {
+        return fragmentList.size
+    }
+
+    override fun createFragment(position: Int): Fragment {
+        return fragmentList[position]
     }
 
 }
