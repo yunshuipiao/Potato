@@ -27,5 +27,4 @@ class II : I {
         set(value) {
             field = value
         }
-
 }

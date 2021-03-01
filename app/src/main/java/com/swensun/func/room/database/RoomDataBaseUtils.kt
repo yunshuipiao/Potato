@@ -34,17 +34,17 @@ abstract class RDataBase : RoomDatabase() {
                         super.onOpen(db)
                         Logger.d("room onOpen, ${db.version}, ${db.path}")
 
-                        db.beginTransaction()
-                        try {
-                            db.execSQL("CREATE TABLE IF NOT EXISTS RoomEntity_new (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `count` INTEGER NOT NULL, `startTime` INTEGER NOT NULL)")
-                            db.execSQL("INSERT INTO RoomEntity_new (id, title, count, startTime) SELECT id, title, count, startTime  FROM RoomEntity")
-                            db.execSQL("DROP TABLE RoomEntity")
-                            db.execSQL("ALTER TABLE RoomEntity_new RENAME TO RoomEntity")
-                            db.execSQL("ALTER TABLE RoomEntity ADD COLUMN `video_detail_item` TEXT NOT NULL DEFAULT '{}'")
-                            db.setTransactionSuccessful()
-                        } finally {
-                            db.endTransaction()
-                        }
+//                        db.beginTransaction()
+//                        try {
+//                            db.execSQL("CREATE TABLE IF NOT EXISTS RoomEntity_new (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `count` INTEGER NOT NULL, `startTime` INTEGER NOT NULL)")
+//                            db.execSQL("INSERT INTO RoomEntity_new (id, title, count, startTime) SELECT id, title, count, startTime  FROM RoomEntity")
+//                            db.execSQL("DROP TABLE RoomEntity")
+//                            db.execSQL("ALTER TABLE RoomEntity_new RENAME TO RoomEntity")
+//                            db.execSQL("ALTER TABLE RoomEntity ADD COLUMN `video_detail_info_item` TEXT NOT NULL DEFAULT '{}'")
+//                            db.setTransactionSuccessful()
+//                        } finally {
+//                            db.endTransaction()
+//                        }
                     }
                 })
                 .build()

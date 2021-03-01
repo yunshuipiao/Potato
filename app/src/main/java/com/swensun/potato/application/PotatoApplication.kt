@@ -10,6 +10,7 @@ import android.os.Bundle
 import com.dueeeke.videoplayer.player.ProgressManager
 import com.dueeeke.videoplayer.player.VideoViewConfig
 import com.dueeeke.videoplayer.player.VideoViewManager
+import com.facebook.stetho.Stetho
 import com.swensun.http.SimpleActivityLifecycleCallbacks
 import com.swensun.swutils.SwUtils
 import com.swensun.swutils.shareprefence.SharePreferencesManager
@@ -25,10 +26,6 @@ class PotatoApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        alert {
-
-        }
-
         registerActivityLifecycleCallbacks(object : SimpleActivityLifecycleCallbacks() {
             override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
                 super.onActivityCreated(activity, savedInstanceState)
@@ -57,6 +54,7 @@ class PotatoApplication : Application() {
                 }
             }
         }
+        Stetho.initializeWithDefaults(this)
     }
 }
 

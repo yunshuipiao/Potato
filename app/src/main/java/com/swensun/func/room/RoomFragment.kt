@@ -14,7 +14,6 @@ import com.drakeet.multitype.ItemViewDelegate
 import com.drakeet.multitype.MultiTypeAdapter
 import com.swensun.func.room.database.RoomEntity
 import com.swensun.potato.R
-import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.room_entity_item.view.*
 import kotlinx.android.synthetic.main.room_fragment.*
 

@@ -92,4 +92,6 @@ dependencies {
     api "com.liulishuo.okdownload:okdownload:1.0.6"
     api "com.liulishuo.okdownload:sqlite:1.0.6"
     api "com.liulishuo.okdownload:okhttp:1.0.6"
+
+    api 'com.facebook.stetho:stetho:1.5.1'
 }
