@@ -26,6 +26,7 @@ import com.swensun.func.multidialog.MultiDialogActivity
 import com.swensun.func.push.DeeplinkActivity
 import com.swensun.func.recycler.RecyclerViewActivity
 import com.swensun.func.room.RoomActivity
+import com.swensun.func.room.database.RDataBase
 import com.swensun.func.status.StatusPageActivity
 import com.swensun.func.statusbar.StatusBarActivity
 import com.swensun.func.time.TimeAboutActivity
@@ -129,7 +130,7 @@ class MainActivity : BaseActivity() {
                 .notify(UtilCodeFragment.notification_id, notification)
         }
         fab.setOnClickListener {
-            layout_btn.reverseChild()
+            RDataBase.init()
         }
         btn_fragment.setOnClickListener {
             startActivity<FragmentModeActivity>()
@@ -144,6 +145,7 @@ class MainActivity : BaseActivity() {
             startActivity<UserInfoActivity>()
         }
         btn_viewpager.performClick()
+
     }
 
     override fun onBackPressed() {

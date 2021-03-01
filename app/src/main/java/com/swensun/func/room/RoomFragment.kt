@@ -50,7 +50,6 @@ class RoomFragment : Fragment() {
             }
         })
         viewModel.allRoomLiveData.observe(requireActivity(), Observer {
-            Logger.d("room res -- ")
             adapter.items = it.sortedByDescending { it.startTime }
             adapter.notifyDataSetChanged()
         })

@@ -16,7 +16,7 @@ class RoomViewModel : ViewModel() {
     val roomDao by lazy { RDataBase.INSTANCE.roomDao() }
     val allRoomLiveData = MediatorLiveData<List<RoomEntity>>()
     var allRoom = listOf<RoomEntity>()
-
+                 
     init {
         allRoomLiveData.addSource(roomDao.queryRooms()) {
             allRoom = it

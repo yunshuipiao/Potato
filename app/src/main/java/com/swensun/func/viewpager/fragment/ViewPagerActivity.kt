@@ -1,6 +1,7 @@
 package com.swensun.func.viewpager.fragment
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
@@ -34,6 +35,7 @@ class ViewPagerActivity : AppCompatActivity() {
             )
             titleList.add(it.toString())
         }
+        viewpager2.layoutDirection = View.LAYOUT_DIRECTION_RTL
         viewpager2.offscreenPageLimit = fragmentList.size - 1
         adapter.setup(fragmentList, titleList)
     }
