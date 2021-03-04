@@ -1,22 +1,49 @@
 package com.swensun.func.room.database
 
+import android.os.AsyncTask
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.swensun.swutils.SwUtils
 import com.swensun.swutils.util.Logger
 
 @TypeConverters(VideoDetailInfoItemConverter::class)
-@Database(entities = [RoomEntity::class], version = 1)
+@Database(entities = [RoomEntity::class], version = 4)
 abstract class RDataBase : RoomDatabase() {
     abstract fun roomDao(): RoomDao
 
     companion object {
+        val M_1_2 = object : Migration(1, 2) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                Thread.sleep(500)
+                roomlog("room M_1_2, ${Thread.currentThread().name}")
+                roomlog("room M_1_2:${db.version}")
+            }
+        }
+
+        val M_2_3 = object : Migration(2, 3) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                Thread.sleep(1000)
+                roomlog("room M_2_3, ${Thread.currentThread().name}")
+                roomlog("room M_2_3:${db.version}")
+            }
+        }
+
+        val M_3_4 = object : Migration(3, 4) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                Thread.sleep(1500)
+                roomlog("room M_3_4, ${Thread.currentThread().name}")
+                roomlog("room M_3_4:${db.version}")
+            }
+        }
+
         fun init() {
             INSTANCE.roomDao().queryRooms().observeForever {
-                Logger.d("room data change:${it.size}")
+                roomlog("room data change:${it.size}")
             }
         }
 
@@ -27,27 +54,20 @@ abstract class RDataBase : RoomDatabase() {
                 .addCallback(object : Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
-                        Logger.d("room onCreate, ${db.version},  ${db.path}")
+                        roomlog("room onCreate, ${db.version},  ${db.path}")
                     }
 
                     override fun onOpen(db: SupportSQLiteDatabase) {
                         super.onOpen(db)
-                        Logger.d("room onOpen, ${db.version}, ${db.path}")
-
-//                        db.beginTransaction()
-//                        try {
-//                            db.execSQL("CREATE TABLE IF NOT EXISTS RoomEntity_new (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `count` INTEGER NOT NULL, `startTime` INTEGER NOT NULL)")
-//                            db.execSQL("INSERT INTO RoomEntity_new (id, title, count, startTime) SELECT id, title, count, startTime  FROM RoomEntity")
-//                            db.execSQL("DROP TABLE RoomEntity")
-//                            db.execSQL("ALTER TABLE RoomEntity_new RENAME TO RoomEntity")
-//                            db.execSQL("ALTER TABLE RoomEntity ADD COLUMN `video_detail_info_item` TEXT NOT NULL DEFAULT '{}'")
-//                            db.setTransactionSuccessful()
-//                        } finally {
-//                            db.endTransaction()
-//                        }
+                        roomlog("room onOpen, ${db.version}, ${db.path}")
                     }
                 })
+                .addMigrations(M_1_2, M_2_3, M_3_4)
                 .build()
         }
     }
+}
+
+fun roomlog(msg: String) {
+    Log.i("room_msg", "$msg")
 }

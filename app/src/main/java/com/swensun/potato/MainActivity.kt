@@ -3,6 +3,7 @@ package com.swensun.potato
 import android.app.Activity
 import android.app.PendingIntent
 import android.content.Intent
+import android.os.AsyncTask
 import android.os.Bundle
 import android.text.format.DateFormat
 import androidx.core.app.NotificationCompat
@@ -10,6 +11,9 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.blankj.utilcode.util.NetworkUtils
+import com.blankj.utilcode.util.ThreadUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.swensun.base.BaseActivity
 import com.swensun.func.anim.AnimActivity
 import com.swensun.func.bottom.BottomActivity
@@ -27,6 +31,7 @@ import com.swensun.func.push.DeeplinkActivity
 import com.swensun.func.recycler.RecyclerViewActivity
 import com.swensun.func.room.RoomActivity
 import com.swensun.func.room.database.RDataBase
+import com.swensun.func.room.database.RoomEntity
 import com.swensun.func.status.StatusPageActivity
 import com.swensun.func.statusbar.StatusBarActivity
 import com.swensun.func.time.TimeAboutActivity
@@ -130,7 +135,7 @@ class MainActivity : BaseActivity() {
                 .notify(UtilCodeFragment.notification_id, notification)
         }
         fab.setOnClickListener {
-            RDataBase.init()
+
         }
         btn_fragment.setOnClickListener {
             startActivity<FragmentModeActivity>()
@@ -144,8 +149,20 @@ class MainActivity : BaseActivity() {
         btn_userinfo.setOnClickListener {
             startActivity<UserInfoActivity>()
         }
-        btn_viewpager.performClick()
+        RDataBase.init()
+        viewModel.opeDatabase()
 
+
+        NetworkUtils.registerNetworkStatusChangedListener(object :
+            NetworkUtils.OnNetworkStatusChangedListener {
+            override fun onConnected(networkType: NetworkUtils.NetworkType?) {
+                Logger.d("network, onConnected")
+            }
+
+            override fun onDisconnected() {
+                Logger.d("network, onDisconnected")
+            }
+        })
     }
 
     override fun onBackPressed() {
