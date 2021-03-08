@@ -42,3 +42,4 @@ class UserInfoActivity : BaseActivity() {
         }
     }
 }
+

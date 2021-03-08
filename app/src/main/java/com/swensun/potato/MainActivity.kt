@@ -2,13 +2,11 @@ package com.swensun.potato
 
 import android.app.PendingIntent
 import android.content.Intent
-import android.net.Network
 import android.os.Bundle
 import android.text.format.DateFormat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.ViewModelProvider
-import com.blankj.utilcode.util.NetworkUtils
 import com.swensun.base.BaseActivity
 import com.swensun.func.anim.AnimActivity
 import com.swensun.func.bottom.BottomActivity
@@ -142,6 +140,8 @@ class MainActivity : BaseActivity() {
         }
         RDataBase.init()
         viewModel.opeDatabase()
+
+        
     }
 
     override fun onBackPressed() {
