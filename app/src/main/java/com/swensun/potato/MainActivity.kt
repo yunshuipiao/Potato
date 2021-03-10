@@ -140,8 +140,6 @@ class MainActivity : BaseActivity() {
         }
         RDataBase.init()
         viewModel.opeDatabase()
-
-        
     }
 
     override fun onBackPressed() {
