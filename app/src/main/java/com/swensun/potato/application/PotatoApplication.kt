@@ -7,6 +7,8 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import androidx.lifecycle.ProcessLifecycleOwner
+import androidx.lifecycle.ProcessLifecycleOwnerInitializer
 import com.dueeeke.videoplayer.player.ProgressManager
 import com.dueeeke.videoplayer.player.VideoViewConfig
 import com.dueeeke.videoplayer.player.VideoViewManager
@@ -15,6 +17,7 @@ import com.swensun.http.SimpleActivityLifecycleCallbacks
 import com.swensun.swutils.SwUtils
 import com.swensun.swutils.shareprefence.SharePreferencesManager
 import com.swensun.swutils.util.ActUtils
+import com.swensun.swutils.util.ApplicationLifecycleObserver
 import org.jetbrains.anko.alert
 
 
@@ -41,6 +44,8 @@ class PotatoApplication : Application() {
         if (SwUtils.debug) {
 //            CrashUtil.init(this)
         }
+
+        ProcessLifecycleOwner.get().lifecycle.addObserver(ApplicationLifecycleObserver())
 
         VideoViewManager.config = VideoViewConfig().apply {
             progressManager = object : ProgressManager() {
