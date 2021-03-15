@@ -11,17 +11,16 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.swensun.swutils.SwUtils
 import com.swensun.swutils.util.Logger
 
-@TypeConverters(VideoDetailInfoItemConverter::class)
-@Database(entities = [RoomEntity::class], version = 4)
+@Database(entities = [RoomEntity::class], version = 2)
 abstract class RDataBase : RoomDatabase() {
     abstract fun roomDao(): RoomDao
 
     companion object {
         val M_1_2 = object : Migration(1, 2) {
             override fun migrate(db: SupportSQLiteDatabase) {
-                Thread.sleep(500)
                 roomlog("room M_1_2, ${Thread.currentThread().name}")
                 roomlog("room M_1_2:${db.version}")
+                db.execSQL("CREATE TABLE IF NOT EXISTS `${ROOM_ENTITY}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `count` INTEGER NOT NULL, `startTime` INTEGER NOT NULL)")
             }
         }
 
@@ -62,12 +61,12 @@ abstract class RDataBase : RoomDatabase() {
                         roomlog("room onOpen, ${db.version}, ${db.path}")
                     }
                 })
-                .addMigrations(M_1_2, M_2_3, M_3_4)
+                .addMigrations(M_1_2)
                 .build()
         }
     }
 }
 
 fun roomlog(msg: String) {
-    Log.i("room_msg", "$msg")
+    Log.e("room_msg", "$msg")
 }
