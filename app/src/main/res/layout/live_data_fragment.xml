@@ -6,7 +6,7 @@
         android:orientation="vertical">
 
     <TextView
-            android:id="@+id/btn_livedata_1"
+            android:id="@+id/btn_livedata"
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"

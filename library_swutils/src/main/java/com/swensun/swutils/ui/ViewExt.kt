@@ -1,5 +1,6 @@
 package com.swensun.swutils.ui
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Rect
@@ -19,12 +20,13 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import com.bumptech.glide.Glide
+import com.swensun.swutils.R
 import org.jetbrains.anko.backgroundDrawable
 
 const val TOP_LEFT = 1
 const val TOP_RIGHT = TOP_LEFT.shl(1)
 const val BOTTOM_LEFT = TOP_LEFT.shl(2)
-const val BOTTOM_RIGHT = TOP_LEFT.shl(3)
+const val BOTTOM_RIGHT = TOP_LEFT.shl(3) 
 
 fun View.setRadiusBackground(radius: Int, color: Int? = null, type: Int = 0) {
     val gradientDrawable = GradientDrawable()
@@ -127,3 +129,5 @@ fun TextView.setHighlightText(
     this.highlightColor = Color.TRANSPARENT
     this.text = span
 }
+
+

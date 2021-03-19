@@ -6,7 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.afollestad.materialdialogs.MaterialDialog
+import com.google.android.material.dialog.MaterialDialogs
 import com.swensun.potato.R
+import kotlinx.android.synthetic.main.multi_dialog_fragment.*
 
 class MultiDialogFragment : Fragment() {
 
@@ -26,5 +29,12 @@ class MultiDialogFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MultiDialogViewModel::class.java)
+
+
+        btn_bottom_sheet.setOnClickListener {
+            MaterialDialog(requireContext()).show {
+                title()
+            }
+        }
     }
 }

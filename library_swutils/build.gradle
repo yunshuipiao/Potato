@@ -94,4 +94,9 @@ dependencies {
     api "com.liulishuo.okdownload:okhttp:1.0.6"
 
     api 'com.facebook.stetho:stetho:1.5.1'
+
+    api 'com.afollestad.material-dialogs:core:3.3.0'
+    api 'com.afollestad.material-dialogs:lifecycle:3.3.0'
+
+
 }

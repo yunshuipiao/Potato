@@ -8,18 +8,5 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 
 class LiveDataViewModel : ViewModel() {
-
-    var job: Job? = null
-
-    fun testCount() {
-        job?.cancel()
-        job = launchIO {
-            (0..1000).forEach {
-                delay(100)
-                oneLiveData.postValue(it)
-            }
-        }
-    }
-
-    var oneLiveData = MutableLiveData<Int>()
+    
 }

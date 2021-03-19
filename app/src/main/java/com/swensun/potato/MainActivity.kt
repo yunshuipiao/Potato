@@ -141,7 +141,7 @@ class MainActivity : BaseActivity() {
         RDataBase.init()
         viewModel.opeDatabase()
     }
-
+    
     override fun onBackPressed() {
         try {
             val launcherIntent = Intent(Intent.ACTION_MAIN)
