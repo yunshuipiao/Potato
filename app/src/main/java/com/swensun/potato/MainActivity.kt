@@ -20,6 +20,7 @@ import com.swensun.func.lifecycle.LifecycleActivity
 import com.swensun.func.livedata.LiveDataActivity
 import com.swensun.func.memory.MemoryActivity
 import com.swensun.func.multidialog.MultiDialogActivity
+import com.swensun.func.network.startDownloadActivity
 import com.swensun.func.push.DeeplinkActivity
 import com.swensun.func.recycler.RecyclerViewActivity
 import com.swensun.func.room.RoomActivity
@@ -138,6 +139,10 @@ class MainActivity : BaseActivity() {
         btn_userinfo.setOnClickListener {
             startActivity<UserInfoActivity>()
         }
+        btn_download.setOnClickListener {
+            startDownloadActivity()
+        }
+
         RDataBase.init()
         viewModel.opeDatabase()
     }
