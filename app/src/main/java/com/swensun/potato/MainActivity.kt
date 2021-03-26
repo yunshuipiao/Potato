@@ -1,8 +1,12 @@
 package com.swensun.potato
 
 import android.app.PendingIntent
+import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
-import android.os.Bundle
+import android.content.ServiceConnection
+import android.net.Uri
+import android.os.*
 import android.text.format.DateFormat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -125,7 +129,17 @@ class MainActivity : BaseActivity() {
                 .notify(UtilCodeFragment.notification_id, notification)
         }
         fab.setOnClickListener {
-
+            val uri = Uri.parse("content://com.badambiz.kinobazar.zvod.LiveLoginContentProvider/LocalStorage")
+            val cursor = contentResolver.query(uri, arrayOf("badam_data_tmp1"), null, null, null, null)
+            cursor?.let {
+                if (it.moveToFirst()) {
+                    do {
+                        val key = cursor.getString(cursor.getColumnIndex("key"))
+                        val value = cursor.getString(cursor.getColumnIndex("value"))
+                        clog("debug query: $key -- $value")
+                    } while (cursor.moveToNext())
+                }
+            }
         }
         btn_fragment.setOnClickListener {
             startActivity<FragmentModeActivity>()
@@ -145,8 +159,13 @@ class MainActivity : BaseActivity() {
 
         RDataBase.init()
         viewModel.opeDatabase()
+        
     }
-    
+
+    private fun clog(s: String) {
+        Logger.d("LiveLoginContentProvider potato, $s")
+    }
+
     override fun onBackPressed() {
         try {
             val launcherIntent = Intent(Intent.ACTION_MAIN)
@@ -163,7 +182,53 @@ class MainActivity : BaseActivity() {
         super.onSaveInstanceState(outState)
         Logger.d("onSave, $outState")
     }
+
+    private val mClientHandler = Handler {
+        when(it.what) {
+            2 -> {
+                llslog("2")
+            }
+
+        }
+        return@Handler false
+    }
+
+    private val mClientMessenger = Messenger(mClientHandler)
+    private var isBindService = false
+
+    private val conn = object: ServiceConnection {
+        override fun onServiceDisconnected(name: ComponentName?) {
+            llslog("onServiceDisconnected, $name")
+            isBindService = false
+        }
+
+        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            llslog("onServiceConnected, $name, $service")
+            isBindService = true
+
+            val mServerMessenger = Messenger(service)
+            val toServerMsg = Message.obtain(null, 1)
+            toServerMsg.replyTo = mClientMessenger
+            try {
+                mServerMessenger.send(toServerMsg)
+            } catch (e: Throwable) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    override fun onStop() {
+        if (isBindService) {
+            unbindService(conn)
+        }
+        super.onStop()
+    }
 }
+
+fun llslog(msg: String) {
+    Logger.d("LiveLoginService potato, $msg")
+}
+
 
 
    

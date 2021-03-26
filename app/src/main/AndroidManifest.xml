@@ -90,6 +90,14 @@
         </activity>
         <activity android:name="com.swensun.func.viewpager.view.ViewPager2Activity" />
         <activity android:name="com.swensun.func.network.DownloadActivity" />
+
+<!--        <service android:name=".LiveLoginService"-->
+<!--                android:exported="true"-->
+<!--                android:permission="kino.service.permission.LiveLoginService">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="kino.service.permission.LiveLoginService"/>-->
+<!--            </intent-filter>-->
+<!--        </service>-->
     </application>
 
 </manifest>

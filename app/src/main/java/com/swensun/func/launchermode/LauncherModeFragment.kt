@@ -6,9 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.swensun.potato.MainActivity
 import com.swensun.potato.databinding.LauncherModeFragmentBinding
-import org.jetbrains.anko.support.v4.startActivity
 
 class LauncherModeFragment : Fragment() {
 
@@ -32,7 +30,6 @@ class LauncherModeFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(LauncherModeViewModel::class.java)
         mBinding.btnLauncherMode.setOnClickListener {
-            startActivity<MainActivity>()
         }
     }
 }
