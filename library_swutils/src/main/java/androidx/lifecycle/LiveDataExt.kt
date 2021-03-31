@@ -39,3 +39,29 @@ fun <T> LiveData<T>.notSticky() = MediatorLiveData<T>().also { mld ->
     }
 }
 
+fun <T> LiveData<T>.observeOnce(observer: (T) -> Unit) {
+    observeForever(object : Observer<T> {
+        override fun onChanged(value: T) {
+            removeObserver(this)
+            observer(value)
+        }
+    })
+}
+
+fun <T> LiveData<T>.observeOnce(owner: LifecycleOwner, observer: (T) -> Unit) {
+    observe(owner, object : Observer<T> {
+        override fun onChanged(value: T) {
+            removeObserver(this)
+            observer(value)
+        }
+    })
+}
+
+fun <T> LiveData<T>.notNull() = MediatorLiveData<T>().also { mld ->
+    mld.addSource(this, Observer {
+        if (value != null) {
+            mld.value = value
+        }
+    })
+}
+

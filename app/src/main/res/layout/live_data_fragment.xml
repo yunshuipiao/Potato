@@ -14,7 +14,7 @@
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
-            android:text="0"
+            android:text="livedata"
             android:textSize="20sp"
             />
 

@@ -27,14 +27,13 @@ class UtilCodeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        initView()
+        initView()                       
     }
 
     private fun initView() {
         btn_test.setOnClickListener {
             try {
-                val intent =
-                    Intent(Intent.ACTION_VIEW, Uri.parse("potato://potato/push?name=potato"))
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("potato://potato/push?name=potato"))
                 startActivity(intent)
             } catch (e: Exception) {
                 e.printStackTrace()

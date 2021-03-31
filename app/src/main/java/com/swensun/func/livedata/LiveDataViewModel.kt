@@ -7,6 +7,9 @@ import io.reactivex.internal.observers.BlockingBaseObserver
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 
+
+class User(var name: String = "")
+
 class LiveDataViewModel : ViewModel() {
-    
+    val modelLiveData = MutableLiveData<User?>()
 }
