@@ -83,7 +83,6 @@ dependencies {
     api project(':library_dkplayer')
     api project(':library_crash')
     api project(':module_test')
-    kapt "androidx.room:room-compiler:$prop_room_version"
 
 
     implementation 'com.google.android.exoplayer:exoplayer:2.11.3'
@@ -91,4 +90,5 @@ dependencies {
     testImplementation group: 'org.json', name: 'json', version: '20190722'
 
     implementation 'com.drakeet.multitype:multitype:4.2.0'
+    kapt "androidx.room:room-compiler:$prop_room_version"
 }

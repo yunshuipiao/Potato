@@ -1,12 +1,8 @@
 package com.swensun.potato
 
 import android.app.PendingIntent
-import android.content.ComponentName
-import android.content.Context
 import android.content.Intent
-import android.content.ServiceConnection
-import android.net.Uri
-import android.os.*
+import android.os.Bundle
 import android.text.format.DateFormat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -150,6 +146,7 @@ class MainActivity : BaseActivity() {
 
         RDataBase.init()
         viewModel.opeDatabase()
+        btn_livedata.performClick()
         
     }
 

@@ -1,4 +1,4 @@
-package com.swensun.func.room.database
+package com.swensun.base
 
 import androidx.room.*
 

@@ -2,6 +2,7 @@ package com.swensun.func.room.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.swensun.base.BaseDao
 
 const val ROOM_ENTITY = "room_entity_2"
 
