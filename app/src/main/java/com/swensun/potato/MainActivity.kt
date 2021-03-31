@@ -11,6 +11,7 @@ import android.text.format.DateFormat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.ViewModelProvider
+import com.blankj.utilcode.util.AppUtils
 import com.swensun.base.BaseActivity
 import com.swensun.func.anim.AnimActivity
 import com.swensun.func.bottom.BottomActivity
@@ -129,18 +130,7 @@ class MainActivity : BaseActivity() {
                 .notify(UtilCodeFragment.notification_id, notification)
         }
         fab.setOnClickListener {
-//            val uri = Uri.parse("content://com.badambiz.kinobazar.zvod.LiveLoginContentProvider/LocalStorage")
-//            val cursor = contentResolver.query(uri, arrayOf("badam_data_tmp1"), null, null, null, null)
-//            cursor?.let {
-//                if (it.moveToFirst()) {
-//                    do {
-//                        val key = cursor.getString(cursor.getColumnIndex("key"))
-//                        val value = cursor.getString(cursor.getColumnIndex("value"))
-//                        clog("debug query: $key -- $value")
-//                    } while (cursor.moveToNext())
-//                }
-//            }
-            Logger.d("today: $today")
+            AppUtils.relaunchApp(true)
         }
         btn_fragment.setOnClickListener {
             startActivity<FragmentModeActivity>()
@@ -160,7 +150,6 @@ class MainActivity : BaseActivity() {
 
         RDataBase.init()
         viewModel.opeDatabase()
-        btn_livedata.performClick()
         
     }
 

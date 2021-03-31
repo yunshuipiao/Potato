@@ -17,6 +17,7 @@ import com.swensun.swutils.SwUtils
 import com.swensun.swutils.shareprefence.SharePreferencesManager
 import com.swensun.swutils.util.ActUtils
 import com.swensun.swutils.util.ApplicationLifecycleObserver
+import com.swensun.swutils.util.Logger
 
 
 class PotatoApplication : Application() {
@@ -58,6 +59,8 @@ class PotatoApplication : Application() {
             }
         }
         Stetho.initializeWithDefaults(this)
+
+        Logger.d("application init complete")
     }
 }
 
