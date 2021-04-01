@@ -29,11 +29,11 @@ abstract class KvStore : RoomDatabase() {
                 .build()
         }
 
-        fun <T: Any> get(key: String, defaultValue: T): T {
+        fun <T : Any> get(key: String, defaultValue: T): T {
             val type = defaultValue::class.simpleName ?: ""
-            val value = database.dao().get("${key}_${type}")
+            val value = database.dao().get(key, type)
             return try {
-                val v  = when(defaultValue) {
+                val v = when (defaultValue) {
                     is String -> value
                     is Boolean -> value == "true"
                     is Int -> value.toInt()
@@ -47,19 +47,20 @@ abstract class KvStore : RoomDatabase() {
             }
         }
 
-        fun <T: Any> set(key: String, value: T) {
+        fun <T : Any> set(key: String, value: T) {
             val type = value::class.simpleName ?: ""
-            val v = when(value) {
+            val v = when (value) {
                 is String, is Boolean, is Int, is Float, is Double -> value.toString()
                 else -> Gson().toJson(value)
             }
-            database.dao().insertReplace(KeyValue("${key}_${type}", v))
+            database.dao().insertReplace(KeyValue(key, type, v))
         }
 
-       inline fun <reified T> liveData(key: String, sticky: Boolean = true): MediatorLiveData<T> {
-           var realSticky = sticky
+        inline fun <reified T> liveData(key: String, sticky: Boolean = true): MediatorLiveData<T> {
+            var realSticky = sticky
+            val type = T::class.simpleName ?: ""
             val mld = MediatorLiveData<T>()
-            mld.addSource(database.dao().liveData("${key}_${T::class.simpleName}")) {
+            mld.addSource(database.dao().liveData(key, type)) {
                 if (realSticky) {
                     mld.value = try {
                         Gson().fromJson(it, T::class.java)
@@ -73,25 +74,27 @@ abstract class KvStore : RoomDatabase() {
             return mld
         }
     }
+
     abstract fun dao(): KeyValueDao
 }
 
-@Entity()
+@Entity(primaryKeys = ["key", "type"])
 data class KeyValue(
-    @PrimaryKey
     @ColumnInfo(name = "key", defaultValue = "")
     var key: String = "",
+    @ColumnInfo(name = "type", defaultValue = "")
+    var type: String = "",
     @ColumnInfo(name = "value", defaultValue = "")
     var value: String = ""
 )
 
 @Dao
 abstract class KeyValueDao : BaseDao<KeyValue>() {
-    @Query("SELECT value from KeyValue WHERE `key` = :key")
-    abstract fun get(key: String): String
+    @Query("SELECT value from KeyValue WHERE `key` = :key AND type = :type")
+    abstract fun get(key: String, type: String): String
 
-    @Query("SELECT value from KeyValue WHERE `key` = :key")
-    abstract fun liveData(key: String): LiveData<String>
+    @Query("SELECT value from KeyValue WHERE `key` = :key AND type = :type")
+    abstract fun liveData(key: String, type: String): LiveData<String>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertReplace(obj: KeyValue): Long

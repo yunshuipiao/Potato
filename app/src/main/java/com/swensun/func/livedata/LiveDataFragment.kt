@@ -34,15 +34,15 @@ class LiveDataFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(LiveDataViewModel::class.java)
-        KvStore.liveData<S>("sw", false).observe(viewLifecycleOwner, Observer {
+        KvStore.liveData<Int>("sw", false).observe(viewLifecycleOwner, Observer {
             Logger.d("kvstore liveData sw $it")
         })
         btn_livedata.setOnClickListener {
             count += 1
             if (count % 2 == 1) {
-                KvStore.set("sw", S(n = "sw", l = arrayListOf(1, 2, 3)))
+                KvStore.set("sw", count)
             } else {
-                val value = KvStore.get("sw", S())
+                val value = KvStore.get("sw", "default")
                 Logger.d("kvstore, get value: $value")
             }
         }
