@@ -29,8 +29,9 @@ abstract class KvStore : RoomDatabase() {
                 .build()
         }
 
-        inline fun <reified T> get(key: String, defaultValue: T): T {
-            val value = database.dao().get(key)
+        fun <T: Any> get(key: String, defaultValue: T): T {
+            val type = defaultValue::class.simpleName ?: ""
+            val value = database.dao().get("${key}_${type}")
             return try {
                 val v  = when(defaultValue) {
                     is String -> value
@@ -38,7 +39,7 @@ abstract class KvStore : RoomDatabase() {
                     is Int -> value.toInt()
                     is Float -> value.toFloat()
                     is Double -> value.toDouble()
-                    else -> Gson().fromJson(value, T::class.java)
+                    else -> Gson().fromJson(value, defaultValue::class.java)
                 }
                 v as T
             } catch (e: Throwable) {
@@ -46,18 +47,19 @@ abstract class KvStore : RoomDatabase() {
             }
         }
 
-        fun <T> set(key: String, value: T) {
+        fun <T: Any> set(key: String, value: T) {
+            val type = value::class.simpleName ?: ""
             val v = when(value) {
                 is String, is Boolean, is Int, is Float, is Double -> value.toString()
                 else -> Gson().toJson(value)
             }
-            database.dao().insertReplace(KeyValue(key, v))
+            database.dao().insertReplace(KeyValue("${key}_${type}", v))
         }
 
        inline fun <reified T> liveData(key: String, sticky: Boolean = true): MediatorLiveData<T> {
            var realSticky = sticky
             val mld = MediatorLiveData<T>()
-            mld.addSource(database.dao().liveData(key)) {
+            mld.addSource(database.dao().liveData("${key}_${T::class.simpleName}")) {
                 if (realSticky) {
                     mld.value = try {
                         Gson().fromJson(it, T::class.java)
@@ -74,7 +76,7 @@ abstract class KvStore : RoomDatabase() {
     abstract fun dao(): KeyValueDao
 }
 
-@Entity
+@Entity()
 data class KeyValue(
     @PrimaryKey
     @ColumnInfo(name = "key", defaultValue = "")
@@ -93,7 +95,6 @@ abstract class KeyValueDao : BaseDao<KeyValue>() {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertReplace(obj: KeyValue): Long
-    
 }
 
 

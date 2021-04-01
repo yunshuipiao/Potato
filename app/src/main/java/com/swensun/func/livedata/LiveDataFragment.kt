@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.notNull
-import androidx.lifecycle.notSticky
 import com.swensun.func.KvStore
 import com.swensun.potato.R
 import com.swensun.swutils.util.Logger
@@ -36,17 +34,19 @@ class LiveDataFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(LiveDataViewModel::class.java)
-        KvStore.liveData<Int>("sw", false).observe(viewLifecycleOwner, Observer {
+        KvStore.liveData<S>("sw", false).observe(viewLifecycleOwner, Observer {
             Logger.d("kvstore liveData sw $it")
         })
         btn_livedata.setOnClickListener {
             count += 1
             if (count % 2 == 1) {
-                KvStore.set("sw", 456)
+                KvStore.set("sw", S(n = "sw", l = arrayListOf(1, 2, 3)))
             } else {
-                val value = KvStore.get("sw", 345)
+                val value = KvStore.get("sw", S())
                 Logger.d("kvstore, get value: $value")
             }
         }
     }
 }
+
+data class S(var n: String = "", var l: List<Int> = arrayListOf(2, 3, 4))
