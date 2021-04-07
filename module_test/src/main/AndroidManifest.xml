@@ -3,7 +3,5 @@
           package="com.example.module_test">
 
     <application android:supportsRtl="true">
-        <activity android:name=".MainActivity">
-        </activity>
     </application>
 </manifest>
