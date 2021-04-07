@@ -48,5 +48,3 @@ class LiveDataFragment : Fragment() {
         }
     }
 }
-
-data class S(var n: String = "", var l: List<Int> = arrayListOf(2, 3, 4))
