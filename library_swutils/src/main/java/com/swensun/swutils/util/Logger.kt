@@ -19,7 +19,7 @@ object Logger {
 
     fun d(msg: Any) {
         if (SwUtils.debug || loggable) {
-            LogUtils.d("__${msg}")
+            LogUtils.d("${getInfo()}, __${msg}")
         }
     }
 
@@ -31,6 +31,18 @@ object Logger {
         if (loggable) {
             LogUtils.i(msg)
         }
+    }
+
+    fun getInfo(): String {
+        var result = ""
+        val thread = Thread.currentThread()
+        val elements = thread.stackTrace
+        if (elements.size > 4) {
+            elements.getOrNull(4)?.let {
+                result = thread.name + "-" +it.fileName + "-" +  it.lineNumber
+            }
+        }
+        return result
     }
 }
 
