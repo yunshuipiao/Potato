@@ -8,8 +8,9 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 
 
-class User(var name: String = "")
+data class User(var name: String = "abc")
 
 class LiveDataViewModel : ViewModel() {
-    val modelLiveData = MutableLiveData<User?>()
+    val modelLiveData = MutableLiveData<User>()
+    
 }

@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.swensun.func.KvStore
 import com.swensun.potato.R
 import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.live_data_fragment.*
@@ -34,17 +32,24 @@ class LiveDataFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(LiveDataViewModel::class.java)
-        KvStore.liveData<Int>("sw", false).observe(viewLifecycleOwner, Observer {
-            Logger.d("kvstore liveData sw $it")
-        })
         btn_livedata.setOnClickListener {
             count += 1
             if (count % 2 == 1) {
-                KvStore.set("sw", count)
             } else {
-                val value = KvStore.get("sw", "default")
-                Logger.d("kvstore, get value: $value")
+
             }
+            val user = nInstance<User>()
+            Logger.d("__newInstance, $user")
         }
+    }
+}
+
+inline fun <reified T> nInstance(callback: ((String) -> Unit) = {}): T? {
+    return try {
+        T::class.java.getDeclaredConstructor().newInstance()
+    } catch (e: Throwable) {
+        val error ="newInstance error, ${e.message}"
+        callback.invoke(error)
+        null
     }
 }

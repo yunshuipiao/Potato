@@ -58,10 +58,10 @@ fun <T> LiveData<T>.observeOnce(owner: LifecycleOwner, observer: (T) -> Unit) {
 }
 
 fun <T> LiveData<T>.notNull() = MediatorLiveData<T>().also { mld ->
-    mld.addSource(this, Observer {
+    mld.addSource(this) {
         if (value != null) {
             mld.value = value
         }
-    })
+    }
 }
 
