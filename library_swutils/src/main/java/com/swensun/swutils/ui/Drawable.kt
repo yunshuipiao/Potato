@@ -35,7 +35,7 @@ fun drawable(block: (Drawable.Builder.() -> Unit)? = null): GradientDrawable {
     val gradientDrawable = GradientDrawable()
     block?.invoke(builder)
     val type = builder.radiusType
-    val radius = builder.radius
+    val radius = dp2px(builder.radius.toFloat()).toFloat()
 
     // set gradientDrawable
 
@@ -62,24 +62,24 @@ fun drawable(block: (Drawable.Builder.() -> Unit)? = null): GradientDrawable {
 
 
     if (type == 0) {
-        gradientDrawable.cornerRadius = radius.toFloat()
+        gradientDrawable.cornerRadius = radius
     } else {
         val floatArray = FloatArray(8)
         if (Drawable.TOP_LEFT.and(type) != 0) {
-            floatArray[0] = radius.toFloat()
-            floatArray[1] = radius.toFloat()
+            floatArray[0] = radius
+            floatArray[1] = radius
         }
         if (Drawable.TOP_RIGHT.and(type) != 0) {
-            floatArray[2] = radius.toFloat()
-            floatArray[3] = radius.toFloat()
+            floatArray[2] = radius
+            floatArray[3] = radius
         }
         if (Drawable.BOTTOM_RIGHT.and(type) != 0) {
-            floatArray[4] = radius.toFloat()
-            floatArray[5] = radius.toFloat()
+            floatArray[4] = radius
+            floatArray[5] = radius
         }
         if (Drawable.BOTTOM_LEFT.and(type) != 0) {
-            floatArray[6] = radius.toFloat()
-            floatArray[7] = radius.toFloat()
+            floatArray[6] = radius
+            floatArray[7] = radius
         }
         gradientDrawable.cornerRadii = floatArray
     }

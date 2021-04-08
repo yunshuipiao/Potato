@@ -18,7 +18,7 @@ import com.swensun.swutils.SwUtils
  * 针对 sp 的缺点，使用数据库 room 来替代, 并且天然支持 livedata 通知
  */
 
-@Database(entities = [KeyValue::class], version = 1, exportSchema = true)
+@Database(entities = [KeyValue::class], version = 1, exportSchema = false)
 abstract class KvStore : RoomDatabase() {
     companion object {
         val database by lazy {

@@ -2,6 +2,7 @@ package com.swensun.potato
 
 import android.app.PendingIntent
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.format.DateFormat
 import androidx.core.app.NotificationCompat

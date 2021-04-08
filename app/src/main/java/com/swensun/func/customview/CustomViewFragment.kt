@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.swensun.potato.R
 import com.swensun.swutils.ui.drawable
-import com.swensun.swutils.ui.getWinWidth
 import kotlinx.android.synthetic.main.custom_view_fragment.*
 
 class CustomViewFragment : Fragment() {
@@ -45,10 +44,9 @@ class CustomViewFragment : Fragment() {
             index = 0
         }
         GradientDrawable.Orientation.values().getOrNull(index)?.let {
-            val bg = drawable {
+            val bg = drawable{
+                radius = 100
                 colors = intArrayOf(R.color.red)
-                radius = 20
-                orientation = it
             }
             tv_bg.background = bg
         }
