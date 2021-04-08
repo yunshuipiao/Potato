@@ -3,8 +3,6 @@ package com.swensun.swutils.ui
 import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
-import androidx.annotation.ColorRes
-import androidx.annotation.DrawableRes
 import com.blankj.utilcode.util.ConvertUtils
 
 /**
