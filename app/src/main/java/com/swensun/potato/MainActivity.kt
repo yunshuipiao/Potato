@@ -146,7 +146,7 @@ class MainActivity : BaseActivity() {
 
         RDataBase.init()
         viewModel.opeDatabase()
-        btn_livedata.performClick()
+        btn_custom_view.performClick()
         
     }
 
