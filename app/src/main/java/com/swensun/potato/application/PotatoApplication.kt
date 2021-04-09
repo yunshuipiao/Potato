@@ -8,6 +8,7 @@ import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import androidx.lifecycle.ProcessLifecycleOwner
+import com.blankj.utilcode.util.ThreadUtils
 import com.dueeeke.videoplayer.player.ProgressManager
 import com.dueeeke.videoplayer.player.VideoViewConfig
 import com.dueeeke.videoplayer.player.VideoViewManager
@@ -60,18 +61,6 @@ class PotatoApplication : Application() {
             }
         }
         Stetho.initializeWithDefaults(this)
-
-        Logger.d("application init complete")
-        Thread.setDefaultUncaughtExceptionHandler { t, e ->
-            Thread {
-                Thread.sleep(1000)
-                Thread {
-                    Thread.sleep(2000)
-                    Logger.d("caught exception 2, ${Thread.currentThread().name}")
-                }.start()
-                Logger.d("caught exception, ${Thread.currentThread().name}")
-            }.start()
-        }
     }
 }
 

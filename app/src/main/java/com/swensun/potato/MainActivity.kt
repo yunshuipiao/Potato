@@ -4,13 +4,10 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
 import android.text.format.DateFormat
-import android.view.View
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.lifecycle.ViewModelProvider
-import com.blankj.utilcode.util.AppUtils
+import androidx.lifecycle.*
 import com.swensun.base.BaseActivity
-import com.swensun.base.fitStatusBarHeight
 import com.swensun.func.anim.AnimActivity
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
@@ -49,6 +46,10 @@ class MainActivity : BaseActivity() {
     lateinit var viewModel: MainViewModel
 
     init {
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
     }
 
     override fun getContentSubView(): Int {
@@ -153,14 +154,13 @@ class MainActivity : BaseActivity() {
 
 
         fab_right.setOnClickListener {
-            AppUtils.relaunchApp(true)
         }
 
         fab_left.setOnClickListener {
-            AppUtils.relaunchApp()
+
         }
     }
-
+    
     private fun clog(s: String) {
         Logger.d("LiveLoginContentProvider potato, $s")
     }
@@ -182,6 +182,7 @@ class MainActivity : BaseActivity() {
         Logger.d("onSave, $outState")
     }
 }
+
 
 
 

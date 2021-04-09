@@ -1,12 +1,15 @@
 package com.swensun.func.livedata
 
+import android.app.AlertDialog
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.swensun.potato.R
+import com.swensun.swutils.ui.getColor
 import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.live_data_fragment.*
 
@@ -22,7 +25,8 @@ class LiveDataFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.live_data_fragment, container, false)
+        val view =  inflater.inflate(R.layout.live_data_fragment, container, false)
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -34,8 +38,6 @@ class LiveDataFragment : Fragment() {
             } else {
 
             }
-            val user = nInstance<User>()
-            Logger.d("__newInstance, $user")
         }
     }
 }

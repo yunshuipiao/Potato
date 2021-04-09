@@ -1,8 +1,9 @@
 package com.swensun.func.livedata
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.swensun.potato.R
+import kotlinx.android.synthetic.main.live_data_activity.*
 
 
 class LiveDataActivity : AppCompatActivity() {
