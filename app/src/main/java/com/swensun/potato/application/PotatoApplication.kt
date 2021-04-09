@@ -18,6 +18,7 @@ import com.swensun.swutils.shareprefence.SharePreferencesManager
 import com.swensun.swutils.util.ActUtils
 import com.swensun.swutils.util.ApplicationLifecycleObserver
 import com.swensun.swutils.util.Logger
+import kotlin.system.exitProcess
 
 
 class PotatoApplication : Application() {
@@ -61,6 +62,16 @@ class PotatoApplication : Application() {
         Stetho.initializeWithDefaults(this)
 
         Logger.d("application init complete")
+        Thread.setDefaultUncaughtExceptionHandler { t, e ->
+            Thread {
+                Thread.sleep(1000)
+                Thread {
+                    Thread.sleep(2000)
+                    Logger.d("caught exception 2, ${Thread.currentThread().name}")
+                }.start()
+                Logger.d("caught exception, ${Thread.currentThread().name}")
+            }.start()
+        }
     }
 }
 

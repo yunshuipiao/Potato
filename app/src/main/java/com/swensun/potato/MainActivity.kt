@@ -2,14 +2,15 @@ package com.swensun.potato
 
 import android.app.PendingIntent
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.format.DateFormat
+import android.view.View
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.AppUtils
 import com.swensun.base.BaseActivity
+import com.swensun.base.fitStatusBarHeight
 import com.swensun.func.anim.AnimActivity
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
@@ -46,6 +47,9 @@ class MainActivity : BaseActivity() {
         get() = DateFormat.format("yyyyMMdd, hh-mm-ss", System.currentTimeMillis()).toString()
 
     lateinit var viewModel: MainViewModel
+
+    init {
+    }
 
     override fun getContentSubView(): Int {
         return R.layout.activity_main
@@ -126,9 +130,7 @@ class MainActivity : BaseActivity() {
             NotificationManagerCompat.from(it.context)
                 .notify(UtilCodeFragment.notification_id, notification)
         }
-        fab.setOnClickListener {
-            AppUtils.relaunchApp(true)
-        }
+
         btn_fragment.setOnClickListener {
             startActivity<FragmentModeActivity>()
         }
@@ -147,8 +149,16 @@ class MainActivity : BaseActivity() {
 
         RDataBase.init()
         viewModel.opeDatabase()
-        btn_custom_view.performClick()
-        
+//        btn_custom_view.performClick()
+
+
+        fab_right.setOnClickListener {
+            AppUtils.relaunchApp(true)
+        }
+
+        fab_left.setOnClickListener {
+            AppUtils.relaunchApp()
+        }
     }
 
     private fun clog(s: String) {
