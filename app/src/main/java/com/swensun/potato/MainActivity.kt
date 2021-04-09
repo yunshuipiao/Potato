@@ -161,10 +161,6 @@ class MainActivity : BaseActivity() {
         }
     }
     
-    private fun clog(s: String) {
-        Logger.d("LiveLoginContentProvider potato, $s")
-    }
-
     override fun onBackPressed() {
         try {
             val launcherIntent = Intent(Intent.ACTION_MAIN)
@@ -175,11 +171,6 @@ class MainActivity : BaseActivity() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        Logger.d("onSave, $outState")
     }
 }
 
