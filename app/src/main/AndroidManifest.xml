@@ -28,7 +28,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                        android:host="com.sensun.potato"
+                        android:host="com.swensun.potato"
                         android:scheme="potato" />
             </intent-filter>
         </activity>
