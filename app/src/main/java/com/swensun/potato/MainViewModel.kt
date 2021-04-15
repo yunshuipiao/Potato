@@ -11,6 +11,7 @@ import com.swensun.swutils.util.Logger
 
 class MainViewModel : ViewModel() {
 
+    val intLiveData = MutableLiveData<Int>()
 
     fun testCoroutines() {
         (0 until 1000).forEach {

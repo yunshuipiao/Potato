@@ -34,4 +34,5 @@
     <string name="status">状态页面</string>
     <string name="anim">anim</string>
     <string name="userinfo">userinfo</string>
+    <string name="scheme">scheme</string>
 </resources>

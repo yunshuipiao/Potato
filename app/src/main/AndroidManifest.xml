@@ -19,7 +19,7 @@
         <activity android:name="com.swensun.func.status.StatusPageActivity" />
         <activity android:name="com.swensun.func.fragment.FragmentModeActivity" />
         <activity
-                android:name="com.swensun.func.push.DeeplinkActivity"
+                android:name="com.swensun.func.push.SchemeActivity"
                 android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -28,8 +28,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                        android:host="potato"
-                        android:path="/push"
+                        android:host="com.sensun.potato"
                         android:scheme="potato" />
             </intent-filter>
         </activity>
@@ -91,13 +90,13 @@
         <activity android:name="com.swensun.func.viewpager.view.ViewPager2Activity" />
         <activity android:name="com.swensun.func.network.DownloadActivity" />
 
-<!--        <service android:name=".LiveLoginService"-->
-<!--                android:exported="true"-->
-<!--                android:permission="kino.service.permission.LiveLoginService">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="kino.service.permission.LiveLoginService"/>-->
-<!--            </intent-filter>-->
-<!--        </service>-->
+        <!--        <service android:name=".LiveLoginService"-->
+        <!--                android:exported="true"-->
+        <!--                android:permission="kino.service.permission.LiveLoginService">-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="kino.service.permission.LiveLoginService"/>-->
+        <!--            </intent-filter>-->
+        <!--        </service>-->
     </application>
 
 </manifest>

@@ -13,7 +13,8 @@ class LiveDataActivity : AppCompatActivity() {
         setContentView(R.layout.live_data_activity)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container,
+                .replace(
+                    R.id.container,
                     LiveDataFragment.newInstance()
                 )
                 .commitNow()

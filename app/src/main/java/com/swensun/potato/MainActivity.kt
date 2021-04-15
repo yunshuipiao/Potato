@@ -2,6 +2,7 @@ package com.swensun.potato
 
 import android.app.PendingIntent
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.format.DateFormat
 import androidx.core.app.NotificationCompat
@@ -21,7 +22,7 @@ import com.swensun.func.livedata.LiveDataActivity
 import com.swensun.func.memory.MemoryActivity
 import com.swensun.func.multidialog.MultiDialogActivity
 import com.swensun.func.network.startDownloadActivity
-import com.swensun.func.push.DeeplinkActivity
+import com.swensun.func.push.SchemeActivity
 import com.swensun.func.recycler.RecyclerViewActivity
 import com.swensun.func.room.RoomActivity
 import com.swensun.func.room.database.RDataBase
@@ -34,7 +35,6 @@ import com.swensun.func.utilcode.UtilCodeActivity
 import com.swensun.func.utilcode.UtilCodeFragment
 import com.swensun.func.viewpager.fragment.ViewPagerActivity
 import com.swensun.potato.application.createNotificationChannel
-import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
 
@@ -116,7 +116,7 @@ class MainActivity : BaseActivity() {
         }
         btn_send_notification.setOnClickListener {
             // Create an explicit intent for an Activity in your app
-            val intent = Intent(it.context, DeeplinkActivity::class.java)
+            val intent = Intent(it.context, SchemeActivity::class.java)
             intent.putExtra("extra", "jump")
             val pendingIntent: PendingIntent = PendingIntent.getActivity(it.context, 0, intent, 0)
             val channelId = createNotificationChannel("1", "2", "3")
@@ -159,8 +159,19 @@ class MainActivity : BaseActivity() {
         fab_left.setOnClickListener {
 
         }
+        btn_scheme.setOnClickListener {
+            val data =
+                "potato://com.swensun.potato?action=1&act=LiveDataActivity&pkg=com.roguoapp.jike&url=www.baidu.com"
+            val intent = Intent()
+            intent.data = Uri.parse(data)
+            startActivity(intent)
+        }
+
+        viewModel.intLiveData.observe(this, Observer {
+
+        })
     }
-    
+
     override fun onBackPressed() {
         try {
             val launcherIntent = Intent(Intent.ACTION_MAIN)
