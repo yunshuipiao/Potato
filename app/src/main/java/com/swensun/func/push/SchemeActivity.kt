@@ -8,7 +8,9 @@ import com.blankj.utilcode.util.AppUtils
 import com.swensun.potato.MainActivity
 import com.swensun.potato.R
 import com.swensun.swutils.util.Logger
+import kotlinx.android.synthetic.main.scheme_activity.*
 import org.jetbrains.anko.toast
+import java.util.logging.LogManager
 
 class SchemeActivity : AppCompatActivity() {
 
@@ -27,7 +29,8 @@ class SchemeActivity : AppCompatActivity() {
     private fun handleIntent(intent: Intent?) {
         val uri = intent?.data
         if (uri != null) {
-            if (ActivityUtils.getActivityList().any { it is MainActivity }) {
+            if (ActivityUtils.getActivityList().all { it !is MainActivity }) {
+                Logger.d("need startMainActivity")
                 val mainIntent = Intent(this, MainActivity::class.java)
                 mainIntent.data = uri
                 startActivity(mainIntent)
@@ -53,6 +56,10 @@ class SchemeActivity : AppCompatActivity() {
                     toast("action: $action")
                 }
             }
+        }
+        tv_title.setOnClickListener {
+            val acts = ActivityUtils.getActivityList()
+            Logger.d("act: $acts")
         }
     }
 }
