@@ -58,6 +58,7 @@ class MainActivity : BaseActivity() {
 
     override fun initView(savedInstanceState: Bundle?) {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
         btn_coroutines.setOnClickListener {
             startActivity<CoroutinesActivity>()
         }
@@ -150,8 +151,7 @@ class MainActivity : BaseActivity() {
 
         RDataBase.init()
         viewModel.opeDatabase()
-//        btn_custom_view.performClick()
-
+        startSchemeActivity()
 
         fab_right.setOnClickListener {
         }
@@ -183,12 +183,21 @@ class MainActivity : BaseActivity() {
             e.printStackTrace()
         }
     }
+
+    private fun startSchemeActivity() {
+        val uri = intent.data
+        if (uri?.scheme == "potato" && uri.host == "com.swensun.potato") {
+            val intent = Intent()
+            intent.data = uri
+            startActivity(intent)
+        }
+    }
 }
 
 
 
 
-   
+
 
 
 

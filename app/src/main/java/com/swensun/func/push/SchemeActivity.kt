@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.AppUtils
+import com.swensun.potato.MainActivity
 import com.swensun.potato.R
 import com.swensun.swutils.util.Logger
 import org.jetbrains.anko.toast
@@ -26,6 +27,12 @@ class SchemeActivity : AppCompatActivity() {
     private fun handleIntent(intent: Intent?) {
         val uri = intent?.data
         if (uri != null) {
+            if (ActivityUtils.getActivityList().any { it is MainActivity }) {
+                val mainIntent = Intent(this, MainActivity::class.java)
+                mainIntent.data = uri
+                startActivity(mainIntent)
+                finish()
+            }
             val action = uri.getQueryParameter("action") ?: ""
             val pkg = uri.getQueryParameter("pkg") ?: ""
             val url = uri.getQueryParameter("url") ?: ""
