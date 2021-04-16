@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.room.*
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.swensun.base.BaseDao
 import com.swensun.swutils.SwUtils
 
@@ -39,7 +40,7 @@ abstract class KvStore : RoomDatabase() {
                     is Int -> value.toInt()
                     is Float -> value.toFloat()
                     is Double -> value.toDouble()
-                    else -> Gson().fromJson(value, defaultValue::class.java)
+                    else -> value.fromJson()
                 }
                 v as T
             } catch (e: Throwable) {
@@ -98,6 +99,14 @@ abstract class KeyValueDao : BaseDao<KeyValue>() {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertReplace(obj: KeyValue): Long
+}
+
+inline fun <reified T> String.fromJson(): T {
+    val clazz = T::class.java
+    if (Collection::class.java.isAssignableFrom(clazz) || Map::class.java.isAssignableFrom(clazz)) {
+        return Gson().fromJson(this, object : TypeToken<T>() {}.type)
+    }
+    return Gson().fromJson(this, T::class.java)
 }
 
 
