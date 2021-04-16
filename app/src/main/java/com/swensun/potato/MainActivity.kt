@@ -161,7 +161,7 @@ class MainActivity : BaseActivity() {
         }
         btn_scheme.setOnClickListener {
             val data =
-                "potato://com.swensun.potato?action=2&act=LiveDataActivity&pkg=com.ruguoapp.jike&url=www.baidu.com"
+                "potato://com.swensun.potato?action=1&act=com.swensun.func.livedata.LiveDataActivity&pkg=com.ruguoapp.jike&url=www.baidu.com"
             val intent = Intent()
             intent.data = Uri.parse(data)
             startActivity(intent)
