@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.AppUtils
-import com.swensun.func.livedata.LiveDataActivity
 import com.swensun.potato.MainActivity
 import com.swensun.potato.R
 import com.swensun.swutils.ui.context
@@ -47,8 +46,10 @@ class SchemeActivity : AppCompatActivity() {
                     //打开act
                     Logger.d("act: $act")
                     try {
+
+                        var cls = Class.forName(act)
                         val newIntent = Intent()
-                        newIntent.setClassName(context, act)
+                        newIntent.setClass(context, cls)
                         if (context !is Activity) {
                             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                         }
