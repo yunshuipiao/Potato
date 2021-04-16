@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.swensun.potato.R
+import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.live_data_fragment.*
 
 
@@ -37,17 +38,11 @@ class LiveDataFragment : Fragment() {
             } else {
 
             }
+            viewModel.testSetOrPost()
         }
 
         viewModel.modelLiveData.observe(viewLifecycleOwner, Observer {
-
-        })
-        viewModel.modelLiveData.observe(viewLifecycleOwner, Observer {
-            viewModel
-        })
-
-        viewModel.modelLiveData.observe(viewLifecycleOwner, Observer {
-            Log.d("1", "2")
+            Logger.d("model:${it}")
         })
     }
 
