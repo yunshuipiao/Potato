@@ -38,7 +38,6 @@ class LiveDataFragment : Fragment() {
             } else {
 
             }
-            viewModel.testSetOrPost()
         }
 
         viewModel.modelLiveData.observe(viewLifecycleOwner, Observer {
@@ -49,12 +48,7 @@ class LiveDataFragment : Fragment() {
 
 }
 
-inline fun <reified T> nInstance(callback: ((String) -> Unit) = {}): T? {
-    return try {
-        T::class.java.getDeclaredConstructor().newInstance()
-    } catch (e: Throwable) {
-        val error = "newInstance error, ${e.message}"
-        callback.invoke(error)
-        null
-    }
-}
+
+inline fun <reified T> nInstance(vararg params: Any): T =
+    T::class.java.getDeclaredConstructor(*params.map { it::class.java }.toTypedArray())
+        .apply { isAccessible = true }.newInstance(*params)
