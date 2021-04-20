@@ -31,7 +31,7 @@ fun <T> LiveData<T>.notSticky() = MediatorLiveData<T>().also { mld ->
     var version = 0
     mld.addSource(this) {
         if (hasSetValue && version == 0) {
-
+            
         } else {
             mld.value = this.value
         }

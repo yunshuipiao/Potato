@@ -37,6 +37,7 @@ import com.swensun.func.viewpager.fragment.ViewPagerActivity
 import com.swensun.potato.application.createNotificationChannel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
 class MainActivity : BaseActivity() {
 
@@ -45,7 +46,10 @@ class MainActivity : BaseActivity() {
 
     lateinit var viewModel: MainViewModel
 
-    init {
+    private var observer = Observer<Boolean> {
+        if (it) {
+            startActivity<LiveDataActivity>()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -166,10 +170,14 @@ class MainActivity : BaseActivity() {
             intent.data = Uri.parse(data)
             startActivity(intent)
         }
+    }
 
-        viewModel.intLiveData.observe(this, Observer {
+    override fun onResume() {
+        super.onResume()
+    }
 
-        })
+    override fun onPause() {
+        super.onPause()
     }
 
     override fun onBackPressed() {

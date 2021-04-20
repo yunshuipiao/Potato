@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveDataBus
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.swensun.potato.R
@@ -38,6 +39,7 @@ class LiveDataFragment : Fragment() {
             } else {
 
             }
+
         }
 
         viewModel.modelLiveData.observe(viewLifecycleOwner, Observer {

@@ -9,8 +9,8 @@ import java.util.concurrent.ConcurrentHashMap
  */
 
 object LiveDataBus {
-    val map = ConcurrentHashMap<String, MutableLiveData<Any>>()
-    inline fun <reified T> get(key: String): MutableLiveData<T> {
+    private val map = ConcurrentHashMap<String, MutableLiveData<Any>>()
+    fun <T : Any> get(key: String): MutableLiveData<T> {
         val liveData = map[key]
         if (liveData == null) {
             val mutableLiveData = MutableLiveData<T>()
