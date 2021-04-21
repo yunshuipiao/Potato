@@ -4,7 +4,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion prop_compileSdkVersion.toInteger()
-    
+
     defaultConfig {
         minSdkVersion prop_minSdkVersion.toInteger()
         targetSdkVersion prop_targetSdkVersion.toInteger()
@@ -32,5 +32,6 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
     api project(':library_swutils')
+    api project(':library_aar')
     kapt "androidx.room:room-compiler:$prop_room_version"
 }
