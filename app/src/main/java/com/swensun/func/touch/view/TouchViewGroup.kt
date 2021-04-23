@@ -52,7 +52,7 @@ class TouchViewGroup @JvmOverloads constructor(
     }
 
     fun log(msg: String) {
-        Logger.d("touch_event: ${tag}, $msg")
+        Logger.d("touch_event: - $tag -, $msg")
     }
 }
 
@@ -76,6 +76,6 @@ class TouchView @JvmOverloads constructor(
     }
 
     fun log(msg: String) {
-        Logger.d("touch_event: ${tag}, $msg")
+        Logger.d("touch_event: -- $tag --, $msg")
     }
 }
