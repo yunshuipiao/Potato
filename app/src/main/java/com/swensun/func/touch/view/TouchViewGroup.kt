@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import android.widget.FrameLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.swensun.swutils.util.Logger
 
@@ -32,23 +31,26 @@ class TouchViewGroup @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        log("dispatchTouchEvent, action:${ev?.actionStr}")
-        return super.dispatchTouchEvent(ev)
+        log("dispatchTouchEvent :${ev?.actionStr} start ")
+        val result = super.dispatchTouchEvent(ev)
+        log("dispatchTouchEvent :${ev?.actionStr} end with: $result")
+        return result
     }
 
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
-        log("onInterceptTouchEvent, action:${ev?.actionStr}")
-        return super.onInterceptTouchEvent(ev)
+        log("onInterceptTouchEvent: ${ev?.actionStr} start")
+        var result = super.onInterceptTouchEvent(ev)
+        log("onInterceptTouchEvent: ${ev?.actionStr} end with:${result}")
+        return result
     }
 
     override fun onTouchEvent(ev: MotionEvent?): Boolean {
-        log("onTouchEvent, action:${ev?.actionStr}")
-        return super.onTouchEvent(ev)
-    }
+        log("onTouchEvent:${ev?.actionStr} start")
+        var result = super.onTouchEvent(ev)
+        log("onTouchEvent:${ev?.actionStr} end with $result")
 
-    override fun performClick(): Boolean {
-        log("performClick")
-        return super.performClick()
+        result = true
+        return result
     }
 
     fun log(msg: String) {
@@ -61,19 +63,19 @@ class TouchView @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        log("dispatchTouchEvent, action:${ev?.actionStr}")
-        return super.dispatchTouchEvent(ev)
+        log("dispatchTouchEvent :${ev?.actionStr} start ")
+        var result = super.dispatchTouchEvent(ev)
+        log("dispatchTouchEvent :${ev?.actionStr} end with: $result")
+        return result
     }
 
     override fun onTouchEvent(ev: MotionEvent?): Boolean {
-        log("onTouchEvent, action:${ev?.actionStr}")
-        return super.onTouchEvent(ev)
+        log("onTouchEvent:${ev?.actionStr} start")
+        var result = super.onTouchEvent(ev)
+        log("onTouchEvent:${ev?.actionStr} end with $result")
+        return result
     }
 
-    override fun performClick(): Boolean {
-        log("performClick")
-        return super.performClick()
-    }
 
     fun log(msg: String) {
         Logger.d("touch_event: -- $tag --, $msg")
