@@ -1,9 +1,11 @@
-package com.swensun.func.customview.touch
+package com.swensun.func.touch.view
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
+import android.view.View
 import android.widget.FrameLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.swensun.swutils.util.Logger
 
 /**
@@ -25,9 +27,9 @@ val MotionEvent.actionStr: String
     }
 
 
-class TouchView @JvmOverloads constructor(
+class TouchViewGroup @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : FrameLayout(context, attrs, defStyleAttr) {
+) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         log("dispatchTouchEvent, action:${ev?.actionStr}")
@@ -37,6 +39,30 @@ class TouchView @JvmOverloads constructor(
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
         log("onInterceptTouchEvent, action:${ev?.actionStr}")
         return super.onInterceptTouchEvent(ev)
+    }
+
+    override fun onTouchEvent(ev: MotionEvent?): Boolean {
+        log("onTouchEvent, action:${ev?.actionStr}")
+        return super.onTouchEvent(ev)
+    }
+
+    override fun performClick(): Boolean {
+        log("performClick")
+        return super.performClick()
+    }
+
+    fun log(msg: String) {
+        Logger.d("touch_event: ${tag}, $msg")
+    }
+}
+
+class TouchView @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : View(context, attrs, defStyleAttr) {
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        log("dispatchTouchEvent, action:${ev?.actionStr}")
+        return super.dispatchTouchEvent(ev)
     }
 
     override fun onTouchEvent(ev: MotionEvent?): Boolean {

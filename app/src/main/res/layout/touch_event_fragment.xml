@@ -5,14 +5,36 @@
         android:layout_height="match_parent">
 
 
-    <com.swensun.func.customview.touch.TouchView
-            android:id="@+id/touch_one"
+    <com.swensun.func.touch.view.TouchViewGroup
+            android:id="@+id/touch_red"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/red"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.5" />
+            app:layout_constraintWidth_percent="0.5">
+
+        <com.swensun.func.touch.view.TouchView
+                android:id="@+id/touch_blue"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/blue"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.7" />
+
+    </com.swensun.func.touch.view.TouchViewGroup>
+
+    <com.swensun.func.touch.view.TouchView
+            android:id="@+id/touch_green"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/green"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

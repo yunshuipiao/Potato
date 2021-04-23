@@ -2,7 +2,6 @@ package com.swensun.func.touch
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.swensun.func.touch.ui.main.TouchEventFragment
 import com.swensun.potato.R
 
 class TouchEventActivity : AppCompatActivity() {

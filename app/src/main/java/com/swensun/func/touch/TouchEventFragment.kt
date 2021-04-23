@@ -1,4 +1,4 @@
-package com.swensun.func.touch.ui.main
+package com.swensun.func.touch
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -15,7 +15,7 @@ class TouchEventFragment : Fragment() {
         fun newInstance() = TouchEventFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: TouchEventViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,11 +26,14 @@ class TouchEventFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(TouchEventViewModel::class.java)
 
-        touch_one.setOnClickListener {
-            touch_one.log("setOnClickListener")
-        }
+        touch_red.tag = "red"
+        touch_blue.tag = "blue"
+        touch_green.tag = "green"
+//        touch_one.setOnClickListener {
+//            touch_one.log("setOnClickListener")
+//        }
 
 //        touch_one.setOnTouchListener { v, event ->
 //            touch_one.log("setOnTouchListener. action: ${event?.actionStr}")
