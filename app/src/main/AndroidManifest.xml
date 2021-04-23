@@ -14,7 +14,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name="com.swensun.func.userinfo.UserInfoActivity"></activity>
+        <activity android:name="com.swensun.func.touch.TouchEventActivity"></activity>
+        <activity android:name="com.swensun.func.userinfo.UserInfoActivity" />
         <activity android:name="com.swensun.func.anim.AnimActivity" />
         <activity android:name="com.swensun.func.status.StatusPageActivity" />
         <activity android:name="com.swensun.func.fragment.FragmentModeActivity" />
@@ -89,14 +90,6 @@
         </activity>
         <activity android:name="com.swensun.func.viewpager.view.ViewPager2Activity" />
         <activity android:name="com.swensun.func.network.DownloadActivity" />
-
-        <!--        <service android:name=".LiveLoginService"-->
-        <!--                android:exported="true"-->
-        <!--                android:permission="kino.service.permission.LiveLoginService">-->
-        <!--            <intent-filter>-->
-        <!--                <action android:name="kino.service.permission.LiveLoginService"/>-->
-        <!--            </intent-filter>-->
-        <!--        </service>-->
     </application>
 
 </manifest>

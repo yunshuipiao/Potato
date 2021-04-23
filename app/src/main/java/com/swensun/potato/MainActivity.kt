@@ -29,6 +29,7 @@ import com.swensun.func.room.database.RDataBase
 import com.swensun.func.status.StatusPageActivity
 import com.swensun.func.statusbar.StatusBarActivity
 import com.swensun.func.time.TimeAboutActivity
+import com.swensun.func.touch.TouchEventActivity
 import com.swensun.func.trans.TransFontActivity
 import com.swensun.func.userinfo.UserInfoActivity
 import com.swensun.func.utilcode.UtilCodeActivity
@@ -36,6 +37,7 @@ import com.swensun.func.utilcode.UtilCodeFragment
 import com.swensun.func.viewpager.fragment.ViewPagerActivity
 import com.swensun.potato.application.createNotificationChannel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.touch_event_fragment.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
@@ -62,6 +64,10 @@ class MainActivity : BaseActivity() {
 
     override fun initView(savedInstanceState: Bundle?) {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
+        btn_touch_event.setOnClickListener {
+            startActivity<TouchEventActivity>()
+        }
 
         btn_coroutines.setOnClickListener {
             startActivity<CoroutinesActivity>()
@@ -170,6 +176,8 @@ class MainActivity : BaseActivity() {
             intent.data = Uri.parse(data)
             startActivity(intent)
         }
+
+        btn_touch_event.performClick()
     }
 
     override fun onResume() {

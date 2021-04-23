@@ -35,4 +35,5 @@
     <string name="anim">anim</string>
     <string name="userinfo">userinfo</string>
     <string name="scheme">scheme</string>
+    <string name="touch_event">Touch Event</string>
 </resources>
