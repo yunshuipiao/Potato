@@ -16,8 +16,7 @@ class CustomViewFragment : Fragment() {
     companion object {
         fun newInstance() = CustomViewFragment()
     }
-    
-    var index = 0
+
     private lateinit var viewModel: CustomViewViewModel
 
     override fun onCreateView(
@@ -30,25 +29,5 @@ class CustomViewFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(CustomViewViewModel::class.java)
-
-
-        showOri()
-        tv_bg.setOnClickListener {
-            index += 1
-            showOri()
-        }
-    }
-
-    private fun showOri() {
-        if (index >= GradientDrawable.Orientation.values().size) {
-            index = 0
-        }
-        GradientDrawable.Orientation.values().getOrNull(index)?.let {
-            val bg = drawable{
-                radius = 100
-                colors = intArrayOf(R.color.red)
-            }
-            tv_bg.background = bg
-        }
     }
 }
