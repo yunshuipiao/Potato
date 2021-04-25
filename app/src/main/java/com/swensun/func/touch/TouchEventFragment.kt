@@ -6,9 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.swensun.potato.R
 import com.swensun.potato.databinding.TouchEventFragmentBinding
-import kotlinx.android.synthetic.main.touch_event_fragment.*
 
 class TouchEventFragment : Fragment() {
 

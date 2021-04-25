@@ -33,10 +33,6 @@ android {
             }
         }
     }
-
-    viewBinding {
-        enabled = true
-    }
     buildTypes {
 
         debug {
@@ -60,6 +56,10 @@ android {
     }
     lintOptions {
         abortOnError false
+    }
+
+    buildFeatures {
+        viewBinding true
     }
 }
 
