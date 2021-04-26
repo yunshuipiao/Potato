@@ -177,7 +177,7 @@ class MainActivity : BaseActivity() {
             startActivity(intent)
         }
 
-        btn_touch_event.performClick()
+        btn_custom_view.performClick()
     }
 
     override fun onResume() {
