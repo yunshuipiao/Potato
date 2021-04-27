@@ -406,3 +406,17 @@ fun View.shouldHideKeyBoard(event: MotionEvent): Boolean {
     }
     return false
 }
+
+fun View.setHeight(height: Int) {
+    layoutParams?.let {
+        it.height = height
+        this.layoutParams = it
+    }
+}
+
+fun View.setWidth(width: Int) {
+    layoutParams?.let {
+        it.width = width
+        this.layoutParams = it
+    }
+}
