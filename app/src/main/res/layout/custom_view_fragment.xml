@@ -8,11 +8,10 @@
 
     <ImageView
             android:id="@+id/iv_cover"
-            android:background="@color/red"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="50dp"
-            android:scaleType="centerCrop"
+            android:background="@color/red"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

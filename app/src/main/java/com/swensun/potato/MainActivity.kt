@@ -7,7 +7,8 @@ import android.os.Bundle
 import android.text.format.DateFormat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.lifecycle.*
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.swensun.base.BaseActivity
 import com.swensun.func.anim.AnimActivity
 import com.swensun.func.bottom.BottomActivity
@@ -36,10 +37,10 @@ import com.swensun.func.utilcode.UtilCodeActivity
 import com.swensun.func.utilcode.UtilCodeFragment
 import com.swensun.func.viewpager.fragment.ViewPagerActivity
 import com.swensun.potato.application.createNotificationChannel
+import com.swensun.swutils.util.Logger
+import com.swensun.swutils.util.NetWorkChangeUtils
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.touch_event_fragment.*
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
 
 class MainActivity : BaseActivity() {
 
@@ -176,8 +177,24 @@ class MainActivity : BaseActivity() {
             intent.data = Uri.parse(data)
             startActivity(intent)
         }
+        initNetChangeStatus()
+    }
 
-        btn_custom_view.performClick()
+    private fun initNetChangeStatus() {
+        NetWorkChangeUtils.register(object : NetWorkChangeUtils.OnNetworkStatusChangedListener {
+            override fun onDisconnected() {
+                log("onDisconnected")
+            }
+
+            override fun onConnected(wifi: Boolean) {
+                log("onConnected, ${if (wifi) "wifi" else "4G"}")
+            }
+        })
+    }
+
+
+    fun log(msg: String) {
+        Logger.d("NetWorkChangeUtils, $msg")
     }
 
     override fun onResume() {
