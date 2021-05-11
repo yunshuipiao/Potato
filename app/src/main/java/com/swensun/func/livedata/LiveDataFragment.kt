@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import com.swensun.potato.R
 import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.live_data_fragment.*
@@ -36,11 +38,19 @@ class LiveDataFragment : Fragment() {
             } else {
 
             }
+            viewModel.testFlow(count)
 
         }
 
         viewModel.modelLiveData.observe(viewLifecycleOwner) {
-            Logger.d("model:${it}")
+
+        }
+        viewModel.modelFlow.asLiveData().observe(viewLifecycleOwner) {
+            Logger.d("123, $it --")
+        }
+
+        viewModel.modelFlow.asLiveData().observe(viewLifecycleOwner) {
+            Logger.d("234, $it --")
         }
     }
 }

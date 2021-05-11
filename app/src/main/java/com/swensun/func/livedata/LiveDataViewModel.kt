@@ -4,13 +4,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.swensun.launchIO
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.withContext
 
 
 class LiveDataViewModel : ViewModel() {
 
     val modelLiveData = MutableLiveData<Int>()
-
+    val modelFlow = MutableStateFlow("")
 
     fun testSetOrPost() {
         launchIO {
@@ -20,5 +21,9 @@ class LiveDataViewModel : ViewModel() {
                 }
             }
         }
+    }
+
+    fun testFlow(number: Int) {
+        modelFlow.value = number.toString()
     }
 }
