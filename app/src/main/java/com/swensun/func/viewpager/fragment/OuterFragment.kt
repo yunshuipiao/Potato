@@ -4,16 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.swensun.potato.R
-import com.swensun.swutils.ui.dp2px
-import com.swensun.swutils.ui.getWinWidth
-import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.fragment_outer.*
-import kotlinx.android.synthetic.main.h_item.view.*
 
 
 class OuterFragment : BaseFragment() {

@@ -1,5 +1,6 @@
 package com.swensun.potato
 
+import android.app.AlertDialog
 import android.app.PendingIntent
 import android.content.Intent
 import android.net.Uri
@@ -168,7 +169,16 @@ class MainActivity : BaseActivity() {
         }
 
         fab_left.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setPositiveButton("confirm") { i, a ->
 
+                }
+                .setNegativeButton("cancel") { i, a ->
+
+                }
+                .setTitle("title")
+                .setMessage("content")
+                .show()
         }
         btn_scheme.setOnClickListener {
             val data =
@@ -183,20 +193,13 @@ class MainActivity : BaseActivity() {
     private fun initNetChangeStatus() {
         NetWorkChangeUtils.register(object : NetWorkChangeUtils.OnNetworkStatusChangedListener {
             override fun onDisconnected() {
-                log("onDisconnected")
             }
 
             override fun onConnected(wifi: Boolean) {
-                log("onConnected, ${if (wifi) "wifi" else "4G"}")
             }
         })
     }
-
-
-    fun log(msg: String) {
-        Logger.d("NetWorkChangeUtils, $msg")
-    }
-
+    
     override fun onResume() {
         super.onResume()
     }

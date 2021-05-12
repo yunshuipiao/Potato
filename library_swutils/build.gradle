@@ -80,7 +80,7 @@ dependencies {
     api "org.jsoup:jsoup:$prop_jsoup_version"
 
     api "androidx.work:work-runtime:$prop_work_version"
-    api 'com.blankj:utilcodex:1.26.0'
+    api 'com.blankj:utilcodex:1.28.0'
 
     api 'com.yanzhenjie:permission:2.0.0'
 
