@@ -41,16 +41,8 @@ class LiveDataFragment : Fragment() {
             viewModel.testFlow(count)
 
         }
-
-        viewModel.modelLiveData.observe(viewLifecycleOwner) {
-
-        }
         viewModel.modelFlow.asLiveData().observe(viewLifecycleOwner) {
-            Logger.d("123, $it --")
-        }
 
-        viewModel.modelFlow.asLiveData().observe(viewLifecycleOwner) {
-            Logger.d("234, $it --")
         }
     }
 }
