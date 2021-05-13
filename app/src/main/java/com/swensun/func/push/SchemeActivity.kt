@@ -46,7 +46,6 @@ class SchemeActivity : AppCompatActivity() {
                     //打开act
                     Logger.d("act: $act")
                     try {
-
                         var cls = Class.forName(act)
                         val newIntent = Intent()
                         newIntent.setClass(context, cls)

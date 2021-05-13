@@ -23,9 +23,7 @@ import com.swensun.swutils.SwUtils
 abstract class KvStore : RoomDatabase() {
     companion object {
         val database by lazy {
-            Room.databaseBuilder(
-                SwUtils.application, KvStore::class.java, "key_value_database.db"
-            )
+            Room.databaseBuilder(SwUtils.application, KvStore::class.java, "key_value_database.db")
                 .allowMainThreadQueries()
                 .build()
         }

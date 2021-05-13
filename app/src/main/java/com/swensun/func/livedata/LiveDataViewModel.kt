@@ -11,7 +11,7 @@ import kotlinx.coroutines.withContext
 class LiveDataViewModel : ViewModel() {
 
     val modelLiveData = MutableLiveData<Int>()
-    val modelFlow = MutableStateFlow("")
+
 
     fun testSetOrPost() {
         launchIO {
@@ -23,6 +23,7 @@ class LiveDataViewModel : ViewModel() {
         }
     }
 
+    val modelFlow = MutableStateFlow("")
     fun testFlow(number: Int) {
         modelFlow.value = number.toString()
     }

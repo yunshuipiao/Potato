@@ -5,12 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import com.swensun.potato.R
-import com.swensun.swutils.util.Logger
 import kotlinx.android.synthetic.main.live_data_fragment.*
+import kotlinx.coroutines.flow.MutableStateFlow
 
 
 class LiveDataFragment : Fragment() {
@@ -36,18 +35,17 @@ class LiveDataFragment : Fragment() {
             count += 1
             if (count % 2 == 1) {
             } else {
-
             }
-            viewModel.testFlow(count)
-
         }
-        viewModel.modelFlow.asLiveData().observe(viewLifecycleOwner) {
+        F.modelFlow.asLiveData().observe(viewLifecycleOwner) {
 
         }
     }
 }
 
-
-inline fun <reified T> nInstance(vararg params: Any): T =
-    T::class.java.getDeclaredConstructor(*params.map { it::class.java }.toTypedArray())
-        .apply { isAccessible = true }.newInstance(*params)
+object F {
+    val modelFlow = MutableStateFlow("")
+    fun testFlow(number: Int) {
+        modelFlow.value = number.toString()
+    }
+}
