@@ -30,13 +30,6 @@ class SchemeActivity : AppCompatActivity() {
     private fun handleIntent(intent: Intent?) {
         val uri = intent?.data
         if (uri != null) {
-            if (ActivityUtils.getActivityList().all { it !is MainActivity }) {
-                Logger.d("need startMainActivity")
-                val mainIntent = Intent(this, MainActivity::class.java)
-                mainIntent.data = uri
-                startActivity(mainIntent)
-                finish()
-            }
             val action = uri.getQueryParameter("action") ?: ""
             val pkg = uri.getQueryParameter("pkg") ?: ""
             val url = uri.getQueryParameter("url") ?: ""

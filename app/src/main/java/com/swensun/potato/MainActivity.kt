@@ -3,7 +3,6 @@ package com.swensun.potato
 import android.app.AlertDialog
 import android.app.PendingIntent
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.text.format.DateFormat
 import androidx.core.app.NotificationCompat
@@ -163,29 +162,31 @@ class MainActivity : BaseActivity() {
 
         RDataBase.init()
         viewModel.opeDatabase()
-        startSchemeActivity()
 
         fab_right.setOnClickListener {
         }
 
         fab_left.setOnClickListener {
-            AlertDialog.Builder(this)
-                .setPositiveButton("confirm") { i, a ->
-
-                }
-                .setNegativeButton("cancel") { i, a ->
-
-                }
-                .setTitle("title")
-                .setMessage("content")
-                .show()
+//            AlertDialog.Builder(this)
+//                .setPositiveButton("confirm") { i, a ->
+//
+//                }
+//                .setNegativeButton("cancel") { i, a ->
+//
+//                }
+//                .setTitle("title")
+//                .setMessage("content")
+//                .show()
+            val resolveIntent: Intent? =
+                packageManager.getLaunchIntentForPackage("com.ziipin.social.xjfad.dev")
+            Logger.d("getLaunchIntentForPackage, $resolveIntent")
+            resolveIntent?.let {
+                it.putExtra("url", "sirdax://com.ziipin.social/demo?action=10")
+                startActivity(it)
+            }
         }
         btn_scheme.setOnClickListener {
-            val data =
-                "potato://com.swensun.potato?action=1&act=com.swensun.func.livedata.LiveDataActivity&pkg=com.ruguoapp.jike&url=www.baidu.com"
-            val intent = Intent()
-            intent.data = Uri.parse(data)
-            startActivity(intent)
+
         }
         initNetChangeStatus()
     }
@@ -217,15 +218,6 @@ class MainActivity : BaseActivity() {
 //            moveTaskToBack(true)
         } catch (e: Exception) {
             e.printStackTrace()
-        }
-    }
-
-    private fun startSchemeActivity() {
-        val uri = intent.data
-        if (uri?.scheme == "potato" && uri.host == "com.swensun.potato") {
-            val intent = Intent()
-            intent.data = uri
-            startActivity(intent)
         }
     }
 }
