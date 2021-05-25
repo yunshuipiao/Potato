@@ -89,6 +89,5 @@ dependencies {
 
     testImplementation group: 'org.json', name: 'json', version: '20190722'
 
-    implementation 'com.drakeet.multitype:multitype:4.2.0'
     kapt "androidx.room:room-compiler:$prop_room_version"
 }
