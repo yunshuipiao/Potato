@@ -181,7 +181,7 @@ class MainActivity : BaseActivity() {
                 packageManager.getLaunchIntentForPackage("com.ziipin.social.xjfad.dev")
             Logger.d("getLaunchIntentForPackage, $resolveIntent")
             resolveIntent?.let {
-                it.putExtra("url", "sirdax://com.ziipin.social/likeme?likeme_count=10")
+                it.putExtra("url", "sirdax://com.ziipin.social/demo")
                 startActivity(it)
             }
         }
