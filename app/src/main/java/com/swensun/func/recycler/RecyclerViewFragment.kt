@@ -15,6 +15,7 @@ import com.swensun.potato.databinding.ItemRecyclerViewBinding
 import com.swensun.potato.databinding.RecyclerViewFragmentBinding
 import com.swensun.swutils.util.Logger
 import com.ziipin.social.base.multitype.ViewBindingDelegate
+import com.ziipin.social.base.multitype.ViewBindingDelegate2
 import com.ziipin.social.base.multitype.ViewBindingViewHolder
 import kotlinx.android.synthetic.main.recycler_view_fragment.*
 
@@ -86,10 +87,6 @@ class RInt(val id: Int) {
 
 class RViewHolderDelegate : ViewBindingDelegate<RInt, ItemRecyclerViewBinding>() {
 
-    init {
-        Logger.d("__RViewHolderDelegate", "init")
-    }
-
     var loadMore: (() -> Unit)? = null
 
     override fun onBindViewHolder(
@@ -101,44 +98,7 @@ class RViewHolderDelegate : ViewBindingDelegate<RInt, ItemRecyclerViewBinding>()
         }
         holder.binding.tvId.text = item.id.toString()
     }
-
 }
-
-//class RIntCallback(val oldItems: List<Any>, val newItems: List<Any>) : DiffUtil.Callback() {
-//    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-//        val old = oldItems[oldItemPosition]
-//        val new = newItems[newItemPosition]
-//        when {
-//            old is RInt && new is RInt -> {
-//                return old.id == new.id
-//            }
-//        }
-//        return false
-//    }
-//
-//    override fun getOldListSize(): Int {
-//        return oldItems.size
-//    }
-//
-//    override fun getNewListSize(): Int {
-//        return newItems.size
-//    }
-//
-//    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-//        val old = oldItems[oldItemPosition]
-//        val new = newItems[newItemPosition]
-//        when {
-//            old is RInt && new is RInt -> {
-//                return old.count == new.count
-//            }
-//        }
-//        return false
-//    }
-//
-//    override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
-//        return newItems[newItemPosition]
-//    }
-//}
 
 class RIntCallback(oldItems: List<Any>, newItems: List<Any>) : AnyCallback(oldItems, newItems) {
     override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
