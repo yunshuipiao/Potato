@@ -12,11 +12,17 @@ import com.ziipin.social.base.multitype.inflateBindingWithGeneric
  */
 abstract class Base2Activity<VB : ViewBinding> : AppCompatActivity() {
 
-    private lateinit var binding: VB
+    lateinit var binding: VB
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = inflateBindingWithGeneric(layoutInflater)
         setContentView(binding.root)
+        fitStatusBarHeight()
+        setTransparentStatusBar(false, R.color.colorPrimary)
+        initView(savedInstanceState)
     }
+
+    abstract fun initView(savedInstanceState: Bundle?)
 }
+

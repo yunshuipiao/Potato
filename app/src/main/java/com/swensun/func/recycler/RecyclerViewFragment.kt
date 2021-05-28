@@ -13,9 +13,7 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import com.drakeet.multitype.MultiTypeAdapter
 import com.swensun.potato.databinding.ItemRecyclerViewBinding
 import com.swensun.potato.databinding.RecyclerViewFragmentBinding
-import com.swensun.swutils.util.Logger
 import com.ziipin.social.base.multitype.ViewBindingDelegate
-import com.ziipin.social.base.multitype.ViewBindingDelegate2
 import com.ziipin.social.base.multitype.ViewBindingViewHolder
 import kotlinx.android.synthetic.main.recycler_view_fragment.*
 
