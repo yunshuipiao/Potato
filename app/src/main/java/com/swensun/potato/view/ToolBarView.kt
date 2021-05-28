@@ -19,5 +19,7 @@ class ToolBarView @JvmOverloads constructor(
 
     init {
         binding.tvTitle.text = "Main"
+
+        
     }
 }
