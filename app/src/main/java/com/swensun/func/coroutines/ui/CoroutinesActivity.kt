@@ -2,7 +2,6 @@ package com.swensun.func.coroutines.ui
 
 import android.os.Bundle
 import com.swensun.base.Base2Activity
-import com.swensun.base.BaseActivity
 import com.swensun.potato.R
 import com.swensun.potato.databinding.CoroutinesActivityBinding
 
