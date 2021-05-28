@@ -1,14 +1,10 @@
 package com.swensun.func.viewpager.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.swensun.potato.R
-import kotlinx.android.synthetic.main.fragment_outer.*
+import com.swensun.potato.databinding.FragmentOuterBinding
 
 
-class OuterFragment : BaseFragment() {
+class OuterFragment : LazyLoadFragment<FragmentOuterBinding>() {
 
     private var vid = ""
 
@@ -22,18 +18,8 @@ class OuterFragment : BaseFragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        vid = arguments?.getString("id") ?: ""
-        return inflater.inflate(R.layout.fragment_outer, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        tv_title.text = "-- $vid --"
+    override fun initView(savedInstanceState: Bundle?) {
+        binding.tvTitle.text = "-- $vid --"
     }
 
     override fun loadData() {

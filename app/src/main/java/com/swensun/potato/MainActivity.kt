@@ -1,6 +1,5 @@
 package com.swensun.potato
 
-import android.app.AlertDialog
 import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +8,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.swensun.base.BaseActivity
+import com.swensun.base.Base2Activity
 import com.swensun.func.anim.AnimActivity
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
@@ -21,7 +20,6 @@ import com.swensun.func.fragment.FragmentModeActivity
 import com.swensun.func.lifecycle.LifecycleActivity
 import com.swensun.func.livedata.LiveDataActivity
 import com.swensun.func.memory.MemoryActivity
-import com.swensun.func.multidialog.MultiDialogActivity
 import com.swensun.func.network.startDownloadActivity
 import com.swensun.func.push.SchemeActivity
 import com.swensun.func.recycler.RecyclerViewActivity
@@ -37,12 +35,12 @@ import com.swensun.func.utilcode.UtilCodeActivity
 import com.swensun.func.utilcode.UtilCodeFragment
 import com.swensun.func.viewpager.fragment.ViewPagerActivity
 import com.swensun.potato.application.createNotificationChannel
+import com.swensun.potato.databinding.ActivityMainBinding
 import com.swensun.swutils.util.Logger
 import com.swensun.swutils.util.NetWorkChangeUtils
-import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
 
-class MainActivity : BaseActivity() {
+class MainActivity : Base2Activity<ActivityMainBinding>() {
 
     private val today
         get() = DateFormat.format("yyyyMMdd, hh-mm-ss", System.currentTimeMillis()).toString()
@@ -58,75 +56,70 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
-
-    override fun getContentSubView(): Int {
-        return R.layout.activity_main
-    }
-
+    
     override fun initView(savedInstanceState: Bundle?) {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        btn_touch_event.setOnClickListener {
+        binding.btnTouchEvent.setOnClickListener {
             startActivity<TouchEventActivity>()
         }
 
-        btn_coroutines.setOnClickListener {
+        binding.btnCoroutines.setOnClickListener {
             startActivity<CoroutinesActivity>()
         }
-        btn_viewpager.setOnClickListener {
+        binding.btnViewpager.setOnClickListener {
             startActivity<ViewPagerActivity>()
         }
-        btn_bottom.setOnClickListener {
+        binding.btnBottom.setOnClickListener {
             startActivity<BottomActivity>()
         }
-        btn_font_trans.setOnClickListener {
+        binding.btnFontTrans.setOnClickListener {
             startActivity<TransFontActivity>()
         }
-        btn_room.setOnClickListener {
+        binding.btnRoom.setOnClickListener {
             startActivity<RoomActivity>()
         }
-        btn_time.setOnClickListener {
+        binding.btnTime.setOnClickListener {
             startActivity<TimeAboutActivity>()
         }
-        btn_lifecycle.setOnClickListener {
+        binding.btnLifecycle.setOnClickListener {
             startActivity<LifecycleActivity>()
         }
-        btn_multi_dialog.setOnClickListener {
-            startActivity<MultiDialogActivity>()
+        binding.btnMultiDialog.setOnClickListener {
         }
-        btn_livedata.setOnClickListener {
+        binding.btnLivedata.setOnClickListener {
             startActivity<LiveDataActivity>()
         }
-        btn_recycler.setOnClickListener {
+        binding.btnRecycler.setOnClickListener {
             startActivity<RecyclerViewActivity>()
 //            overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit)
         }
-        btn_memory.setOnClickListener {
+        binding.btnMemory.setOnClickListener {
             startActivity<MemoryActivity>()
         }
-        btn_custom_view.setOnClickListener {
+        binding.btnCustomView.setOnClickListener {
             startActivity<CustomViewActivity>()
         }
-        btn_exo_player.setOnClickListener {
+        binding.btnExoPlayer.setOnClickListener {
             startActivity<ExoPlayerActivity>()
         }
 
-        btn_launcher_mode.setOnClickListener {
+        binding.btnLauncherMode.setOnClickListener {
 //            startActivity<LauncherModeActivity>()
         }
-        btn_framelayout.setOnClickListener {
+        binding.btnFramelayout.setOnClickListener {
             startActivity<FrameLayoutActivity>()
         }
-        btn_feature.setOnClickListener {
+        binding.btnFeature.setOnClickListener {
             startActivity<FeatureActivity>()
         }
-        btn_status_navigation.setOnClickListener {
+        binding.btnStatusNavigation.setOnClickListener {
             startActivity<StatusBarActivity>()
         }
-        btn_util_code.setOnClickListener {
+        binding.btnUtilCode.setOnClickListener {
             startActivity<UtilCodeActivity>()
         }
-        btn_send_notification.setOnClickListener {
+        binding.btnSendNotification.setOnClickListener {
             // Create an explicit intent for an Activity in your app
             val intent = Intent(it.context, SchemeActivity::class.java)
             intent.putExtra("extra", "jump")
@@ -144,29 +137,29 @@ class MainActivity : BaseActivity() {
                 .notify(UtilCodeFragment.notification_id, notification)
         }
 
-        btn_fragment.setOnClickListener {
+        binding.btnFragment.setOnClickListener {
             startActivity<FragmentModeActivity>()
         }
-        btn_status.setOnClickListener {
+        binding.btnStatus.setOnClickListener {
             startActivity<StatusPageActivity>()
         }
-        btn_anim.setOnClickListener {
+        binding.btnAnim.setOnClickListener {
             startActivity<AnimActivity>()
         }
-        btn_userinfo.setOnClickListener {
+        binding.btnUserinfo.setOnClickListener {
             startActivity<UserInfoActivity>()
         }
-        btn_download.setOnClickListener {
+        binding.btnDownload.setOnClickListener {
             startDownloadActivity()
         }
 
         RDataBase.init()
         viewModel.opeDatabase()
 
-        fab_right.setOnClickListener {
+        binding.fabRight.setOnClickListener {
         }
 
-        fab_left.setOnClickListener {
+        binding.fabLeft.setOnClickListener {
 //            AlertDialog.Builder(this)
 //                .setPositiveButton("confirm") { i, a ->
 //
@@ -185,7 +178,7 @@ class MainActivity : BaseActivity() {
                 startActivity(it)
             }
         }
-        btn_scheme.setOnClickListener {
+        binding.btnScheme.setOnClickListener {
 
         }
         initNetChangeStatus()

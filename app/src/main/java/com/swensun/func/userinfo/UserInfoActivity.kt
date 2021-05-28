@@ -2,17 +2,13 @@ package com.swensun.func.userinfo
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import com.swensun.base.BaseActivity
-import com.swensun.potato.R
+import com.swensun.base.Base2Activity
 import com.swensun.potato.UserInfo
 import com.swensun.potato.UserInfoRepository
+import com.swensun.potato.databinding.ActivityUserInfoBinding
 import com.swensun.swutils.util.Logger
-import kotlinx.android.synthetic.main.activity_user_info.*
 
-class UserInfoActivity : BaseActivity() {
-    override fun getContentSubView(): Int {
-        return R.layout.activity_user_info
-    }
+class UserInfoActivity : Base2Activity<ActivityUserInfoBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
 
@@ -27,11 +23,11 @@ class UserInfoActivity : BaseActivity() {
             Logger.d("userinfo activity login change: $it")
         })
 
-        btn_update.setOnClickListener {
-            val name = et_name.text.toString()
-            val login = rb_login.isChecked
-            val vip = rb_vip.isChecked
-            val coins = seek_bar.progress
+        binding.btnUpdate.setOnClickListener {
+            val name = binding.etName.text.toString()
+            val login = binding.rbLogin.isChecked
+            val vip = binding.rbVip.isChecked
+            val coins = binding.seekBar.progress
             val userInfo = UserInfo().apply {
                 this.name = name
                 this.login = login

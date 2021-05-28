@@ -1,18 +1,14 @@
 package com.swensun.func.livedata
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
-import com.swensun.potato.R
-import kotlinx.android.synthetic.main.live_data_fragment.*
+import com.swensun.base.BaseFragment
+import com.swensun.potato.databinding.LiveDataFragmentBinding
 import kotlinx.coroutines.flow.MutableStateFlow
 
 
-class LiveDataFragment : Fragment() {
+class LiveDataFragment : BaseFragment<LiveDataFragmentBinding>() {
 
     companion object {
         fun newInstance() = LiveDataFragment()
@@ -20,18 +16,11 @@ class LiveDataFragment : Fragment() {
 
     private lateinit var viewModel: LiveDataViewModel
     private var count = 0
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val view = inflater.inflate(R.layout.live_data_fragment, container, false)
-        return view
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+
+    override fun initView(savedInstanceState: Bundle?) {
         viewModel = ViewModelProvider(this).get(LiveDataViewModel::class.java)
-        btn_livedata.setOnClickListener {
+        binding.btnLivedata.setOnClickListener {
             count += 1
             if (count % 2 == 1) {
             } else {

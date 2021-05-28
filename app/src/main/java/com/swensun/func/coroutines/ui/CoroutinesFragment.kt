@@ -8,13 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.swensun.StatusEvent
+import com.swensun.base.BaseFragment
 import com.swensun.potato.R
+import com.swensun.potato.databinding.CoroutinesFragmentBinding
 import com.swensun.swutils.util.Logger
-import kotlinx.android.synthetic.main.coroutines_fragment.*
-import kotlinx.android.synthetic.main.room_fragment.*
-import kotlinx.coroutines.cancelAndJoin
 
-class CoroutinesFragment : Fragment() {
+class CoroutinesFragment : BaseFragment<CoroutinesFragmentBinding>() {
 
     companion object {
         fun newInstance() = CoroutinesFragment()
@@ -22,15 +21,7 @@ class CoroutinesFragment : Fragment() {
 
     private lateinit var viewModel: CoroutinesViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.coroutines_fragment, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun initView(savedInstanceState: Bundle?) {
         viewModel = ViewModelProvider(this).get(CoroutinesViewModel::class.java)
         viewModel.statusLiveData.observe(viewLifecycleOwner, Observer {
             when (it) {
@@ -46,10 +37,11 @@ class CoroutinesFragment : Fragment() {
                 }
             }
         })
-        btn_toast.setOnClickListener {
+
+        binding.btnToast.setOnClickListener {
             viewModel.delayToast()
         }
-        btn_cancel.setOnClickListener {
+        binding.btnCancel.setOnClickListener {
             viewModel.cancel()
         }
     }

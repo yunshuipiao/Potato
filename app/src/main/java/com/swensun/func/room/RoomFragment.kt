@@ -1,23 +1,18 @@
 package com.swensun.func.room
 
-import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.drakeet.multitype.ItemViewDelegate
 import com.drakeet.multitype.MultiTypeAdapter
+import com.swensun.base.BaseFragment
 import com.swensun.func.room.database.RoomEntity
-import com.swensun.potato.R
-import kotlinx.android.synthetic.main.room_entity_item.view.*
-import kotlinx.android.synthetic.main.room_fragment.*
+import com.swensun.potato.databinding.RoomEntityItemBinding
+import com.swensun.potato.databinding.RoomFragmentBinding
+import com.ziipin.social.base.multitype.ViewBindingDelegate
+import com.ziipin.social.base.multitype.ViewBindingViewHolder
 
-class RoomFragment : Fragment() {
+class RoomFragment : BaseFragment<RoomFragmentBinding>() {
 
     companion object {
         fun newInstance() = RoomFragment()
@@ -25,25 +20,12 @@ class RoomFragment : Fragment() {
 
 
     private lateinit var viewModel: RoomViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.room_fragment, container, false)
-    }
-
     private var adapter = MultiTypeAdapter()
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(RoomViewModel::class.java)
-        initView()
-    }
 
     private fun initView() {
-        recycler_view.layoutManager = LinearLayoutManager(requireContext())
-        recycler_view.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.adapter = adapter
         adapter.register(RoomEntityDelegate().apply {
             buttonClickListener = {
             }
@@ -52,44 +34,64 @@ class RoomFragment : Fragment() {
             adapter.items = it.sortedByDescending { it.startTime }
             adapter.notifyDataSetChanged()
         })
-        btn_add.setOnClickListener {
+        binding.btnAdd.setOnClickListener {
             viewModel.upsertList(RoomEntity())
         }
-        btn_add_mul.setOnClickListener {
+        binding.btnAddMul.setOnClickListener {
             val entities = (0 until 1000).map {
                 RoomEntity().apply { title = "$it" }
             }
             viewModel.upsertList(entities)
         }
-        btn_clear.setOnClickListener {
+        binding.btnClear.setOnClickListener {
             viewModel.allRoom.forEach {
                 viewModel.delete(it)
             }
         }
     }
+
+    override fun initView(savedInstanceState: Bundle?) {
+        viewModel = ViewModelProvider(this).get(RoomViewModel::class.java)
+        initView()
+    }
 }
 
-class RoomEntityDelegate : ItemViewDelegate<RoomEntity, RoomEntityDelegate.RoomEntityViewHolder>() {
+//class RoomEntityDelegate : ItemViewDelegate<RoomEntity, RoomEntityDelegate.RoomEntityViewHolder>() {
+//    var buttonClickListener: ((RoomEntity) -> Unit)? = null
+//
+//    override fun onBindViewHolder(holder: RoomEntityViewHolder, item: RoomEntity) {
+//        holder.setup(item)
+//    }
+//
+//    override fun onCreateViewHolder(context: Context, parent: ViewGroup): RoomEntityViewHolder {
+//        return RoomEntityViewHolder(parent)
+//    }
+//
+//    inner class RoomEntityViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
+//        LayoutInflater.from(parent.context).inflate(R.layout.room_entity_item, parent, false)
+//    ) {
+//        fun setup(item: RoomEntity) {
+//            itemView.btn_info.text = "${item.id} - ${item.title} - ${item.count}"
+//            itemView.btn_info.setOnClickListener {
+//                buttonClickListener?.invoke(item)
+//            }
+//        }
+//    }
+//}
+class RoomEntityDelegate : ViewBindingDelegate<RoomEntity, RoomEntityItemBinding>() {
+
     var buttonClickListener: ((RoomEntity) -> Unit)? = null
 
-    override fun onBindViewHolder(holder: RoomEntityViewHolder, item: RoomEntity) {
-        holder.setup(item)
-    }
-
-    override fun onCreateViewHolder(context: Context, parent: ViewGroup): RoomEntityViewHolder {
-        return RoomEntityViewHolder(parent)
-    }
-
-    inner class RoomEntityViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.room_entity_item, parent, false)
+    override fun onBindViewHolder(
+        holder: ViewBindingViewHolder<RoomEntityItemBinding>,
+        item: RoomEntity
     ) {
-        fun setup(item: RoomEntity) {
-            itemView.btn_info.text = "${item.id} - ${item.title} - ${item.count}"
-            itemView.btn_info.setOnClickListener {
-                buttonClickListener?.invoke(item)
-            }
+        holder.binding.btnInfo.text = "${item.id} - ${item.title} - ${item.count}"
+        holder.binding.btnInfo.setOnClickListener {
+            buttonClickListener?.invoke(item)
         }
     }
+
 }
 
 

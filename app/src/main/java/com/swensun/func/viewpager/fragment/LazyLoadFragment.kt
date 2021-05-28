@@ -1,9 +1,10 @@
 package com.swensun.func.viewpager.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import androidx.viewbinding.ViewBinding
+import com.swensun.base.BaseFragment
 
-open class BaseFragment : Fragment() {
+open class LazyLoadFragment<VB : ViewBinding> : BaseFragment<VB>() {
     private var isViewCreated = false //view是否创建
     private var isVisibleToUser = false // 是否对用户可见
     private var isDataLoaded = false // 数据是否请求
@@ -28,8 +29,8 @@ open class BaseFragment : Fragment() {
         }
     }
 
-    protected open fun loadData(){
-        
+    protected open fun loadData() {
+
     }
 
     /**
@@ -37,7 +38,7 @@ open class BaseFragment : Fragment() {
      */
     private fun isParentFragmentVisible(): Boolean {
         val fragment = parentFragment ?: return true
-        if (fragment is BaseFragment && fragment.isVisibleToUser) {
+        if (fragment is LazyLoadFragment<*> && fragment.isVisibleToUser) {
             return true
         }
         return false
@@ -45,7 +46,7 @@ open class BaseFragment : Fragment() {
 
     private fun dispatchParentVisibleState() {
         if (!isAdded) {
-            return 
+            return
         }
         val fragmentManager = childFragmentManager
         val fragments = fragmentManager.fragments
@@ -53,9 +54,13 @@ open class BaseFragment : Fragment() {
             return
         }
         fragments.forEach { child ->
-            if (child is BaseFragment && child.isVisibleToUser) {
+            if (child is LazyLoadFragment<*> && child.isVisibleToUser) {
                 child._loadData()
             }
         }
+    }
+
+    override fun initView(savedInstanceState: Bundle?) {
+
     }
 }

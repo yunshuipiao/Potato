@@ -3,9 +3,8 @@ package com.swensun.func.network
 import android.content.Context
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import com.swensun.base.BaseActivity
-import com.swensun.potato.R
-import kotlinx.android.synthetic.main.download_activity.*
+import com.swensun.base.Base2Activity
+import com.swensun.potato.databinding.DownloadActivityBinding
 import org.jetbrains.anko.startActivity
 
 /**
@@ -18,16 +17,13 @@ fun Context.startDownloadActivity() {
     startActivity<DownloadActivity>()
 }
 
-class DownloadActivity : BaseActivity() {
+class DownloadActivity : Base2Activity<DownloadActivityBinding>() {
 
     private val viewModel by lazy { ViewModelProvider(this).get(DownloadViewModel::class.java) }
 
-    override fun getContentSubView(): Int {
-        return R.layout.download_activity
-    }
 
     override fun initView(savedInstanceState: Bundle?) {
-        download.setOnClickListener {
+        binding.download.setOnClickListener {
             viewModel.downloadLive()
         }
     }

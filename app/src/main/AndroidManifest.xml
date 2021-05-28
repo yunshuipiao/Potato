@@ -88,7 +88,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.swensun.func.viewpager.view.ViewPager2Activity" />
         <activity android:name="com.swensun.func.network.DownloadActivity" />
     </application>
 

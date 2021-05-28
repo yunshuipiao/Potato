@@ -1,23 +1,13 @@
 package com.swensun.func.statusbar
 
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.WindowManager
+import com.swensun.base.Base2Activity
 import com.swensun.potato.R
+import com.swensun.potato.databinding.StatusBarActivityBinding
 
-class StatusBarActivity : AppCompatActivity() {
+class StatusBarActivity : Base2Activity<StatusBarActivityBinding>() {
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val lp = this.window.attributes
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            lp.layoutInDisplayCutoutMode =
-                WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
-        }
-        this.window.attributes = lp
-        setContentView(R.layout.status_bar_activity)
+    override fun initView(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, StatusBarFragment.newInstance())

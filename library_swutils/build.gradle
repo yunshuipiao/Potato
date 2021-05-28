@@ -98,9 +98,9 @@ dependencies {
 
     api 'com.facebook.stetho:stetho:1.5.1'
 
-    api 'com.afollestad.material-dialogs:core:3.3.0'
-    api 'com.afollestad.material-dialogs:lifecycle:3.3.0'
-    api "androidx.tonyodev.fetch2:xfetch2:3.1.6"
+//    api 'com.afollestad.material-dialogs:core:3.3.0'
+//    api 'com.afollestad.material-dialogs:lifecycle:3.3.0'
+//    api "androidx.tonyodev.fetch2:xfetch2:3.1.6"
 
     api 'com.drakeet.multitype:multitype:4.2.0'
 }

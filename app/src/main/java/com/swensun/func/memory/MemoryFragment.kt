@@ -1,15 +1,11 @@
 package com.swensun.func.memory
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.swensun.potato.R
+import com.swensun.base.BaseFragment
+import com.swensun.potato.databinding.MemoryFragmentBinding
 import com.swensun.swutils.util.Logger
-import kotlinx.android.synthetic.main.memory_fragment.*
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -17,7 +13,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 
-class MemoryFragment : Fragment() {
+class MemoryFragment : BaseFragment<MemoryFragmentBinding>() {
 
     companion object {
         fun newInstance() = MemoryFragment()
@@ -26,22 +22,9 @@ class MemoryFragment : Fragment() {
     private lateinit var viewModel: MemoryViewModel
     private val instanceList = arrayListOf<Retrofit>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.memory_fragment, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MemoryViewModel::class.java)
-        intiView()
-    }
-
     private fun intiView() {
         newRetrofitClient()
-        btn_okhttp_instance.setOnClickListener {
+        binding.btnOkhttpInstance.setOnClickListener {
             (0 until 10).forEach {
                 instanceList.add(newRetrofitClient())
             }
@@ -49,7 +32,6 @@ class MemoryFragment : Fragment() {
     }
 
     private fun newRetrofitClient(): Retrofit {
-
         val okHttpClient = OkHttpClient.Builder()
             .build()
         val retrofit = Retrofit.Builder()
@@ -68,6 +50,11 @@ class MemoryFragment : Fragment() {
             }
         }
         return retrofit
+    }
+
+    override fun initView(savedInstanceState: Bundle?) {
+        viewModel = ViewModelProvider(this).get(MemoryViewModel::class.java)
+        intiView()
     }
 
 }

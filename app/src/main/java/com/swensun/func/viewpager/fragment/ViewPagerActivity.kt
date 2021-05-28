@@ -2,15 +2,14 @@ package com.swensun.func.viewpager.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.swensun.base.Base2Activity
 import com.swensun.potato.R
-import kotlinx.android.synthetic.main.activity_view_pager.*
+import com.swensun.potato.databinding.ActivityViewPagerBinding
 
-class ViewPagerActivity : AppCompatActivity() {
+class ViewPagerActivity : Base2Activity<ActivityViewPagerBinding>() {
 
     val adapter by lazy {
         ViewPager2Adapter(this)
@@ -19,15 +18,15 @@ class ViewPagerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_pager)
-        initView()
+
     }
 
     private fun initView() {
-        viewpager2.adapter = adapter
-        TabLayoutMediator(tab_layout, viewpager2) { tab, position ->
+        binding.viewpager2.adapter = adapter
+        TabLayoutMediator(binding.tabLayout, binding.viewpager2) { tab, position ->
             tab.text = " -- $position -- "
         }.attach()
-        tab_layout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
 
             }
@@ -36,7 +35,7 @@ class ViewPagerActivity : AppCompatActivity() {
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                viewpager2.setCurrentItem(tab?.position ?: 0, false)
+                binding.viewpager2.setCurrentItem(tab?.position ?: 0, false)
             }
 
         })
@@ -50,8 +49,12 @@ class ViewPagerActivity : AppCompatActivity() {
             )
             titleList.add(it.toString())
         }
-        viewpager2.layoutDirection = View.LAYOUT_DIRECTION_RTL
-        viewpager2.offscreenPageLimit = fragmentList.size - 1
+        binding.viewpager2.layoutDirection = View.LAYOUT_DIRECTION_RTL
+        binding.viewpager2.offscreenPageLimit = fragmentList.size - 1
         adapter.setup(fragmentList, titleList)
+    }
+
+    override fun initView(savedInstanceState: Bundle?) {
+        initView()
     }
 }

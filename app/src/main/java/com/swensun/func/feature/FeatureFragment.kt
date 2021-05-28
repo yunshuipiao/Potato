@@ -4,42 +4,21 @@ import android.app.AlertDialog
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.swensun.potato.R
+import com.swensun.base.BaseFragment
+import com.swensun.potato.databinding.FeatureFragmentBinding
 import com.swensun.swutils.util.Logger
 import com.yanzhenjie.permission.AndPermission
-import kotlinx.android.synthetic.main.feature_fragment.*
 import org.jetbrains.anko.support.v4.toast
 
-class FeatureFragment : Fragment() {
+class FeatureFragment : BaseFragment<FeatureFragmentBinding>() {
 
     companion object {
         fun newInstance() = FeatureFragment()
     }
 
     private lateinit var viewModel: FeatureViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.feature_fragment, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(FeatureViewModel::class.java)
-        viewModel.speedLiveData.observe(viewLifecycleOwner, Observer {
-            btn_net_speed.text = "${it}kb/s"
-        })
-        initView()
-        showOrientation(resources.configuration.orientation)
-    }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
@@ -49,17 +28,27 @@ class FeatureFragment : Fragment() {
 
     private fun showOrientation(orientation: Int) {
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-            btn_full_screen.text = "切换横屏"
+            binding.btnFullScreen.text = "切换横屏"
         } else {
-            btn_full_screen.text = "切换竖屏"
+            binding.btnFullScreen.text = "切换竖屏"
         }
     }
 
+
+    override fun initView(savedInstanceState: Bundle?) {
+        viewModel = ViewModelProvider(this).get(FeatureViewModel::class.java)
+        viewModel.speedLiveData.observe(viewLifecycleOwner, Observer {
+            binding.btnNetSpeed.text = "${it}kb/s"
+        })
+        initView()
+        showOrientation(resources.configuration.orientation)
+    }
+
     private fun initView() {
-        btn_net_speed.setOnClickListener {
+        binding.btnNetSpeed.setOnClickListener {
             viewModel.getNetSpeed()
         }
-        btn_permisssion.setOnClickListener {
+        binding.btnPermisssion.setOnClickListener {
             AndPermission.with(activity)
                 .notification()
                 .permission()
@@ -81,7 +70,7 @@ class FeatureFragment : Fragment() {
                 }.start()
         }
 
-        btn_full_screen.setOnClickListener {
+        binding.btnFullScreen.setOnClickListener {
             val orientation = resources.configuration?.orientation
             if (orientation == Configuration.ORIENTATION_PORTRAIT) {
                 activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE

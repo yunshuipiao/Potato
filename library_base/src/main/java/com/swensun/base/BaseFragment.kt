@@ -4,27 +4,38 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
+import androidx.viewbinding.ViewBinding
+import com.ziipin.social.base.multitype.inflateBindingWithGeneric
 
 /**
- * @Date 2019-08-07
- * @author sunwen
- * @Project Potato
+ * author : zp
+ * date : 2021/5/28
+ * Potato
  */
-abstract class BaseFragment : Fragment() {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(getContentSubView(), container, false)
-    }
+abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
-    @LayoutRes
-    abstract fun getContentSubView(): Int
+    private var _binding: VB? = null
+    val binding: VB get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = inflateBindingWithGeneric(layoutInflater, container, false)
+        return binding.root
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        initView()
-
+        initView(savedInstanceState)
     }
 
-    abstract fun initView()
+    abstract fun initView(savedInstanceState: Bundle?)
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

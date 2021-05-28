@@ -5,11 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.swensun.potato.R
+import com.swensun.potato.databinding.FragmentInnerBinding
 import com.swensun.swutils.util.Logger
-import kotlinx.android.synthetic.main.fragment_inner.*
-import org.jetbrains.anko.support.v4.toast
 
-class InnerFragment : BaseFragment() {
+class InnerFragment : LazyLoadFragment<FragmentInnerBinding>() {
 
     companion object {
         fun newInstance(id: String): InnerFragment {
@@ -31,7 +30,7 @@ class InnerFragment : BaseFragment() {
 
     override fun loadData() {
         val id = arguments?.getString("id")
-        tv_content.text = id
+        binding.tvContent.text = id
         Logger.d("id--: $id")
     }
 }

@@ -5,18 +5,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.swensun.base.BaseActivity
+import com.swensun.base.Base2Activity
 import com.swensun.potato.R
+import com.swensun.potato.databinding.ActivityFragmentModeBinding
 import com.swensun.swutils.util.Logger
-import kotlinx.android.synthetic.main.activity_fragment_mode.*
-import org.jetbrains.anko.toast
 
-class FragmentModeActivity : BaseActivity() {
-
-
-    override fun getContentSubView(): Int {
-        return R.layout.activity_fragment_mode
-    }
+class FragmentModeActivity : Base2Activity<ActivityFragmentModeBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
@@ -25,13 +19,13 @@ class FragmentModeActivity : BaseActivity() {
                 .commitNow()
         }
 
-        tv_add.setOnClickListener {
+        binding.tvAdd.setOnClickListener {
             supportFragmentManager.beginTransaction()
                 .addToBackStack(null)
                 .add(R.id.container, SecondFragment.newInstance())
                 .commit()
         }
-        tv_delete.setOnClickListener {
+        binding.tvDelete.setOnClickListener {
             Thread.sleep(6000)
         }
         supportFragmentManager.registerFragmentLifecycleCallbacks(object :
@@ -123,7 +117,4 @@ class FragmentModeActivity : BaseActivity() {
         }
     }
 
-    inline fun log(msg: String) {
-//        val methodName = Thread.currentThread().
-    }
 }

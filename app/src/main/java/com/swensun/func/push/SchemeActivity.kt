@@ -3,21 +3,17 @@ package com.swensun.func.push
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.AppUtils
-import com.swensun.potato.MainActivity
-import com.swensun.potato.R
+import com.swensun.base.Base2Activity
+import com.swensun.potato.databinding.SchemeActivityBinding
 import com.swensun.swutils.ui.context
 import com.swensun.swutils.util.Logger
-import kotlinx.android.synthetic.main.scheme_activity.*
 import org.jetbrains.anko.toast
 
-class SchemeActivity : AppCompatActivity() {
+class SchemeActivity : Base2Activity<SchemeActivityBinding>() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.scheme_activity)
+    override fun initView(savedInstanceState: Bundle?) {
         handleIntent(intent)
     }
 
@@ -26,6 +22,7 @@ class SchemeActivity : AppCompatActivity() {
         Logger.d("PushActivity__ onNewIntent")
         handleIntent(intent)
     }
+
 
     private fun handleIntent(intent: Intent?) {
         val uri = intent?.data
@@ -64,9 +61,10 @@ class SchemeActivity : AppCompatActivity() {
                 }
             }
         }
-        tv_title.setOnClickListener {
+        binding.tvTitle.setOnClickListener {
             val acts = ActivityUtils.getActivityList()
             Logger.d("act: $acts")
         }
     }
+
 }

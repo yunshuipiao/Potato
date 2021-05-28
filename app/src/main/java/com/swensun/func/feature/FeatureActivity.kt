@@ -3,16 +3,14 @@ package com.swensun.func.feature
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import com.swensun.base.Base2Activity
 import com.swensun.potato.R
+import com.swensun.potato.databinding.FeatureActivityBinding
 import org.jetbrains.anko.toast
 
-class FeatureActivity : AppCompatActivity() {
+class FeatureActivity : Base2Activity<FeatureActivityBinding>() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        window?.decorView?.setBackgroundColor(Color.TRANSPARENT)
-        window?.decorView?.let {
-        }
+    override fun initView(savedInstanceState: Bundle?) {
         setContentView(R.layout.feature_activity)
         toast("FeatureActivity create")
         if (savedInstanceState == null) {
@@ -20,10 +18,5 @@ class FeatureActivity : AppCompatActivity() {
                 .replace(R.id.container, FeatureFragment.newInstance())
                 .commitNow()
         }
-    }
-    
-    override fun onDestroy() {
-        super.onDestroy()
-        toast("FeatureActivity destroy")
     }
 }

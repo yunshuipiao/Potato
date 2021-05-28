@@ -1,45 +1,26 @@
 package com.swensun.func.recycler
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.drakeet.multitype.MultiTypeAdapter
+import com.swensun.base.BaseFragment
 import com.swensun.potato.databinding.ItemRecyclerViewBinding
 import com.swensun.potato.databinding.RecyclerViewFragmentBinding
 import com.ziipin.social.base.multitype.ViewBindingDelegate
 import com.ziipin.social.base.multitype.ViewBindingViewHolder
-import kotlinx.android.synthetic.main.recycler_view_fragment.*
 
 
-class RecyclerViewFragment : Fragment() {
+class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {
 
     companion object {
         fun newInstance() = RecyclerViewFragment()
     }
 
     private lateinit var viewModel: RecyclerViewViewModel
-    private lateinit var binding: RecyclerViewFragmentBinding
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = RecyclerViewFragmentBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(RecyclerViewViewModel::class.java)
-        initView()
-    }
 
     private fun initView() {
 //        recycler_view.closeDefaultAnimator()
@@ -51,7 +32,7 @@ class RecyclerViewFragment : Fragment() {
          * MultiTypeAdapter
          */
         val adapter = MultiTypeAdapter()
-        recycler_view.adapter = adapter
+        binding.recyclerView.adapter = adapter
         adapter.register(RViewHolderDelegate().apply {
             loadMore = {
                 val size = adapter.items.size
@@ -67,9 +48,14 @@ class RecyclerViewFragment : Fragment() {
         })
         val items = (0 until 10).map { RInt(it) }
         adapter.submitList(items, RIntCallback(adapter.items, items))
-        btn_refresh.setOnClickListener {
+        binding.recyclerView.setOnClickListener {
 
         }
+    }
+
+    override fun initView(savedInstanceState: Bundle?) {
+        viewModel = ViewModelProvider(this).get(RecyclerViewViewModel::class.java)
+        initView()
     }
 }
 

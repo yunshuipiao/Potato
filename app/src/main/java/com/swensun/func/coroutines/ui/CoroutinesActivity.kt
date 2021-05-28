@@ -1,15 +1,12 @@
 package com.swensun.func.coroutines.ui
 
 import android.os.Bundle
+import com.swensun.base.Base2Activity
 import com.swensun.base.BaseActivity
 import com.swensun.potato.R
+import com.swensun.potato.databinding.CoroutinesActivityBinding
 
-class CoroutinesActivity : BaseActivity() {
-
-
-    override fun getContentSubView(): Int {
-        return R.layout.coroutines_activity
-    }
+class CoroutinesActivity : Base2Activity<CoroutinesActivityBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         supportActionBar?.title = getString(R.string.coroutines)

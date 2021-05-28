@@ -3,16 +3,13 @@ package com.swensun.func.statusbar
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.swensun.potato.R
-import kotlinx.android.synthetic.main.status_bar_fragment.*
+import com.swensun.base.BaseFragment
+import com.swensun.potato.databinding.StatusBarFragmentBinding
 
-class StatusBarFragment : Fragment() {
+class StatusBarFragment : BaseFragment<StatusBarFragmentBinding>() {
 
     companion object {
         fun newInstance() = StatusBarFragment()
@@ -21,34 +18,27 @@ class StatusBarFragment : Fragment() {
     private lateinit var viewModel: StatusBarViewModel
     private var mCount = 0
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.status_bar_fragment, container, false)
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun initView(savedInstanceState: Bundle?) {
         viewModel = ViewModelProvider(this).get(StatusBarViewModel::class.java)
-        btn_system_ui_dark.setOnClickListener {
+        binding.btnSystemUiDark.setOnClickListener {
             activity?.window?.decorView?.apply {
                 systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE
             }
         }
-        btn_hide_status_bar.setOnClickListener {
+        binding.btnHideStatusBar.setOnClickListener {
             activity?.window?.decorView?.apply {
                 systemUiVisibility =
                     View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
             }
         }
-        btn_after_status_bar.setOnClickListener {
+        binding.btnAfterStatusBar.setOnClickListener {
             activity?.window?.decorView?.apply {
                 systemUiVisibility =
                     View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
             }
         }
-        btn_immersive_status_bar.setOnClickListener {
+        binding.btnImmersiveStatusBar.setOnClickListener {
             activity?.window?.decorView?.apply {
                 systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
                         if (mCount % 2 == 0) {
@@ -60,7 +50,7 @@ class StatusBarFragment : Fragment() {
             }
         }
 
-        btn_status_bar_trans.setOnClickListener {
+        binding.btnStatusBarTrans.setOnClickListener {
             val lightStatus = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             } else {
@@ -90,9 +80,6 @@ class StatusBarFragment : Fragment() {
             }
             mCount += 1
         }
-    }
-
-    private fun translucent() {
 
     }
 }

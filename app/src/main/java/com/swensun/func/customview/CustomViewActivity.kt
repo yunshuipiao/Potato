@@ -2,13 +2,13 @@ package com.swensun.func.customview
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.swensun.base.Base2Activity
 import com.swensun.potato.R
+import com.swensun.potato.databinding.CustomViewActivityBinding
 
-class CustomViewActivity : AppCompatActivity() {
+class CustomViewActivity : Base2Activity<CustomViewActivityBinding>() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.custom_view_activity)
+    override fun initView(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, CustomViewFragment.newInstance())

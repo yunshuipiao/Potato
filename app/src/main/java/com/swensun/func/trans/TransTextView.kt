@@ -2,7 +2,6 @@ package com.swensun.func.trans
 
 import android.content.Context
 import android.util.AttributeSet
-import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
 import com.swensun.potato.R
 
