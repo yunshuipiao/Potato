@@ -2,6 +2,11 @@ package com.swensun.potato
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.viewbinding.ViewBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlin.coroutines.CoroutineContext
 
 /**
  * author : zp
@@ -9,8 +14,7 @@ import androidx.lifecycle.MutableLiveData
  * Potato
  */
 
-
-object UserInfoRepository {
+object UserInfoRepository : CoroutineScope {
 
     var userVipStateChanged = MediatorLiveData<UserInfo>()
     val userInfoLiveData = MutableLiveData<UserInfo>()
@@ -44,6 +48,13 @@ object UserInfoRepository {
         userInfoLiveData.postValue(userInfo)
 
     }
+
+    fun test() {
+
+    }
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + Job()
 }
 
 class UserInfo {

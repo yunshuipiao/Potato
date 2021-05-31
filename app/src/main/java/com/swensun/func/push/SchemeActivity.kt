@@ -61,7 +61,7 @@ class SchemeActivity : Base2Activity<SchemeActivityBinding>() {
                 }
             }
         }
-        binding.tvTitle.setOnClickListener {
+        vb.tvTitle.setOnClickListener {
             val acts = ActivityUtils.getActivityList()
             Logger.d("act: $acts")
         }

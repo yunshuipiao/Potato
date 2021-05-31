@@ -56,70 +56,70 @@ class MainActivity : Base2Activity<ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
-    
+
     override fun initView(savedInstanceState: Bundle?) {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        binding.btnTouchEvent.setOnClickListener {
+        vb.btnTouchEvent.setOnClickListener {
             startActivity<TouchEventActivity>()
         }
 
-        binding.btnCoroutines.setOnClickListener {
+        vb.btnCoroutines.setOnClickListener {
             startActivity<CoroutinesActivity>()
         }
-        binding.btnViewpager.setOnClickListener {
+        vb.btnViewpager.setOnClickListener {
             startActivity<ViewPagerActivity>()
         }
-        binding.btnBottom.setOnClickListener {
+        vb.btnBottom.setOnClickListener {
             startActivity<BottomActivity>()
         }
-        binding.btnFontTrans.setOnClickListener {
+        vb.btnFontTrans.setOnClickListener {
             startActivity<TransFontActivity>()
         }
-        binding.btnRoom.setOnClickListener {
+        vb.btnRoom.setOnClickListener {
             startActivity<RoomActivity>()
         }
-        binding.btnTime.setOnClickListener {
+        vb.btnTime.setOnClickListener {
             startActivity<TimeAboutActivity>()
         }
-        binding.btnLifecycle.setOnClickListener {
+        vb.btnLifecycle.setOnClickListener {
             startActivity<LifecycleActivity>()
         }
-        binding.btnMultiDialog.setOnClickListener {
+        vb.btnMultiDialog.setOnClickListener {
         }
-        binding.btnLivedata.setOnClickListener {
+        vb.btnLivedata.setOnClickListener {
             startActivity<LiveDataActivity>()
         }
-        binding.btnRecycler.setOnClickListener {
+        vb.btnRecycler.setOnClickListener {
             startActivity<RecyclerViewActivity>()
 //            overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit)
         }
-        binding.btnMemory.setOnClickListener {
+        vb.btnMemory.setOnClickListener {
             startActivity<MemoryActivity>()
         }
-        binding.btnCustomView.setOnClickListener {
+        vb.btnCustomView.setOnClickListener {
             startActivity<CustomViewActivity>()
         }
-        binding.btnExoPlayer.setOnClickListener {
+        vb.btnExoPlayer.setOnClickListener {
             startActivity<ExoPlayerActivity>()
         }
 
-        binding.btnLauncherMode.setOnClickListener {
+        vb.btnLauncherMode.setOnClickListener {
 //            startActivity<LauncherModeActivity>()
         }
-        binding.btnFramelayout.setOnClickListener {
+        vb.btnFramelayout.setOnClickListener {
             startActivity<FrameLayoutActivity>()
         }
-        binding.btnFeature.setOnClickListener {
+        vb.btnFeature.setOnClickListener {
             startActivity<FeatureActivity>()
         }
-        binding.btnStatusNavigation.setOnClickListener {
+        vb.btnStatusNavigation.setOnClickListener {
             startActivity<StatusBarActivity>()
         }
-        binding.btnUtilCode.setOnClickListener {
+        vb.btnUtilCode.setOnClickListener {
             startActivity<UtilCodeActivity>()
         }
-        binding.btnSendNotification.setOnClickListener {
+        vb.btnSendNotification.setOnClickListener {
             // Create an explicit intent for an Activity in your app
             val intent = Intent(it.context, SchemeActivity::class.java)
             intent.putExtra("extra", "jump")
@@ -137,29 +137,29 @@ class MainActivity : Base2Activity<ActivityMainBinding>() {
                 .notify(UtilCodeFragment.notification_id, notification)
         }
 
-        binding.btnFragment.setOnClickListener {
+        vb.btnFragment.setOnClickListener {
             startActivity<FragmentModeActivity>()
         }
-        binding.btnStatus.setOnClickListener {
+        vb.btnStatus.setOnClickListener {
             startActivity<StatusPageActivity>()
         }
-        binding.btnAnim.setOnClickListener {
+        vb.btnAnim.setOnClickListener {
             startActivity<AnimActivity>()
         }
-        binding.btnUserinfo.setOnClickListener {
+        vb.btnUserinfo.setOnClickListener {
             startActivity<UserInfoActivity>()
         }
-        binding.btnDownload.setOnClickListener {
+        vb.btnDownload.setOnClickListener {
             startDownloadActivity()
         }
 
         RDataBase.init()
         viewModel.opeDatabase()
 
-        binding.fabRight.setOnClickListener {
+        vb.fabRight.setOnClickListener {
         }
 
-        binding.fabLeft.setOnClickListener {
+        vb.fabLeft.setOnClickListener {
 //            AlertDialog.Builder(this)
 //                .setPositiveButton("confirm") { i, a ->
 //
@@ -178,7 +178,7 @@ class MainActivity : Base2Activity<ActivityMainBinding>() {
                 startActivity(it)
             }
         }
-        binding.btnScheme.setOnClickListener {
+        vb.btnScheme.setOnClickListener {
 
         }
         initNetChangeStatus()

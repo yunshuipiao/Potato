@@ -19,12 +19,12 @@ import com.swensun.swutils.multitype.inflateBindingWithGeneric
  */
 abstract class Base2Activity<VB : ViewBinding> : AppCompatActivity() {
 
-    lateinit var binding: VB
+    lateinit var vb: VB
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = inflateBindingWithGeneric(layoutInflater)
-        setContentView(binding.root)
+        vb = inflateBindingWithGeneric(layoutInflater)
+        setContentView(vb.root)
         fitStatusBarHeight()
         setTransparentStatusBar(false, R.color.colorPrimary)
         initView(savedInstanceState)

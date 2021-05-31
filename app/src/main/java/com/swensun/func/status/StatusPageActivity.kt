@@ -16,7 +16,7 @@ class StatusPageActivity : Base2Activity<ActivityStatusPageBinding>() {
     private val status_view by lazy { StatusView(this) }
 
     override fun initView(savedInstanceState: Bundle?) {
-        status_view.bindParentView(binding.rootView)
+        status_view.bindParentView(vb.rootView)
 
         viewModel.statusLiveData.observe(this, Observer {
             Logger.d("statusLiveData changed: $it")
@@ -35,16 +35,16 @@ class StatusPageActivity : Base2Activity<ActivityStatusPageBinding>() {
                 }
             }
         })
-        binding.btnError.setOnClickListener {
+        vb.btnError.setOnClickListener {
             viewModel.setStatus(StatusEvent.ERROR)
         }
-        binding.btnLoading.setOnClickListener {
+        vb.btnLoading.setOnClickListener {
             viewModel.setStatus(StatusEvent.LOADING)
         }
-        binding.btnSuccess.setOnClickListener {
+        vb.btnSuccess.setOnClickListener {
             viewModel.setStatus(StatusEvent.SUCCESS)
         }
-        binding.tvContent.setOnClickListener {
+        vb.tvContent.setOnClickListener {
             toast("click content")
             startActivity<StatusPageActivity>()
         }

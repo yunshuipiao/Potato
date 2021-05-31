@@ -9,9 +9,9 @@ import com.swensun.potato.databinding.ActivityFrameLayoutBinding
 class FrameLayoutActivity : Base2Activity<ActivityFrameLayoutBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
-        binding.et.addTextChangedListener(object : TextWatcher {
+        vb.et.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                binding.tvTextLeft.text = s.toString()
+                vb.tvTextLeft.text = s.toString()
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {

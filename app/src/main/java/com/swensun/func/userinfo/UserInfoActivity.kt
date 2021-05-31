@@ -23,11 +23,11 @@ class UserInfoActivity : Base2Activity<ActivityUserInfoBinding>() {
             Logger.d("userinfo activity login change: $it")
         })
 
-        binding.btnUpdate.setOnClickListener {
-            val name = binding.etName.text.toString()
-            val login = binding.rbLogin.isChecked
-            val vip = binding.rbVip.isChecked
-            val coins = binding.seekBar.progress
+        vb.btnUpdate.setOnClickListener {
+            val name = vb.etName.text.toString()
+            val login = vb.rbLogin.isChecked
+            val vip = vb.rbVip.isChecked
+            val coins = vb.seekBar.progress
             val userInfo = UserInfo().apply {
                 this.name = name
                 this.login = login

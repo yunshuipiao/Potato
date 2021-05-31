@@ -17,43 +17,43 @@ class ExoPlayerActivity : Base2Activity<ExoPlayerActivityBinding>() {
 
     override fun onPause() {
         super.onPause()
-        binding.videoView.pause()
+        vb.videoView.pause()
     }
 
 
     override fun onResume() {
         super.onResume()
-        binding.videoView.resume()
+        vb.videoView.resume()
     }
 
 
     override fun onDestroy() {
         super.onDestroy()
-        binding.videoView.release()
+        vb.videoView.release()
 
     }
 
     override fun onBackPressed() {
-        if (!binding.videoView.onBackPressed()) {
+        if (!vb.videoView.onBackPressed()) {
             super.onBackPressed()
         }
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        binding.videoView.setUrl(video_url)
+        vb.videoView.setUrl(video_url)
         val control = StandardVideoController(this)
         control.addDefaultControlComponent("dest", false)
         control.setEnableOrientation(true)
-        binding.videoView.videoController = control
-        binding.videoView.start()
-        binding.fab.setOnClickListener {
+        vb.videoView.videoController = control
+        vb.videoView.start()
+        vb.fab.setOnClickListener {
             AlertDialog.Builder(this)
                 .setTitle("lala")
                 .create()
                 .show()
         }
 
-        binding.deleteFile.setOnClickListener {
+        vb.deleteFile.setOnClickListener {
             FileUtils.delete(PathUtils.getExternalAppDownloadPath() + "/Video/dest")
         }
     }

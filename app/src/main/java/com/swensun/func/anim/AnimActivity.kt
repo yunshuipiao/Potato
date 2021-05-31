@@ -9,17 +9,17 @@ import com.swensun.potato.databinding.ActivityAnimBinding
 class AnimActivity : Base2Activity<ActivityAnimBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
-        binding.btnShow.setOnClickListener {
-            binding.tvRight.animate()
-                .translationX(((0 - binding.tvRight.width).toFloat()))
+        vb.btnShow.setOnClickListener {
+            vb.tvRight.animate()
+                .translationX(((0 - vb.tvRight.width).toFloat()))
                 .setDuration(200)
                 .setListener(object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator?) {
                     }
                 })
         }
-        binding.btnHide.setOnClickListener {
-            binding.tvRight.animate()
+        vb.btnHide.setOnClickListener {
+            vb.tvRight.animate()
                 .translationX(0f)
                 .setDuration(200)
                 .setListener(object : AnimatorListenerAdapter() {
