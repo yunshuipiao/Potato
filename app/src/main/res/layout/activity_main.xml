@@ -20,16 +20,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-
-            <com.swensun.potato.view.ToolBarView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"/>
-
+            
             <Button
                     android:id="@+id/btn_touch_event"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
+                    android:textStyle="bold"
                     android:text="@string/touch_event" />
 
             <Button

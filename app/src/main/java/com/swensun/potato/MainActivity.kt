@@ -4,6 +4,7 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
 import android.text.format.DateFormat
+import androidx.activity.viewModels
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.Observer
@@ -45,20 +46,9 @@ class MainActivity : Base2Activity<ActivityMainBinding>() {
     private val today
         get() = DateFormat.format("yyyyMMdd, hh-mm-ss", System.currentTimeMillis()).toString()
 
-    lateinit var viewModel: MainViewModel
-
-    private var observer = Observer<Boolean> {
-        if (it) {
-            startActivity<LiveDataActivity>()
-        }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private val viewModel: MainViewModel by viewModels()
 
     override fun initView(savedInstanceState: Bundle?) {
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         vb.btnTouchEvent.setOnClickListener {
             startActivity<TouchEventActivity>()

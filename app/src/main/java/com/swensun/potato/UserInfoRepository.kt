@@ -50,8 +50,9 @@ object UserInfoRepository : CoroutineScope {
     }
 
     fun test() {
-
     }
+
+
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + Job()

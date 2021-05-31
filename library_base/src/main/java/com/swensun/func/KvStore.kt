@@ -1,4 +1,4 @@
-package com.swensun.func
+package com.ziipin.social.base.kv
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
@@ -15,10 +15,6 @@ import com.swensun.swutils.SwUtils
  */
 
 
-/**
- * 针对 sp 的缺点，使用数据库 room 来替代, 并且天然支持 livedata 通知
- */
-
 @Database(entities = [KeyValue::class], version = 1, exportSchema = false)
 abstract class KvStore : RoomDatabase() {
     companion object {
@@ -30,11 +26,11 @@ abstract class KvStore : RoomDatabase() {
 
         fun <T : Any> get(key: String, defaultValue: T): T {
             val type = defaultValue::class.simpleName ?: ""
-            val value = database.dao().get(key, type)
+            val value = database.dao().get(key, type) ?: return defaultValue
             return try {
                 val v = when (defaultValue) {
                     is String -> value
-                    is Boolean -> value == "true"
+                    is Boolean -> value.toBoolean()
                     is Int -> value.toInt()
                     is Float -> value.toFloat()
                     is Double -> value.toDouble()
@@ -84,13 +80,13 @@ data class KeyValue(
     @ColumnInfo(name = "type", defaultValue = "")
     var type: String = "",
     @ColumnInfo(name = "value", defaultValue = "")
-    var value: String = ""
+    var value: String = "",
 )
 
 @Dao
 abstract class KeyValueDao : BaseDao<KeyValue>() {
     @Query("SELECT value from KeyValue WHERE `key` = :key AND type = :type")
-    abstract fun get(key: String, type: String): String
+    abstract fun get(key: String, type: String): String?
 
     @Query("SELECT value from KeyValue WHERE `key` = :key AND type = :type")
     abstract fun liveData(key: String, type: String): LiveData<String>
@@ -106,8 +102,3 @@ inline fun <reified T> String.fromJson(): T {
     }
     return Gson().fromJson(this, T::class.java)
 }
-
-
-
-
-
