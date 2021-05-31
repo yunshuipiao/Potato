@@ -10,7 +10,7 @@ import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.blankj.utilcode.util.BarUtils
-import com.ziipin.social.base.multitype.inflateBindingWithGeneric
+import com.swensun.swutils.multitype.inflateBindingWithGeneric
 
 /**
  * author : zp

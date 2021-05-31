@@ -10,8 +10,8 @@ import com.drakeet.multitype.MultiTypeAdapter
 import com.swensun.base.BaseFragment
 import com.swensun.potato.databinding.ItemRecyclerViewBinding
 import com.swensun.potato.databinding.RecyclerViewFragmentBinding
-import com.ziipin.social.base.multitype.ViewBindingDelegate
-import com.ziipin.social.base.multitype.ViewBindingViewHolder
+import com.swensun.swutils.multitype.ViewBindingDelegate
+import com.swensun.swutils.multitype.ViewBindingViewHolder
 
 
 class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {

@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import com.ziipin.social.base.multitype.inflateBindingWithGeneric
+import com.swensun.swutils.multitype.inflateBindingWithGeneric
 
 /**
  * author : zp

@@ -9,8 +9,8 @@ import com.swensun.base.BaseFragment
 import com.swensun.func.room.database.RoomEntity
 import com.swensun.potato.databinding.RoomEntityItemBinding
 import com.swensun.potato.databinding.RoomFragmentBinding
-import com.ziipin.social.base.multitype.ViewBindingDelegate
-import com.ziipin.social.base.multitype.ViewBindingViewHolder
+import com.swensun.swutils.multitype.ViewBindingDelegate
+import com.swensun.swutils.multitype.ViewBindingViewHolder
 
 class RoomFragment : BaseFragment<RoomFragmentBinding>() {
 

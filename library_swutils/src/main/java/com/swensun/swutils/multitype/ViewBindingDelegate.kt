@@ -1,4 +1,4 @@
-package com.ziipin.social.base.multitype
+package com.swensun.swutils.multitype
 
 import android.content.Context
 import android.view.ViewGroup

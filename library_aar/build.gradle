@@ -1,2 +1,2 @@
 configurations.maybeCreate("default")
-//artifacts.add("default", file('source-sdk.aar'))
+//artifacts.add("default", file('library_base.aar'))

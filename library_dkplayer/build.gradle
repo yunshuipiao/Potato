@@ -32,5 +32,6 @@ dependencies {
     api "com.google.android.exoplayer:exoplayer-smoothstreaming:2.11.3"
     api "com.google.android.exoplayer:extension-rtmp:2.11.3"
     implementation 'androidx.annotation:annotation:1.1.0'
+    implementation project(':library_aar')
 
 }

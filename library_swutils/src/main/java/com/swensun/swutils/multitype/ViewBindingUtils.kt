@@ -1,5 +1,4 @@
-package com.ziipin.social.base.multitype
-
+package com.swensun.swutils.multitype
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
