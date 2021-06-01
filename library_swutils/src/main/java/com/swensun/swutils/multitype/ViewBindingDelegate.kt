@@ -69,12 +69,14 @@ abstract class AnyCallback(val oldItems: List<Any>, val newItems: List<Any>) : D
     abstract fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean
 }
 
+// 带动画的差分更新
 fun MultiTypeAdapter.submitList(callback: AnyCallback) {
     val result = DiffUtil.calculateDiff(callback)
     items = callback.newItems
     result.dispatchUpdatesTo(this)
 }
 
+// 旧方法更新
 fun MultiTypeAdapter.updateItems(items: List<Any>) {
     this.items = items
     notifyDataSetChanged()
