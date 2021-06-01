@@ -2,7 +2,7 @@ package com.swensun.func.recycler
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DiffUtil
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -10,8 +10,14 @@ import com.drakeet.multitype.MultiTypeAdapter
 import com.swensun.base.BaseFragment
 import com.swensun.potato.databinding.ItemRecyclerViewBinding
 import com.swensun.potato.databinding.RecyclerViewFragmentBinding
+import com.swensun.swutils.multitype.AnyCallback
 import com.swensun.swutils.multitype.ViewBindingDelegate
 import com.swensun.swutils.multitype.ViewBindingViewHolder
+import com.swensun.swutils.multitype.submitList
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {
@@ -19,6 +25,8 @@ class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {
     companion object {
         fun newInstance() = RecyclerViewFragment()
     }
+
+    private var count = 0
 
     private lateinit var viewModel: RecyclerViewViewModel
 
@@ -32,24 +40,25 @@ class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {
          * MultiTypeAdapter
          */
         val adapter = MultiTypeAdapter()
+        adapter.register(RViewHolderDelegate())
         binding.recyclerView.adapter = adapter
-        adapter.register(RViewHolderDelegate().apply {
-            loadMore = {
-                val size = adapter.items.size
-                val items = arrayListOf<Any>()
-                items.addAll(adapter.items)
-                (size until size + 10).forEach {
-                    items.add(RInt(it))
-                }
-                binding.recyclerView.post {
-                    adapter.submitList2(callback = RIntCallback(adapter.items, items))
+        val items = (0 until 10).map { RInt(it) }
+        adapter.submitList(RIntCallback(adapter.items, items))
+        binding.btnRefresh.setOnClickListener {
+            count += 1
+            if (count % 2 == 0) {
+            } else {
+            }
+            lifecycleScope.launch {
+                (0..10).forEach {
+                    delay(200)
+                    val newItems = adapter.items.toMutableList()
+                    newItems.add(1, RInt(newItems.size + 1))
+                    withContext(Dispatchers.Main) {
+                        adapter.submitList(RIntCallback(adapter.items, newItems))
+                    }
                 }
             }
-        })
-        val items = (0 until 10).map { RInt(it) }
-        adapter.submitList(items, RIntCallback(adapter.items, items))
-        binding.recyclerView.setOnClickListener {
-
         }
     }
 
@@ -103,46 +112,6 @@ class RIntCallback(oldItems: List<Any>, newItems: List<Any>) : AnyCallback(oldIt
         return false
     }
 
-}
-
-abstract class AnyCallback(val oldItems: List<Any>, val newItems: List<Any>) : DiffUtil.Callback() {
-    override fun getOldListSize(): Int {
-        return oldItems.size
-    }
-
-    override fun getNewListSize(): Int {
-        return newItems.size
-    }
-
-    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val oldItem = oldItems[oldItemPosition]
-        val newItem = newItems[newItemPosition]
-        return areItemsTheSame(oldItem, newItem)
-
-    }
-
-    abstract fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean
-
-
-    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val oldItem = oldItems[oldItemPosition]
-        val newItem = newItems[newItemPosition]
-        return areContentsTheSame(oldItem, newItem)
-    }
-
-    abstract fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean
-}
-
-fun MultiTypeAdapter.submitList(newItems: List<Any>, callback: DiffUtil.Callback) {
-    val result = DiffUtil.calculateDiff(callback)
-    items = newItems
-    result.dispatchUpdatesTo(this)
-}
-
-fun MultiTypeAdapter.submitList2(callback: AnyCallback) {
-    val result = DiffUtil.calculateDiff(callback)
-    items = callback.newItems
-    result.dispatchUpdatesTo(this)
 }
 
 fun RecyclerView.closeDefaultAnimator() {
