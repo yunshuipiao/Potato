@@ -5,12 +5,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.swensun.base.Base2Activity
+import com.swensun.base.BaseActivity
 import com.swensun.potato.R
 import com.swensun.potato.databinding.ActivityFragmentModeBinding
 import com.swensun.swutils.util.Logger
 
-class FragmentModeActivity : Base2Activity<ActivityFragmentModeBinding>() {
+class FragmentModeActivity : BaseActivity<ActivityFragmentModeBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {

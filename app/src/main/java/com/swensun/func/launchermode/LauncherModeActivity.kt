@@ -3,12 +3,12 @@ package com.swensun.func.launchermode
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.swensun.base.Base2Activity
+import com.swensun.base.BaseActivity
 import com.swensun.potato.R
 import com.swensun.potato.databinding.LauncherModeActivityBinding
 import org.jetbrains.anko.toast
 
-class LauncherModeActivity : Base2Activity<LauncherModeActivityBinding>() {
+class LauncherModeActivity : BaseActivity<LauncherModeActivityBinding>() {
     
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)

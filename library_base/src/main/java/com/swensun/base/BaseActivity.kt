@@ -17,7 +17,7 @@ import com.swensun.swutils.multitype.inflateBindingWithGeneric
  * date : 2021/5/27
  * Potato
  */
-abstract class Base2Activity<VB : ViewBinding> : AppCompatActivity() {
+abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 
     lateinit var vb: VB
 

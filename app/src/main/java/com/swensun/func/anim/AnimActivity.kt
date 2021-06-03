@@ -3,10 +3,10 @@ package com.swensun.func.anim
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
-import com.swensun.base.Base2Activity
+import com.swensun.base.BaseActivity
 import com.swensun.potato.databinding.ActivityAnimBinding
 
-class AnimActivity : Base2Activity<ActivityAnimBinding>() {
+class AnimActivity : BaseActivity<ActivityAnimBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         vb.btnShow.setOnClickListener {

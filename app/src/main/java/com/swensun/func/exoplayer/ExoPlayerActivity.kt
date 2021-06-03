@@ -5,10 +5,10 @@ import android.os.Bundle
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.PathUtils
 import com.dueeeke.videoplayer.ui.StandardVideoController
-import com.swensun.base.Base2Activity
+import com.swensun.base.BaseActivity
 import com.swensun.potato.databinding.ExoPlayerActivityBinding
 
-class ExoPlayerActivity : Base2Activity<ExoPlayerActivityBinding>() {
+class ExoPlayerActivity : BaseActivity<ExoPlayerActivityBinding>() {
 
     //    private var video_url = "https://media6.smartstudy.com/ae/07/3997/2/dest.m3u8"
 //    private var video_url = "http://assets.zvod.badambiz.com/room_4361_1605611400_1605612600.m3u8"

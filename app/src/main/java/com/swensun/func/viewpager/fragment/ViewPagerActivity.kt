@@ -5,11 +5,11 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.swensun.base.Base2Activity
+import com.swensun.base.BaseActivity
 import com.swensun.potato.R
 import com.swensun.potato.databinding.ActivityViewPagerBinding
 
-class ViewPagerActivity : Base2Activity<ActivityViewPagerBinding>() {
+class ViewPagerActivity : BaseActivity<ActivityViewPagerBinding>() {
 
     val adapter by lazy {
         ViewPager2Adapter(this)

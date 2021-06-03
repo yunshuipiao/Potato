@@ -1,12 +1,11 @@
 package com.swensun.func.customview
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.swensun.base.Base2Activity
+import com.swensun.base.BaseActivity
 import com.swensun.potato.R
 import com.swensun.potato.databinding.CustomViewActivityBinding
 
-class CustomViewActivity : Base2Activity<CustomViewActivityBinding>() {
+class CustomViewActivity : BaseActivity<CustomViewActivityBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {

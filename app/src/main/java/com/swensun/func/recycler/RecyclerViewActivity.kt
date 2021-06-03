@@ -1,7 +1,7 @@
 package com.swensun.func.recycler
 
 import android.os.Bundle
-import com.swensun.base.Base2Activity
+import com.swensun.base.BaseActivity
 import com.swensun.potato.databinding.RecyclerViewActivityBinding
 
 //class RecyclerViewActivity : AppCompatActivity() {
@@ -22,7 +22,7 @@ import com.swensun.potato.databinding.RecyclerViewActivityBinding
 //    }
 //}
 
-class RecyclerViewActivity : Base2Activity<RecyclerViewActivityBinding>() {
+class RecyclerViewActivity : BaseActivity<RecyclerViewActivityBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {

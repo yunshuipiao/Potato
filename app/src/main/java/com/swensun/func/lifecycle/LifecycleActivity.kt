@@ -1,12 +1,11 @@
 package com.swensun.func.lifecycle
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import com.swensun.base.Base2Activity
+import com.swensun.base.BaseActivity
 import com.swensun.potato.R
 import com.swensun.potato.databinding.LifecycleActivityBinding
 
-class LifecycleActivity : Base2Activity<LifecycleActivityBinding>() {
+class LifecycleActivity : BaseActivity<LifecycleActivityBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {

@@ -2,13 +2,13 @@ package com.swensun.func.userinfo
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import com.swensun.base.Base2Activity
+import com.swensun.base.BaseActivity
 import com.swensun.potato.UserInfo
 import com.swensun.potato.UserInfoRepository
 import com.swensun.potato.databinding.ActivityUserInfoBinding
 import com.swensun.swutils.util.Logger
 
-class UserInfoActivity : Base2Activity<ActivityUserInfoBinding>() {
+class UserInfoActivity : BaseActivity<ActivityUserInfoBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
 

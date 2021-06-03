@@ -5,13 +5,13 @@ import android.content.Intent
 import android.os.Bundle
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.AppUtils
-import com.swensun.base.Base2Activity
+import com.swensun.base.BaseActivity
 import com.swensun.potato.databinding.SchemeActivityBinding
 import com.swensun.swutils.ui.context
 import com.swensun.swutils.util.Logger
 import org.jetbrains.anko.toast
 
-class SchemeActivity : Base2Activity<SchemeActivityBinding>() {
+class SchemeActivity : BaseActivity<SchemeActivityBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         handleIntent(intent)

@@ -4,13 +4,13 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.swensun.StatusEvent
-import com.swensun.base.Base2Activity
+import com.swensun.base.BaseActivity
 import com.swensun.potato.databinding.ActivityStatusPageBinding
 import com.swensun.swutils.util.Logger
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
-class StatusPageActivity : Base2Activity<ActivityStatusPageBinding>() {
+class StatusPageActivity : BaseActivity<ActivityStatusPageBinding>() {
 
     private val viewModel by lazy { ViewModelProvider(this).get(StatusPageViewModel::class.java) }
     private val status_view by lazy { StatusView(this) }

@@ -1,14 +1,12 @@
 package com.swensun.func.feature
 
 import android.os.Bundle
-import android.view.WindowManager
-import androidx.appcompat.app.AppCompatActivity
-import com.swensun.base.Base2Activity
+import com.swensun.base.BaseActivity
 import com.swensun.potato.R
 import com.swensun.potato.databinding.FeatureActivityBinding
 import org.jetbrains.anko.toast
 
-class FeatureActivity : Base2Activity<FeatureActivityBinding>() {
+class FeatureActivity : BaseActivity<FeatureActivityBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         setContentView(R.layout.feature_activity)
