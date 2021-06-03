@@ -2,7 +2,7 @@ package com.swensun.func.livedata
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.swensun.launchIO
+import com.swensun.launch
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.withContext
@@ -14,7 +14,7 @@ class LiveDataViewModel : ViewModel() {
 
 
     fun testSetOrPost() {
-        launchIO {
+        launch {
             withContext(Dispatchers.Main) {
                 (0 until 1000).forEach {
                     modelLiveData.value = (it)

@@ -1,15 +1,10 @@
 package com.swensun.func.room
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
-import androidx.room.Transaction
 import com.swensun.func.room.database.RDataBase
 import com.swensun.func.room.database.RoomEntity
-import com.swensun.launchIO
-import com.swensun.swutils.util.Logger
-import kotlinx.coroutines.delay
-import java.util.logging.LogManager
+import com.swensun.launch
 
 class RoomViewModel : ViewModel() {
 
@@ -25,19 +20,19 @@ class RoomViewModel : ViewModel() {
     }
 
     fun upsertList(entities: List<RoomEntity>) {
-        launchIO {
+        launch {
             roomDao.upsertList(entities)
         }
     }
 
     fun upsertList(entity: RoomEntity) {
-        launchIO {
+        launch {
             roomDao.upsert(entity)
         }
     }
 
     fun delete(it: RoomEntity) {
-        launchIO {
+        launch {
             roomDao.delete(it)
         }
     }

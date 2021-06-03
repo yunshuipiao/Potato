@@ -1,7 +1,11 @@
 package com.swensun
 
+import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -36,9 +40,7 @@ open class StatusViewModel : ViewModel() {
     }
 }
 
-fun ViewModel.launchIO(block: suspend CoroutineScope.() -> Unit): Job {
-    return viewModelScope.launch(Dispatchers.IO) {
-        block()
-    }
-}
+fun ViewModel.launch(block: suspend CoroutineScope.() -> Unit) = viewModelScope.launch() { block() }
+fun Fragment.launch(block: suspend CoroutineScope.() -> Unit) = lifecycleScope.launch { block() }
+fun AppCompatActivity.launch(block: suspend CoroutineScope.() -> Unit) = lifecycleScope.launch { block() }
 

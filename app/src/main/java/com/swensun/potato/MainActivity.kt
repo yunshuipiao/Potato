@@ -7,6 +7,7 @@ import android.text.format.DateFormat
 import androidx.activity.viewModels
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.lifecycle.lifecycleScope
 import com.swensun.base.BaseActivity
 import com.swensun.func.anim.AnimActivity
 import com.swensun.func.bottom.BottomActivity
@@ -37,6 +38,7 @@ import com.swensun.potato.application.createNotificationChannel
 import com.swensun.potato.databinding.ActivityMainBinding
 import com.swensun.swutils.util.Logger
 import com.swensun.swutils.util.NetWorkChangeUtils
+import kotlinx.coroutines.launch
 import org.jetbrains.anko.startActivity
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -145,6 +147,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         viewModel.opeDatabase()
 
         vb.fabRight.setOnClickListener {
+            
         }
 
         vb.fabLeft.setOnClickListener {

@@ -1,7 +1,7 @@
 package com.swensun.func.coroutines.ui
 
 import com.swensun.StatusViewModel
-import com.swensun.launchIO
+import com.swensun.launch
 import com.swensun.swutils.util.Logger
 import kotlinx.coroutines.*
 
@@ -11,7 +11,7 @@ class CoroutinesViewModel : StatusViewModel() {
 
     fun delayToast() {
         try {
-            job = launchIO {
+            job = this.launch {
                 delay(2000)
                 withContext(Dispatchers.Main) {
                     log("success")
@@ -23,7 +23,7 @@ class CoroutinesViewModel : StatusViewModel() {
     }
 
     fun cancel() {
-        launchIO {
+        this.launch {
             job?.cancelAndJoin()
             log("cancel")
         }
