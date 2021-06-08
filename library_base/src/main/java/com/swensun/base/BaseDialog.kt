@@ -1,47 +1,46 @@
 package com.swensun.base
 
-import android.content.Context
+import android.app.AlertDialog
+import android.app.Dialog
+import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.View
-import androidx.appcompat.app.AlertDialog
-import com.swensun.swutils.ui.dp2px
+import android.view.WindowManager
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
+import androidx.viewbinding.ViewBinding
+import com.swensun.swutils.multitype.inflateBindingWithGeneric
+import com.swensun.swutils.util.Logger
 
-abstract class BaseDialog(context: Context) : AlertDialog(context) {
+/**
+ * author : zp
+ * date : 2021/6/4
+ * Potato
+ */
 
-//    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-//        val build = AlertDialog.Builder(requireContext())
-//        build.setView(onCreateDialogView())
-//        return build.create()
-//    }
+fun dlog(msg: String) {
+    Logger.d("__dialog, msg:${msg}")
+}
 
-    private var isTran: Boolean? = null
-    private var mWidth = 0
-    private var mHeight = 0
+abstract class ViewBindingDialog<VB : ViewBinding>(private val block: (VB.() -> Unit)? = null) :
+    DialogFragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(onCreateDialogView())
-        isTran?.let {
-            if (it) {
-                window?.setBackgroundDrawable(ColorDrawable(0))
-            }
-        }
-        if (mWidth != 0 && mHeight != 0) {
-            window?.setLayout(dp2px(mWidth.toFloat()), dp2px(mHeight.toFloat()))
-        }
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val binding = inflateBindingWithGeneric<VB>(layoutInflater)
+        val dialog = AlertDialog.Builder(context)
+            .setView(binding.root)
+            .create()
+        block?.invoke(binding)
+        return dialog
     }
 
-     abstract fun onCreateDialogView(): View
-
-    public fun withTransparent(): BaseDialog {
-        isTran = true
-        return this
+    override fun show(manager: FragmentManager, tag: String?) {
+        super.show(manager, tag)
     }
 
-    public fun withSize(width: Int, height: Int): BaseDialog {
-        mWidth = width
-        mHeight = height
-        return this
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
 }

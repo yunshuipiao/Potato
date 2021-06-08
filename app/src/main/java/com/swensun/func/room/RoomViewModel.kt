@@ -4,7 +4,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import com.swensun.func.room.database.RDataBase
 import com.swensun.func.room.database.RoomEntity
-import com.swensun.launch
+import com.swensun.launchIO
 
 class RoomViewModel : ViewModel() {
 
@@ -20,19 +20,19 @@ class RoomViewModel : ViewModel() {
     }
 
     fun upsertList(entities: List<RoomEntity>) {
-        launch {
+        launchIO {
             roomDao.upsertList(entities)
         }
     }
 
     fun upsertList(entity: RoomEntity) {
-        launch {
+        launchIO {
             roomDao.upsert(entity)
         }
     }
 
     fun delete(it: RoomEntity) {
-        launch {
+        launchIO {
             roomDao.delete(it)
         }
     }

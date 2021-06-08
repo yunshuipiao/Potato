@@ -8,10 +8,12 @@ import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import androidx.lifecycle.ProcessLifecycleOwner
+import com.blankj.utilcode.util.ProcessUtils
 import com.dueeeke.videoplayer.player.ProgressManager
 import com.dueeeke.videoplayer.player.VideoViewConfig
 import com.dueeeke.videoplayer.player.VideoViewManager
 import com.facebook.stetho.Stetho
+import com.facebook.stetho.common.ProcessUtil
 import com.swensun.http.SimpleActivityLifecycleCallbacks
 import com.swensun.swutils.SwUtils
 import com.swensun.swutils.shareprefence.SharePreferencesManager
@@ -45,6 +47,9 @@ class PotatoApplication : Application() {
             }
         }
         Stetho.initializeWithDefaults(this)
+        if (ProcessUtils.isMainProcess()) {
+            // main process
+        }
     }
 }
 

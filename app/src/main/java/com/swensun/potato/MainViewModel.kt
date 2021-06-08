@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.swensun.func.room.database.RDataBase
 import com.swensun.func.room.database.RoomEntity
-import com.swensun.launch
+import com.swensun.launchIO
 import com.swensun.swutils.util.Logger
 
 class MainViewModel : ViewModel() {
@@ -13,7 +13,7 @@ class MainViewModel : ViewModel() {
 
     fun testCoroutines() {
         (0 until 1000).forEach {
-            launch {
+            launchIO {
                 formatJson()
                 Logger.d("thread:${Thread.currentThread().name}, $it")
             }
@@ -25,7 +25,7 @@ class MainViewModel : ViewModel() {
     }
 
     fun opeDatabase() {
-        launch {
+        launchIO {
             RDataBase.INSTANCE.roomDao().upsert(RoomEntity())
         }
     }

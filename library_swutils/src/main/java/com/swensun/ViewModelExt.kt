@@ -40,7 +40,8 @@ open class StatusViewModel : ViewModel() {
     }
 }
 
-fun ViewModel.launch(block: suspend CoroutineScope.() -> Unit) = viewModelScope.launch() { block() }
-fun Fragment.launch(block: suspend CoroutineScope.() -> Unit) = lifecycleScope.launch { block() }
-fun AppCompatActivity.launch(block: suspend CoroutineScope.() -> Unit) = lifecycleScope.launch { block() }
+fun ViewModel.launch(block: suspend CoroutineScope.() -> Unit) = viewModelScope.launch { block() }
+fun ViewModel.launchIO(block: suspend CoroutineScope.() -> Unit) = viewModelScope.launch(Dispatchers.IO) { block() }
+fun Fragment.launchIO(block: suspend CoroutineScope.() -> Unit) = lifecycleScope.launch { block() }
+fun AppCompatActivity.launchIO(block: suspend CoroutineScope.() -> Unit) = lifecycleScope.launch { block() }
 

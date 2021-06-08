@@ -1,14 +1,16 @@
 package com.swensun.potato
 
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.format.DateFormat
+import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.lifecycle.lifecycleScope
 import com.swensun.base.BaseActivity
+import com.swensun.base.ViewBindingDialog
 import com.swensun.func.anim.AnimActivity
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
@@ -36,9 +38,10 @@ import com.swensun.func.utilcode.UtilCodeFragment
 import com.swensun.func.viewpager.fragment.ViewPagerActivity
 import com.swensun.potato.application.createNotificationChannel
 import com.swensun.potato.databinding.ActivityMainBinding
+import com.swensun.potato.databinding.DialogLoadingBinding
+import com.swensun.swutils.ui.dp
 import com.swensun.swutils.util.Logger
 import com.swensun.swutils.util.NetWorkChangeUtils
-import kotlinx.coroutines.launch
 import org.jetbrains.anko.startActivity
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -147,7 +150,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         viewModel.opeDatabase()
 
         vb.fabRight.setOnClickListener {
-            
+            LoadingDialog {
+                tvLoading.text = " - loading - "
+            }.show(supportFragmentManager, "dailog")
         }
 
         vb.fabLeft.setOnClickListener {
@@ -205,6 +210,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
     }
 }
+
+// loading dialog 的使用
+
+class LoadingDialog(block: (DialogLoadingBinding.() -> Unit)? = null) :
+    ViewBindingDialog<DialogLoadingBinding>(block) {
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.setLayout(100.dp, WindowManager.LayoutParams.WRAP_CONTENT)
+    }
+}
+
+
+
+
 
 
 

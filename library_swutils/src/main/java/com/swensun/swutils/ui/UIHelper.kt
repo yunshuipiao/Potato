@@ -34,8 +34,6 @@ import androidx.fragment.app.FragmentActivity
 import com.google.android.material.snackbar.Snackbar
 import com.swensun.swutils.R
 import com.swensun.swutils.SwUtils
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import org.jetbrains.annotations.NotNull
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -51,19 +49,21 @@ val TAG = "UIHelper"
 
 val context = SwUtils.application
 private val accessibilityManager =
-        context.getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
+    context.getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
 private val phonePath = Environment.getDataDirectory()
 fun getDrawable(@DrawableRes resId: Int): Drawable? = context.getDrawable(resId)
 fun getString(@StringRes resId: Int) = context.getString(resId) ?: ""
-fun getString(@StringRes resId: Int, vararg formatArgs: Any) = context.getString(resId, *formatArgs) ?: ""
+fun getString(@StringRes resId: Int, vararg formatArgs: Any) =
+    context.getString(resId, *formatArgs) ?: ""
+
 fun getDimen(@DimenRes resId: Int) = context.resources.getDimensionPixelOffset(resId)
 fun getColor(@ColorRes resId: Int) =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            context.getColor(resId)
-        } else {
-            @Suppress("DEPRECATION")
-            context.resources.getColor(resId)
-        }
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        context.getColor(resId)
+    } else {
+        @Suppress("DEPRECATION")
+        context.resources.getColor(resId)
+    }
 
 fun getColor(color: String) = Color.parseColor(color)
 
@@ -74,13 +74,21 @@ fun dp2px(value: Float): Int {
     return (res + 0.5f).toInt()
 }
 
-fun sp2px(value: Float) = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-        value, displayMetrics)
+fun sp2px(value: Float) = TypedValue.applyDimension(
+    TypedValue.COMPLEX_UNIT_SP,
+    value, displayMetrics
+)
 
 fun px2dp(pxValue: Float): Int {
     val scale = displayMetrics.density
     return (pxValue / scale + 0.5f).toInt()
 }
+
+val Number.dp: Int
+    get() = dp2px(this.toFloat())
+
+val Number.dpf: Float
+    get() = dp2px(this.toFloat()).toFloat()
 
 fun hideKeyboard(act: Activity) {
     val view = act.currentFocus
@@ -101,7 +109,8 @@ fun showKeyboard(act: Activity) {
 
 @SuppressLint("MissingPermission")
 fun isNetworkAvailable(): Boolean {
-    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val connectivityManager =
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     val ni = connectivityManager.activeNetworkInfo ?: return false
     return ni.isConnected || ni.isAvailable && ni.isConnectedOrConnecting
 }
@@ -167,14 +176,14 @@ fun isShouldHideInput(v: View?, event: MotionEvent): Boolean {
 fun isInsAccessibilityServiceEnable(): Boolean {
     val services = "service.MyAccessibilityService"
     val accessibilityServices =
-            accessibilityManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_GENERIC)
+        accessibilityManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_GENERIC)
     return accessibilityServices.any { it.id.contains(services) }
 }
 
 fun isDevelopAccessibilityServiceEnable(): Boolean {
     val services = "service.DevelopAccessibilityService"
-     val accessibilityServices =
-            accessibilityManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_GENERIC)
+    val accessibilityServices =
+        accessibilityManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_GENERIC)
     return accessibilityServices.any { it.id.contains(services) }
 }
 
@@ -201,24 +210,17 @@ val View.activity: FragmentActivity
     }
 
 fun showSnackBar(@NotNull activity: Activity, @StringRes res: Int) =
-        Snackbar.make(getActivityRootView(activity), getString(res),Snackbar.LENGTH_SHORT).show()
-
-fun showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
-    val toast = Toast.makeText(context, message, duration)
-    Observable.timer(duration.toLong(), TimeUnit.MILLISECONDS)
-            .doOnSubscribe {
-                toast.show()
-            }
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                toast.cancel()
-            }
-}
+    Snackbar.make(getActivityRootView(activity), getString(res), Snackbar.LENGTH_SHORT).show()
 
 // 检测开发者选项是否打开: 此方法可以检测Setting.Global下的所有设置是否打开
-fun checkDevelopSettings() = Settings.Secure.getInt(context.contentResolver, Settings.Global.DEVELOPMENT_SETTINGS_ENABLED) == 1
+fun checkDevelopSettings() = Settings.Secure.getInt(
+    context.contentResolver,
+    Settings.Global.DEVELOPMENT_SETTINGS_ENABLED
+) == 1
 
-fun checkUsbDebugSettings() = Settings.Secure.getInt(context.contentResolver, Settings.Global.ADB_ENABLED) == 1
+fun checkUsbDebugSettings() =
+    Settings.Secure.getInt(context.contentResolver, Settings.Global.ADB_ENABLED) == 1
+
 fun getSDTotalSize(): String? {
     val sdPath = Environment.getExternalStorageDirectory()
     val statfs = StatFs(sdPath.path)
@@ -263,10 +265,6 @@ fun generateViewId(): Int {
         }
     }
 }
-
-
-
-
 
 
 fun isWifiActive(): Boolean {
@@ -327,7 +325,7 @@ fun Long.timestamp2FormatTime(): String {
     val hourTime = 3600 * 1000L
     val dayTime = 24 * 3600 * 1000L
 
-    val diffTime = now  - this * 1000
+    val diffTime = now - this * 1000
     return when {
         (diffTime > dayTime) ->
             DateFormat.format("MM/dd", this * 1000).toString()
@@ -395,7 +393,7 @@ fun isShownKeyboard(): Boolean {
 
 //click and hide keyboard
 fun View.shouldHideKeyBoard(event: MotionEvent): Boolean {
-    if ( this is EditText) {
+    if (this is EditText) {
         val leftTop = intArrayOf(0, 0)
         this.getLocationInWindow(leftTop)
         val left = leftTop[0]

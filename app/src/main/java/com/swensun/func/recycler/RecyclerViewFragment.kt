@@ -14,10 +14,7 @@ import com.swensun.swutils.multitype.AnyCallback
 import com.swensun.swutils.multitype.ViewBindingDelegate
 import com.swensun.swutils.multitype.ViewBindingViewHolder
 import com.swensun.swutils.multitype.submitList
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {
@@ -50,14 +47,9 @@ class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {
             } else {
             }
             lifecycleScope.launch {
-                (0..10).forEach {
-                    delay(200)
-                    val newItems = adapter.items.toMutableList()
-                    newItems.add(1, RInt(newItems.size + 1))
-                    withContext(Dispatchers.Main) {
-                        adapter.submitList(RIntCallback(adapter.items, newItems))
-                    }
-                }
+                val newItems = adapter.items.toMutableList()
+                newItems.add(1, RInt(newItems.size + 1))
+                adapter.submitList(RIntCallback(adapter.items, newItems))
             }
         }
     }
@@ -70,12 +62,6 @@ class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {
 
 class RInt(val id: Int) {
     var count = id
-
-    fun clone(): RInt {
-        val rint = RInt(id)
-        rint.count = count
-        return rint
-    }
 }
 
 class RViewHolderDelegate : ViewBindingDelegate<RInt, ItemRecyclerViewBinding>() {
