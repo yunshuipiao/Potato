@@ -7,6 +7,6 @@ package com.swensun.swutils.ext
  */
 
 
-inline fun <reified T> nInstance(vararg params: Any): T =
+inline fun <reified T> newInstance(vararg params: Any): T =
     T::class.java.getDeclaredConstructor(*params.map { it::class.java }.toTypedArray())
         .apply { isAccessible = true }.newInstance(*params)

@@ -13,33 +13,23 @@ import com.drakeet.multitype.MultiTypeAdapter
  * date : 2021/5/21
  * xjfad_branch
  */
-abstract class ViewBindingDelegate<T, VB : ViewBinding> :
-    ItemViewDelegate<T, ViewBindingViewHolder<VB>>() {
+abstract class ViewBindingDelegate<T, VB : ViewBinding>(val binding: VB? = null) :
+    ItemViewDelegate<T, ViewBindingDelegate.ViewBindingViewHolder<VB>>() {
+
+    class ViewBindingViewHolder<VB : ViewBinding>(val binding: VB) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(
         context: Context,
         parent: ViewGroup
     ): ViewBindingViewHolder<VB> {
-        return ViewBindingViewHolder(inflateBindingWithGeneric(parent))
+        return if (binding == null) {
+            ViewBindingViewHolder(inflateBindingWithGeneric(parent))
+        } else {
+            ViewBindingViewHolder(binding)
+        }
     }
 }
-
-abstract class ViewBindingDelegate2<T, VB : ViewBinding> :
-    ItemViewDelegate<T, ViewBindingViewHolder<VB>>() {
-
-    override fun onCreateViewHolder(
-        context: Context,
-        parent: ViewGroup
-    ): ViewBindingViewHolder<VB> {
-        return ViewBindingViewHolder(binding(parent))
-    }
-
-    abstract fun binding(parent: ViewGroup): VB
-}
-
-class ViewBindingViewHolder<VB : ViewBinding>(val binding: VB) :
-    RecyclerView.ViewHolder(binding.root)
-
 
 abstract class AnyCallback(val oldItems: List<Any>, val newItems: List<Any>) : DiffUtil.Callback() {
     override fun getOldListSize(): Int {
