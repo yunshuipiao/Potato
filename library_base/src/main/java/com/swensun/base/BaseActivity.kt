@@ -72,8 +72,12 @@ fun Activity.setNavigationBarColor(@ColorRes navBarResId: Int = 0) {
     }
 }
 
-fun Activity.fitStatusBarHeight() {
-    val contextView = findViewById<View>(android.R.id.content)
-    contextView.setPadding(0, BarUtils.getStatusBarHeight(), 0, 0)
+fun Activity.fitStatusBarHeight(view: View? = null) {
+    if (view != null) {
+        val contextView = findViewById<View>(android.R.id.content)
+        contextView.setPadding(0, BarUtils.getStatusBarHeight(), 0, 0)
+    } else {
+        view?.setPadding(0, BarUtils.getStatusBarHeight(), 0, 0)
+    }
 }
 

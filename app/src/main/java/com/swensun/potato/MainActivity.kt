@@ -1,11 +1,9 @@
 package com.swensun.potato
 
 import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.format.DateFormat
-import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -215,8 +213,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
 // loading dialog 的使用
 
-class LoadingDialog :
-    ViewBindingDialog<DialogLoadingBinding>() {
+class LoadingDialog : ViewBindingDialog<DialogLoadingBinding>() {
     override fun onStart() {
         super.onStart()
         dialog?.window?.setLayout(100.dp, 100.dp)
