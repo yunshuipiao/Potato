@@ -3,7 +3,6 @@ package com.swensun.swutils.ui
 import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
-import com.blankj.utilcode.util.ConvertUtils
 
 /**
  * author : zp
@@ -35,13 +34,13 @@ fun drawable(block: (Drawable.Builder.() -> Unit)? = null): GradientDrawable {
     val gradientDrawable = GradientDrawable()
     block?.invoke(builder)
     val type = builder.radiusType
-    val radius = dp2px(builder.radius.toFloat()).toFloat()
+    val radius = (builder.radius.toFloat())
 
     // set gradientDrawable
 
     if (builder.strokeWidth != 0 && builder.strokeColor != null) {
         gradientDrawable.setStroke(
-            ConvertUtils.dp2px(builder.strokeWidth.toFloat()),
+            builder.strokeWidth,
             getColor(builder.strokeColor!!)
         )
     }

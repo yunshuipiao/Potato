@@ -150,8 +150,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         viewModel.opeDatabase()
 
         vb.fabRight.setOnClickListener {
-            LoadingDialog {
-                tvLoading.text = " - loading - "
+            LoadingDialog().apply {
+                initListener = {
+                    binding.tvLoading.text = " - loading - "
+                }
             }.show(supportFragmentManager, "dailog")
         }
 
@@ -213,11 +215,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
 // loading dialog 的使用
 
-class LoadingDialog(block: (DialogLoadingBinding.() -> Unit)? = null) :
-    ViewBindingDialog<DialogLoadingBinding>(block) {
+class LoadingDialog :
+    ViewBindingDialog<DialogLoadingBinding>() {
     override fun onStart() {
         super.onStart()
-        dialog?.window?.setLayout(100.dp, WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog?.window?.setLayout(100.dp, 100.dp)
     }
 }
 

@@ -1,22 +1,14 @@
 package com.swensun.potato.application
 
-import android.app.Activity
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
-import android.os.Bundle
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.blankj.utilcode.util.ProcessUtils
-import com.dueeeke.videoplayer.player.ProgressManager
-import com.dueeeke.videoplayer.player.VideoViewConfig
-import com.dueeeke.videoplayer.player.VideoViewManager
 import com.facebook.stetho.Stetho
-import com.facebook.stetho.common.ProcessUtil
-import com.swensun.http.SimpleActivityLifecycleCallbacks
 import com.swensun.swutils.SwUtils
-import com.swensun.swutils.shareprefence.SharePreferencesManager
 import com.swensun.swutils.util.ApplicationLifecycleObserver
 
 
@@ -34,18 +26,7 @@ class PotatoApplication : Application() {
 
         ProcessLifecycleOwner.get().lifecycle.addObserver(ApplicationLifecycleObserver())
 
-        VideoViewManager.config = VideoViewConfig().apply {
-            progressManager = object : ProgressManager() {
-                override fun saveProgress(url: String?, progress: Long) {
-                    SharePreferencesManager.put(url ?: "", progress)
-                }
-
-                override fun getSavedProgress(url: String?): Long {
-                    val progress = SharePreferencesManager[url ?: "", 0L]
-                    return progress
-                }
-            }
-        }
+        
         Stetho.initializeWithDefaults(this)
         if (ProcessUtils.isMainProcess()) {
             // main process

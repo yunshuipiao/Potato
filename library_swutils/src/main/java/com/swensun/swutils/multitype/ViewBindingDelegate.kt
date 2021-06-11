@@ -13,11 +13,10 @@ import com.drakeet.multitype.MultiTypeAdapter
  * date : 2021/5/21
  * xjfad_branch
  */
-abstract class ViewBindingDelegate<T, VB : ViewBinding>(val binding: VB? = null) :
+abstract class ViewBindingDelegate<T, VB : ViewBinding>(private val binding: VB? = null) :
     ItemViewDelegate<T, ViewBindingDelegate.ViewBindingViewHolder<VB>>() {
 
-    class ViewBindingViewHolder<VB : ViewBinding>(val binding: VB) :
-        RecyclerView.ViewHolder(binding.root)
+    class ViewBindingViewHolder<VB : ViewBinding>(val binding: VB) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(
         context: Context,

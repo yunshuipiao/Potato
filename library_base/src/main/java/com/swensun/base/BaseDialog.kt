@@ -18,29 +18,32 @@ import com.swensun.swutils.util.Logger
  * Potato
  */
 
-fun dlog(msg: String) {
-    Logger.d("__dialog, msg:${msg}")
-}
+abstract class ViewBindingDialog<VB : ViewBinding> : DialogFragment() {
 
-abstract class ViewBindingDialog<VB : ViewBinding>(private val block: (VB.() -> Unit)? = null) :
-    DialogFragment() {
+    data class DialogBuilder<VB : ViewBinding>(val binding: VB, val dialog: DialogFragment)
+
+    var initListener: (DialogBuilder<VB>.() -> Unit)? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val binding = inflateBindingWithGeneric<VB>(layoutInflater)
         val dialog = AlertDialog.Builder(context)
             .setView(binding.root)
             .create()
-        block?.invoke(binding)
+        initView(binding)
+        initListener?.invoke(DialogBuilder(binding, this))
         return dialog
     }
 
-    override fun show(manager: FragmentManager, tag: String?) {
-        super.show(manager, tag)
+    open fun initView(binding: VB) {
+
     }
 
     override fun onStart() {
         super.onStart()
-        dialog?.window?.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog?.window?.setLayout(
+            WindowManager.LayoutParams.WRAP_CONTENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
 }

@@ -10,7 +10,6 @@ import com.swensun.func.room.database.RoomEntity
 import com.swensun.potato.databinding.RoomEntityItemBinding
 import com.swensun.potato.databinding.RoomFragmentBinding
 import com.swensun.swutils.multitype.ViewBindingDelegate
-import com.swensun.swutils.multitype.ViewBindingViewHolder
 
 class RoomFragment : BaseFragment<RoomFragmentBinding>() {
 
@@ -56,28 +55,6 @@ class RoomFragment : BaseFragment<RoomFragmentBinding>() {
     }
 }
 
-//class RoomEntityDelegate : ItemViewDelegate<RoomEntity, RoomEntityDelegate.RoomEntityViewHolder>() {
-//    var buttonClickListener: ((RoomEntity) -> Unit)? = null
-//
-//    override fun onBindViewHolder(holder: RoomEntityViewHolder, item: RoomEntity) {
-//        holder.setup(item)
-//    }
-//
-//    override fun onCreateViewHolder(context: Context, parent: ViewGroup): RoomEntityViewHolder {
-//        return RoomEntityViewHolder(parent)
-//    }
-//
-//    inner class RoomEntityViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
-//        LayoutInflater.from(parent.context).inflate(R.layout.room_entity_item, parent, false)
-//    ) {
-//        fun setup(item: RoomEntity) {
-//            itemView.btn_info.text = "${item.id} - ${item.title} - ${item.count}"
-//            itemView.btn_info.setOnClickListener {
-//                buttonClickListener?.invoke(item)
-//            }
-//        }
-//    }
-//}
 class RoomEntityDelegate : ViewBindingDelegate<RoomEntity, RoomEntityItemBinding>() {
 
     var buttonClickListener: ((RoomEntity) -> Unit)? = null
@@ -91,7 +68,6 @@ class RoomEntityDelegate : ViewBindingDelegate<RoomEntity, RoomEntityItemBinding
             buttonClickListener?.invoke(item)
         }
     }
-
 }
 
 

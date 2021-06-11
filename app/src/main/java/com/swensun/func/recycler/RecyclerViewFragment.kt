@@ -12,7 +12,6 @@ import com.swensun.potato.databinding.ItemRecyclerViewBinding
 import com.swensun.potato.databinding.RecyclerViewFragmentBinding
 import com.swensun.swutils.multitype.AnyCallback
 import com.swensun.swutils.multitype.ViewBindingDelegate
-import com.swensun.swutils.multitype.ViewBindingViewHolder
 import com.swensun.swutils.multitype.submitList
 import kotlinx.coroutines.launch
 
