@@ -4,11 +4,13 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
 import android.text.format.DateFormat
+import android.view.View
 import androidx.activity.viewModels
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.swensun.base.BaseActivity
 import com.swensun.base.ViewBindingDialog
+import com.swensun.func.KvStore
 import com.swensun.func.anim.AnimActivity
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
@@ -176,6 +178,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
         vb.btnRecycler.performClick()
         initNetChangeStatus()
+        KvStore.set("init", "init")
+        KvStore.set("init", Any())
     }
 
     private fun initNetChangeStatus() {

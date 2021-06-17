@@ -77,6 +77,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:3.1.0'
     androidTestImplementation 'androidx.test:rules:1.2.0'
     implementation "androidx.viewpager2:viewpager2:1.0.0"
+    debugImplementation 'com.glance.guolindev:glance:1.0.0'
     api project(':library_base')
     api project(':library_third')
     api project(':library_dkplayer')
