@@ -174,9 +174,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 startActivity(it)
             }
         }
-        vb.btnScheme.setOnClickListener {
-
-        }
+        vb.btnRecycler.performClick()
         initNetChangeStatus()
     }
 

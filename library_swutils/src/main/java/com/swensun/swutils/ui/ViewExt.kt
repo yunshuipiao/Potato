@@ -21,12 +21,13 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import com.bumptech.glide.Glide
 import com.swensun.swutils.R
+import kotlinx.coroutines.*
 import org.jetbrains.anko.backgroundDrawable
 
 const val TOP_LEFT = 1
 const val TOP_RIGHT = TOP_LEFT.shl(1)
 const val BOTTOM_LEFT = TOP_LEFT.shl(2)
-const val BOTTOM_RIGHT = TOP_LEFT.shl(3) 
+const val BOTTOM_RIGHT = TOP_LEFT.shl(3)
 
 fun View.setRadiusBackground(radius: Int, color: Int? = null, type: Int = 0) {
     val gradientDrawable = GradientDrawable()
@@ -128,6 +129,17 @@ fun TextView.setHighlightText(
     this.movementMethod = LinkMovementMethod.getInstance()
     this.highlightColor = Color.TRANSPARENT
     this.text = span
+}
+
+fun View.setDebounceClickListener(l: View.OnClickListener) {
+    var job: Job? = null
+    this.setOnClickListener {
+        job?.cancel()
+        job = CoroutineScope(Dispatchers.Main).launch {
+            delay(250)
+            l.onClick(it)
+        }
+    }
 }
 
 

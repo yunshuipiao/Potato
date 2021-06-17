@@ -2,7 +2,6 @@ package com.swensun.func.recycler
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -13,7 +12,7 @@ import com.swensun.potato.databinding.RecyclerViewFragmentBinding
 import com.swensun.swutils.multitype.AnyCallback
 import com.swensun.swutils.multitype.ViewBindingDelegate
 import com.swensun.swutils.multitype.submitList
-import kotlinx.coroutines.launch
+import org.jetbrains.anko.support.v4.toast
 
 
 class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {
@@ -38,18 +37,19 @@ class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {
         val adapter = MultiTypeAdapter()
         adapter.register(RViewHolderDelegate())
         binding.recyclerView.adapter = adapter
-        val items = (0 until 10).map { RInt(it) }
+        val items = (0 until 5).map { RInt(it) }
         adapter.submitList(RIntCallback(adapter.items, items))
         binding.btnRefresh.setOnClickListener {
-            count += 1
-            if (count % 2 == 0) {
-            } else {
-            }
-            lifecycleScope.launch {
-                val newItems = adapter.items.toMutableList()
-                newItems.add(1, RInt(newItems.size + 1))
-                adapter.submitList(RIntCallback(adapter.items, newItems))
-            }
+//            count += 1
+//            if (count % 2 == 0) {
+//            } else {
+//            }
+//            lifecycleScope.launch {
+//                val newItems = adapter.items.toMutableList()
+//                newItems.add(1, RInt(newItems.size + 1))
+//                adapter.submitList(RIntCallback(adapter.items, newItems))
+//            }
+            toast("height: ${binding.recyclerView.height}")
         }
     }
 
