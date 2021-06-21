@@ -4,7 +4,6 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
 import android.text.format.DateFormat
-import android.view.View
 import androidx.activity.viewModels
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -40,6 +39,7 @@ import com.swensun.potato.application.createNotificationChannel
 import com.swensun.potato.databinding.ActivityMainBinding
 import com.swensun.potato.databinding.DialogLoadingBinding
 import com.swensun.swutils.ui.dp
+import com.swensun.swutils.ui.setDebounce2ClickListener
 import com.swensun.swutils.util.Logger
 import com.swensun.swutils.util.NetWorkChangeUtils
 import org.jetbrains.anko.startActivity
@@ -157,7 +157,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }.show(supportFragmentManager, "dailog")
         }
 
-        vb.fabLeft.setOnClickListener {
+        vb.fabLeft.setDebounce2ClickListener {
 //            AlertDialog.Builder(this)
 //                .setPositiveButton("confirm") { i, a ->
 //
@@ -168,13 +168,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 //                .setTitle("title")
 //                .setMessage("content")
 //                .show()
-            val resolveIntent: Intent? =
-                packageManager.getLaunchIntentForPackage("com.ziipin.social.xjfad.dev")
-            Logger.d("getLaunchIntentForPackage, $resolveIntent")
-            resolveIntent?.let {
-                it.putExtra("url", "sirdax://com.ziipin.social/demo")
-                startActivity(it)
-            }
+//            val resolveIntent: Intent? =
+//                packageManager.getLaunchIntentForPackage("com.ziipin.social.xjfad.dev")
+//            Logger.d("getLaunchIntentForPackage, $resolveIntent")
+//            resolveIntent?.let {
+//                it.putExtra("url", "sirdax://com.ziipin.social/demo")
+//                startActivity(it)
+//            }
+            Logger.d("__click 1")
         }
         vb.btnRecycler.performClick()
         initNetChangeStatus()

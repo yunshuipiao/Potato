@@ -1,11 +1,12 @@
 package com.swensun.swutils.ui
 
-import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Rect
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextPaint
@@ -13,16 +14,15 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import com.bumptech.glide.Glide
-import com.swensun.swutils.R
 import kotlinx.coroutines.*
 import org.jetbrains.anko.backgroundDrawable
+import java.lang.Runnable
 
 const val TOP_LEFT = 1
 const val TOP_RIGHT = TOP_LEFT.shl(1)
@@ -131,14 +131,25 @@ fun TextView.setHighlightText(
     this.text = span
 }
 
-fun View.setDebounceClickListener(l: View.OnClickListener) {
+fun View.setDebounceClickListener(timeMillis: Long = 300L, l: View.OnClickListener) {
     var job: Job? = null
     this.setOnClickListener {
         job?.cancel()
         job = CoroutineScope(Dispatchers.Main).launch {
-            delay(250)
+            delay(timeMillis)
             l.onClick(it)
         }
+    }
+}
+
+fun View.setDebounce2ClickListener(timeMillis: Long = 300L, l: View.OnClickListener) {
+    val runnable = Runnable {
+        l.onClick(this)
+    }
+    val handler = Handler(Looper.getMainLooper())
+    this.setOnClickListener {
+        handler.removeCallbacks(runnable)
+        handler.postDelayed(runnable, timeMillis)
     }
 }
 
