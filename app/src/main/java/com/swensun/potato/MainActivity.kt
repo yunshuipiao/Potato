@@ -39,7 +39,7 @@ import com.swensun.potato.application.createNotificationChannel
 import com.swensun.potato.databinding.ActivityMainBinding
 import com.swensun.potato.databinding.DialogLoadingBinding
 import com.swensun.swutils.ui.dp
-import com.swensun.swutils.ui.setDebounce2ClickListener
+import com.swensun.swutils.ui.setDebounceClickListener
 import com.swensun.swutils.util.Logger
 import com.swensun.swutils.util.NetWorkChangeUtils
 import org.jetbrains.anko.startActivity
@@ -157,7 +157,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }.show(supportFragmentManager, "dailog")
         }
 
-        vb.fabLeft.setDebounce2ClickListener {
+        vb.fabLeft.setDebounceClickListener {
 //            AlertDialog.Builder(this)
 //                .setPositiveButton("confirm") { i, a ->
 //
@@ -177,7 +177,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 //            }
             Logger.d("__click 1")
         }
-        vb.btnRecycler.performClick()
         initNetChangeStatus()
         KvStore.set("init", "init")
         KvStore.set("init", Any())

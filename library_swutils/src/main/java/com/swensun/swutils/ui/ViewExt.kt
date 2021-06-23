@@ -142,15 +142,4 @@ fun View.setDebounceClickListener(timeMillis: Long = 300L, l: View.OnClickListen
     }
 }
 
-fun View.setDebounce2ClickListener(timeMillis: Long = 300L, l: View.OnClickListener) {
-    val runnable = Runnable {
-        l.onClick(this)
-    }
-    val handler = Handler(Looper.getMainLooper())
-    this.setOnClickListener {
-        handler.removeCallbacks(runnable)
-        handler.postDelayed(runnable, timeMillis)
-    }
-}
-
 
