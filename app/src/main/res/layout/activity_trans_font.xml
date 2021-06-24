@@ -5,200 +5,30 @@
         android:id="@id/layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:orientation="horizontal"
+        android:fitsSystemWindows="true"
         tools:context="com.swensun.func.trans.TransFontActivity">
 
-    <com.swensun.func.trans.PotatoTextView
-            android:id="@+id/tv1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="1قىسىملىق"
-            android:textSize="8sp"
-            app:translatable="false" />
+    <ImageView
+            android:id="@+id/iv_red"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@color/red"
+            android:layout_marginTop="50dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintEnd_toStartOf="@id/iv_blue"
+        />
 
-    <com.swensun.func.trans.PotatoTextView
-            android:id="@+id/tv2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="2قىسىملىق"
-            android:textSize="10sp"
-            app:translatable="false" />
-
-    <com.swensun.func.trans.PotatoTextView
-            android:id="@+id/tv3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="3قىسىملىق"
-            android:textSize="12sp"
-            app:translatable="false" />
-
-    <com.swensun.func.trans.PotatoTextView
-            android:id="@+id/tv4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="4قىسىملىق"
-            android:textSize="14sp"
-            app:translatable="false" />
-
-    <com.swensun.func.trans.PotatoTextView
-            android:id="@+id/tv5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="5قىسىملىق"
-            android:textSize="16sp"
-            app:translatable="false" />
-
-    <com.swensun.func.trans.PotatoTextView
-            android:id="@+id/tv6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="6قىسىملىق"
-            android:textSize="18sp"
-            app:translatable="false" />
-
-    <com.swensun.func.trans.PotatoTextView
-            android:id="@+id/tv7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="7قىسىملىق"
-            android:textSize="20sp"
-            app:translatable="false" />
-
-    <com.swensun.func.trans.PotatoTextView
-            android:id="@+id/tv8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="8قىسىملى"
-            android:textSize="15sp"
-            app:translatable="false" />
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="English1"
-            android:textSize="8sp" />
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="English2"
-            android:textSize="10sp" />
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="English3"
-            android:textSize="12sp" />
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="English4"
-            android:textSize="14sp" />
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="English5"
-            android:textSize="16sp" />
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="English6"
-            android:textSize="18sp" />
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="English7"
-            android:textSize="20sp" />
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="一二三四1"
-            android:textSize="8sp" />
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="一二三四2"
-            android:textSize="10sp" />
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="一二三四3"
-            android:textSize="12sp" />
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="一二三四4"
-            android:textSize="14sp" />
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="一二三四5"
-            android:textSize="16sp" />
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="一二三四6"
-            android:textSize="18sp" />
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="一二三四7"
-            android:textSize="20sp" />
+    <ImageView
+            android:id="@+id/iv_blue"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@color/blue"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_red"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+    
 </LinearLayout>

@@ -23,7 +23,7 @@ class DownloadActivity : BaseActivity<DownloadActivityBinding>() {
 
 
     override fun initView(savedInstanceState: Bundle?) {
-        vb.download.setOnClickListener {
+        binding.download.setOnClickListener {
             viewModel.downloadLive()
         }
     }

@@ -27,7 +27,7 @@ class RecyclerViewActivity : BaseActivity<RecyclerViewActivityBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(vb.container.id, RecyclerViewFragment.newInstance())
+                .replace(binding.container.id, RecyclerViewFragment.newInstance())
                 .commitNow()
         }
     }
