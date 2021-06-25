@@ -13,7 +13,7 @@ import androidx.annotation.DrawableRes
 
 
 object Drawable {
-    
+
     class Builder {
         var radius = 0
         var strokeWidth = 0
@@ -23,7 +23,10 @@ object Drawable {
 }
 
 
-fun drawable(@DrawableRes vararg colors: Int, block: (Drawable.Builder.() -> Unit)? = null): GradientDrawable {
+fun drawable(
+    @DrawableRes vararg colors: Int,
+    block: (Drawable.Builder.() -> Unit)? = null
+): GradientDrawable {
     val builder = Drawable.Builder()
     val gradientDrawable = GradientDrawable()
     block?.invoke(builder)
@@ -38,15 +41,18 @@ fun drawable(@DrawableRes vararg colors: Int, block: (Drawable.Builder.() -> Uni
         )
     }
 
-    if (colors.size == 1) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            gradientDrawable.color = ColorStateList.valueOf(getColor(colors[0]))
-        } else {
-            gradientDrawable.setColor(getColor(colors[0]))
+    when {
+        colors.size == 1 -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                gradientDrawable.color = ColorStateList.valueOf(getColor(colors[0]))
+            } else {
+                gradientDrawable.setColor(getColor(colors[0]))
+            }
         }
-    } else {
-        gradientDrawable.colors = colors.map { getColor(it) }.toIntArray()
-        gradientDrawable.orientation = builder.orientation
+        colors.size > 1 -> {
+            gradientDrawable.colors = colors.map { getColor(it) }.toIntArray()
+            gradientDrawable.orientation = builder.orientation
+        }
     }
     gradientDrawable.cornerRadius = radius
     return gradientDrawable

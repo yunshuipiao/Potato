@@ -192,7 +192,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         KvStore.set("init", "init")
         KvStore.set("init", Any())
 
-        binding.btnFontTrans.performClick()
+        binding.btnCustomView.performClick()
 
     }
 
