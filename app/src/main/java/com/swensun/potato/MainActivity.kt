@@ -7,6 +7,8 @@ import android.text.format.DateFormat
 import androidx.activity.viewModels
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.lifecycle.debounce
+import androidx.lifecycle.notNull
 import com.swensun.base.BaseActivity
 import com.swensun.base.ViewBindingDialog
 import com.swensun.func.KvStore
@@ -157,7 +159,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }.show(supportFragmentManager, "dailog")
         }
 
+        var count = 1
         binding.fabLeft.setDebounceClickListener {
+            if (count % 2 == 0) {
+                viewModel.stringLiveData.postValue(count.toString())
+            } else {
+                viewModel.stringLiveData.postValue(null)
+            }
+            count += 1
 //            AlertDialog.Builder(this)
 //                .setPositiveButton("confirm") { i, a ->
 //
@@ -175,7 +184,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 //                it.putExtra("url", "sirdax://com.ziipin.social/demo")
 //                startActivity(it)
 //            }
-            Logger.d("__click 1")
+        }
+        viewModel.stringLiveData.debounce().notNull().observe(this) {
+            Logger.d("livedata: ${it}")
         }
         initNetChangeStatus()
         KvStore.set("init", "init")

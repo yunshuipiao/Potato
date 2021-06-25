@@ -3,6 +3,7 @@ package com.swensun.swutils.ui
 import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
+import androidx.annotation.DrawableRes
 
 /**
  * author : zp
@@ -22,7 +23,7 @@ object Drawable {
 }
 
 
-fun drawable(vararg colors: Int, block: (Drawable.Builder.() -> Unit)? = null): GradientDrawable {
+fun drawable(@DrawableRes vararg colors: Int, block: (Drawable.Builder.() -> Unit)? = null): GradientDrawable {
     val builder = Drawable.Builder()
     val gradientDrawable = GradientDrawable()
     block?.invoke(builder)
