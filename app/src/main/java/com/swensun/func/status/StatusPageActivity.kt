@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.swensun.StatusEvent
 import com.swensun.base.BaseActivity
 import com.swensun.potato.databinding.ActivityStatusPageBinding
+import com.swensun.swutils.ui.toast
 import com.swensun.swutils.util.Logger
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
+import com.swensun.swutils.util.startActivity
 
 class StatusPageActivity : BaseActivity<ActivityStatusPageBinding>() {
 

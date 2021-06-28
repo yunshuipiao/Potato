@@ -12,7 +12,7 @@ import com.swensun.potato.databinding.RecyclerViewFragmentBinding
 import com.swensun.swutils.multitype.AnyCallback
 import com.swensun.swutils.multitype.ViewBindingDelegate
 import com.swensun.swutils.multitype.submitList
-import org.jetbrains.anko.support.v4.toast
+import com.swensun.swutils.ui.toast
 
 
 class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {

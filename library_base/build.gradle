@@ -57,6 +57,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
     api project(':library_swutils')
 //    api project(':library_aar')
-    kapt "androidx.room:room-compiler:$prop_room_version"
+    kapt "androidx.room:room-compiler:2.3.0"
 }
 

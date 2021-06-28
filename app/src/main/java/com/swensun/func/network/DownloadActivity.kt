@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.swensun.base.BaseActivity
 import com.swensun.potato.databinding.DownloadActivityBinding
-import org.jetbrains.anko.startActivity
 
 /**
  * author : zp
@@ -13,9 +12,6 @@ import org.jetbrains.anko.startActivity
  * Potato
  */
 
-fun Context.startDownloadActivity() {
-    startActivity<DownloadActivity>()
-}
 
 class DownloadActivity : BaseActivity<DownloadActivityBinding>() {
 

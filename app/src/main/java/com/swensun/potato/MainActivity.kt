@@ -23,7 +23,7 @@ import com.swensun.func.fragment.FragmentModeActivity
 import com.swensun.func.lifecycle.LifecycleActivity
 import com.swensun.func.livedata.LiveDataActivity
 import com.swensun.func.memory.MemoryActivity
-import com.swensun.func.network.startDownloadActivity
+import com.swensun.func.network.DownloadActivity
 import com.swensun.func.push.SchemeActivity
 import com.swensun.func.recycler.RecyclerViewActivity
 import com.swensun.func.room.RoomActivity
@@ -44,7 +44,7 @@ import com.swensun.swutils.ui.dp
 import com.swensun.swutils.ui.setDebounceClickListener
 import com.swensun.swutils.util.Logger
 import com.swensun.swutils.util.NetWorkChangeUtils
-import org.jetbrains.anko.startActivity
+import com.swensun.swutils.util.startActivity
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
@@ -145,7 +145,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             startActivity<UserInfoActivity>()
         }
         binding.btnDownload.setOnClickListener {
-            startDownloadActivity()
+            startActivity<DownloadActivity>()
         }
 
         RDataBase.init()

@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.swensun.base.BaseActivity
 import com.swensun.potato.R
 import com.swensun.potato.databinding.FeatureActivityBinding
-import org.jetbrains.anko.toast
+import com.swensun.swutils.ui.toast
 
 class FeatureActivity : BaseActivity<FeatureActivityBinding>() {
 
