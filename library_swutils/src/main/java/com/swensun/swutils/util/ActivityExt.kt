@@ -22,20 +22,19 @@ val topActivity: FragmentActivity
         throw IllegalArgumentException("top activity not FragmentActivity")
     }
 
-inline fun <reified T>  FragmentActivity.startActivity(param: Array<out Pair<String, Any?>>? = null) {
-    
+inline fun <reified T> FragmentActivity.startActivity(vararg param: Pair<String, Any>) {
+
     val intent = Intent(this, T::class.java)
-    if (param?.isNotEmpty() == true) {
+    if (param.isNotEmpty()) {
         fillIntentArguments(intent, param)
     }
     this.startActivity(intent)
 }
 
-fun fillIntentArguments(intent: Intent, params: Array<out Pair<String, Any?>>) {
+fun fillIntentArguments(intent: Intent, params: Array<out Pair<String, Any>>) {
     params.forEach {
         val value = it.second
         when (value) {
-            null -> intent.putExtra(it.first, null as Serializable?)
             is Int -> intent.putExtra(it.first, value)
             is Long -> intent.putExtra(it.first, value)
             is CharSequence -> intent.putExtra(it.first, value)
