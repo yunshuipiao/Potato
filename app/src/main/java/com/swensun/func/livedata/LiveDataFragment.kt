@@ -26,15 +26,5 @@ class LiveDataFragment : BaseFragment<LiveDataFragmentBinding>() {
             } else {
             }
         }
-        F.modelFlow.asLiveData().observe(viewLifecycleOwner) {
-
-        }
-    }
-}
-
-object F {
-    val modelFlow = MutableStateFlow("")
-    fun testFlow(number: Int) {
-        modelFlow.value = number.toString()
     }
 }
