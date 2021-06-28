@@ -6,7 +6,6 @@ import android.os.Parcelable
 import androidx.fragment.app.FragmentActivity
 import com.blankj.utilcode.util.ActivityUtils
 import java.io.Serializable
-import java.lang.Exception
 
 /**
  * author : zp
@@ -23,11 +22,16 @@ val topActivity: FragmentActivity
         throw IllegalArgumentException("top activity not FragmentActivity")
     }
 
-inline fun <reified T>  FragmentActivity.startActivity() {
-    this.startActivity(Intent(this, T::class.java))
+inline fun <reified T>  FragmentActivity.startActivity(param: Array<out Pair<String, Any?>>? = null) {
+    
+    val intent = Intent(this, T::class.java)
+    if (param?.isNotEmpty() == true) {
+        fillIntentArguments(intent, param)
+    }
+    this.startActivity(intent)
 }
 
-private fun fillIntentArguments(intent: Intent, params: Array<out Pair<String, Any?>>) {
+fun fillIntentArguments(intent: Intent, params: Array<out Pair<String, Any?>>) {
     params.forEach {
         val value = it.second
         when (value) {

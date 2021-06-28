@@ -14,5 +14,4 @@ class CustomViewActivity : BaseActivity<CustomViewActivityBinding>() {
                 .commitNow()
         }
     }
-
 }
