@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.swensun.StatusEvent
 import com.swensun.base.BaseActivity
 import com.swensun.potato.databinding.ActivityStatusPageBinding
+import com.swensun.swutils.ui.toast
 import com.swensun.swutils.util.Logger
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
+import com.swensun.swutils.util.startActivity
 
 class StatusPageActivity : BaseActivity<ActivityStatusPageBinding>() {
 
@@ -16,7 +16,7 @@ class StatusPageActivity : BaseActivity<ActivityStatusPageBinding>() {
     private val status_view by lazy { StatusView(this) }
 
     override fun initView(savedInstanceState: Bundle?) {
-        status_view.bindParentView(vb.rootView)
+        status_view.bindParentView(binding.rootView)
 
         viewModel.statusLiveData.observe(this, Observer {
             Logger.d("statusLiveData changed: $it")
@@ -35,16 +35,16 @@ class StatusPageActivity : BaseActivity<ActivityStatusPageBinding>() {
                 }
             }
         })
-        vb.btnError.setOnClickListener {
+        binding.btnError.setOnClickListener {
             viewModel.setStatus(StatusEvent.ERROR)
         }
-        vb.btnLoading.setOnClickListener {
+        binding.btnLoading.setOnClickListener {
             viewModel.setStatus(StatusEvent.LOADING)
         }
-        vb.btnSuccess.setOnClickListener {
+        binding.btnSuccess.setOnClickListener {
             viewModel.setStatus(StatusEvent.SUCCESS)
         }
-        vb.tvContent.setOnClickListener {
+        binding.tvContent.setOnClickListener {
             toast("click content")
             startActivity<StatusPageActivity>()
         }

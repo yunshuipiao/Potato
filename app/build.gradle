@@ -89,5 +89,5 @@ dependencies {
 
     testImplementation group: 'org.json', name: 'json', version: '20190722'
 
-    kapt "androidx.room:room-compiler:$prop_room_version"
+    kapt "androidx.room:room-compiler:2.3.0"
 }

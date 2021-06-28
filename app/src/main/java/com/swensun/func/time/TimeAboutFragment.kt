@@ -7,7 +7,7 @@ import com.swensun.potato.R
 import com.swensun.potato.databinding.TimeAboutFragmentBinding
 import com.swensun.swutils.ui.getColor
 import com.swensun.swutils.ui.setHighlightText
-import org.jetbrains.anko.support.v4.toast
+import com.swensun.swutils.ui.toast
 
 class TimeAboutFragment : BaseFragment<TimeAboutFragmentBinding>() {
 

@@ -5,7 +5,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.swensun.base.BaseFragment
 import com.swensun.potato.databinding.LifecycleFragmentBinding
-import org.jetbrains.anko.support.v4.toast
+import com.swensun.swutils.ui.toast
 
 class LifecycleFragment : BaseFragment<LifecycleFragmentBinding>() {
 

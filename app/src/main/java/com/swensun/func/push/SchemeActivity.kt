@@ -8,8 +8,8 @@ import com.blankj.utilcode.util.AppUtils
 import com.swensun.base.BaseActivity
 import com.swensun.potato.databinding.SchemeActivityBinding
 import com.swensun.swutils.ui.context
+import com.swensun.swutils.ui.toast
 import com.swensun.swutils.util.Logger
-import org.jetbrains.anko.toast
 
 class SchemeActivity : BaseActivity<SchemeActivityBinding>() {
 
@@ -61,7 +61,7 @@ class SchemeActivity : BaseActivity<SchemeActivityBinding>() {
                 }
             }
         }
-        vb.tvTitle.setOnClickListener {
+        binding.tvTitle.setOnClickListener {
             val acts = ActivityUtils.getActivityList()
             Logger.d("act: $acts")
         }

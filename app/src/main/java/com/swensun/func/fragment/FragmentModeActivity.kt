@@ -19,13 +19,13 @@ class FragmentModeActivity : BaseActivity<ActivityFragmentModeBinding>() {
                 .commitNow()
         }
 
-        vb.tvAdd.setOnClickListener {
+        binding.tvAdd.setOnClickListener {
             supportFragmentManager.beginTransaction()
                 .addToBackStack(null)
                 .add(R.id.container, SecondFragment.newInstance())
                 .commit()
         }
-        vb.tvDelete.setOnClickListener {
+        binding.tvDelete.setOnClickListener {
             Thread.sleep(6000)
         }
         supportFragmentManager.registerFragmentLifecycleCallbacks(object :

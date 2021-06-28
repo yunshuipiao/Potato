@@ -7,6 +7,8 @@ import android.text.format.DateFormat
 import androidx.activity.viewModels
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.lifecycle.debounce
+import androidx.lifecycle.notNull
 import com.swensun.base.BaseActivity
 import com.swensun.base.ViewBindingDialog
 import com.swensun.func.KvStore
@@ -21,7 +23,7 @@ import com.swensun.func.fragment.FragmentModeActivity
 import com.swensun.func.lifecycle.LifecycleActivity
 import com.swensun.func.livedata.LiveDataActivity
 import com.swensun.func.memory.MemoryActivity
-import com.swensun.func.network.startDownloadActivity
+import com.swensun.func.network.DownloadActivity
 import com.swensun.func.push.SchemeActivity
 import com.swensun.func.recycler.RecyclerViewActivity
 import com.swensun.func.room.RoomActivity
@@ -42,7 +44,7 @@ import com.swensun.swutils.ui.dp
 import com.swensun.swutils.ui.setDebounceClickListener
 import com.swensun.swutils.util.Logger
 import com.swensun.swutils.util.NetWorkChangeUtils
-import org.jetbrains.anko.startActivity
+import com.swensun.swutils.util.startActivity
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
@@ -53,66 +55,66 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
 
-        vb.btnTouchEvent.setOnClickListener {
+        binding.btnTouchEvent.setOnClickListener {
             startActivity<TouchEventActivity>()
         }
 
-        vb.btnCoroutines.setOnClickListener {
+        binding.btnCoroutines.setOnClickListener {
             startActivity<CoroutinesActivity>()
         }
-        vb.btnViewpager.setOnClickListener {
+        binding.btnViewpager.setOnClickListener {
             startActivity<ViewPagerActivity>()
         }
-        vb.btnBottom.setOnClickListener {
+        binding.btnBottom.setOnClickListener {
             startActivity<BottomActivity>()
         }
-        vb.btnFontTrans.setOnClickListener {
+        binding.btnFontTrans.setOnClickListener {
             startActivity<TransFontActivity>()
         }
-        vb.btnRoom.setOnClickListener {
+        binding.btnRoom.setOnClickListener {
             startActivity<RoomActivity>()
         }
-        vb.btnTime.setOnClickListener {
+        binding.btnTime.setOnClickListener {
             startActivity<TimeAboutActivity>()
         }
-        vb.btnLifecycle.setOnClickListener {
+        binding.btnLifecycle.setOnClickListener {
             startActivity<LifecycleActivity>()
         }
-        vb.btnMultiDialog.setOnClickListener {
+        binding.btnMultiDialog.setOnClickListener {
         }
-        vb.btnLivedata.setOnClickListener {
+        binding.btnLivedata.setOnClickListener {
             startActivity<LiveDataActivity>()
         }
-        vb.btnRecycler.setOnClickListener {
+        binding.btnRecycler.setOnClickListener {
             startActivity<RecyclerViewActivity>()
 //            overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit)
         }
-        vb.btnMemory.setOnClickListener {
+        binding.btnMemory.setOnClickListener {
             startActivity<MemoryActivity>()
         }
-        vb.btnCustomView.setOnClickListener {
+        binding.btnCustomView.setOnClickListener {
             startActivity<CustomViewActivity>()
         }
-        vb.btnExoPlayer.setOnClickListener {
+        binding.btnExoPlayer.setOnClickListener {
             startActivity<ExoPlayerActivity>()
         }
 
-        vb.btnLauncherMode.setOnClickListener {
+        binding.btnLauncherMode.setOnClickListener {
 //            startActivity<LauncherModeActivity>()
         }
-        vb.btnFramelayout.setOnClickListener {
+        binding.btnFramelayout.setOnClickListener {
             startActivity<FrameLayoutActivity>()
         }
-        vb.btnFeature.setOnClickListener {
+        binding.btnFeature.setOnClickListener {
             startActivity<FeatureActivity>()
         }
-        vb.btnStatusNavigation.setOnClickListener {
+        binding.btnStatusNavigation.setOnClickListener {
             startActivity<StatusBarActivity>()
         }
-        vb.btnUtilCode.setOnClickListener {
+        binding.btnUtilCode.setOnClickListener {
             startActivity<UtilCodeActivity>()
         }
-        vb.btnSendNotification.setOnClickListener {
+        binding.btnSendNotification.setOnClickListener {
             // Create an explicit intent for an Activity in your app
             val intent = Intent(it.context, SchemeActivity::class.java)
             intent.putExtra("extra", "jump")
@@ -130,26 +132,26 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 .notify(UtilCodeFragment.notification_id, notification)
         }
 
-        vb.btnFragment.setOnClickListener {
+        binding.btnFragment.setOnClickListener {
             startActivity<FragmentModeActivity>()
         }
-        vb.btnStatus.setOnClickListener {
+        binding.btnStatus.setOnClickListener {
             startActivity<StatusPageActivity>()
         }
-        vb.btnAnim.setOnClickListener {
+        binding.btnAnim.setOnClickListener {
             startActivity<AnimActivity>()
         }
-        vb.btnUserinfo.setOnClickListener {
+        binding.btnUserinfo.setOnClickListener {
             startActivity<UserInfoActivity>()
         }
-        vb.btnDownload.setOnClickListener {
-            startDownloadActivity()
+        binding.btnDownload.setOnClickListener {
+            startActivity<DownloadActivity>()
         }
 
         RDataBase.init()
         viewModel.opeDatabase()
 
-        vb.fabRight.setOnClickListener {
+        binding.fabRight.setOnClickListener {
             LoadingDialog().apply {
                 initListener = {
                     binding.tvLoading.text = " - loading - "
@@ -157,7 +159,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }.show(supportFragmentManager, "dailog")
         }
 
-        vb.fabLeft.setDebounceClickListener {
+        var count = 1
+        binding.fabLeft.setDebounceClickListener {
+            if (count % 2 == 0) {
+                viewModel.stringLiveData.postValue(count.toString())
+            } else {
+                viewModel.stringLiveData.postValue(null)
+            }
+            count += 1
 //            AlertDialog.Builder(this)
 //                .setPositiveButton("confirm") { i, a ->
 //
@@ -175,11 +184,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 //                it.putExtra("url", "sirdax://com.ziipin.social/demo")
 //                startActivity(it)
 //            }
-            Logger.d("__click 1")
+        }
+        viewModel.stringLiveData.debounce().notNull().observe(this) {
+            Logger.d("livedata: ${it}")
         }
         initNetChangeStatus()
         KvStore.set("init", "init")
         KvStore.set("init", Any())
+
+        binding.btnCustomView.performClick()
+
     }
 
     private fun initNetChangeStatus() {

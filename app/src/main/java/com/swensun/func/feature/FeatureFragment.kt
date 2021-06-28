@@ -8,9 +8,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.swensun.base.BaseFragment
 import com.swensun.potato.databinding.FeatureFragmentBinding
+import com.swensun.swutils.ui.toast
 import com.swensun.swutils.util.Logger
 import com.yanzhenjie.permission.AndPermission
-import org.jetbrains.anko.support.v4.toast
 
 class FeatureFragment : BaseFragment<FeatureFragmentBinding>() {
 

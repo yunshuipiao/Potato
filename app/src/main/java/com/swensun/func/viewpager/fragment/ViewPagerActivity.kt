@@ -22,11 +22,11 @@ class ViewPagerActivity : BaseActivity<ActivityViewPagerBinding>() {
     }
 
     private fun initView() {
-        vb.viewpager2.adapter = adapter
-        TabLayoutMediator(vb.tabLayout, vb.viewpager2) { tab, position ->
+        binding.viewpager2.adapter = adapter
+        TabLayoutMediator(binding.tabLayout, binding.viewpager2) { tab, position ->
             tab.text = " -- $position -- "
         }.attach()
-        vb.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
 
             }
@@ -35,7 +35,7 @@ class ViewPagerActivity : BaseActivity<ActivityViewPagerBinding>() {
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                vb.viewpager2.setCurrentItem(tab?.position ?: 0, false)
+                binding.viewpager2.setCurrentItem(tab?.position ?: 0, false)
             }
 
         })
@@ -49,8 +49,8 @@ class ViewPagerActivity : BaseActivity<ActivityViewPagerBinding>() {
             )
             titleList.add(it.toString())
         }
-        vb.viewpager2.layoutDirection = View.LAYOUT_DIRECTION_RTL
-        vb.viewpager2.offscreenPageLimit = fragmentList.size - 1
+        binding.viewpager2.layoutDirection = View.LAYOUT_DIRECTION_RTL
+        binding.viewpager2.offscreenPageLimit = fragmentList.size - 1
         adapter.setup(fragmentList, titleList)
     }
 

@@ -18,7 +18,7 @@ class CustomViewFragment : BaseFragment<CustomViewFragmentBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         viewModel = ViewModelProvider(this).get(CustomViewViewModel::class.java)
-        binding.ivCover.background = drawable {
+        binding.ivCover.background = drawable() {
             radius = 100.dp
             strokeWidth = 0.5.dp
             strokeColor = R.color.black
