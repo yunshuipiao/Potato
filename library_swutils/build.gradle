@@ -48,14 +48,15 @@ dependencies {
     api "androidx.appcompat:appcompat:1.3.0"
     api "com.google.android.material:material:1.3.0"
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.0"
-//    api "org.jetbrains.anko:anko:0.10.8"
 
     // 添加Jetpack中架构组件的依赖，注意viewmodel要添加viewmodel-ktx的依赖
     api 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
     api "androidx.lifecycle:lifecycle-extensions:2.2.0"
     api "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0-alpha02"
 
-    api "androidx.fragment:fragment-ktx:1.3.5"
+    api ("androidx.fragment:fragment-ktx:1.3.5", {
+        exclude group: 'androidx.lifecycle', module: 'lifecycle-livedata-core-ktx'
+    })
 
     //room
     api "androidx.room:room-runtime:2.3.0"

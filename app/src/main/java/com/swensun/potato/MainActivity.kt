@@ -209,11 +209,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-               while (true) {
-                   delay(2000)
-                   count += 1
-                   Logger.d("repeatOnLifecycle, $count")
-               }
+                while (true) {
+                    delay(2000)
+                    count += 1
+                    Logger.d("repeatOnLifecycle, $count")
+                }
             }
         }
 

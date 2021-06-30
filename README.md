@@ -154,7 +154,7 @@
 
 [Logger:Powerful logging library in Android](https://github.com/yunshuipiao/Potato/issues/3)： 强大的日志库介绍
 
-[When Android meets KTX and anko](https://github.com/yunshuipiao/Potato/issues/2)： Android kotlin 好用的扩展
+[When Android meets KTX](https://github.com/yunshuipiao/Potato/issues/2)： Android kotlin 好用的扩展
 
 [LeakCanary Principle](https://github.com/yunshuipiao/Potato/issues/54)： LeakCanary 的基本原理分析：弱引用
 
