@@ -1,16 +1,15 @@
 package com.swensun.base
 
-import android.app.AlertDialog
-import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentManager
 import androidx.viewbinding.ViewBinding
 import com.swensun.swutils.multitype.inflateBindingWithGeneric
-import com.swensun.swutils.util.Logger
 
 /**
  * author : zp
@@ -20,18 +19,22 @@ import com.swensun.swutils.util.Logger
 
 abstract class ViewBindingDialog<VB : ViewBinding> : DialogFragment() {
 
-    data class DialogBuilder<VB : ViewBinding>(val binding: VB, val dialog: DialogFragment)
+    var initListener: ((VB, DialogFragment) -> Unit)? = null
+    protected lateinit var binding: VB
 
-    var initListener: (DialogBuilder<VB>.() -> Unit)? = null
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = inflateBindingWithGeneric(inflater, container, false)
+        return binding.root
+    }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val binding = inflateBindingWithGeneric<VB>(layoutInflater)
-        val dialog = AlertDialog.Builder(context)
-            .setView(binding.root)
-            .create()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initView(binding)
-        initListener?.invoke(DialogBuilder(binding, this))
-        return dialog
+        initListener?.invoke(binding, this)
     }
 
     open fun initView(binding: VB) {
@@ -46,4 +49,5 @@ abstract class ViewBindingDialog<VB : ViewBinding> : DialogFragment() {
         )
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
+
 }

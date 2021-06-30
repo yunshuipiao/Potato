@@ -2,13 +2,16 @@ package com.swensun.potato
 
 import android.app.PendingIntent
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.format.DateFormat
+import android.view.Gravity
+import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.lifecycle.debounce
-import androidx.lifecycle.notNull
+import androidx.lifecycle.*
 import com.swensun.base.BaseActivity
 import com.swensun.base.ViewBindingDialog
 import com.swensun.func.KvStore
@@ -26,6 +29,7 @@ import com.swensun.func.memory.MemoryActivity
 import com.swensun.func.network.DownloadActivity
 import com.swensun.func.push.SchemeActivity
 import com.swensun.func.recycler.RecyclerViewActivity
+import com.swensun.func.recycler.RecyclerViewFragment
 import com.swensun.func.room.RoomActivity
 import com.swensun.func.room.database.RDataBase
 import com.swensun.func.status.StatusPageActivity
@@ -39,12 +43,16 @@ import com.swensun.func.utilcode.UtilCodeFragment
 import com.swensun.func.viewpager.fragment.ViewPagerActivity
 import com.swensun.potato.application.createNotificationChannel
 import com.swensun.potato.databinding.ActivityMainBinding
+import com.swensun.potato.databinding.BottomListDialogBinding
 import com.swensun.potato.databinding.DialogLoadingBinding
 import com.swensun.swutils.ui.dp
+import com.swensun.swutils.ui.getWinHeight
 import com.swensun.swutils.ui.setDebounceClickListener
 import com.swensun.swutils.util.Logger
 import com.swensun.swutils.util.NetWorkChangeUtils
 import com.swensun.swutils.util.startActivity
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
@@ -152,11 +160,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         viewModel.opeDatabase()
 
         binding.fabRight.setOnClickListener {
+//            LoadingDialog().apply {
+//                initListener = {
+//                    binding.tvLoading.text = " - loading - "
+//                }
+//            }.show(supportFragmentManager, "dailog")
+//            BottomListDialog().show(supportFragmentManager, "dialog")
             LoadingDialog().apply {
-                initListener = {
-                    binding.tvLoading.text = " - loading - "
+                initListener = { vb, dialog ->
+                    vb.tvLoading.text = " -- loading -- "
                 }
-            }.show(supportFragmentManager, "dailog")
+            }.show(supportFragmentManager, "dialog")
         }
 
         var count = 1
@@ -192,7 +206,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         KvStore.set("init", "init")
         KvStore.set("init", Any())
 
-        binding.btnCustomView.performClick()
+
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                delay(1000)
+                count += 1
+                Logger.d("repeatOnLifecycle, $count")
+            }
+        }
 
     }
 
@@ -233,6 +254,18 @@ class LoadingDialog : ViewBindingDialog<DialogLoadingBinding>() {
     override fun onStart() {
         super.onStart()
         dialog?.window?.setLayout(100.dp, 100.dp)
+    }
+}
+
+class BottomListDialog : ViewBindingDialog<BottomListDialogBinding>() {
+
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.setGravity(Gravity.BOTTOM)
+        dialog?.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, getWinHeight() / 2)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.WHITE))
+        childFragmentManager.beginTransaction()
+            .replace(binding.fContainer.id, RecyclerViewFragment.newInstance()).commit()
     }
 }
 

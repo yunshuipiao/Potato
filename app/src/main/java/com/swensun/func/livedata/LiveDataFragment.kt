@@ -2,10 +2,8 @@ package com.swensun.func.livedata
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
 import com.swensun.base.BaseFragment
 import com.swensun.potato.databinding.LiveDataFragmentBinding
-import kotlinx.coroutines.flow.MutableStateFlow
 
 
 class LiveDataFragment : BaseFragment<LiveDataFragmentBinding>() {

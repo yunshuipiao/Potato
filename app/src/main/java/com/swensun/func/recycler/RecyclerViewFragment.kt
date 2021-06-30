@@ -7,12 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.drakeet.multitype.MultiTypeAdapter
 import com.swensun.base.BaseFragment
+import com.swensun.func.customview.CustomViewActivity
 import com.swensun.potato.databinding.ItemRecyclerViewBinding
 import com.swensun.potato.databinding.RecyclerViewFragmentBinding
 import com.swensun.swutils.multitype.AnyCallback
 import com.swensun.swutils.multitype.ViewBindingDelegate
 import com.swensun.swutils.multitype.submitList
 import com.swensun.swutils.ui.toast
+import com.swensun.swutils.util.startActivity
 
 
 class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {
@@ -37,9 +39,9 @@ class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {
         val adapter = MultiTypeAdapter()
         adapter.register(RViewHolderDelegate())
         binding.recyclerView.adapter = adapter
-        val items = (0 until 5).map { RInt(it) }
+        val items = (0 until 50).map { RInt(it) }
         adapter.submitList(RIntCallback(adapter.items, items))
-        binding.btnRefresh.setOnClickListener {
+//        binding.btnRefresh.setOnClickListener {
 //            count += 1
 //            if (count % 2 == 0) {
 //            } else {
@@ -49,8 +51,8 @@ class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {
 //                newItems.add(1, RInt(newItems.size + 1))
 //                adapter.submitList(RIntCallback(adapter.items, newItems))
 //            }
-            toast("height: ${binding.recyclerView.height}")
-        }
+//            toast("height: ${binding.recyclerView.height}")
+//        }
     }
 
     override fun initView(savedInstanceState: Bundle?) {
@@ -75,6 +77,10 @@ class RViewHolderDelegate : ViewBindingDelegate<RInt, ItemRecyclerViewBinding>()
             loadMore?.invoke()
         }
         holder.binding.tvId.text = item.id.toString()
+        holder.binding.root.setOnClickListener {
+            toast("click")
+            holder.binding.root.context.startActivity<CustomViewActivity>()
+        }
     }
 }
 

@@ -1,5 +1,6 @@
 package com.swensun.swutils.util
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
@@ -22,7 +23,7 @@ val topActivity: FragmentActivity
         throw IllegalArgumentException("top activity not FragmentActivity")
     }
 
-inline fun <reified T> FragmentActivity.startActivity(vararg param: Pair<String, Any>) {
+inline fun <reified T> Context.startActivity(vararg param: Pair<String, Any>) {
 
     val intent = Intent(this, T::class.java)
     if (param.isNotEmpty()) {
@@ -65,3 +66,4 @@ fun fillIntentArguments(intent: Intent, params: Array<out Pair<String, Any>>) {
         return@forEach
     }
 }
+
