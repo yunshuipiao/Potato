@@ -26,7 +26,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         binding = inflateBindingWithGeneric(layoutInflater)
         setContentView(binding.root)
         setTransparentStatusBar(true)
-        fitStatusBarHeight()
+        fitStatusBarHeight(binding.root)
         initView(savedInstanceState)
     }
 
