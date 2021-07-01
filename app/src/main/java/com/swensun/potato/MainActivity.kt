@@ -171,7 +171,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 //                }
 //            }.show(supportFragmentManager, "dailog")
 //            BottomListDialog().show(supportFragmentManager, "dialog")
-            BLDialog().show(supportFragmentManager, "dialog")
+            BottomListDialog().show(supportFragmentManager, "dialog")
         }
 
         var count = 1
@@ -273,44 +273,45 @@ class BottomListDialog : ViewBindingDialog<BottomListDialogBinding>() {
 
     override fun initView() {
         super.initView()
+        childFragmentManager.beginTransaction().replace(binding.container.id, RecyclerViewFragment.newInstance()).commit()
     }
 }
 
-class BLDialog : BottomSheetDialogFragment() {
-
-    private lateinit var binding: BottomListDialogBinding
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = BottomListDialogBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onStart() {
-        super.onStart()
-        dialog?.window?.setGravity(Gravity.BOTTOM)
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.recyclerView.setHasFixedSize(true)
-
-        val layoutManager = LinearLayoutManager(context)
-        binding.recyclerView.layoutManager = layoutManager
-        /**
-         * MultiTypeAdapter
-         */
-        val adapter = MultiTypeAdapter()
-        adapter.register(RViewHolderDelegate())
-        binding.recyclerView.adapter = adapter
-        val items = (0 until 50).map { RInt(it) }
-        adapter.updateItems(items)
-    }
-}
+//class BLDialog : BottomSheetDialogFragment() {
+//
+//    private lateinit var binding: BottomListDialogBinding
+//
+//    override fun onCreateView(
+//        inflater: LayoutInflater,
+//        container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View {
+//        binding = BottomListDialogBinding.inflate(inflater, container, false)
+//        return binding.root
+//    }
+//
+//    override fun onStart() {
+//        super.onStart()
+//        dialog?.window?.setGravity(Gravity.BOTTOM)
+//        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//    }
+//
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//        binding.recyclerView.setHasFixedSize(true)
+//
+//        val layoutManager = LinearLayoutManager(context)
+//        binding.recyclerView.layoutManager = layoutManager
+//        /**
+//         * MultiTypeAdapter
+//         */
+//        val adapter = MultiTypeAdapter()
+//        adapter.register(RViewHolderDelegate())
+//        binding.recyclerView.adapter = adapter
+//        val items = (0 until 50).map { RInt(it) }
+//        adapter.updateItems(items)
+//    }
+//}
 
 
 

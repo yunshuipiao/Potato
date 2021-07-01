@@ -2,6 +2,7 @@ package com.swensun.func.recycler
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -15,6 +16,8 @@ import com.swensun.swutils.multitype.ViewBindingDelegate
 import com.swensun.swutils.multitype.submitList
 import com.swensun.swutils.ui.toast
 import com.swensun.swutils.util.startActivity
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {
@@ -41,6 +44,13 @@ class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {
         binding.recyclerView.adapter = adapter
         val items = (0 until 6).map { RInt(it) }
         adapter.submitList(RIntCallback(adapter.items, items))
+
+        binding.refreshView.setOnRefreshListener {
+            lifecycleScope.launch {
+                delay(1000)
+                binding.refreshView.isRefreshing = false
+            }
+        }
 //        binding.btnRefresh.setOnClickListener {
 //            count += 1
 //            if (count % 2 == 0) {
@@ -59,30 +69,31 @@ class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {
         viewModel = ViewModelProvider(this).get(RecyclerViewViewModel::class.java)
         initView()
     }
+
+    inner class RViewHolderDelegate : ViewBindingDelegate<RInt, ItemRecyclerViewBinding>() {
+
+        var loadMore: (() -> Unit)? = null
+
+        override fun onBindViewHolder(
+            holder: ViewBindingViewHolder<ItemRecyclerViewBinding>,
+            item: RInt
+        ) {
+            if (holder.adapterPosition == adapter.itemCount - 1) {
+                loadMore?.invoke()
+            }
+            holder.binding.tvId.text = item.id.toString()
+            holder.binding.root.setOnClickListener {
+                toast("click root")
+            }
+        }
+    }
 }
 
 class RInt(val id: Int) {
     var count = id
 }
 
-class RViewHolderDelegate : ViewBindingDelegate<RInt, ItemRecyclerViewBinding>() {
 
-    var loadMore: (() -> Unit)? = null
-
-    override fun onBindViewHolder(
-        holder: ViewBindingViewHolder<ItemRecyclerViewBinding>,
-        item: RInt
-    ) {
-        if (holder.adapterPosition == adapter.itemCount - 1) {
-            loadMore?.invoke()
-        }
-        holder.binding.tvId.text = item.id.toString()
-        holder.binding.root.setOnClickListener {
-            toast("click")
-            holder.binding.root.context.startActivity<CustomViewActivity>()
-        }
-    }
-}
 
 class RIntCallback(oldItems: List<Any>, newItems: List<Any>) : AnyCallback(oldItems, newItems) {
     override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
