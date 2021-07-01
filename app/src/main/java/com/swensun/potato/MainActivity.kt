@@ -6,12 +6,16 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.format.DateFormat
-import android.view.Gravity
-import android.view.WindowManager
+import android.view.*
 import androidx.activity.viewModels
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.drakeet.multitype.MultiTypeAdapter
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.swensun.base.BaseActivity
 import com.swensun.base.ViewBindingDialog
 import com.swensun.func.KvStore
@@ -28,8 +32,7 @@ import com.swensun.func.livedata.LiveDataActivity
 import com.swensun.func.memory.MemoryActivity
 import com.swensun.func.network.DownloadActivity
 import com.swensun.func.push.SchemeActivity
-import com.swensun.func.recycler.RecyclerViewActivity
-import com.swensun.func.recycler.RecyclerViewFragment
+import com.swensun.func.recycler.*
 import com.swensun.func.room.RoomActivity
 import com.swensun.func.room.database.RDataBase
 import com.swensun.func.status.StatusPageActivity
@@ -45,6 +48,8 @@ import com.swensun.potato.application.createNotificationChannel
 import com.swensun.potato.databinding.ActivityMainBinding
 import com.swensun.potato.databinding.BottomListDialogBinding
 import com.swensun.potato.databinding.DialogLoadingBinding
+import com.swensun.swutils.multitype.submitList
+import com.swensun.swutils.multitype.updateItems
 import com.swensun.swutils.ui.dp
 import com.swensun.swutils.ui.getWinHeight
 import com.swensun.swutils.ui.setDebounceClickListener
@@ -166,8 +171,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 //                }
 //            }.show(supportFragmentManager, "dailog")
 //            BottomListDialog().show(supportFragmentManager, "dialog")
-            BottomListDialog().apply {
-            }.show(supportFragmentManager, "dialog")
+            BLDialog().show(supportFragmentManager, "dialog")
         }
 
         var count = 1
@@ -260,15 +264,51 @@ class BottomListDialog : ViewBindingDialog<BottomListDialogBinding>() {
 
     override fun onStart() {
         super.onStart()
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.WHITE))
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.setGravity(Gravity.BOTTOM)
-        dialog?.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, getWinHeight() / 2)
+        dialog?.window?.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT, (getWinHeight() * 0.8).toInt()
+        )
     }
 
     override fun initView() {
         super.initView()
-        childFragmentManager.beginTransaction()
-            .replace(binding.fContainer.id, RecyclerViewFragment.newInstance()).commit()
+    }
+}
+
+class BLDialog : BottomSheetDialogFragment() {
+
+    private lateinit var binding: BottomListDialogBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = BottomListDialogBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.setGravity(Gravity.BOTTOM)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.recyclerView.setHasFixedSize(true)
+
+        val layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.layoutManager = layoutManager
+        /**
+         * MultiTypeAdapter
+         */
+        val adapter = MultiTypeAdapter()
+        adapter.register(RViewHolderDelegate())
+        binding.recyclerView.adapter = adapter
+        val items = (0 until 50).map { RInt(it) }
+        adapter.updateItems(items)
     }
 }
 

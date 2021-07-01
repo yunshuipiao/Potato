@@ -39,7 +39,7 @@ class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {
         val adapter = MultiTypeAdapter()
         adapter.register(RViewHolderDelegate())
         binding.recyclerView.adapter = adapter
-        val items = (0 until 50).map { RInt(it) }
+        val items = (0 until 6).map { RInt(it) }
         adapter.submitList(RIntCallback(adapter.items, items))
 //        binding.btnRefresh.setOnClickListener {
 //            count += 1
