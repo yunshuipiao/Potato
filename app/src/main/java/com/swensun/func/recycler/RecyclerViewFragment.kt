@@ -28,6 +28,8 @@ class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {
 
     private var count = 0
 
+    var clickListener: (() -> Unit)? = null
+
     private lateinit var viewModel: RecyclerViewViewModel
 
     private fun initView() {
@@ -84,6 +86,7 @@ class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {
             holder.binding.tvId.text = item.id.toString()
             holder.binding.root.setOnClickListener {
                 toast("click root")
+                clickListener?.invoke()
             }
         }
     }
@@ -92,7 +95,6 @@ class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {
 class RInt(val id: Int) {
     var count = id
 }
-
 
 
 class RIntCallback(oldItems: List<Any>, newItems: List<Any>) : AnyCallback(oldItems, newItems) {
