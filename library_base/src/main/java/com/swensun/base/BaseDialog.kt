@@ -33,11 +33,11 @@ abstract class ViewBindingDialog<VB : ViewBinding> : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView(binding)
+        initView()
         initListener?.invoke(binding, this)
     }
 
-    open fun initView(binding: VB) {
+    open fun initView() {
 
     }
 

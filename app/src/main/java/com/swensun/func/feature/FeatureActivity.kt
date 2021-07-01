@@ -9,7 +9,6 @@ import com.swensun.swutils.ui.toast
 class FeatureActivity : BaseActivity<FeatureActivityBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
-        setContentView(R.layout.feature_activity)
         toast("FeatureActivity create")
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()

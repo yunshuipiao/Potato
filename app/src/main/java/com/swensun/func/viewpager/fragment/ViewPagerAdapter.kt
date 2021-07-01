@@ -9,14 +9,14 @@ class ViewPager2Adapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
     val fragmentList = arrayListOf<Fragment>()
     val titleList = arrayListOf<String>()
 
-    
+
     fun setup(
         fragmentList: ArrayList<Fragment>,
         titleList: ArrayList<String>
     ) {
         this.fragmentList.clear()
+        this.titleList.clear()
         this.fragmentList.addAll(fragmentList)
-        this.titleList.addAll(titleList)
         this.titleList.addAll(titleList)
         notifyDataSetChanged()
     }
@@ -26,7 +26,6 @@ class ViewPager2Adapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
     }
 
     override fun createFragment(position: Int): Fragment {
-        return fragmentList[position]
+        return OuterFragment.newInstance(position.toString())
     }
-
 }

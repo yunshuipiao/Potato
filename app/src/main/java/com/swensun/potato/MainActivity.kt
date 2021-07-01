@@ -166,10 +166,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 //                }
 //            }.show(supportFragmentManager, "dailog")
 //            BottomListDialog().show(supportFragmentManager, "dialog")
-            LoadingDialog().apply {
-                initListener = { vb, dialog ->
-                    vb.tvLoading.text = " -- loading -- "
-                }
+            BottomListDialog().apply {
             }.show(supportFragmentManager, "dialog")
         }
 
@@ -255,7 +252,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 class LoadingDialog : ViewBindingDialog<DialogLoadingBinding>() {
     override fun onStart() {
         super.onStart()
-        dialog?.window?.setLayout(100.dp, 100.dp)
+        dialog?.window?.setLayout(300.dp, 300.dp)
     }
 }
 
@@ -263,9 +260,13 @@ class BottomListDialog : ViewBindingDialog<BottomListDialogBinding>() {
 
     override fun onStart() {
         super.onStart()
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.WHITE))
         dialog?.window?.setGravity(Gravity.BOTTOM)
         dialog?.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, getWinHeight() / 2)
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.WHITE))
+    }
+
+    override fun initView() {
+        super.initView()
         childFragmentManager.beginTransaction()
             .replace(binding.fContainer.id, RecyclerViewFragment.newInstance()).commit()
     }

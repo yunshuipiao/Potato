@@ -19,7 +19,7 @@ class OuterFragment : LazyLoadFragment<FragmentOuterBinding>() {
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        binding.tvTitle.text = "-- $vid --"
+        binding.tvTitle.text = "-- ${arguments?.getString("id")} --"
     }
 
     override fun loadData() {

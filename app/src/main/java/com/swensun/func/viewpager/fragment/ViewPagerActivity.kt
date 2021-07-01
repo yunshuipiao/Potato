@@ -1,6 +1,7 @@
 package com.swensun.func.viewpager.fragment
 
 import android.os.Bundle
+import android.util.LayoutDirection
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
@@ -11,16 +12,10 @@ import com.swensun.potato.databinding.ActivityViewPagerBinding
 
 class ViewPagerActivity : BaseActivity<ActivityViewPagerBinding>() {
 
-    val adapter by lazy {
+    private val adapter by lazy {
         ViewPager2Adapter(this)
     }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_view_pager)
-
-    }
-
+    
     private fun initView() {
         binding.viewpager2.adapter = adapter
         TabLayoutMediator(binding.tabLayout, binding.viewpager2) { tab, position ->
@@ -35,7 +30,6 @@ class ViewPagerActivity : BaseActivity<ActivityViewPagerBinding>() {
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                binding.viewpager2.setCurrentItem(tab?.position ?: 0, false)
             }
 
         })
@@ -49,7 +43,8 @@ class ViewPagerActivity : BaseActivity<ActivityViewPagerBinding>() {
             )
             titleList.add(it.toString())
         }
-        binding.viewpager2.layoutDirection = View.LAYOUT_DIRECTION_RTL
+//        binding.tabLayout.layoutDirection = View.LAYOUT_DIRECTION_RTL
+//        binding.viewpager2.layoutDirection = View.LAYOUT_DIRECTION_RTL
         binding.viewpager2.offscreenPageLimit = fragmentList.size - 1
         adapter.setup(fragmentList, titleList)
     }
