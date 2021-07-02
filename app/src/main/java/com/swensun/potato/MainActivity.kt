@@ -6,16 +6,13 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.format.DateFormat
-import android.view.*
+import android.view.Gravity
+import android.view.KeyEvent
+import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.*
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.drakeet.multitype.MultiTypeAdapter
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.swensun.base.BaseActivity
 import com.swensun.base.ViewBindingDialog
 import com.swensun.func.KvStore
@@ -32,7 +29,8 @@ import com.swensun.func.livedata.LiveDataActivity
 import com.swensun.func.memory.MemoryActivity
 import com.swensun.func.network.DownloadActivity
 import com.swensun.func.push.SchemeActivity
-import com.swensun.func.recycler.*
+import com.swensun.func.recycler.RecyclerViewActivity
+import com.swensun.func.recycler.RecyclerViewFragment
 import com.swensun.func.room.RoomActivity
 import com.swensun.func.room.database.RDataBase
 import com.swensun.func.status.StatusPageActivity
@@ -48,8 +46,6 @@ import com.swensun.potato.application.createNotificationChannel
 import com.swensun.potato.databinding.ActivityMainBinding
 import com.swensun.potato.databinding.BottomListDialogBinding
 import com.swensun.potato.databinding.DialogLoadingBinding
-import com.swensun.swutils.multitype.submitList
-import com.swensun.swutils.multitype.updateItems
 import com.swensun.swutils.ui.dp
 import com.swensun.swutils.ui.getWinHeight
 import com.swensun.swutils.ui.setDebounceClickListener
@@ -165,13 +161,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         viewModel.opeDatabase()
 
         binding.fabRight.setOnClickListener {
-            LoadingDialog().apply {
-                initListener = { binding, fragment ->
-                    binding.tvLoading.text = " - loading - "
-                }
-            }.show(supportFragmentManager, "dailog")
-//            BottomListDialog().show(supportFragmentManager, "dialog")
-//            BottomListDialog().show(supportFragmentManager, "dialog")
+//            LoadingDialog().apply {
+//                initListener = { binding, fragment ->
+//                    binding.tvLoading.text = " - loading - "
+//                }
+//            }.show(supportFragmentManager, "dailog")
+            BottomListDialog().show(supportFragmentManager, "dialog")
         }
 
         var count = 1
@@ -269,8 +264,8 @@ class BottomListDialog : ViewBindingDialog<BottomListDialogBinding>() {
             WindowManager.LayoutParams.MATCH_PARENT, (getWinHeight() * 0.8).toInt()
         )
         dialog?.setOnKeyListener { dialog, keyCode, event ->
-            if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-                //Hide your keyboard here!!!
+            if ((keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_DOWN)) {
+                //Hide your keyboard here
                 if (childFragmentManager.backStackEntryCount > 0) {
                     childFragmentManager.popBackStack()
                     true
@@ -280,6 +275,7 @@ class BottomListDialog : ViewBindingDialog<BottomListDialogBinding>() {
             } else
                 false; //
         }
+
     }
 
     override fun initView() {
@@ -290,7 +286,7 @@ class BottomListDialog : ViewBindingDialog<BottomListDialogBinding>() {
                 .commit()
         }
         childFragmentManager.beginTransaction()
-            .replace(binding.container.id, RecyclerViewFragment.newInstance()).commit()
+            .add(binding.container.id, RecyclerViewFragment.newInstance()).commit()
     }
 
 

@@ -6,6 +6,7 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:id="@+id/refresh_view"
+        android:background="@color/white"
         tools:context="com.swensun.func.recycler.RecyclerViewActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout

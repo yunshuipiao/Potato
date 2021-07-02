@@ -8,14 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.drakeet.multitype.MultiTypeAdapter
 import com.swensun.base.BaseFragment
-import com.swensun.func.customview.CustomViewActivity
+import com.swensun.potato.R
 import com.swensun.potato.databinding.ItemRecyclerViewBinding
 import com.swensun.potato.databinding.RecyclerViewFragmentBinding
 import com.swensun.swutils.multitype.AnyCallback
 import com.swensun.swutils.multitype.ViewBindingDelegate
 import com.swensun.swutils.multitype.submitList
 import com.swensun.swutils.ui.toast
-import com.swensun.swutils.util.startActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -44,7 +43,8 @@ class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {
         val adapter = MultiTypeAdapter()
         adapter.register(RViewHolderDelegate())
         binding.recyclerView.adapter = adapter
-        val items = (0 until childFragmentManager.backStackEntryCount).map { RInt(it) }
+        val items =
+            (0 until if (parentFragmentManager.backStackEntryCount == 0) 10 else parentFragmentManager.backStackEntryCount).map { RInt(it) }
         adapter.submitList(RIntCallback(adapter.items, items))
 
         binding.refreshView.setOnRefreshListener {
