@@ -12,7 +12,7 @@ class ViewPagerActivity : BaseActivity<ActivityViewPagerBinding>() {
     private val adapter by lazy {
         ViewPager2Adapter(this)
     }
-    
+
     private fun initView() {
         binding.viewpager2.adapter = adapter
         TabLayoutMediator(binding.tabLayout, binding.viewpager2) { tab, position ->

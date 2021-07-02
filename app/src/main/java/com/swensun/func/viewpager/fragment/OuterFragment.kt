@@ -1,7 +1,10 @@
 package com.swensun.func.viewpager.fragment
 
 import android.os.Bundle
+import com.swensun.func.recycler.RecyclerViewActivity
 import com.swensun.potato.databinding.FragmentOuterBinding
+import com.swensun.swutils.util.startActivity
+import java.util.logging.Logger
 
 
 class OuterFragment : LazyLoadFragment<FragmentOuterBinding>() {
@@ -20,10 +23,18 @@ class OuterFragment : LazyLoadFragment<FragmentOuterBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         binding.tvTitle.text = "-- ${arguments?.getString("id")} --"
+        binding.tvTitle.setOnClickListener {
+            context?.startActivity<RecyclerViewActivity>()
+        }
     }
 
     override fun loadData() {
         super.loadData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        com.swensun.swutils.util.Logger.d("onresume, -- ${arguments?.getString("id")} --")
     }
 }
 
