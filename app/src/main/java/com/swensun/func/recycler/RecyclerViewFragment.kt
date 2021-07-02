@@ -44,7 +44,7 @@ class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {
         val adapter = MultiTypeAdapter()
         adapter.register(RViewHolderDelegate())
         binding.recyclerView.adapter = adapter
-        val items = (0 until 6).map { RInt(it) }
+        val items = (0 until childFragmentManager.backStackEntryCount).map { RInt(it) }
         adapter.submitList(RIntCallback(adapter.items, items))
 
         binding.refreshView.setOnRefreshListener {

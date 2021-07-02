@@ -165,13 +165,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         viewModel.opeDatabase()
 
         binding.fabRight.setOnClickListener {
-//            LoadingDialog().apply {
-//                initListener = {
-//                    binding.tvLoading.text = " - loading - "
-//                }
-//            }.show(supportFragmentManager, "dailog")
+            LoadingDialog().apply {
+                initListener = { binding, fragment ->
+                    binding.tvLoading.text = " - loading - "
+                }
+            }.show(supportFragmentManager, "dailog")
 //            BottomListDialog().show(supportFragmentManager, "dialog")
-            BottomListDialog().show(supportFragmentManager, "dialog")
+//            BottomListDialog().show(supportFragmentManager, "dialog")
         }
 
         var count = 1
@@ -261,7 +261,6 @@ class LoadingDialog : ViewBindingDialog<DialogLoadingBinding>() {
 }
 
 class BottomListDialog : ViewBindingDialog<BottomListDialogBinding>() {
-
     override fun onStart() {
         super.onStart()
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -269,12 +268,32 @@ class BottomListDialog : ViewBindingDialog<BottomListDialogBinding>() {
         dialog?.window?.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT, (getWinHeight() * 0.8).toInt()
         )
+        dialog?.setOnKeyListener { dialog, keyCode, event ->
+            if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+                //Hide your keyboard here!!!
+                if (childFragmentManager.backStackEntryCount > 0) {
+                    childFragmentManager.popBackStack()
+                    true
+                } else {
+                    false
+                }
+            } else
+                false; //
+        }
     }
 
     override fun initView() {
         super.initView()
-        childFragmentManager.beginTransaction().replace(binding.container.id, RecyclerViewFragment.newInstance()).commit()
+        binding.fab.setOnClickListener {
+            childFragmentManager.beginTransaction()
+                .add(binding.container.id, RecyclerViewFragment.newInstance()).addToBackStack(null)
+                .commit()
+        }
+        childFragmentManager.beginTransaction()
+            .replace(binding.container.id, RecyclerViewFragment.newInstance()).commit()
     }
+
+
 }
 
 //class BLDialog : BottomSheetDialogFragment() {

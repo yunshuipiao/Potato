@@ -1,13 +1,10 @@
 package com.swensun.func.viewpager.fragment
 
 import android.os.Bundle
-import android.util.LayoutDirection
-import android.view.View
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.swensun.base.BaseActivity
-import com.swensun.potato.R
 import com.swensun.potato.databinding.ActivityViewPagerBinding
 
 class ViewPagerActivity : BaseActivity<ActivityViewPagerBinding>() {
