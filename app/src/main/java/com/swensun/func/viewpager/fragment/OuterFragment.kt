@@ -9,7 +9,7 @@ import java.util.logging.Logger
 
 class OuterFragment : LazyLoadFragment<FragmentOuterBinding>() {
 
-    private var vid = ""
+    var vid = ""
 
     companion object {
         fun newInstance(id: String): OuterFragment {
@@ -22,10 +22,11 @@ class OuterFragment : LazyLoadFragment<FragmentOuterBinding>() {
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        binding.tvTitle.text = "-- ${arguments?.getString("id")} --"
-        binding.tvTitle.setOnClickListener {
-            context?.startActivity<RecyclerViewActivity>()
-        }
+        vid = "-- ${arguments?.getString("id")} --"
+        binding.tvTitle.text = vid
+            binding.tvTitle.setOnClickListener {
+                context?.startActivity<RecyclerViewActivity>()
+            }
     }
 
     override fun loadData() {

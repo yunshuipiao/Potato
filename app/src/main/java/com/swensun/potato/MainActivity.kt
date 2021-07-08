@@ -15,7 +15,6 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.*
 import com.swensun.base.BaseActivity
 import com.swensun.base.ViewBindingDialog
-import com.swensun.func.KvStore
 import com.swensun.func.anim.AnimActivity
 import com.swensun.func.bottom.BottomActivity
 import com.swensun.func.coroutines.ui.CoroutinesActivity
@@ -158,7 +157,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
 
         RDataBase.init()
-        viewModel.opeDatabase()
+        viewModel.openDatabase()
+        binding.btnViewpager.performClick()
 
         binding.fabRight.setOnClickListener {
 //            LoadingDialog().apply {
@@ -199,8 +199,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             Logger.d("livedata: ${it}")
         }
         initNetChangeStatus()
-        KvStore.set("init", "init")
-        KvStore.set("init", Any())
 
 
         lifecycleScope.launch {

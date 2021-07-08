@@ -25,7 +25,7 @@ class MainViewModel : ViewModel() {
     fun formatJson() {
     }
 
-    fun opeDatabase() {
+    fun openDatabase() {
         launchIO {
             RDataBase.INSTANCE.roomDao().upsert(RoomEntity())
         }

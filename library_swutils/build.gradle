@@ -80,7 +80,7 @@ dependencies {
     api "androidx.work:work-runtime:2.5.0"
     api 'com.blankj:utilcodex:1.30.6'
 
-    api 'com.yanzhenjie:permission:2.0.0'
+    api 'com.yanzhenjie:permission:2.0.3'
 
     // tag 布局
     api 'com.google.android:flexbox:2.0.1'
