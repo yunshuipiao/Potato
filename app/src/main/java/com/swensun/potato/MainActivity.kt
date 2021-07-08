@@ -1,17 +1,15 @@
 package com.swensun.potato
 
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.format.DateFormat
-import android.view.Gravity
-import android.view.KeyEvent
-import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.*
 import com.swensun.base.BaseActivity
 import com.swensun.base.ViewBindingDialog
@@ -29,7 +27,6 @@ import com.swensun.func.memory.MemoryActivity
 import com.swensun.func.network.DownloadActivity
 import com.swensun.func.push.SchemeActivity
 import com.swensun.func.recycler.RecyclerViewActivity
-import com.swensun.func.recycler.RecyclerViewFragment
 import com.swensun.func.room.RoomActivity
 import com.swensun.func.room.database.RDataBase
 import com.swensun.func.status.StatusPageActivity
@@ -43,10 +40,8 @@ import com.swensun.func.utilcode.UtilCodeFragment
 import com.swensun.func.viewpager.fragment.ViewPagerActivity
 import com.swensun.potato.application.createNotificationChannel
 import com.swensun.potato.databinding.ActivityMainBinding
-import com.swensun.potato.databinding.BottomListDialogBinding
 import com.swensun.potato.databinding.DialogLoadingBinding
 import com.swensun.swutils.ui.dp
-import com.swensun.swutils.ui.getWinHeight
 import com.swensun.swutils.ui.setDebounceClickListener
 import com.swensun.swutils.util.Logger
 import com.swensun.swutils.util.NetWorkChangeUtils
@@ -158,7 +153,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         RDataBase.init()
         viewModel.openDatabase()
-        binding.btnViewpager.performClick()
 
         binding.fabRight.setOnClickListener {
 //            LoadingDialog().apply {
@@ -166,7 +160,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 //                    binding.tvLoading.text = " - loading - "
 //                }
 //            }.show(supportFragmentManager, "dailog")
-            BottomListDialog().show(supportFragmentManager, "dialog")
+            LoadingDialog().show(supportFragmentManager, "dialog")
         }
 
         var count = 1
@@ -199,6 +193,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             Logger.d("livedata: ${it}")
         }
         initNetChangeStatus()
+        supportFragmentManager.registerFragmentLifecycleCallbacks(object :
+            FragmentManager.FragmentLifecycleCallbacks() {
+            override fun onFragmentAttached(fm: FragmentManager, f: Fragment, context: Context) {
+                super.onFragmentAttached(fm, f, context)
+                Logger.d("__onFragmentAttached, $f")
+            }
+
+            override fun onFragmentDetached(fm: FragmentManager, f: Fragment) {
+                super.onFragmentDetached(fm, f)
+                Logger.d("__onFragmentDetached, $f")
+            }
+        }, false)
 
 
         lifecycleScope.launch {
@@ -253,78 +259,7 @@ class LoadingDialog : ViewBindingDialog<DialogLoadingBinding>() {
     }
 }
 
-class BottomListDialog : ViewBindingDialog<BottomListDialogBinding>() {
-    override fun onStart() {
-        super.onStart()
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog?.window?.setGravity(Gravity.BOTTOM)
-        dialog?.window?.setLayout(
-            WindowManager.LayoutParams.MATCH_PARENT, (getWinHeight() * 0.8).toInt()
-        )
-        dialog?.setOnKeyListener { dialog, keyCode, event ->
-            if ((keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_DOWN)) {
-                //Hide your keyboard here
-                if (childFragmentManager.backStackEntryCount > 0) {
-                    childFragmentManager.popBackStack()
-                    true
-                } else {
-                    false
-                }
-            } else
-                false; //
-        }
 
-    }
-
-    override fun initView() {
-        super.initView()
-        binding.fab.setOnClickListener {
-            childFragmentManager.beginTransaction()
-                .add(binding.container.id, RecyclerViewFragment.newInstance()).addToBackStack(null)
-                .commit()
-        }
-        childFragmentManager.beginTransaction()
-            .add(binding.container.id, RecyclerViewFragment.newInstance()).commit()
-    }
-
-
-}
-
-//class BLDialog : BottomSheetDialogFragment() {
-//
-//    private lateinit var binding: BottomListDialogBinding
-//
-//    override fun onCreateView(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View {
-//        binding = BottomListDialogBinding.inflate(inflater, container, false)
-//        return binding.root
-//    }
-//
-//    override fun onStart() {
-//        super.onStart()
-//        dialog?.window?.setGravity(Gravity.BOTTOM)
-//        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-//    }
-//
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        binding.recyclerView.setHasFixedSize(true)
-//
-//        val layoutManager = LinearLayoutManager(context)
-//        binding.recyclerView.layoutManager = layoutManager
-//        /**
-//         * MultiTypeAdapter
-//         */
-//        val adapter = MultiTypeAdapter()
-//        adapter.register(RViewHolderDelegate())
-//        binding.recyclerView.adapter = adapter
-//        val items = (0 until 50).map { RInt(it) }
-//        adapter.updateItems(items)
-//    }
-//}
 
 
 
