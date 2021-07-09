@@ -34,7 +34,6 @@ abstract class ViewBindingDialog<VB : ViewBinding> : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-        initListener?.invoke(binding, this)
     }
 
     open fun initView() {
@@ -48,6 +47,6 @@ abstract class ViewBindingDialog<VB : ViewBinding> : DialogFragment() {
             WindowManager.LayoutParams.WRAP_CONTENT
         )
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        initListener?.invoke(binding, this)
     }
-
 }

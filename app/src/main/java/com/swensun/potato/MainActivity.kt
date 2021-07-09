@@ -42,6 +42,7 @@ import com.swensun.potato.application.createNotificationChannel
 import com.swensun.potato.databinding.ActivityMainBinding
 import com.swensun.potato.databinding.DialogLoadingBinding
 import com.swensun.swutils.ui.dp
+import com.swensun.swutils.ui.drawable
 import com.swensun.swutils.ui.setDebounceClickListener
 import com.swensun.swutils.util.Logger
 import com.swensun.swutils.util.NetWorkChangeUtils
@@ -153,6 +154,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         RDataBase.init()
         viewModel.openDatabase()
+        binding.btnLivedata.performClick()
 
         binding.fabRight.setOnClickListener {
 //            LoadingDialog().apply {
@@ -160,7 +162,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 //                    binding.tvLoading.text = " - loading - "
 //                }
 //            }.show(supportFragmentManager, "dailog")
-            LoadingDialog().show(supportFragmentManager, "dialog")
+            LoadingDialog().apply {
+            }.show(supportFragmentManager, "dialog")
         }
 
         var count = 1
@@ -256,6 +259,13 @@ class LoadingDialog : ViewBindingDialog<DialogLoadingBinding>() {
     override fun onStart() {
         super.onStart()
         dialog?.window?.setLayout(300.dp, 300.dp)
+    }
+
+    override fun initView() {
+        super.initView()
+        binding.root.background = drawable(R.color.white) {
+            radius = 100.dp
+        }
     }
 }
 
