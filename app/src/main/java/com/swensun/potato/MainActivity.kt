@@ -1,16 +1,15 @@
 package com.swensun.potato
 
 import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.format.DateFormat
 import androidx.activity.viewModels
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.*
+import androidx.lifecycle.debounce
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.notNull
 import com.swensun.base.BaseActivity
 import com.swensun.base.ViewBindingDialog
 import com.swensun.func.anim.AnimActivity
@@ -47,8 +46,8 @@ import com.swensun.swutils.ui.setDebounceClickListener
 import com.swensun.swutils.util.Logger
 import com.swensun.swutils.util.NetWorkChangeUtils
 import com.swensun.swutils.util.startActivity
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
@@ -162,8 +161,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 //                    binding.tvLoading.text = " - loading - "
 //                }
 //            }.show(supportFragmentManager, "dailog")
-            LoadingDialog().apply {
-            }.show(supportFragmentManager, "dialog")
+//            timeConsumingMethod {
+//                Logger.d("__async to sync, ${it}")
+//            }
+            lifecycleScope.launchWhenResumed {
+                val result = suspendCoroutine<Int> { cont ->
+                    timeConsumingMethod {
+                        cont.resume(it)
+                    }
+                }
+                Logger.d("__async to sync, ${result}")
+            }
         }
 
         var count = 1
@@ -196,30 +204,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             Logger.d("livedata: ${it}")
         }
         initNetChangeStatus()
-        supportFragmentManager.registerFragmentLifecycleCallbacks(object :
-            FragmentManager.FragmentLifecycleCallbacks() {
-            override fun onFragmentAttached(fm: FragmentManager, f: Fragment, context: Context) {
-                super.onFragmentAttached(fm, f, context)
-                Logger.d("__onFragmentAttached, $f")
-            }
-
-            override fun onFragmentDetached(fm: FragmentManager, f: Fragment) {
-                super.onFragmentDetached(fm, f)
-                Logger.d("__onFragmentDetached, $f")
-            }
-        }, false)
-
-
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                while (true) {
-                    delay(2000)
-                    count += 1
-                    Logger.d("repeatOnLifecycle, $count")
-                }
-            }
-        }
-
     }
 
     private fun initNetChangeStatus() {
@@ -269,6 +253,11 @@ class LoadingDialog : ViewBindingDialog<DialogLoadingBinding>() {
     }
 }
 
+
+fun timeConsumingMethod(callback: (Int) -> Unit) {
+    Thread.sleep(1000)
+    callback.invoke(10)
+}
 
 
 
