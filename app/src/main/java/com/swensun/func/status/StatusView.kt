@@ -2,67 +2,56 @@ package com.swensun.func.status
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.LayoutInflater
-import android.view.ViewGroup
+import android.view.View
 import android.widget.FrameLayout
 import com.swensun.StatusEvent
-import com.swensun.potato.R
 
 class StatusView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-
-    private var parentView: ViewGroup? = null
     private var lastEvent: StatusEvent = StatusEvent.SUCCESS
+    private val statusViewMap = hashMapOf<StatusEvent, View>()
 
-    init {
-        LayoutInflater.from(context).inflate(R.layout.layout_status, this)
-        val lp = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.MATCH_PARENT
-        )
-        this.layoutParams = lp
+
+    fun register(event: StatusEvent, view: View) {
+        statusViewMap[event] = view
     }
 
     fun showLoadingStatus() {
+        getContentViewIfNeed()
         handleParentView(StatusEvent.LOADING)
         //更新view的状态
     }
 
     fun showEmptyStatus() {
+        getContentViewIfNeed()
         handleParentView(StatusEvent.EMPTY)
     }
 
     fun showErrorStatus() {
+        getContentViewIfNeed()
         handleParentView(StatusEvent.ERROR)
     }
 
     fun removeStatus() {
+        getContentViewIfNeed()
         handleParentView(StatusEvent.SUCCESS)
     }
 
-    fun bindParentView(parent: ViewGroup) {
-        this.parentView = parent
-    }
-
     private fun handleParentView(event: StatusEvent) {
-        if (lastEvent == event) {
+        if (lastEvent == event || statusViewMap[event] == null) {
             return
         }
-        parentView?.let { it ->
-            if (parent != null) {
-                (parent as? ViewGroup)?.removeView(this)
-            }
-            when (event) {
-                StatusEvent.ERROR, StatusEvent.EMPTY -> {
-                    it.addView(this, 0)
-                }
-                StatusEvent.LOADING -> {
-                    it.addView(this)
-                }
-            }
-            lastEvent = event
+        lastEvent = event
+        removeAllViews()
+        addView(statusViewMap[event])
+        invalidate()
+    }
+
+    private fun getContentViewIfNeed() {
+        if (statusViewMap[StatusEvent.SUCCESS] == null && this.childCount == 1) {
+            statusViewMap[StatusEvent.SUCCESS] = this.getChildAt(0)
         }
     }
 }
