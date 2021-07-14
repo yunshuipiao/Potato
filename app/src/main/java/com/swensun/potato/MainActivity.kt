@@ -153,7 +153,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         RDataBase.init()
         viewModel.openDatabase()
-        binding.btnLivedata.performClick()
+        binding.btnRecycler.performClick()
 
         binding.fabRight.setOnClickListener {
 //            LoadingDialog().apply {

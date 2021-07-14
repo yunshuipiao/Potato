@@ -2,21 +2,17 @@ package com.swensun.func.recycler
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.drakeet.multitype.MultiTypeAdapter
 import com.swensun.base.BaseFragment
-import com.swensun.potato.R
 import com.swensun.potato.databinding.ItemRecyclerViewBinding
 import com.swensun.potato.databinding.RecyclerViewFragmentBinding
 import com.swensun.swutils.multitype.AnyCallback
 import com.swensun.swutils.multitype.ViewBindingDelegate
-import com.swensun.swutils.multitype.submitList
+import com.swensun.swutils.multitype.updateItems
 import com.swensun.swutils.ui.toast
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 
 class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {
@@ -41,30 +37,24 @@ class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {
          * MultiTypeAdapter
          */
         val adapter = MultiTypeAdapter()
-        adapter.register(RViewHolderDelegate())
+        adapter.register(RViewHolderDelegate().apply {
+            loadMore = {
+                binding.recyclerView.post {
+                    val items = arrayListOf<Any>()
+                    items.addAll(adapter.items)
+                    items.addAll((0 until 5).map { RInt(it) })
+                    adapter.updateItems(items)
+                }
+            }
+        })
         binding.recyclerView.adapter = adapter
         val items =
-            (0 until if (parentFragmentManager.backStackEntryCount == 0) 10 else parentFragmentManager.backStackEntryCount).map { RInt(it) }
-        adapter.submitList(RIntCallback(adapter.items, items))
+            (0 until 10).map { RInt(it) }
+        adapter.updateItems(items)
 
         binding.refreshView.setOnRefreshListener {
-            lifecycleScope.launch {
-                delay(1000)
-                binding.refreshView.isRefreshing = false
-            }
+            binding.refreshView.isRefreshing = false
         }
-//        binding.btnRefresh.setOnClickListener {
-//            count += 1
-//            if (count % 2 == 0) {
-//            } else {
-//            }
-//            lifecycleScope.launch {
-//                val newItems = adapter.items.toMutableList()
-//                newItems.add(1, RInt(newItems.size + 1))
-//                adapter.submitList(RIntCallback(adapter.items, newItems))
-//            }
-//            toast("height: ${binding.recyclerView.height}")
-//        }
     }
 
     override fun initView(savedInstanceState: Bundle?) {
@@ -80,7 +70,7 @@ class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {
             holder: ViewBindingViewHolder<ItemRecyclerViewBinding>,
             item: RInt
         ) {
-            if (holder.adapterPosition == adapter.itemCount - 1) {
+            if (holder.bindingAdapterPosition == adapter.itemCount - 1) {
                 loadMore?.invoke()
             }
             holder.binding.tvId.text = item.id.toString()
