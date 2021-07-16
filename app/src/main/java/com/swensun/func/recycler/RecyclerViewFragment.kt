@@ -31,6 +31,7 @@ class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {
 //        recycler_view.closeDefaultAnimator()
         binding.recyclerView.setHasFixedSize(true)
 
+        val count = arguments?.getInt("count") ?: 10
         val layoutManager = LinearLayoutManager(context)
         binding.recyclerView.layoutManager = layoutManager
         /**
@@ -38,18 +39,18 @@ class RecyclerViewFragment : BaseFragment<RecyclerViewFragmentBinding>() {
          */
         val adapter = MultiTypeAdapter()
         adapter.register(RViewHolderDelegate().apply {
-            loadMore = {
-                binding.recyclerView.post {
-                    val items = arrayListOf<Any>()
-                    items.addAll(adapter.items)
-                    items.addAll((0 until 5).map { RInt(it) })
-                    adapter.updateItems(items)
-                }
-            }
+//            loadMore = {
+//                binding.recyclerView.post {
+//                    val items = arrayListOf<Any>()
+//                    items.addAll(adapter.items)
+//                    items.addAll((0 until 5).map { RInt(it) })
+//                    adapter.updateItems(items)
+//                }
+//            }
         })
         binding.recyclerView.adapter = adapter
         val items =
-            (0 until 10).map { RInt(it) }
+            (0 until count).map { RInt(it) }
         adapter.updateItems(items)
 
         binding.refreshView.setOnRefreshListener {

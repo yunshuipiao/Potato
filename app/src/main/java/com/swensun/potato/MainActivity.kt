@@ -25,9 +25,10 @@ import com.swensun.func.livedata.LiveDataActivity
 import com.swensun.func.memory.MemoryActivity
 import com.swensun.func.network.DownloadActivity
 import com.swensun.func.push.SchemeActivity
-import com.swensun.func.recycler.RecyclerViewActivity
+import com.swensun.func.recycler.RecyclerViewFragment
 import com.swensun.func.room.RoomActivity
 import com.swensun.func.room.database.RDataBase
+import com.swensun.func.startFragmentContainerActivity
 import com.swensun.func.status.StatusPageActivity
 import com.swensun.func.statusbar.StatusBarActivity
 import com.swensun.func.time.TimeAboutActivity
@@ -89,8 +90,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             startActivity<LiveDataActivity>()
         }
         binding.btnRecycler.setOnClickListener {
-            startActivity<RecyclerViewActivity>()
-//            overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit)
+//            startActivity<RecyclerViewActivity>()
+            startFragmentContainerActivity<RecyclerViewFragment>(Bundle().apply {
+                putInt("count", 20)
+            })
         }
         binding.btnMemory.setOnClickListener {
             startActivity<MemoryActivity>()
@@ -153,7 +156,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         RDataBase.init()
         viewModel.openDatabase()
-        binding.btnStatus.performClick()
 
         binding.fabRight.setOnClickListener {
 //            LoadingDialog().apply {

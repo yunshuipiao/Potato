@@ -2,6 +2,7 @@ package com.swensun.func.network
 
 import android.content.Context
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.swensun.base.BaseActivity
 import com.swensun.potato.databinding.DownloadActivityBinding
@@ -15,12 +16,9 @@ import com.swensun.potato.databinding.DownloadActivityBinding
 
 class DownloadActivity : BaseActivity<DownloadActivityBinding>() {
 
-    private val viewModel by lazy { ViewModelProvider(this).get(DownloadViewModel::class.java) }
+    private val viewModel by viewModels<DownloadViewModel>()
 
 
     override fun initView(savedInstanceState: Bundle?) {
-        binding.download.setOnClickListener {
-            viewModel.downloadLive()
-        }
     }
 }
