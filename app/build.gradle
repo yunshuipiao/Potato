@@ -63,6 +63,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     debugImplementation 'com.glance.guolindev:glance:1.0.0'
     api project(':library_base')
     api project(':library_third')

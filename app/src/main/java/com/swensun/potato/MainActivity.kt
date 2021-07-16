@@ -20,6 +20,7 @@ import com.swensun.func.customview.FrameLayoutActivity
 import com.swensun.func.exoplayer.ExoPlayerActivity
 import com.swensun.func.feature.FeatureActivity
 import com.swensun.func.fragment.FragmentModeActivity
+import com.swensun.func.framelayout.startFragmentContainerActivity
 import com.swensun.func.lifecycle.LifecycleActivity
 import com.swensun.func.livedata.LiveDataActivity
 import com.swensun.func.memory.MemoryActivity
@@ -28,7 +29,6 @@ import com.swensun.func.push.SchemeActivity
 import com.swensun.func.recycler.RecyclerViewFragment
 import com.swensun.func.room.RoomActivity
 import com.swensun.func.room.database.RDataBase
-import com.swensun.func.startFragmentContainerActivity
 import com.swensun.func.status.StatusPageActivity
 import com.swensun.func.statusbar.StatusBarActivity
 import com.swensun.func.time.TimeAboutActivity

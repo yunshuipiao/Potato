@@ -90,7 +90,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.swensun.func.network.DownloadActivity" />
-        <activity android:name="com.swensun.func.FragmentContainerActivity" />
+        <activity android:name="com.swensun.func.framelayout.FragmentContainerActivity" />
     </application>
 
 </manifest>
