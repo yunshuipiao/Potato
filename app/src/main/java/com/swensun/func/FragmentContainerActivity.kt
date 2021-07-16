@@ -24,7 +24,7 @@ class FragmentContainerActivity: BaseActivity<FragmentContainerActivityBinding>(
     override fun initView(savedInstanceState: Bundle?) {
         val fragmentName = intent?.getStringExtra("fragment") ?: ""
         val bundle = intent?.getBundleExtra("bundle")
-        if (savedInstanceState == null && fragmentName.isNotBlank()) {
+        if (savedInstanceState == null) {
             val fragment = Class.forName(fragmentName).newInstance() as Fragment
             fragment.arguments = bundle
             supportFragmentManager.beginTransaction()
