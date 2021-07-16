@@ -1,10 +1,14 @@
-package com.swensun.func
+package com.swensun.func.framelayout
 
 import android.content.Context
 import android.os.Bundle
+import android.view.View
+import android.widget.FrameLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.swensun.base.BaseActivity
-import com.swensun.potato.databinding.FragmentContainerActivityBinding
+import com.swensun.base.fitStatusBarHeight
+import com.swensun.base.setTransparentStatusBar
+import com.swensun.swutils.ui.context
 import com.swensun.swutils.util.startActivity
 
 /**
@@ -19,9 +23,15 @@ inline fun <reified T> Context.startFragmentContainerActivity(bundle: Bundle? = 
     startActivity<FragmentContainerActivity>("fragment" to fragmentName, "bundle" to bundle)
 }
 
-class FragmentContainerActivity: BaseActivity<FragmentContainerActivityBinding>() {
+class FragmentContainerActivity: AppCompatActivity() {
     
-    override fun initView(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val frameLayout = FrameLayout(context)
+        setContentView(frameLayout)
+        frameLayout.id = View.generateViewId()
+        setTransparentStatusBar()
+        fitStatusBarHeight(frameLayout)
         val fragmentName = intent?.getStringExtra("fragment") ?: ""
         val bundle = intent?.getBundleExtra("bundle")
         if (savedInstanceState == null) {
@@ -29,7 +39,7 @@ class FragmentContainerActivity: BaseActivity<FragmentContainerActivityBinding>(
             fragment.arguments = bundle
             supportFragmentManager.beginTransaction()
                 .disallowAddToBackStack()
-                .replace(binding.container.id, fragment)
+                .replace(frameLayout.id, fragment)
                 .commit()
         } else {
             finish()
