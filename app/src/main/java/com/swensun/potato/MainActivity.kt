@@ -206,6 +206,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             Logger.d("livedata: ${it}")
         }
         initNetChangeStatus()
+
+        binding.btnLivedata.performClick()
     }
 
     private fun initNetChangeStatus() {
@@ -217,15 +219,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }
         })
     }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-    }
-
+    
     override fun onBackPressed() {
         try {
             val launcherIntent = Intent(Intent.ACTION_MAIN)

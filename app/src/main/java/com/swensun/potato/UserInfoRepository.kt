@@ -2,7 +2,6 @@ package com.swensun.potato
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.viewbinding.ViewBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -53,23 +52,13 @@ object UserInfoRepository : CoroutineScope {
     }
 
 
-
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + Job()
 }
 
-class UserInfo {
-    var id = 0
-    var name = ""
-    var vip = false
-    var login = false
-    var coins = 0
-
-    override fun toString(): String {
-        return "id: $id - " +
-                "name: $name - " +
-                "coins: $coins - " +
-                "vip $vip - " +
-                "login: $login"
-    }
-}
+data class UserInfo(
+    var id: Int = 0,
+    var name: String = "",
+    var vip: Boolean = false,
+    var login: Boolean = false,
+    var coins: Int = 0)
