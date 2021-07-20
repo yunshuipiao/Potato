@@ -23,7 +23,7 @@ import com.swensun.func.fragment.FragmentModeActivity
 import com.swensun.func.framelayout.startFragmentContainerActivity
 import com.swensun.func.lifecycle.LifecycleActivity
 import com.swensun.func.livedata.LiveDataActivity
-import com.swensun.func.memory.MemoryActivity
+import com.swensun.func.memory.MemoryFragment
 import com.swensun.func.network.DownloadActivity
 import com.swensun.func.push.SchemeActivity
 import com.swensun.func.recycler.RecyclerViewFragment
@@ -32,7 +32,7 @@ import com.swensun.func.room.database.RDataBase
 import com.swensun.func.status.StatusPageActivity
 import com.swensun.func.statusbar.StatusBarActivity
 import com.swensun.func.time.TimeAboutActivity
-import com.swensun.func.touch.TouchEventActivity
+import com.swensun.func.touch.TouchEventFragment
 import com.swensun.func.trans.TransFontActivity
 import com.swensun.func.userinfo.UserInfoActivity
 import com.swensun.func.utilcode.UtilCodeActivity
@@ -60,7 +60,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
 
         binding.btnTouchEvent.setOnClickListener {
-            startActivity<TouchEventActivity>()
+            startFragmentContainerActivity<TouchEventFragment>()
         }
 
         binding.btnCoroutines.setOnClickListener {
@@ -96,7 +96,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             })
         }
         binding.btnMemory.setOnClickListener {
-            startActivity<MemoryActivity>()
+            startFragmentContainerActivity<MemoryFragment>()
         }
         binding.btnCustomView.setOnClickListener {
             startActivity<CustomViewActivity>()
@@ -106,7 +106,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
 
         binding.btnLauncherMode.setOnClickListener {
-//            startActivity<LauncherModeActivity>()
+            
         }
         binding.btnFramelayout.setOnClickListener {
             startActivity<FrameLayoutActivity>()

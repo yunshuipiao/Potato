@@ -24,7 +24,6 @@ val topActivity: FragmentActivity
     }
 
 inline fun <reified T> Context.startActivity(vararg param: Pair<String, Any?>) {
-
     val intent = Intent(this, T::class.java)
     if (param.isNotEmpty()) {
         fillIntentArguments(intent, param)

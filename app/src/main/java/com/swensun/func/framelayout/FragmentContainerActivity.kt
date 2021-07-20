@@ -18,7 +18,7 @@ import com.swensun.swutils.util.startActivity
  */
 
 
-inline fun <reified T> Context.startFragmentContainerActivity(bundle: Bundle? = null) {
+inline fun <reified T: Fragment> Context.startFragmentContainerActivity(bundle: Bundle? = null) {
     val fragmentName = T::class.java.name
     startActivity<FragmentContainerActivity>("fragment" to fragmentName, "bundle" to bundle)
 }

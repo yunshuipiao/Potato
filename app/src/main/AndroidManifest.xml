@@ -16,7 +16,6 @@
             android:networkSecurityConfig="@xml/network_security_config"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name="com.swensun.func.touch.TouchEventActivity"></activity>
         <activity android:name="com.swensun.func.userinfo.UserInfoActivity" />
         <activity android:name="com.swensun.func.anim.AnimActivity" />
         <activity android:name="com.swensun.func.status.StatusPageActivity" />
