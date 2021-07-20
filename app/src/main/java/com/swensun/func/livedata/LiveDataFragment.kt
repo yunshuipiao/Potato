@@ -2,8 +2,6 @@ package com.swensun.func.livedata
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.lifecycleScope
 import com.swensun.base.BaseFragment
 import com.swensun.potato.databinding.LiveDataFragmentBinding
 
@@ -27,7 +25,7 @@ class LiveDataFragment : BaseFragment<LiveDataFragmentBinding>() {
             }
         }
 
-        viewModel.intFlow.asLiveData().observe(this) {
+        viewModel.intLiveData.observe(this) {
             binding.content.text = "- $it -"
         }
         binding.content.setOnClickListener {
