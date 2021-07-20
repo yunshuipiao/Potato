@@ -12,7 +12,7 @@ import kotlinx.coroutines.delay
 object LiveDataRepository : CoroutineScope by MainScope(){
 
     suspend fun testFlow(v: Int): Int {
-        delay(500)
-        return v * 10
+        delay(200)
+        return v
     }
 }
