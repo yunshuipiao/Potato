@@ -184,30 +184,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 viewModel.stringLiveData.postValue(null)
             }
             count += 1
-//            AlertDialog.Builder(this)
-//                .setPositiveButton("confirm") { i, a ->
-//
-//                }
-//                .setNegativeButton("cancel") { i, a ->
-//
-//                }
-//                .setTitle("title")
-//                .setMessage("content")
-//                .show()
-//            val resolveIntent: Intent? =
-//                packageManager.getLaunchIntentForPackage("com.ziipin.social.xjfad.dev")
-//            Logger.d("getLaunchIntentForPackage, $resolveIntent")
-//            resolveIntent?.let {
-//                it.putExtra("url", "sirdax://com.ziipin.social/demo")
-//                startActivity(it)
-//            }
         }
         viewModel.stringLiveData.debounce().notNull().observe(this) {
             Logger.d("livedata: ${it}")
         }
         initNetChangeStatus()
 
-        binding.btnLivedata.performClick()
+        binding.btnFeature.performClick()
     }
 
     private fun initNetChangeStatus() {

@@ -20,10 +20,7 @@ class PotatoApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        if (SwUtils.debug) {
-//            CrashUtil.init(this)
-        }
-
+        SwUtils.init(this)
         ProcessLifecycleOwner.get().lifecycle.addObserver(ApplicationLifecycleObserver())
 
         
