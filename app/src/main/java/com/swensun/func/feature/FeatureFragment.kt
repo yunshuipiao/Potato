@@ -1,8 +1,12 @@
 package com.swensun.func.feature
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -12,6 +16,7 @@ import com.swensun.base.BaseFragment
 import com.swensun.potato.databinding.FeatureFragmentBinding
 import com.swensun.swutils.util.Logger
 import com.yanzhenjie.permission.AndPermission
+import com.yanzhenjie.permission.runtime.Permission
 
 class FeatureFragment : BaseFragment<FeatureFragmentBinding>() {
 
@@ -38,7 +43,7 @@ class FeatureFragment : BaseFragment<FeatureFragmentBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         viewModel = ViewModelProvider(this).get(FeatureViewModel::class.java)
-        viewModel.speedLiveData.observe(viewLifecycleOwner, Observer {
+        viewModel.speedLiveData.observe(viewLifecycleOwner, {
             binding.btnNetSpeed.text = "${it}kb/s"
         })
         initView()
@@ -52,15 +57,28 @@ class FeatureFragment : BaseFragment<FeatureFragmentBinding>() {
         }
         binding.btnPermisssion.setOnClickListener {
 
+            fun openPermissionSetting(activity: Activity) {
+                val intent = Intent()
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                intent.action = "android.settings.APPLICATION_DETAILS_SETTINGS"
+                intent.data = Uri.fromParts("package", activity.packageName, null)
+                activity.startActivity(intent)
+            }
+
             fun requestPermission() {
                 AndPermission.with(activity).runtime()
-                    .permission(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    .permission(Permission.ACCESS_FINE_LOCATION)
                     .onGranted {
                         Logger.d("location granted")
                     }.onDenied {
-                        val shouldShowRequest = ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION)
+                        val shouldShowRequest = ActivityCompat.shouldShowRequestPermissionRationale(
+                            requireActivity(),
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                        )
                         if (shouldShowRequest) {
                             AlertDialog.Builder(requireContext())
+                                .setTitle("位置权限")
+                                .setMessage("查看附近的人需要获取位置权限")
                                 .setNegativeButton("取消") { d, w ->
                                     
                                 }
@@ -69,10 +87,20 @@ class FeatureFragment : BaseFragment<FeatureFragmentBinding>() {
                                 }.create().show()
                             Logger.d("location denied and ask")
                         } else {
-                            Logger.d("location denied and not ask")
+                            AlertDialog.Builder(requireContext())
+                                .setTitle("位置权限")
+                                .setMessage("查看附近的人需要获取位置权限")
+                                .setNegativeButton("取消") { d, w ->
+
+                                }
+                                .setPositiveButton("去设置") { d, w ->
+                                    openPermissionSetting(requireActivity())
+                                }.create().show()
                         }
                     }.start()
             }
+
+
             requestPermission()
         }
 
