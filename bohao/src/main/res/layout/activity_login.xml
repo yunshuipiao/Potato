@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="用户名:"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/et_username"
+        app:layout_constraintBottom_toTopOf="@id/tv_password"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="100dp"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_username"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.4"
+        app:layout_constraintTop_toTopOf="@id/tv_username"
+        app:layout_constraintBottom_toBottomOf="@id/tv_username"
+        app:layout_constraintLeft_toRightOf="@id/tv_username"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="密码:"
+        android:layout_marginTop="40dp"
+        app:layout_constraintLeft_toLeftOf="@id/tv_username"
+        app:layout_constraintRight_toRightOf="@id/tv_username"
+        app:layout_constraintTop_toBottomOf="@id/tv_username" />
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.4"
+        app:layout_constraintTop_toTopOf="@id/tv_password"
+        app:layout_constraintBottom_toBottomOf="@id/tv_password"
+        app:layout_constraintLeft_toLeftOf="@id/et_username"
+        app:layout_constraintRight_toRightOf="@id/et_username"/>
+
+    <TextView
+        android:id="@+id/tv_login"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/tv_username"
+        app:layout_constraintRight_toRightOf="@id/et_username"
+        app:layout_constraintTop_toBottomOf="@id/tv_password"
+        android:layout_marginTop="30dp"
+        android:background="@color/colorPrimary"
+        android:text="登录"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:padding="5dp"
+        />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
