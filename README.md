@@ -186,3 +186,7 @@
 [Android中高级面试题](https://github.com/JsonChao/Awesome-Android-Interview/tree/master/Android%E7%9B%B8%E5%85%B3)</br>
 [Android 框架和kotlin](https://github.com/leavesC/AndroidGuide)</br>
 
+[深入分析优化和框架源码: 掘金 灯不利多](https://juejin.cn/user/4353721773341934)
+
+[深入RecyclerView学习—缓存机制](https://juejin.cn/post/6910516838560595976)
+
