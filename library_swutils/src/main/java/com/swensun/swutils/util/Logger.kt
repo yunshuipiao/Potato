@@ -39,7 +39,7 @@ object Logger {
         val elements = thread.stackTrace
         if (elements.size > 4) {
             elements.getOrNull(4)?.let {
-                result = thread.name + "-" +it.fileName + "-" +  it.lineNumber
+                result = thread.name + " - " +it.fileName + " - " +  it.lineNumber
             }
         }
         return result

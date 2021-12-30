@@ -12,9 +12,9 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
         <Button
-                android:id="@+id/download"
+                android:id="@+id/okhttp_timeout"
                 android:layout_width="match_parent"
-                android:text="download   live"
+                android:text="okhttp timeout"
                 android:layout_height="50dp"/>
     </LinearLayout>
 

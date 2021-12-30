@@ -188,9 +188,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         viewModel.stringLiveData.debounce().notNull().observe(this) {
             Logger.d("livedata: ${it}")
         }
-        initNetChangeStatus()
+//        initNetChangeStatus()
 
-        binding.btnFeature.performClick()
+        binding.btnDownload.performClick()
     }
 
     private fun initNetChangeStatus() {

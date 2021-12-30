@@ -6,6 +6,7 @@ import com.swensun.http.mock.MockResponseInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 
 object HttpClient {
@@ -23,6 +24,10 @@ object HttpClient {
 
     private val okHttpClient by lazy {
         OkHttpClient.Builder()
+            .callTimeout(10L, TimeUnit.SECONDS)
+            .readTimeout(10L, TimeUnit.SECONDS)
+            .writeTimeout(10L, TimeUnit.SECONDS)
+            .connectTimeout(10L, TimeUnit.SECONDS)
             .addInterceptor(MockResponseInterceptor())
             .build()
     }
