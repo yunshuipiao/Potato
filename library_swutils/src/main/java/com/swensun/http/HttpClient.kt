@@ -11,7 +11,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 object HttpClient {
 
     //模拟请求，通过拦截器模拟请求数据
-    var base_url = "https://apitest.com" //
+    private var base_url = "https://apitest.com"
+
+    fun replaceUrl(url: String) {
+        base_url = url
+    }
 
     val gson = GsonBuilder()
         .registerTypeAdapter(String::class.java, StringTypeAdapter())
