@@ -201,6 +201,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             override fun onConnected(wifi: Boolean) {
             }
         })
+
+        //change two
     }
     
     override fun onBackPressed() {
