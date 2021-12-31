@@ -168,9 +168,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 //            }
             lifecycleScope.launchWhenResumed {
                 val result = suspendCoroutine<Int> { cont ->
-                    timeConsumingMethod {
-                        cont.resume(it)
-                    }
+
                 }
                 Logger.d("__async to sync, ${result}")
             }
@@ -191,6 +189,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 //        initNetChangeStatus()
 
         binding.btnDownload.performClick()
+
+        // change one
     }
 
     private fun initNetChangeStatus() {
@@ -232,12 +232,6 @@ class LoadingDialog : ViewBindingDialog<DialogLoadingBinding>() {
             radius = 100.dp
         }
     }
-}
-
-
-fun timeConsumingMethod(callback: (Int) -> Unit) {
-    Thread.sleep(1000)
-    callback.invoke(10)
 }
 
 
