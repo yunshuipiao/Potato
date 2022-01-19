@@ -24,7 +24,7 @@ import com.swensun.func.framelayout.startFragmentContainerActivity
 import com.swensun.func.lifecycle.LifecycleActivity
 import com.swensun.func.livedata.LiveDataActivity
 import com.swensun.func.memory.MemoryFragment
-import com.swensun.func.network.DownloadActivity
+import com.swensun.func.network.RetrofitActivity
 import com.swensun.func.push.SchemeActivity
 import com.swensun.func.recycler.RecyclerViewFragment
 import com.swensun.func.room.RoomActivity
@@ -47,7 +47,6 @@ import com.swensun.swutils.ui.setDebounceClickListener
 import com.swensun.swutils.util.Logger
 import com.swensun.swutils.util.NetWorkChangeUtils
 import com.swensun.swutils.util.startActivity
-import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -150,8 +149,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         binding.btnUserinfo.setOnClickListener {
             startActivity<UserInfoActivity>()
         }
-        binding.btnDownload.setOnClickListener {
-            startActivity<DownloadActivity>()
+        binding.btnOkhttpRetrofit.setOnClickListener {
+            startActivity<RetrofitActivity>()
         }
 
         RDataBase.init()
@@ -187,10 +186,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             Logger.d("livedata: ${it}")
         }
 //        initNetChangeStatus()
-
-        binding.btnDownload.performClick()
-
-        // change one
     }
 
     private fun initNetChangeStatus() {
