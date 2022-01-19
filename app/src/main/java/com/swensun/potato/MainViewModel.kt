@@ -30,4 +30,12 @@ class MainViewModel : ViewModel() {
             RDataBase.INSTANCE.roomDao().upsert(RoomEntity())
         }
     }
+
+    fun fetchdata(i: Int, function: (Int) -> Unit) {
+        if (i == 1) {
+            return
+        }
+        function.invoke(1000)
+    }
+
 }
