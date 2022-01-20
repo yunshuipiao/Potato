@@ -6,17 +6,25 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
+import android.content.res.Resources
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.view.Window
+import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.swensun.base.BaseFragment
+import com.swensun.potato.R
 import com.swensun.potato.databinding.FeatureFragmentBinding
+import com.swensun.swutils.SwUtils
+import com.swensun.swutils.ui.toast
 import com.swensun.swutils.util.Logger
 import com.yanzhenjie.permission.AndPermission
 import com.yanzhenjie.permission.runtime.Permission
+import java.util.*
 
 class FeatureFragment : BaseFragment<FeatureFragmentBinding>() {
 
@@ -112,5 +120,31 @@ class FeatureFragment : BaseFragment<FeatureFragmentBinding>() {
                 activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
             }
         }
+
+        binding.btnLanguage.setOnClickListener {
+            val resources: Resources = SwUtils.application.resources
+            val configuration = resources.configuration
+            val locale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                configuration.locales[0]
+            } else {
+                Locale.getDefault()
+            }
+            val language = locale.language
+            toast("current locale language:" + language + "  country:" + locale.country)
+        }
+
+        binding.btnDialog.setOnClickListener {
+            val dialog = AlertDialog.Builder(it.context, R.style.AppTheme)
+                .setTitle("title")
+                .setNegativeButton("cancel", null)
+                .setPositiveButton("ok", null)
+                .create()
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+//                dialog.window.setType(WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY)
+//            }
+            dialog.show()
+        }
+
+
     }
 }

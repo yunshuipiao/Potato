@@ -51,7 +51,6 @@
                 android:configChanges="orientation|screenSize|keyboardHidden|screenLayout"
                 android:screenOrientation="portrait" />
         <activity android:name="com.swensun.func.customview.CustomViewActivity" />
-        <activity android:name="com.swensun.func.memory.MemoryActivity" />
         <activity
                 android:name="com.swensun.func.recycler.RecyclerViewActivity"
                 android:launchMode="singleTop" />
@@ -88,8 +87,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.swensun.func.network.DownloadActivity" />
         <activity android:name="com.swensun.func.framelayout.FragmentContainerActivity" />
+        <activity android:name="com.swensun.func.network.RetrofitActivity" />
     </application>
 
 </manifest>

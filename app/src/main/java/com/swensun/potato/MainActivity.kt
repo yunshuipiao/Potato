@@ -24,7 +24,7 @@ import com.swensun.func.framelayout.startFragmentContainerActivity
 import com.swensun.func.lifecycle.LifecycleActivity
 import com.swensun.func.livedata.LiveDataActivity
 import com.swensun.func.memory.MemoryFragment
-import com.swensun.func.network.DownloadActivity
+import com.swensun.func.network.RetrofitActivity
 import com.swensun.func.push.SchemeActivity
 import com.swensun.func.recycler.RecyclerViewFragment
 import com.swensun.func.room.RoomActivity
@@ -47,7 +47,6 @@ import com.swensun.swutils.ui.setDebounceClickListener
 import com.swensun.swutils.util.Logger
 import com.swensun.swutils.util.NetWorkChangeUtils
 import com.swensun.swutils.util.startActivity
-import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -150,8 +149,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         binding.btnUserinfo.setOnClickListener {
             startActivity<UserInfoActivity>()
         }
-        binding.btnDownload.setOnClickListener {
-            startActivity<DownloadActivity>()
+        binding.btnOkhttpRetrofit.setOnClickListener {
+            startActivity<RetrofitActivity>()
         }
 
         RDataBase.init()
@@ -168,9 +167,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 //            }
             lifecycleScope.launchWhenResumed {
                 val result = suspendCoroutine<Int> { cont ->
-                    timeConsumingMethod {
-                        cont.resume(it)
-                    }
+
                 }
                 Logger.d("__async to sync, ${result}")
             }
@@ -188,9 +185,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         viewModel.stringLiveData.debounce().notNull().observe(this) {
             Logger.d("livedata: ${it}")
         }
-        initNetChangeStatus()
-
-        binding.btnFeature.performClick()
+//        initNetChangeStatus()
     }
 
     private fun initNetChangeStatus() {
@@ -201,6 +196,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             override fun onConnected(wifi: Boolean) {
             }
         })
+
+        //change two
     }
     
     override fun onBackPressed() {
@@ -230,12 +227,6 @@ class LoadingDialog : ViewBindingDialog<DialogLoadingBinding>() {
             radius = 100.dp
         }
     }
-}
-
-
-fun timeConsumingMethod(callback: (Int) -> Unit) {
-    Thread.sleep(1000)
-    callback.invoke(10)
 }
 
 

@@ -37,11 +37,11 @@
                     android:text="@string/scheme" />
 
             <Button
-                    android:id="@+id/btn_download"
+                    android:id="@+id/btn_okhttp_retrofit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:text="@string/download" />
+                    android:text="@string/okhttp" />
 
 
             <Button

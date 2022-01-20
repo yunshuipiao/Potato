@@ -6,12 +6,17 @@ import com.swensun.http.mock.MockResponseInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 
 object HttpClient {
 
     //模拟请求，通过拦截器模拟请求数据
-    var base_url = "https://apitest.com" //
+    private var base_url = "https://apitest.com"
+
+    fun replaceUrl(url: String) {
+        base_url = url
+    }
 
     val gson = GsonBuilder()
         .registerTypeAdapter(String::class.java, StringTypeAdapter())
@@ -19,6 +24,10 @@ object HttpClient {
 
     private val okHttpClient by lazy {
         OkHttpClient.Builder()
+            .callTimeout(10L, TimeUnit.SECONDS)
+            .readTimeout(10L, TimeUnit.SECONDS)
+            .writeTimeout(10L, TimeUnit.SECONDS)
+            .connectTimeout(10L, TimeUnit.SECONDS)
             .addInterceptor(MockResponseInterceptor())
             .build()
     }
