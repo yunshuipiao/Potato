@@ -186,6 +186,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             Logger.d("livedata: ${it}")
         }
 //        initNetChangeStatus()
+        binding.btnOkhttpRetrofit.performClick()
     }
 
     private fun initNetChangeStatus() {
@@ -196,8 +197,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             override fun onConnected(wifi: Boolean) {
             }
         })
-
-        //change two
     }
     
     override fun onBackPressed() {

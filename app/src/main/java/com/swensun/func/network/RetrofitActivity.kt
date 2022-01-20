@@ -14,16 +14,16 @@ class RetrofitActivity : BaseActivity<ActivityRetrofitBinding>() {
 
     private val okHttpClient by lazy {
         OkHttpClient.Builder()
-//            .connectTimeout(5L, TimeUnit.SECONDS)
-//            .readTimeout(8L, TimeUnit.SECONDS)
-//            .writeTimeout(5L, TimeUnit.SECONDS)
-            .callTimeout(5L, TimeUnit.SECONDS)
+            .connectTimeout(100L, TimeUnit.SECONDS)
+            .readTimeout(100L, TimeUnit.SECONDS)
+            .writeTimeout(100L, TimeUnit.SECONDS)
+//            .callTimeout(5L, TimeUnit.SECONDS)
             .build()
     }
 
 
     override fun initView(savedInstanceState: Bundle?) {
-        val url = "https://httpbin.org/delay/7"
+        val url = "https://httpbin.org/delay/20"
         binding.bntTimeout.setOnClickListener {
             Logger.d("start request")
             val request = Request.Builder().url(url).build()
