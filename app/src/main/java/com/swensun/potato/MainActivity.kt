@@ -4,12 +4,14 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
 import android.text.format.DateFormat
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.debounce
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.notNull
+import com.google.gson.Gson
 import com.swensun.base.BaseActivity
 import com.swensun.base.ViewBindingDialog
 import com.swensun.func.anim.AnimActivity
@@ -105,7 +107,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
 
         binding.btnLauncherMode.setOnClickListener {
-            
+
         }
         binding.btnFramelayout.setOnClickListener {
             startActivity<FrameLayoutActivity>()
@@ -157,20 +159,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         viewModel.openDatabase()
 
         binding.fabRight.setOnClickListener {
-//            LoadingDialog().apply {
-//                initListener = { binding, fragment ->
-//                    binding.tvLoading.text = " - loading - "
-//                }
-//            }.show(supportFragmentManager, "dailog")
-//            timeConsumingMethod {
-//                Logger.d("__async to sync, ${it}")
-//            }
-            lifecycleScope.launchWhenResumed {
-                val result = suspendCoroutine<Int> { cont ->
-
-                }
-                Logger.d("__async to sync, ${result}")
-            }
+            val gson = Gson()
+            Logger.d("gson: $gson")
         }
 
         var count = 1
@@ -186,7 +176,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             Logger.d("livedata: ${it}")
         }
 //        initNetChangeStatus()
-        binding.btnOkhttpRetrofit.performClick()
+//        binding.btnOkhttpRetrofit.performClick()
     }
 
     private fun initNetChangeStatus() {
