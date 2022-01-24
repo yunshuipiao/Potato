@@ -1,5 +1,6 @@
 package com.swensun.potato
 
+import android.os.AsyncTask
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.swensun.func.room.database.RDataBase
@@ -31,11 +32,15 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun fetchdata(i: Int, function: (Int) -> Unit) {
-        if (i == 1) {
-            return
+    fun fetchdata(i: Int, function: ((Int) -> Unit)? = null): Int {
+        var result = i
+        AsyncTask.SERIAL_EXECUTOR.execute {
+            Thread.sleep(2000)
+            result += result + 10
+
         }
-        function.invoke(1000)
+        return result
     }
+
 
 }

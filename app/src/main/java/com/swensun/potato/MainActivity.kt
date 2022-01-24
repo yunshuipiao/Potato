@@ -4,14 +4,12 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
 import android.text.format.DateFormat
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.debounce
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.notNull
-import com.google.gson.Gson
+import com.blankj.utilcode.util.ToastUtils
 import com.swensun.base.BaseActivity
 import com.swensun.base.ViewBindingDialog
 import com.swensun.func.anim.AnimActivity
@@ -49,7 +47,6 @@ import com.swensun.swutils.ui.setDebounceClickListener
 import com.swensun.swutils.util.Logger
 import com.swensun.swutils.util.NetWorkChangeUtils
 import com.swensun.swutils.util.startActivity
-import kotlin.coroutines.suspendCoroutine
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
@@ -159,8 +156,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         viewModel.openDatabase()
 
         binding.fabRight.setOnClickListener {
-            val gson = Gson()
-            Logger.d("gson: $gson")
+            // delay test
+            val result = viewModel.fetchdata(10)
+            ToastUtils.showLong("result: $result")
+
         }
 
         var count = 1
