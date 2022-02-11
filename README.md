@@ -191,4 +191,5 @@
 [深入分析优化和框架源码: 掘金 灯不利多](https://juejin.cn/user/4353721773341934)
 
 [深入RecyclerView学习—缓存机制](https://juejin.cn/post/6910516838560595976)
+[自定义 LayoutManager，让 RecyclerView 效果起飞](https://juejin.cn/post/7044797219878223909)
 
