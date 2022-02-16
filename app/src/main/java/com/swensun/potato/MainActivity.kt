@@ -21,6 +21,7 @@ import com.swensun.func.exoplayer.ExoPlayerActivity
 import com.swensun.func.feature.FeatureActivity
 import com.swensun.func.fragment.FragmentModeActivity
 import com.swensun.func.framelayout.startFragmentContainerActivity
+import com.swensun.func.kotlin.KotlinActivity
 import com.swensun.func.lifecycle.LifecycleActivity
 import com.swensun.func.livedata.LiveDataActivity
 import com.swensun.func.memory.MemoryFragment
@@ -150,6 +151,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
         binding.btnOkhttpRetrofit.setOnClickListener {
             startActivity<RetrofitActivity>()
+        }
+        binding.btnKotlin.setOnClickListener {
+            startActivity<KotlinActivity>()
         }
 
         RDataBase.init()

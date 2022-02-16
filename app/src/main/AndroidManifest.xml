@@ -89,6 +89,7 @@
         </activity>
         <activity android:name="com.swensun.func.framelayout.FragmentContainerActivity" />
         <activity android:name="com.swensun.func.network.RetrofitActivity" />
+        <activity android:name="com.swensun.func.kotlin.KotlinActivity" />
     </application>
 
 </manifest>

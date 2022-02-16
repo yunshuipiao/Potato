@@ -16,18 +16,26 @@
             app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-                android:id="@+id/layout_btn"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-            
+            android:id="@+id/layout_btn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
             <Button
-                    android:id="@+id/btn_touch_event"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:textStyle="bold"
-                    android:text="@string/touch_event" />
+                android:id="@+id/btn_kotlin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:text="@string/kotlin" />
+
+            <Button
+                android:id="@+id/btn_touch_event"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:text="@string/touch_event" />
 
             <Button
                     android:id="@+id/btn_scheme"
