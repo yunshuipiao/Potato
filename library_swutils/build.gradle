@@ -1,3 +1,5 @@
+import com.swensun.buildsrc.AndroidxDep
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
@@ -82,7 +84,7 @@ dependencies {
     // jsoup
     api "org.jsoup:jsoup:1.11.3"
 
-    api "androidx.work:work-runtime:2.5.0"
+    api AndroidxDep.workRuntime
     api ('com.blankj:utilcodex:1.30.6') {
         exclude group:"com.google.code.gson",  module:"gson"
     }

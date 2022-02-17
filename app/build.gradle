@@ -1,3 +1,7 @@
+import com.swensun.buildsrc.AndroidxDep
+import com.swensun.buildsrc.KaptDep
+import com.swensun.buildsrc.ThirdPartyDep
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
@@ -63,8 +67,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    debugImplementation ('com.glance.guolindev:glance:1.0.0') {
+    implementation AndroidxDep.swiperefresh
+    debugImplementation (ThirdPartyDep.glance) {
         exclude group:"com.google.code.gson",  module:"gson"
     }
     api project(':library_base')
@@ -72,11 +76,11 @@ dependencies {
     api project(':library_dkplayer')
 
 
-    implementation 'com.google.android.exoplayer:exoplayer:2.14.1'
+    implementation ThirdPartyDep.exoplayer
 
     testImplementation group: 'org.json', name: 'json', version: '20190722'
 
-    kapt "androidx.room:room-compiler:2.3.0"
+    kapt KaptDep.roomCompiler
 
-    compileOnly "com.google.code.gson:gson:2.8.6"
+    compileOnly ThirdPartyDep.gson
 }
