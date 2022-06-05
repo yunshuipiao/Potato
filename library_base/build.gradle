@@ -1,3 +1,4 @@
+import com.swensun.buildsrc.KaptDep
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
@@ -11,6 +12,12 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+            }
+        }
     }
 
     buildTypes {
@@ -57,6 +64,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
     api project(':library_swutils')
 //    api project(':library_aar')
-    kapt "androidx.room:room-compiler:2.3.0"
+//    kapt "androidx.room:room-compiler:${Versions.roomVersion}"
+    kapt KaptDep.roomCompiler
+
 }
 

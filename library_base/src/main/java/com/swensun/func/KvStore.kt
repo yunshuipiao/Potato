@@ -15,7 +15,7 @@ import com.swensun.swutils.SwUtils
  */
 
 
-@Database(entities = [KeyValue::class], version = 1, exportSchema = false)
+@Database(version = 1,entities = [KeyValue::class],  exportSchema = true)
 abstract class KvStore : RoomDatabase() {
     companion object {
         val database by lazy {

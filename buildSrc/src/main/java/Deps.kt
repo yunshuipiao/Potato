@@ -18,6 +18,9 @@ object Versions {
 
     @JvmStatic
     val buildToolsVersion = "28.0.3"
+
+    @JvmStatic
+    val roomVersion = "2.4.0-alpha04"
 }
 
 object ClassPathDep {
@@ -62,10 +65,10 @@ object AndroidxDep {
     val workRuntime = "androidx.work:work-runtime:2.5.0"
 
     @JvmStatic
-    val room_runtime = "androidx.room:room-runtime:2.3.0"
+    val room_runtime = "androidx.room:room-runtime:${Versions.roomVersion}"
 
     @JvmStatic
-    val room_ktx = "androidx.room:room-ktx:2.3.0"
+    val room_ktx = "androidx.room:room-ktx:${Versions.roomVersion}"
 
     @JvmStatic
     val fragment_ktx = "androidx.fragment:fragment-ktx:1.3.5"
@@ -142,7 +145,7 @@ object ThirdPartyDep {
 
 object KaptDep {
     @JvmStatic
-    val roomCompiler = "androidx.room:room-compiler:2.3.0"
+    val roomCompiler = "androidx.room:room-compiler:${Versions.roomVersion}"
 
     @JvmStatic
     val glideCompiler = "com.github.bumptech.glide:compiler:4.12.0"
